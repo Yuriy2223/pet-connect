@@ -1,14 +1,18 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { App } from './App.tsx';
-import { GlobalStyles } from './styles/GlobalStyles.ts';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import { App } from './App';
+import { GlobalStyles } from './styles/GlobalStyles';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-      <GlobalStyles />
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalStyles />
+        <App />
+      </BrowserRouter>
+    </Provider>
   </StrictMode>
 );
