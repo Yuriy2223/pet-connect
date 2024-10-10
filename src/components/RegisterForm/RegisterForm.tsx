@@ -23,7 +23,7 @@ import {
   InputContainer,
   WrapperLink,
   WrapperLinkRegister,
-} from './FormRegistration.styled';
+} from './RegisterForm.styled';
 
 interface FormData {
   name: string;
@@ -32,7 +32,7 @@ interface FormData {
   confirmPassword: string;
 }
 
-export const FormRegistration: React.FC = () => {
+export const RegisterForm: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -65,14 +65,14 @@ export const FormRegistration: React.FC = () => {
     }));
     setIsFieldFocused(prevState => ({
       ...prevState,
-      [field]: false, 
+      [field]: false,
     }));
   };
 
   const handleFocus = (field: keyof typeof isFieldFocused) => {
     setIsFieldFocused(prevState => ({
       ...prevState,
-      [field]: true, 
+      [field]: true,
     }));
   };
 
@@ -96,9 +96,7 @@ export const FormRegistration: React.FC = () => {
             onFocus={() => handleFocus('name')}
             isValid={inputStates.name}
           />
-          <Icon
-            isFieldFocused={isFieldFocused.name} 
-          >
+          <Icon isFieldFocused={isFieldFocused.name}>
             {inputStates.name ? (
               <RightIcon width={18} height={18} iconName="check" />
             ) : errors.name ? (
@@ -109,7 +107,7 @@ export const FormRegistration: React.FC = () => {
           </Icon>
           <ErrorText
             isValid={inputStates.name}
-            isFieldFocused={isFieldFocused.name} 
+            isFieldFocused={isFieldFocused.name}
           >
             {inputStates.name ? 'Name is valid' : errors.name?.message || ''}
           </ErrorText>

@@ -34,6 +34,7 @@ export const GlobalStyles = createGlobalStyle`
 
   --white-color: #FFFFFF;
   --white-opacity: rgba(255, 255, 255, 0.15);
+  --white-tr: rgba(255, 255, 255, 0.4);
   --light-yellow: #fff4df;
   
   --dark-gray: #262626;

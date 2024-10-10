@@ -11,6 +11,7 @@ export const lightTheme: DefaultTheme = {
   opacity: 'var(--ligh-gray-opacity)',
   white: 'var(--white-color)',
   whiteOpacity: 'var(--white-opacity)',
+  whiteTr: 'var(--white-tr)',
   lightYellow: 'var(--light-yellow)',
   green: 'var(--bright-green)',
   red: 'var(--bright-red)',

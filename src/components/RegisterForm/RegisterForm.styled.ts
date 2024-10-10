@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { Iconsvg } from '../Common/Icons';
+import { Link } from 'react-router-dom';
 
 interface InputProps {
   isValid?: boolean;
@@ -28,16 +28,15 @@ export const FormWrapper = styled.form`
   @media (min-width: 320px) and (max-width: 374px) {
     width: 100%;
     height: 100%;
-    border: 1px solid red;
   }
 
   @media (min-width: 768px) {
     width: 424px;
-    height: 418px;
+    height: 506px;
   }
   @media (min-width: 1280px) {
     width: 424px;
-    height: 426px;
+    height: 516px;
   }
 `;
 export const Title = styled.h1`
@@ -59,7 +58,7 @@ export const SubText = styled.p`
   line-height: 1.29;
   letter-spacing: -0.02em;
   color: ${({ theme }) => theme.black};
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 
   @media (min-width: 768px) {
     font-size: 18px;
@@ -67,7 +66,7 @@ export const SubText = styled.p`
     margin-bottom: 32px;
   }
 `;
-export const InputContainetr = styled.div`
+export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -135,17 +134,6 @@ export const Icon = styled.div.attrs<FocusedProps>({
     right: 16px;
   }
 `;
-export const ShowPasswordIcon = styled.div`
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-
-  @media (min-width: 768px) {
-    right: 14px;
-  }
-`;
 export const RightIcon = styled(Iconsvg)`
   stroke: ${({ theme }) => theme.green};
 
@@ -192,6 +180,17 @@ export const ValidationIcon = styled.div.attrs<FocusedProps>({
     right: 40px;
   }
 `;
+export const ShowPasswordIcon = styled.div`
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  @media (min-width: 768px) {
+    right: 14px;
+  }
+`;
 export const Button = styled.button`
   width: 100%;
   background-color: ${({ theme }) => theme.primaryLight};
@@ -204,7 +203,7 @@ export const Button = styled.button`
   line-height: 1.29;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  margin-top: 40px;
+  margin-top: 24px;
   margin-bottom: 12px;
 
   &:hover {
@@ -216,11 +215,7 @@ export const Button = styled.button`
     padding: 18px;
     font-size: 16px;
     line-height: 1.25;
-    margin-top: 50px;
     margin-bottom: 16px;
-  }
-  @media (min-width: 1280px) {
-    margin-top: 64px;
   }
 `;
 export const WrapperLink = styled.div`
@@ -228,14 +223,14 @@ export const WrapperLink = styled.div`
   align-items: center;
   justify-content: center;
 `;
-export const WrapperLinkLogin = styled.p`
+export const WrapperLinkRegister = styled.p`
   font-weight: 500;
   font-size: 12px;
   line-height: 1.17;
   letter-spacing: -0.03em;
   color: ${({ theme }) => theme.opacityTr};
 `;
-export const LoginLink = styled(Link)`
+export const RegisterLink = styled(Link)`
   color: ${({ theme }) => theme.primaryDark};
   font-size: 14px;
   font-weight: 700;

@@ -94,7 +94,6 @@ export const FormLoginContainer = styled.div`
   width: 335px;
   background-color: ${({ theme }) => theme.white};
   padding: 60px 20px;
-  border: 1px solid red;
 
   @media (min-width: 320px) and (max-width: 374px) {
     width: 100%;

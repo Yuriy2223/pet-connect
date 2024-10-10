@@ -1,22 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
+import {
+  HomePageContainer,
+  HomePet,
+  HomePetImg,
+  HomeTitle,
+  HomeWrapperText,
+} from './HomePage.styled';
 
-export const HomePageContainer = styled.h1`
-  display: flex;
-
-  h1 {
-    font-family: var(--font-family);
-    font-weight: 700;
-    font-size: 54px;
-    line-height: 100%;
-    letter-spacing: -0.04em;
-    color: #262626;
-  }
-`;
 export const HomePage: React.FC = () => {
   return (
     <HomePageContainer>
-      <h1>Home Page</h1>
+      <HomePet>
+        <HomeTitle>
+          Take good <span>care</span> of your small pets
+        </HomeTitle>
+        <HomeWrapperText>
+          <p>
+            Choosing a pet for your home is a choice that is meant to enrich
+            your life with immeasurable joy and tenderness.
+          </p>
+        </HomeWrapperText>
+      </HomePet>
+      <HomePetImg />
     </HomePageContainer>
   );
 };

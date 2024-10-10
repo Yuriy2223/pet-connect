@@ -5,7 +5,7 @@ import dog768 from '../../assets/imeges/tablet/dog768.webp';
 import dogRetina768 from '../../assets/imeges/tablet/dog768-2x.webp';
 import dog1280 from '../../assets/imeges/desktop/dog1280.webp';
 import dogRetina1280 from '../../assets/imeges/desktop/dog1280-2x.webp';
-import { FormLogin } from '../../components/FormLogin/FormLogin';
+import { LoginForm } from '../../components/LoginForm/LoginForm';
 import {
   CatImage,
   DogContainer,
@@ -40,7 +40,7 @@ export const LoginPage: React.FC = () => {
         </IconWrapper>
       </DogContainer>
       <FormLoginContainer>
-        <FormLogin />
+        <LoginForm />
       </FormLoginContainer>
     </LoginPageContainer>
   );

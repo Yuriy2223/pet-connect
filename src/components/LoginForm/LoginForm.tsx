@@ -22,14 +22,14 @@ import {
   WrapperLink,
   WrapperLinkLogin,
   WrongIcon,
-} from './FormLogin.styles';
+} from './LoginForm.styled';
 
 interface FormData {
   email: string;
   password: string;
 }
 
-export const FormLogin: React.FC = () => {
+export const LoginForm: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -58,14 +58,14 @@ export const FormLogin: React.FC = () => {
     }));
     setIsFieldFocused(prevState => ({
       ...prevState,
-      [field]: false, 
+      [field]: false,
     }));
   };
 
   const handleFocus = (field: keyof typeof isFieldFocused) => {
     setIsFieldFocused(prevState => ({
       ...prevState,
-      [field]: true, 
+      [field]: true,
     }));
   };
 

@@ -11,7 +11,6 @@ const HeaderContainer = styled(Container)`
   align-items: center;
   justify-content: space-between;
   padding: 34px 20px 0;
-  border: 1px solid red;
 `;
 const BurgerMenuButton = styled.button`
   display: block;
@@ -96,3 +95,56 @@ export const Header: React.FC = () => {
     </HeaderContainer>
   );
 };
+
+
+// // Header.tsx
+// import React from 'react';
+// import styled from 'styled-components';
+
+// interface HeaderProps {
+//   backgroundColor: string;
+// }
+
+// const StyledHeader = styled.header<HeaderProps>`
+//   background-color: ${(props) => props.backgroundColor};
+//   height: 80px;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 0 20px;
+//   transition: background-color 0.3s ease;
+  
+//   .logo {
+//     font-size: 24px;
+//     font-weight: bold;
+//     color: #fff;
+//   }
+
+//   .menu {
+//     display: flex;
+//     align-items: center;
+//     gap: 20px;
+//   }
+
+//   button {
+//     background-color: #ffb400;
+//     border: none;
+//     padding: 10px 20px;
+//     font-size: 16px;
+//     color: #fff;
+//     cursor: pointer;
+//     border-radius: 8px;
+//   }
+// `;
+
+// export const Header: React.FC<HeaderProps> = ({ backgroundColor }) => {
+//   return (
+//     <StyledHeader backgroundColor={backgroundColor}>
+//       <div className="logo">PetLove</div>
+//       <div className="menu">
+//         <button>Login</button>
+//         <button>Registration</button>
+//       </div>
+//     </StyledHeader>
+//   );
+// };

@@ -5,7 +5,7 @@ import cat768 from '../../assets/imeges/tablet/cat768.webp';
 import catRetina768 from '../../assets/imeges/tablet/cat768-2x.webp';
 import cat1280 from '../../assets/imeges/desktop/cat1280.webp';
 import catRetina1280 from '../../assets/imeges/desktop/cat1280-2x.webp';
-import { FormRegistration } from '../../components/FormRegistration/FormRegistration';
+import { RegisterForm } from '../../components/RegisterForm/RegisterForm';
 import {
   CatContainer,
   CatImage,
@@ -40,7 +40,7 @@ export const RegistrationPage: React.FC = () => {
         </IconWrapper>
       </CatContainer>
       <FormContainer>
-        <FormRegistration />
+        <RegisterForm />
       </FormContainer>
     </RegistrationPageContainer>
   );
