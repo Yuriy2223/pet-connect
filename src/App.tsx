@@ -1,12 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
-import React, { Suspense, 
+import React, {
+  Suspense,
   // useEffect,
-   useState } from 'react';
+  useState,
+} from 'react';
 import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from 'styled-components';
 import { themes, ThemeType } from './styles/Theme';
 import { Loader } from './components/loader/Loader';
-import {NotFoundPage} from './pages/NotFoundPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 // import { SplashScreen } from './components/SplashScreen/SplashScreen';
 
 const Layout = React.lazy(() =>
@@ -19,11 +21,11 @@ const HomePage = React.lazy(() =>
     default: module.HomePage,
   }))
 );
-// const NewsPage = React.lazy(() =>
-//   import('./pages/NewsPage/NewsPage').then(module => ({
-//     default: module.NewsPage,
-//   }))
-// );
+const NewsPage = React.lazy(() =>
+  import('./pages/NewsPage/NewsPage').then(module => ({
+    default: module.NewsPage,
+  }))
+);
 // const NoticesPage = React.lazy(() =>
 //   import('./pages/NoticesPage/NoticesPage').then(module => ({
 //     default: module.NoticesPage,
@@ -64,54 +66,18 @@ const LoginPage = React.lazy(() =>
 //     setThemeType(newTheme);
 //   };
 
- 
 //   useEffect(() => {
 //     // Показуємо Splash Screen протягом короткого часу
 //     const splashTimeout = setTimeout(() => {
 //       setShowSplash(false);
-//     }, 3000); 
+//     }, 3000);
 
 //     return () => clearTimeout(splashTimeout);
 //   }, []);
 
-
 //   if (showSplash) {
 //     return <SplashScreen />;
 //   }
-
-//   return (
-//     <ThemeProvider theme={themes[themeType]}>
-//       <Suspense fallback={<Loader />}>
-//         <Layout toggleTheme={toggleTheme}>
-//           <Routes>
-//             <Route path="/" element={<HomePage />} />
-//             <Route path="/home" element={<HomePage />} />
-//             {/* <Route path="/news" element={<NewsPage />} />
-//             <Route path="/notices" element={<NoticesPage />} />
-//             <Route path="/friends" element={<OurFriendsPage />} />
-//             <Route path="/register" element={<RegisterPage />} />
-//             <Route path="/login" element={<LoginPage />} />
-//             <Route path="/profile" element={<ProfilePage />} />
-//             <Route path="/add-pet" element={<AddPetPage />} /> */}
-//             <Route path="*" element={<NotFoundPage />} />
-//           </Routes>
-//         </Layout>
-//       </Suspense>
-
-//       <ToastContainer
-//         position="top-center"
-//         autoClose={5000}
-//         hideProgressBar={false}
-//         newestOnTop={false}
-//         closeOnClick
-//         rtl={false}
-//         pauseOnFocusLoss
-//         draggable
-//         pauseOnHover
-//       />
-//     </ThemeProvider>
-//   );
-// };
 
 export const App: React.FC = () => {
   const [themeType, setThemeType] = useState<ThemeType>('light');
@@ -126,13 +92,13 @@ export const App: React.FC = () => {
   //   // Показуємо Splash Screen протягом 3 секунд
   //   const splashTimeout = setTimeout(() => {
   //     setShowSplash(false);
-  //   }, 3000); 
+  //   }, 3000);
 
   //   return () => clearTimeout(splashTimeout);
   // }, []);
 
   // useEffect(() => {
-   // // Показуємо Loader протягом 2 секунд після закінчення Splash Screen
+  // // Показуємо Loader протягом 2 секунд після закінчення Splash Screen
   //   if (!showSplash) {
   //     const loaderTimeout = setTimeout(() => {
   //       setLoading(false);
@@ -159,9 +125,9 @@ export const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/home" element={<HomePage />} />
-            {/* <Route path="/news" element={<NewsPage />} />
-            <Route path="/notices" element={<NoticesPage />} />
-            <Route path="/friends" element={<OurFriendsPage />} /> */}
+            <Route path="/news" element={<NewsPage />} />
+            {/* <Route path="/notices" element={<NoticesPage />} /> */}
+            {/* <Route path="/friends" element={<OurFriendsPage />} /> */}
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             {/* <Route path="/profile" element={<ProfilePage />} />

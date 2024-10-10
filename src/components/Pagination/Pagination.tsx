@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import { Arrow, PageButton, PaginationContainer } from './Pagination.styled';
 
 interface PaginationProps {
   totalItems: number;
@@ -9,46 +9,9 @@ interface PaginationProps {
   siblingCount?: number; // кількість сусідніх сторінок до та після активної
 }
 
-const PaginationContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-`;
-
-const PageButton = styled.button<{ active?: boolean; disabled?: boolean }>`
-  background-color: ${({ active }) => (active ? '#f9a825' : '#fff')};
-  color: ${({ active, disabled }) =>
-    disabled ? '#ccc' : active ? '#fff' : '#333'};
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 16px;
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:hover {
-    background-color: ${({ disabled }) => (disabled ? '#fff' : '#f9a825')};
-    color: #fff;
-  }
-`;
-
-const Arrow = styled.span<{ disabled?: boolean }>`
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-  font-size: 24px;
-  color: ${({ disabled }) => (disabled ? '#ccc' : '#333')};
-
-  &:hover {
-    color: ${({ disabled }) => (disabled ? '#ccc' : '#f9a825')};
-  }
-`;
-
 type PageType = number | '...'; // Використовуємо тип об'єднання для сторінок і трикрапок
 
-const Pagination: React.FC<PaginationProps> = ({
+export const Pagination: React.FC<PaginationProps> = ({
   totalItems,
   itemsPerPage,
   currentPage,
@@ -56,7 +19,7 @@ const Pagination: React.FC<PaginationProps> = ({
   siblingCount = 1,
 }) => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const [visiblePages, setVisiblePages] = useState<PageType[]>([]); 
+  const [visiblePages, setVisiblePages] = useState<PageType[]>([]);
 
   useEffect(() => {
     const generatePages = (): PageType[] => {
@@ -105,7 +68,7 @@ const Pagination: React.FC<PaginationProps> = ({
         typeof page === 'number' ? (
           <PageButton
             key={index}
-            active={currentPage === page}
+            $active={currentPage === page ? 'true' : 'false'}
             onClick={() => onPageChange(page)}
           >
             {page}
@@ -129,5 +92,3 @@ const Pagination: React.FC<PaginationProps> = ({
     </PaginationContainer>
   );
 };
-
-export default Pagination;

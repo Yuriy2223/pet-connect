@@ -108,5 +108,6 @@ export const GlobalStyles = createGlobalStyle`
   textarea {
     font-family: inherit;
     outline: none; 
+    transition: all 300ms ease;
   }
 `;

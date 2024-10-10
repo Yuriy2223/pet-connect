@@ -11,9 +11,11 @@ const StyledContainer = styled.div`
     padding: 10px;
   }
   @media (min-width: 375px) and (max-width: 767px) {
+    width: 375px;
     padding: 20px;
   }
   @media (min-width: 768px) and (max-width: 1279px) {
+    width: 768px;
     padding: 32px;
   }
   @media (min-width: 1280px) {

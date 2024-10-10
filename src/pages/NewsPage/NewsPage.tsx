@@ -1,28 +1,60 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Container } from '../../components/Common/Container';
-import Pagination from '../../components/Pagination/Pagination';
-// import { Link } from 'react-router-dom';
-// import { Iconsvg } from '../../components/Common/Icons';
+import React, { useEffect, useState } from 'react';
+import { SearchField } from '../../components/SearchField/SearchField';
+import { NewsCard } from '../../components/NewsCard/NewsCard';
+import { Pagination } from '../../components/Pagination/Pagination';
+import newsDataJson from '../../components/NewsCard/NewsCard.json';
+import {
+  NewsList,
+  NewsPageContainer,
+  NewsSearchWrapper,
+  PaginationWrapper,
+} from './NewsPage.styled';
 
-export const NewsPageContainer = styled(Container)``;
-export const NewsSearchWrapper = styled.div``;
-export const NewsSearchUL = styled.ul``;
-export const PaginationWrapper = styled.div``;
 export const NewsPage: React.FC = () => {
+  const [newsData, setNewsData] = useState(newsDataJson); // Використовуємо дані з JSON
+  const [currentPage, setCurrentPage] = useState(1); // Поточна сторінка
+  const itemsPerPage = 6; // Кількість карток на сторінці
+
+  // Розраховуємо індекси новин для поточної сторінки
+  const lastNewsIndex = currentPage * itemsPerPage;
+  const firstNewsIndex = lastNewsIndex - itemsPerPage;
+  const currentNews = newsData.slice(firstNewsIndex, lastNewsIndex);
+
+  useEffect(() => {
+    setNewsData(newsDataJson); // стан даними з JSON
+  }, []);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <NewsPageContainer>
-      <NewsSearchWrapper></NewsSearchWrapper>
-      <NewsSearchUL></NewsSearchUL>
+      <NewsSearchWrapper>
+        <h1>News</h1>
+        <SearchField onSearch={query => console.log('Searching for:', query)} />
+      </NewsSearchWrapper>
+      <NewsList>
+        {currentNews.map(news => (
+          <li key={news.id}>
+            <NewsCard
+              imageUrl={news.imageUrl}
+              title={news.title}
+              description={news.description}
+              date={news.date}
+              link={news.link}
+            />
+          </li>
+        ))}
+      </NewsList>
       <PaginationWrapper>
         <Pagination
-          totalItems={100} // Загальна кількість елементів
-          itemsPerPage={10} // Кількість елементів на сторінці
-          currentPage={1} // Поточна сторінка
-          onPageChange={page => console.log('Нова сторінка:', page)} // Функція для зміни сторінки
+          totalItems={newsData.length} // Загальна кількість новин
+          itemsPerPage={itemsPerPage} // Кількість карток на сторінці
+          currentPage={currentPage} // Поточна сторінка
+          onPageChange={handlePageChange} // Обробник зміни сторінки
         />
       </PaginationWrapper>
     </NewsPageContainer>
   );
 };
-

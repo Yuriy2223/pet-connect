@@ -43,7 +43,6 @@ const CloseButton = styled.button`
   right: 20px;
   border: none;
   background: transparent;
-  transition: transform 300ms ease;
 
   &:hover,
   &:active {
