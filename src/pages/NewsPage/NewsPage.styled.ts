@@ -5,7 +5,6 @@ export const NewsPageContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   padding: 54px 20px 80px;
-  border: 1px solid red;
 
   @media (min-width: 768px) {
     padding: 85px 26px 80px;
