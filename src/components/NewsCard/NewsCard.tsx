@@ -1,5 +1,6 @@
 import React from 'react';
-import defaultImage from '../../assets/imeges/defaultNevs.webp';
+// import defaultImage from '../../assets/imeges/defaultNevs.webp';
+import defaultImage from '../../assets/imeges/deffImgNews.webp';
 import {
   NewsCardContainer,
   NewsDate,

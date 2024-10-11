@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Arrow, PageButton, PaginationContainer } from './Pagination.styled';
+import {
+  PageButton,
+  PaginationContainer,
+  ArrowButton,
+  Icon,
+  IconTwo,
+} from './Pagination.styled';
 
 interface PaginationProps {
   totalItems: number;
   itemsPerPage: number;
   currentPage: number;
   onPageChange: (page: number) => void;
-  siblingCount?: number; // кількість сусідніх сторінок до та після активної
+  siblingCount?: number;
 }
 
-type PageType = number | '...'; // Використовуємо тип об'єднання для сторінок і трикрапок
+type PageType = number | '...';
 
 export const Pagination: React.FC<PaginationProps> = ({
   totalItems,
@@ -27,10 +33,12 @@ export const Pagination: React.FC<PaginationProps> = ({
       const startPage = Math.max(currentPage - siblingCount, 1);
       const endPage = Math.min(currentPage + siblingCount, totalPages);
 
+      // Додаємо номери сторінок поруч із поточною
       for (let i = startPage; i <= endPage; i++) {
         pages.push(i);
       }
 
+      // Додаємо '...' якщо є пропуски між сторінками
       if (startPage > 2) {
         pages.unshift('...');
       }
@@ -38,6 +46,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         pages.push('...');
       }
 
+      // Додаємо першу та останню сторінку до списку
       if (startPage > 1) {
         pages.unshift(1);
       }
@@ -51,19 +60,25 @@ export const Pagination: React.FC<PaginationProps> = ({
     setVisiblePages(generatePages());
   }, [currentPage, totalPages, siblingCount]);
 
+  // Приховуємо пагінацію, якщо тільки одна сторінка
   if (totalPages === 1) return null;
 
   return (
     <PaginationContainer>
-      <Arrow onClick={() => onPageChange(1)} disabled={currentPage === 1}>
-        &laquo;
-      </Arrow>
-      <Arrow
+      {/* Кнопка на першу сторінку */}
+      <ArrowButton onClick={() => onPageChange(1)} disabled={currentPage === 1}>
+        <IconTwo iconName="leftTwo" isDisabled={currentPage === 1} />
+      </ArrowButton>
+
+      {/* Кнопка на попередню сторінку */}
+      <ArrowButton
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
-        &lsaquo;
-      </Arrow>
+        <Icon iconName="left" isDisabled={currentPage === 1} />
+      </ArrowButton>
+
+      {/* Номери сторінок */}
       {visiblePages.map((page, index) =>
         typeof page === 'number' ? (
           <PageButton
@@ -77,18 +92,22 @@ export const Pagination: React.FC<PaginationProps> = ({
           <span key={index}>...</span>
         )
       )}
-      <Arrow
+
+      {/* Кнопка на наступну сторінку */}
+      <ArrowButton
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
       >
-        &rsaquo;
-      </Arrow>
-      <Arrow
+        <Icon iconName="right" isDisabled={currentPage === totalPages} />
+      </ArrowButton>
+
+      {/* Кнопка на останню сторінку */}
+      <ArrowButton
         onClick={() => onPageChange(totalPages)}
         disabled={currentPage === totalPages}
       >
-        &raquo;
-      </Arrow>
+        <IconTwo iconName="rightTwo" isDisabled={currentPage === totalPages} />
+      </ArrowButton>
     </PaginationContainer>
   );
 };

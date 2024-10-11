@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { SearchField } from '../../components/SearchField/SearchField';
 import { NewsCard } from '../../components/NewsCard/NewsCard';
 import { Pagination } from '../../components/Pagination/Pagination';
-import newsDataJson from '../../components/NewsCard/NewsCard.json';
 import {
   NewsList,
   NewsPageContainer,
   NewsSearchWrapper,
   PaginationWrapper,
 } from './NewsPage.styled';
+
+import newsDataJson from '../../components/NewsCard/NewsCard.json';
 
 export const NewsPage: React.FC = () => {
   const [newsData, setNewsData] = useState(newsDataJson); // Використовуємо дані з JSON
