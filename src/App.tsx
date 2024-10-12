@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from 'styled-components';
 import { themes, ThemeType } from './styles/Theme';
 import { Loader } from './components/loader/Loader';
-import { NotFoundPage } from './pages/NotFoundPage';
+import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
 // import { SplashScreen } from './components/SplashScreen/SplashScreen';
 
 const Layout = React.lazy(() =>
@@ -31,11 +31,11 @@ const NewsPage = React.lazy(() =>
 //     default: module.NoticesPage,
 //   }))
 // );
-// const OurFriendsPage = React.lazy(() =>
-//   import('./pages/OurFriendsPage/OurFriendsPage').then(module => ({
-//     default: module.OurFriendsPage,
-//   }))
-// );
+const OurFriendsPage = React.lazy(() =>
+  import('./pages/OurFriendsPage/OurFriendsPage').then(module => ({
+    default: module.OurFriendsPage,
+  }))
+);
 const RegisterPage = React.lazy(() =>
   import('./pages/RegistrationPage/RegistrationPage').then(module => ({
     default: module.RegistrationPage,
@@ -127,7 +127,7 @@ export const App: React.FC = () => {
             <Route path="/home" element={<HomePage />} />
             <Route path="/news" element={<NewsPage />} />
             {/* <Route path="/notices" element={<NoticesPage />} /> */}
-            {/* <Route path="/friends" element={<OurFriendsPage />} /> */}
+            <Route path="/friends" element={<OurFriendsPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             {/* <Route path="/profile" element={<ProfilePage />} />
