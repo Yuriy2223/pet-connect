@@ -6,10 +6,10 @@ export const loginSchema = Yup.object().shape({
       /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
       'Invalid email format'
     )
-    .required('Name is required'),
+    .required('Email is required'),
   password: Yup.string()
     .min(7, 'The password must contain at least 7 characters')
-    .required('This field is required'),
+    .required('Password is required'),
 });
 
 export const registerSchema = Yup.object().shape({

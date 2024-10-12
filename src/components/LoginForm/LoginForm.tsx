@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { loginSchema } from '../Common/ValidationSchemas';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
@@ -34,6 +35,8 @@ export const LoginForm: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
+    clearErrors,
     trigger,
   } = useForm<FormData>({
     resolver: yupResolver(loginSchema),
@@ -69,8 +72,27 @@ export const LoginForm: React.FC = () => {
     }));
   };
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const onSubmit = async (data: FormData) => {
+    try {
+      console.log(data);
+      toast.success('Login successful!');
+      reset();
+      clearErrors();
+
+      // Очищаємо inputStates після сабміту
+      setInputStates({
+        email: undefined,
+        password: undefined,
+      });
+
+      // Очищаємо стан фокуса полів
+      setIsFieldFocused({
+        email: false,
+        password: false,
+      });
+    } catch {
+      toast.error('Something went wrong!');
+    }
   };
 
   return (
@@ -119,9 +141,9 @@ export const LoginForm: React.FC = () => {
           />
           <ShowPasswordIcon onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? (
-              <FaEyeSlashIcon width={18} height={18} iconName="eye-off" />
+              <FaEyeSlashIcon width={18} height={18} iconName="eye" />
             ) : (
-              <FaEyeIcon width={18} height={18} iconName="eye" />
+              <FaEyeIcon width={18} height={18} iconName="eye-off" />
             )}
           </ShowPasswordIcon>
 
@@ -148,7 +170,7 @@ export const LoginForm: React.FC = () => {
       <Button type="submit">LOG IN</Button>
       <WrapperLink>
         <WrapperLinkLogin>
-          Don't have an account?<LoginLink to="/register"> Register</LoginLink>
+          Don't have an account?<LoginLink to="/register">Register</LoginLink>
         </WrapperLinkLogin>
       </WrapperLink>
     </FormWrapper>

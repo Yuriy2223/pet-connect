@@ -5,6 +5,7 @@ import React, {
   useState,
 } from 'react';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { ThemeProvider } from 'styled-components';
 import { themes, ThemeType } from './styles/Theme';
 import { Loader } from './components/loader/Loader';

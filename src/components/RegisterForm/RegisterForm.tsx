@@ -38,11 +38,17 @@ export const RegisterForm: React.FC = () => {
     handleSubmit,
     formState: { errors },
     trigger,
+    reset,
+    clearErrors,
   } = useForm<FormData>({
     resolver: yupResolver(registerSchema),
   });
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+    confirmPassword: false,
+  });
+
   const [inputStates, setInputStates] = useState({
     name: undefined,
     email: undefined,
@@ -76,9 +82,34 @@ export const RegisterForm: React.FC = () => {
     }));
   };
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-    toast.error('This email is already in use.');
+  const onSubmit = async (data: FormData) => {
+    try {
+      console.log(data);
+      // const { confirmPassword, ...registrationData } = data;
+
+      // console.log(registrationData); // тільки name, email, і password
+      toast.success(`Registration successful! Welcome, ${data.name}!`);
+      reset();
+      clearErrors();
+
+      // Очищаємо inputStates після сабміту
+      setInputStates({
+        name: undefined,
+        email: undefined,
+        password: undefined,
+        confirmPassword: undefined,
+      });
+
+      // Очищаємо стан фокуса полів
+      setIsFieldFocused({
+        name: false,
+        email: false,
+        password: false,
+        confirmPassword: false,
+      });
+    } catch {
+      toast.error('This email is already in use.');
+    }
   };
 
   return (
@@ -142,7 +173,7 @@ export const RegisterForm: React.FC = () => {
 
         <InputWrapperPass>
           <Input
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword.password ? 'text' : 'password'}
             placeholder="Password"
             {...register('password')}
             onBlur={() => handleBlur('password')}
@@ -150,11 +181,18 @@ export const RegisterForm: React.FC = () => {
             isValid={inputStates.password}
             autoComplete="new-password"
           />
-          <ShowPasswordIcon onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? (
-              <FaEyeSlashIcon width={18} height={18} iconName="eye-off" />
+          <ShowPasswordIcon
+            onClick={() =>
+              setShowPassword(prevState => ({
+                ...prevState,
+                password: !prevState.password,
+              }))
+            }
+          >
+            {showPassword.password ? (
+              <FaEyeSlashIcon width={18} height={18} iconName="eye" />
             ) : (
-              <FaEyeIcon width={18} height={18} iconName="eye" />
+              <FaEyeIcon width={18} height={18} iconName="eye-off" />
             )}
           </ShowPasswordIcon>
 
@@ -179,7 +217,7 @@ export const RegisterForm: React.FC = () => {
 
         <InputWrapperPass>
           <Input
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword.confirmPassword ? 'text' : 'password'}
             placeholder="Confirm password"
             {...register('confirmPassword')}
             onBlur={() => handleBlur('confirmPassword')}
@@ -187,11 +225,18 @@ export const RegisterForm: React.FC = () => {
             isValid={inputStates.confirmPassword}
             autoComplete="new-password"
           />
-          <ShowPasswordIcon onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? (
-              <FaEyeSlashIcon width={18} height={18} iconName="eye-off" />
+          <ShowPasswordIcon
+            onClick={() =>
+              setShowPassword(prevState => ({
+                ...prevState,
+                confirmPassword: !prevState.confirmPassword,
+              }))
+            }
+          >
+            {showPassword.confirmPassword ? (
+              <FaEyeSlashIcon width={18} height={18} iconName="eye" />
             ) : (
-              <FaEyeIcon width={18} height={18} iconName="eye" />
+              <FaEyeIcon width={18} height={18} iconName="eye-off" />
             )}
           </ShowPasswordIcon>
           <ValidationIcon isFieldFocused={isFieldFocused.confirmPassword}>
