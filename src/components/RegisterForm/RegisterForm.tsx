@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import { registerSchema } from '../Common/ValidationSchemas';
 import {
   FormWrapper,
@@ -43,7 +44,7 @@ export const RegisterForm: React.FC = () => {
   } = useForm<FormData>({
     resolver: yupResolver(registerSchema),
   });
-
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState({
     password: false,
     confirmPassword: false,
@@ -107,6 +108,9 @@ export const RegisterForm: React.FC = () => {
         password: false,
         confirmPassword: false,
       });
+
+      // Перенаправляємо на сторінку логіну після успішної реєстрації
+      navigate('/login'); // Тут ви вказуєте шлях до сторінки логіну
     } catch {
       toast.error('This email is already in use.');
     }

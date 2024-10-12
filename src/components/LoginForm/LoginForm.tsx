@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { loginSchema } from '../Common/ValidationSchemas';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   ErrorText,
@@ -41,7 +42,7 @@ export const LoginForm: React.FC = () => {
   } = useForm<FormData>({
     resolver: yupResolver(loginSchema),
   });
-
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [inputStates, setInputStates] = useState({
     email: undefined,
@@ -75,6 +76,7 @@ export const LoginForm: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     try {
       console.log(data);
+      
       toast.success('Login successful!');
       reset();
       clearErrors();
@@ -90,6 +92,7 @@ export const LoginForm: React.FC = () => {
         email: false,
         password: false,
       });
+      navigate('/profile'); // Перенаправляємо на сторінку профілю
     } catch {
       toast.error('Something went wrong!');
     }
