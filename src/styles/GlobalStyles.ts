@@ -72,6 +72,7 @@ export const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
   padding: 0; 
   margin: 0; 
+  outline: red;
  }
  body {
   font-family: var(--font-family); 

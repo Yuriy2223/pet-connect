@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SearchField } from '../../components/SearchField/SearchField';
+import { SearchField } from '../../components/Common/SearchField/SearchField';
 import { NewsCard } from '../../components/NewsCard/NewsCard';
 import { Pagination } from '../../components/Pagination/Pagination';
 import {

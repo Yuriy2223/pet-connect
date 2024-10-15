@@ -37,13 +37,15 @@ export const FriendsCard: React.FC<FriendItemProps> = ({
   email,
   workDays,
 }) => {
-  // Визначаємо години роботи для відображення
+  // Визначаємо сьогоднішній день тижня
   const today = new Date().getDay(); // Повертає індекс дня (0 - Неділя, 1 - Понеділок...)
   const todayWorkDay = workDays[today - 1]; // Оскільки масив починається з понеділка
 
-  const workingHours = todayWorkDay.isOpen
-    ? `${todayWorkDay.from} - ${todayWorkDay.to}`
-    : 'Closed today';
+  // Перевіряємо чи існує todayWorkDay і чи має воно властивість isOpen
+  const workingHours =
+    todayWorkDay && todayWorkDay.isOpen
+      ? `${todayWorkDay.from} - ${todayWorkDay.to}`
+      : 'Closed today';
 
   return (
     <CardContainer>

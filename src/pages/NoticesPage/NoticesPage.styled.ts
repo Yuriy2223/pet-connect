@@ -1,61 +1,33 @@
 import styled from 'styled-components';
 import { Container } from '../../components/Common/Container';
 
-export const NewsPageContainer = styled(Container)`
+export const NoticesPageContainer = styled(Container)`
   display: flex;
   flex-direction: column;
-  padding: 54px 20px 80px;
+  padding: 50px 20px 80px;
 
   @media (min-width: 768px) {
-    padding: 85px 26px 80px;
+    padding: 85px 32px 80px;
   }
 
   @media (min-width: 1280px) {
     padding: 96px 62px 80px;
   }
 `;
-export const NewsSearchWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-
-  h1 {
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 1;
-    letter-spacing: -0.03em;
-    color: ${({ theme }) => theme.black};
-
-    @media (min-width: 768px) {
-      font-size: 54px;
-    }
-  }
+export const NoticesTitle = styled.h1`
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: ${({ theme }) => theme.black};
 
   @media (min-width: 768px) {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    font-size: 54px;
   }
 `;
-export const NewsList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-top: 24px;
-
-  @media (min-width: 768px) {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 34px;
-    margin-top: 44px;
-  }
-
-  @media (min-width: 1280px) {
-    margin-top: 60px;
-    gap: 34px;
-  }
+export const NoticesSearchWrapper = styled.div`
+  margin-top: 40px;
+  margin-bottom: 40px;
 `;
 export const PaginationWrapper = styled.div`
   display: flex;

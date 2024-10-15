@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { SearchField } from '../../components/SearchField/SearchField';
-import { NewsCard } from '../../components/NewsCard/NewsCard';
 import { Pagination } from '../../components/Pagination/Pagination';
+import { NoticesFilters } from '../../components/NoticesFilters/NoticesFilters';
+import { NoticesList } from '../../components/NoticesList/NoticesList';
 import {
-  NewsList,
-  NewsPageContainer,
-  NewsSearchWrapper,
+  NoticesPageContainer,
+  NoticesSearchWrapper,
+  NoticesTitle,
   PaginationWrapper,
 } from './NoticesPage.styled';
 
-import newsDataJson from '../../components/NewsCard/NewsCard.json';
+import NoticesData from './NoticesData.json';
 
-export const NewsPage: React.FC = () => {
-  const [newsData, setNewsData] = useState(newsDataJson); // Використовуємо дані з JSON
-  const [currentPage, setCurrentPage] = useState(1); // Поточна сторінка
-  const itemsPerPage = 6; // Кількість карток на сторінці
+export const NoticesPage: React.FC = () => {
+  const [noticesData, setNoticesData] = useState(NoticesData.results);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
-  // Розраховуємо індекси новин для поточної сторінки
-  const lastNewsIndex = currentPage * itemsPerPage;
-  const firstNewsIndex = lastNewsIndex - itemsPerPage;
-  const currentNews = newsData.slice(firstNewsIndex, lastNewsIndex);
+  const lastNoticesIndex = currentPage * itemsPerPage;
+  const firstNoticesIndex = lastNoticesIndex - itemsPerPage;
+  const currentNotices = noticesData
+    .slice(firstNoticesIndex, lastNoticesIndex)
+    .map(notice => ({
+      ...notice,
+      id: notice._id,
+    }));
 
   useEffect(() => {
-    setNewsData(newsDataJson); // стан даними з JSON
+    setNoticesData(NoticesData.results);
   }, []);
 
   const handlePageChange = (page: number) => {
@@ -30,32 +34,20 @@ export const NewsPage: React.FC = () => {
   };
 
   return (
-    <NewsPageContainer>
-      <NewsSearchWrapper>
-        <h1>News</h1>
-        <SearchField onSearch={query => console.log('Searching for:', query)} />
-      </NewsSearchWrapper>
-      <NewsList>
-        {currentNews.map(news => (
-          <li key={news.id}>
-            <NewsCard
-              imageUrl={news.imageUrl}
-              title={news.title}
-              description={news.description}
-              date={news.date}
-              link={news.link}
-            />
-          </li>
-        ))}
-      </NewsList>
+    <NoticesPageContainer>
+      <NoticesTitle>Find your favorite pet</NoticesTitle>
+      <NoticesSearchWrapper>
+        <NoticesFilters />
+      </NoticesSearchWrapper>
+      <NoticesList notices={currentNotices} />
       <PaginationWrapper>
         <Pagination
-          totalItems={newsData.length} // Загальна кількість новин
-          itemsPerPage={itemsPerPage} // Кількість карток на сторінці
-          currentPage={currentPage} // Поточна сторінка
-          onPageChange={handlePageChange} // Обробник зміни сторінки
+          totalItems={noticesData.length}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
         />
       </PaginationWrapper>
-    </NewsPageContainer>
+    </NoticesPageContainer>
   );
 };

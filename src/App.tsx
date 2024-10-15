@@ -10,6 +10,7 @@ import { ThemeProvider } from 'styled-components';
 import { themes, ThemeType } from './styles/Theme';
 import { Loader } from './components/loader/Loader';
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
+// import { ModalProvider } from './services/ModalProvder';
 // import { SplashScreen } from './components/SplashScreen/SplashScreen';
 
 const Layout = React.lazy(() =>
@@ -27,11 +28,11 @@ const NewsPage = React.lazy(() =>
     default: module.NewsPage,
   }))
 );
-// const NoticesPage = React.lazy(() =>
-//   import('./pages/NoticesPage/NoticesPage').then(module => ({
-//     default: module.NoticesPage,
-//   }))
-// );
+const NoticesPage = React.lazy(() =>
+  import('./pages/NoticesPage/NoticesPage').then(module => ({
+    default: module.NoticesPage,
+  }))
+);
 const OurFriendsPage = React.lazy(() =>
   import('./pages/OurFriendsPage/OurFriendsPage').then(module => ({
     default: module.OurFriendsPage,
@@ -47,38 +48,16 @@ const LoginPage = React.lazy(() =>
     default: module.LoginPage,
   }))
 );
-// const ProfilePage = React.lazy(() =>
-//   import('./pages/ProfilePage/ProfilePage').then(module => ({
-//     default: module.ProfilePage,
-//   }))
-// );
-// const AddPetPage = React.lazy(() =>
-//   import('./pages/AddPetPage/AddPetPage').then(module => ({
-//     default: module.AddPetPage,
-//   }))
-// );
-
-// export const App: React.FC = () => {
-//   const [themeType, setThemeType] = useState<ThemeType>('light');
-//   // const [loading, setLoading] = useState(true);
-//   const [showSplash, setShowSplash] = useState(true);
-
-//   const toggleTheme = (newTheme: ThemeType) => {
-//     setThemeType(newTheme);
-//   };
-
-//   useEffect(() => {
-//     // Показуємо Splash Screen протягом короткого часу
-//     const splashTimeout = setTimeout(() => {
-//       setShowSplash(false);
-//     }, 3000);
-
-//     return () => clearTimeout(splashTimeout);
-//   }, []);
-
-//   if (showSplash) {
-//     return <SplashScreen />;
-//   }
+const ProfilePage = React.lazy(() =>
+  import('./pages/ProfilePage/ProfilePage').then(module => ({
+    default: module.ProfilePage,
+  }))
+);
+const AddPetPage = React.lazy(() =>
+  import('./pages/AddPetPage/AddPetPage').then(module => ({
+    default: module.AddPetPage,
+  }))
+);
 
 export const App: React.FC = () => {
   const [themeType, setThemeType] = useState<ThemeType>('light');
@@ -110,6 +89,7 @@ export const App: React.FC = () => {
   // }, [showSplash]);
 
   // Показуємо Splash Screen, якщо showSplash == true
+  
   // if (showSplash) {
   //   return <SplashScreen />;
   // }
@@ -121,34 +101,36 @@ export const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={themes[themeType]}>
-      <Suspense fallback={<Loader />}>
-        <Layout toggleTheme={toggleTheme}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/news" element={<NewsPage />} />
-            {/* <Route path="/notices" element={<NoticesPage />} /> */}
-            <Route path="/friends" element={<OurFriendsPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            {/* <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/add-pet" element={<AddPetPage />} /> */}
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Layout>
-      </Suspense>
+      {/* <ModalProvider> */}
+        <Suspense fallback={<Loader />}>
+          <Layout toggleTheme={toggleTheme}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/news" element={<NewsPage />} />
+              <Route path="/notices" element={<NoticesPage />} />
+              <Route path="/friends" element={<OurFriendsPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/add-pet" element={<AddPetPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Layout>
+        </Suspense>
 
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      {/* </ModalProvider> */}
     </ThemeProvider>
   );
 };

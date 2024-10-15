@@ -10,29 +10,37 @@ import {
 
 interface SearchProps {
   onSearch: (query: string) => void;
+  // width?: string;
 }
 
-export const SearchField: React.FC<SearchProps> = ({ onSearch }) => {
+export const SearchField: React.FC<SearchProps> = ({ onSearch,
+  //  width
+  }) => {
   const [query, setQuery] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
+
   const handleClear = () => {
     setQuery('');
   };
+
   const handleSearch = () => {
     if (query.trim()) {
       onSearch(query);
     }
   };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleSearch();
   };
 
   return (
-    <SearchContainer>
+    <SearchContainer
+    //  width={width}
+     >
       <form onSubmit={handleSubmit}>
         <Search
           type="text"

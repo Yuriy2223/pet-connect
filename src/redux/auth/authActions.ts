@@ -1,5 +1,6 @@
 import { AppDispatch } from '../store';
 import { loginSuccess, logout } from './authSlice';
+import { toast } from 'react-toastify';
 
 export const login = (credentials: { email: string; password: string }) => async (dispatch: AppDispatch) => {
   try {
@@ -22,4 +23,6 @@ export const login = (credentials: { email: string; password: string }) => async
 
 export const logoutUser = () => (dispatch: AppDispatch) => {
   dispatch(logout());
+  localStorage.clear(); // Очищення локального сховища
+  toast.success('Logout successful!');
 };
