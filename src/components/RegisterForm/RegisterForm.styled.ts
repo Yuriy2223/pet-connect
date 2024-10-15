@@ -78,9 +78,6 @@ export const InputWrapperPass = styled.div`
   width: 100%;
   position: relative;
 `;
-// export const Input = styled.input.attrs<InputProps>({
-//   isValid: undefined,
-// })<InputProps>`
 export const Input = styled.input.withConfig({
   shouldForwardProp: prop => prop !== 'isValid',
 })<InputProps>`

@@ -11,7 +11,7 @@ export const NoticesPageContainer = styled(Container)`
   }
 
   @media (min-width: 1280px) {
-    padding: 96px 62px 80px;
+    padding: 96px 32px 80px;
   }
 `;
 export const NoticesTitle = styled.h1`
@@ -23,6 +23,7 @@ export const NoticesTitle = styled.h1`
 
   @media (min-width: 768px) {
     font-size: 54px;
+    margin-left: 32px;
   }
 `;
 export const NoticesSearchWrapper = styled.div`

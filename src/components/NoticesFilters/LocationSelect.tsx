@@ -13,9 +13,6 @@ export const SearchContainer = styled.div`
   @media (min-width: 768px) {
     width: 227px;
   }
-  @media (min-width: 1280px) {
-   
-  }
 `;
 export const ButtonSearch = styled.button`
   position: absolute;
@@ -64,16 +61,16 @@ export const IconClose = styled(Iconsvg)`
 
 export const LocationSelect = () => {
   const theme = useTheme();
-  const [inputValue, setInputValue] = useState<string>(''); 
+  const [inputValue, setInputValue] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const clearInput = () => {
-    setInputValue(''); 
-    setSearchQuery(''); 
+    setInputValue('');
+    setSearchQuery('');
   };
 
   const searchInput = () => {
-    setSearchQuery(inputValue); 
+    setSearchQuery(inputValue);
   };
 
   const customStyles: StylesConfig<OptionType, false> = {
@@ -142,14 +139,14 @@ export const LocationSelect = () => {
         <IconsSearch width={18} height={18} iconName="search" />
       </ButtonSearch>
       <AsyncSelect
-        loadOptions={
-          (inputValue, callback) => fetchLocations(searchQuery, callback) 
+        loadOptions={(inputValue, callback) =>
+          fetchLocations(searchQuery, callback)
         }
         defaultOptions
         styles={customStyles}
         value={null}
         inputValue={inputValue}
-        onInputChange={(newValue: string) => setInputValue(newValue)} 
+        onInputChange={(newValue: string) => setInputValue(newValue)}
         placeholder="Location"
         isClearable={false}
       />

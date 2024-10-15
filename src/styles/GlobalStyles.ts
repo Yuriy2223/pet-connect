@@ -48,6 +48,7 @@ export const GlobalStyles = createGlobalStyle`
   --bright-blue: #54adff;
   --light-blue: rgba(84, 173, 255, 0.1);
 
+  --yellow: #FFD700;
   --bright-green: #08AA83;
   --background-body: #f9f9f9; 
   

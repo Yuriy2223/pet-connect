@@ -1,23 +1,78 @@
 import React from 'react';
-import styled from 'styled-components';
+import {
+  HeartButton,
+  HeartIcon,
+  LearnButton,
+  NoticeCardList,
+  NoticesBtnWrapper,
+  NoticesCardContainer,
+  NoticesDetails,
+  NoticesDetailsHeader,
+  NoticesImg,
+  NoticesRaiting,
+  RaitingIcon,
+} from './NoticesCard.styled';
 
-export const NoticesCardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-interface NoticesCardProps {
-  id: string;
-  name: string;
+interface Notice {
+  _id: string;
   species: string;
-  // Add any other fields you want to display
+  category: string;
+  price?: number;
+  title: string;
+  name: string;
+  birthday: string;
+  comment: string;
+  sex: string;
+  location: string;
+  imgURL: string;
+  createdAt: string;
+  user: string;
+  popularity: number;
+  updatedAt?: string;
 }
 
-export const NoticesCard: React.FC<NoticesCardProps> = ({ name, species }) => {
+interface NoticeCardProps {
+  notice: Notice;
+}
+
+export const NoticesCard: React.FC<NoticeCardProps> = ({ notice }) => {
   return (
     <NoticesCardContainer>
-      <h2>{name}</h2>
-      <p>Species: {species}</p>
+      <NoticesImg src={notice.imgURL} alt="Notice img" />
+      <NoticesDetails>
+        <NoticesDetailsHeader>
+          <h2>{notice.title}</h2>
+          <NoticesRaiting>
+            <RaitingIcon width={18} height={18} iconName="star" />
+            <span>{notice.popularity}</span>
+          </NoticesRaiting>
+        </NoticesDetailsHeader>
+        <NoticeCardList>
+          <li>
+            Name<span>{notice.name}</span>
+          </li>
+          <li>
+            Birthday<span>{notice.birthday.split('-').reverse().join('.')}</span>
+          </li>
+          <li>
+            Sex<span>{notice.sex}</span>
+          </li>
+          <li>
+            Species<span>{notice.species}</span>
+          </li>
+          <li>
+            Category<span>{notice.category}</span>
+          </li>
+        </NoticeCardList>
+        <p>{notice.comment}</p>
+      </NoticesDetails>
+
+      <NoticesBtnWrapper>
+        <LearnButton>Learn more</LearnButton>
+        <HeartButton title="Add to favorites">
+          <HeartIcon width={18} height={18} iconName="heart" />
+        </HeartButton>
+      </NoticesBtnWrapper>
     </NoticesCardContainer>
   );
 };

@@ -17,6 +17,7 @@ export const lightTheme: DefaultTheme = {
   red: 'var(--bright-red)',
   opacityTr: 'var(--ligh-gray-tr)',
   body: 'var(--background-body)',
+  star: 'var( --yellow)',
 };
 // Tемна тема
 export const darkTheme: DefaultTheme = {
