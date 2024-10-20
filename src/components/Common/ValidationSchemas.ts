@@ -30,3 +30,19 @@ export const registerSchema = Yup.object().shape({
     .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
     .required('Confirm Password is required'),
 });
+
+export const addPetSchema = Yup.object().shape({
+  title: Yup.string().required('Title is required'),
+  name: Yup.string().required('Name is required'),
+  imgUrl: Yup.string()
+    .matches(
+      /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/,
+      'Invalid URL format'
+    )
+    .required('Image URL is required'),
+  species: Yup.string().required('Species is required'),
+  birthday: Yup.string()
+    .matches(/^\d{2}\.\d{2}\.\d{4}$/, 'Enter a valid date in format DD.MM.YYYY')
+    .required('Birthday is required'),
+  sex: Yup.string().required('Sex is required'),
+});

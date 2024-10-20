@@ -13,7 +13,7 @@ import friendsDataJson from '../../components/FriendsCard/friendsData.json';
 export const OurFriendsPage: React.FC = () => {
   const [friendsData, setFriendsData] = useState(friendsDataJson); // Використовуємо дані з JSON
   const [currentPage, setCurrentPage] = useState(1); // Поточна сторінка
-  const itemsPerPage = 6; // Кількість карток на сторінці
+  const itemsPerPage = 9; // Кількість карток на сторінці
 
   // Розраховуємо індекси партнерів для поточної сторінки
   const lastFriendsIndex = currentPage * itemsPerPage;
