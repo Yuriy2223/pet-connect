@@ -17,8 +17,8 @@ export const AddStyledSelect = styled(Select).attrs<DynamicSelectProps>(
         fontWeight: 500,
         fontSize: window.innerWidth >= 768 ? '16px' : '14px',
         lineHeight: window.innerWidth >= 768 ? 1.25 : 1.29,
-        paddingTop: window.innerWidth >= 768 ? '5px' : '3px',
-        paddingBottom: window.innerWidth >= 768 ? '5px' : '3px',
+        paddingTop: window.innerWidth >= 768 ? '5px' : '4px',
+        paddingBottom: window.innerWidth >= 768 ? '5px' : '4px',
         letterSpacing: '-0.03em',
         border: `1px solid ${
           state.isFocused ? props.theme.primaryDark : props.theme.opacity
@@ -42,7 +42,7 @@ export const AddStyledSelect = styled(Select).attrs<DynamicSelectProps>(
         marginTop: '2px', 
         minWidth: '100%',
         zIndex: `2`,
-        height: '85px',
+        maxHeight: '85px',
         overflowY: 'auto',
       }),
       option: (
