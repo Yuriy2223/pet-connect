@@ -104,7 +104,7 @@ export const IconLarge = styled(Iconsvg)`
 export const AddFormWrapper = styled.div`
   border-radius: 30px;
   width: 335px;
-  height: 489px;
+  /* height: 489px; */
   background-color: ${({ theme }) => theme.white};
   padding: 28px 20px 20px;
 

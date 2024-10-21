@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Iconsvg } from '../Common/Icons';
+import { AddStyledSelect } from '../Common/AddSelectType';
 
 export const AddWrapperForm = styled.form`
   display: flex;
@@ -113,7 +114,7 @@ export const IconUnknown = styled(Iconsvg)<{ $isActive: boolean }>`
 export const RadioButtonInput = styled.input`
   display: none;
 `;
-////////////////////////////////////////////////////
+///////////////////// фото ///////////////////////////////
 export const AddPhotoWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -192,22 +193,107 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 290px;
+  height: 146px;
+  border: 1px solid red;
 `;
-
+export const InputTitle = styled.input`
+  border: 1px solid ${({ theme }) => theme.opacity};
+  border-radius: 30px;
+  padding: 12px;
+  width: 100%;
+  height: 40px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.29;
+  letter-spacing: -0.03em;
+  color: ${({ theme }) => theme.opacityTr};
+`;
+export const InputName = styled.input`
+  border: 1px solid ${({ theme }) => theme.opacity};
+  border-radius: 30px;
+  padding: 12px;
+  width: 100%;
+  height: 40px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.29;
+  letter-spacing: -0.03em;
+  color: ${({ theme }) => theme.opacityTr};
+`;
+export const WrapperDateType = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+export const InputDate = styled.input`
+  border: 1px solid ${({ theme }) => theme.opacity};
+  border-radius: 30px;
+  padding: 12px;
+  width: 142px;
+  height: 40px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.29;
+  letter-spacing: -0.03em;
+  color: ${({ theme }) => theme.opacityTr};
+`;
+///////////////////// тип ////////////////////////////////
+export const AddSelectType = styled(AddStyledSelect)`
+  width: 140px;
+`;
 ///////////////////// кнопкии ////////////////////////////////
-export const AddButtonWrapper = styled.div``;
-
+export const AddButtonWrapper = styled.div`
+  margin-top: 30px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+`;
 export const ButtonBack = styled.button`
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  width: 100px;
+  height: 42px;
+  background: rgba(38, 38, 38, 0.05);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.29;
+  letter-spacing: -0.03em;
+  color: ${({ theme }) => theme.black};
+
   &:hover {
+    background-color: ${({ theme }) => theme.primaryDark};
+    color: ${({ theme }) => theme.white};
   }
 `;
 export const ButtonSubmit = styled.button`
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  width: 100px;
+  height: 42px;
+  background-color: ${({ theme }) => theme.primaryLight};
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.29;
+  letter-spacing: -0.03em;
+  color: ${({ theme }) => theme.white};
+
   &:hover {
+    background-color: ${({ theme }) => theme.primaryDark};
   }
 `;
+////////////////////// помилка ///////////////////////////////
 export const ErrorMessage = styled.div`
-  color: red;
+  color: ${({ theme }) => theme.red};
   font-size: 14px;
   margin-top: 5px;
 `;
-/////////////////////////////////////////////////////
