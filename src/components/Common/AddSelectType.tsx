@@ -17,8 +17,8 @@ export const AddStyledSelect = styled(Select).attrs<DynamicSelectProps>(
         fontWeight: 500,
         fontSize: window.innerWidth >= 768 ? '16px' : '14px',
         lineHeight: window.innerWidth >= 768 ? 1.25 : 1.29,
-        paddingTop: window.innerWidth >= 768 ? '5px' : '4px',
-        paddingBottom: window.innerWidth >= 768 ? '5px' : '4px',
+        paddingTop: window.innerWidth >= 768 ? '4px' : '2px',
+        paddingBottom: window.innerWidth >= 768 ? '4px' : '2px',
         letterSpacing: '-0.03em',
         border: `1px solid ${
           state.isFocused ? props.theme.primaryDark : props.theme.opacity
@@ -59,7 +59,7 @@ export const AddStyledSelect = styled(Select).attrs<DynamicSelectProps>(
         fontSize: '14px', 
         fontWeight: 500, 
         lineHeight: 1.29,
-        maxHeight: '85px', 
+        // maxHeight: '85px', 
         '&:hover': {
           borderColor: props.theme.primaryDark,
           color: props.theme.primaryDark,

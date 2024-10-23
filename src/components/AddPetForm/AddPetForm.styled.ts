@@ -114,12 +114,9 @@ export const IconUnknown = styled(Iconsvg)<{ $isActive: boolean }>`
 export const RadioButtonInput = styled.input`
   display: none;
 `;
-///////////////////// фото ///////////////////////////////
 export const AddPhotoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center;
-  justify-content: center; */
   margin-top: 8px;
   margin-bottom: 10px;
 `;
@@ -167,7 +164,7 @@ export const UploadButton = styled.label`
   align-items: center;
   justify-content: space-between;
   border-radius: 30px;
-  padding: 10px;
+  padding: 12px;
   width: 117px;
   height: 36px;
   background: #fff4df;
@@ -181,23 +178,27 @@ export const UploadButton = styled.label`
 
   &:hover {
     background-color: ${({ theme }) => theme.primaryDark};
+    color: ${({ theme }) => theme.white};
   }
 `;
 export const IconUploadPhoto = styled(Iconsvg)`
   width: 18px;
   height: 18px;
   stroke: ${({ theme }) => theme.primaryDark};
+
+  ${UploadButton}:hover & {
+    stroke: ${({ theme }) => theme.white};
+  }
 `;
-//////////////////// контейнер інпутів /////////////////////////////////
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 290px;
-  height: 146px;
+  width: 100%;
   border: 1px solid red;
 `;
-export const InputTitle = styled.input`
+export const InputValue = styled.input`
+  position: relative;
   border: 1px solid ${({ theme }) => theme.opacity};
   border-radius: 30px;
   padding: 12px;
@@ -208,18 +209,14 @@ export const InputTitle = styled.input`
   line-height: 1.29;
   letter-spacing: -0.03em;
   color: ${({ theme }) => theme.opacityTr};
+
+  &:hover,
+  &:focus {
+    border: 1px solid ${({ theme }) => theme.primaryDark};
+  }
 `;
-export const InputName = styled.input`
-  border: 1px solid ${({ theme }) => theme.opacity};
-  border-radius: 30px;
-  padding: 12px;
-  width: 100%;
-  height: 40px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.29;
-  letter-spacing: -0.03em;
-  color: ${({ theme }) => theme.opacityTr};
+export const InputDate = styled(InputValue)`
+  width: 142px;
 `;
 export const WrapperDateType = styled.div`
   width: 100%;
@@ -227,23 +224,10 @@ export const WrapperDateType = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-export const InputDate = styled.input`
-  border: 1px solid ${({ theme }) => theme.opacity};
-  border-radius: 30px;
-  padding: 12px;
-  width: 142px;
-  height: 40px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.29;
-  letter-spacing: -0.03em;
-  color: ${({ theme }) => theme.opacityTr};
-`;
-///////////////////// тип ////////////////////////////////
 export const AddSelectType = styled(AddStyledSelect)`
+  position: relative;
   width: 140px;
 `;
-///////////////////// кнопкии ////////////////////////////////
 export const AddButtonWrapper = styled.div`
   margin-top: 30px;
   margin-bottom: 10px;
@@ -291,8 +275,7 @@ export const ButtonSubmit = styled.button`
     background-color: ${({ theme }) => theme.primaryDark};
   }
 `;
-////////////////////// помилка ///////////////////////////////
-export const ErrorMessage = styled.div`
+export const ErrorMessage = styled.p`
   color: ${({ theme }) => theme.red};
   font-size: 14px;
   margin-top: 5px;
