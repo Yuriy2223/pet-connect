@@ -9,7 +9,6 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({
   children,
-  //  toggleTheme
 }) => {
   return (
     <div>
