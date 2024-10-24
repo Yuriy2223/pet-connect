@@ -28,7 +28,6 @@ const StyledNavLink = styled(NavLink)`
   justify-content: center;
 
   &.active {
-    /* color: ${({ theme }) => theme.lightYellow}; */
     background-color: ${({ theme }) => theme.lightYellow};
     color: ${({ theme }) => theme.primaryDark};
   }
