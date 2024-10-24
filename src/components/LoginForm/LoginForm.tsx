@@ -87,12 +87,11 @@ export const LoginForm: React.FC = () => {
         password: undefined,
       });
 
-      // Очищаємо стан фокуса полів
       setIsFieldFocused({
         email: false,
         password: false,
       });
-      navigate('/profile'); // Перенаправляємо на сторінку профілю
+      navigate('/profile'); 
     } catch {
       toast.error('Something went wrong!');
     }
