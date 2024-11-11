@@ -183,7 +183,8 @@ export const UploadInput = styled.input`
   border: 1px solid ${({ theme }) => theme.opacity};
   border-radius: 30px;
   padding: 9px 20px 9px 10px;
-  width: 170px;
+  max-width: 170px;
+  width: 100%;
   height: 36px;
   font-weight: 500;
   font-size: 12px;
@@ -191,6 +192,10 @@ export const UploadInput = styled.input`
   letter-spacing: -0.02em;
   color: ${({ theme }) => theme.black};
   position: relative;
+
+  @media (max-width: 374px) {
+    width: 110px;
+  }
 `;
 export const UploadButton = styled.label`
   display: flex;
@@ -208,6 +213,10 @@ export const UploadButton = styled.label`
   color: ${({ theme }) => theme.black};
   border: none;
   cursor: pointer;
+
+  @media (max-width: 374px) {
+    width: 117px;
+  }
 
   &:hover {
     background-color: ${({ theme }) => theme.primaryDark};
@@ -251,6 +260,10 @@ export const InputValue = styled.input`
 export const InputDate = styled(InputValue)`
   position: relative;
   width: 142px;
+
+  @media (max-width: 374px) {
+    width: 130px;
+  }
 `;
 export const WrapperDateType = styled.div`
   width: 100%;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { fetchTypes, OptionType } from '../../services/apiService';
 import { addPetSchema } from '../../components/Common/ValidationSchemas';
@@ -48,11 +48,11 @@ interface PetFormData {
 export const AddPetForm: React.FC = () => {
   const {
     register,
-    handleSubmit,
+    // handleSubmit,
     formState: { errors },
     // trigger,
     // handleSubmit,
-    reset,
+    // reset,
   } = useForm<PetFormData>({
     resolver: yupResolver(addPetSchema),
   });
@@ -90,40 +90,42 @@ export const AddPetForm: React.FC = () => {
     fetchData();
   }, []);
 
-  const onSubmit = async (data: PetFormData) => {
-    try {
-      const updatedData = { ...data, imgUrl: uploadedImage };
-      const response = await fetch('/api/add-pet', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedData),
-      });
+  // const onSubmit = async (data: PetFormData) => {
+  //   try {
+  //     const updatedData = { ...data, imgUrl: uploadedImage };
+  //     const response = await fetch('/api/add-pet', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(updatedData),
+  //     });
 
-      if (!response.ok) {
-        throw new Error('Failed to add pet. Try again.');
-      }
+  //     if (!response.ok) {
+  //       throw new Error('Failed to add pet. Try again.');
+  //     }
 
-      toast.success('Pet added successfully!');
+  //     toast.success('Pet added successfully!');
 
-      reset();
-      setUploadedImage(null);
+  //     reset();
+  //     setUploadedImage(null);
 
-      setTimeout(() => {
-        navigate('/profile');
-      }, 2000);
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        toast.error(error.message || 'An error occurred. Please try again.');
-      } else {
-        toast.error('An unknown error occurred. Please try again.');
-      }
-    }
-  };
+  //     setTimeout(() => {
+  //       navigate('/profile');
+  //     }, 2000);
+  //   } catch (error: unknown) {
+  //     if (error instanceof Error) {
+  //       toast.error(error.message || 'An error occurred. Please try again.');
+  //     } else {
+  //       toast.error('An unknown error occurred. Please try again.');
+  //     }
+  //   }
+  // };
 
   return (
-    <AddWrapperForm onSubmit={handleSubmit(onSubmit)}>
+    <AddWrapperForm 
+    // onSubmit={handleSubmit(onSubmit)}
+    >
       <TitleAdPet>
         Add my pet / <span>Personal details</span>
       </TitleAdPet>
