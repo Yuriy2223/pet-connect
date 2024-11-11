@@ -21,11 +21,15 @@ export const TitleAdPet = styled.h2`
   line-height: 1;
   letter-spacing: -0.03em;
   color: ${({ theme }) => theme.black};
-  margin-bottom: 24px;
+  margin-bottom: 18px;
+
+  @media (max-width: 374px) {
+    font-size: 22px;
+  }
 
   @media (min-width: 768px) {
     font-size: 32px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 
   span {
@@ -45,10 +49,11 @@ export const AddRadioWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   position: relative; /** */
 `;
 export const InputWrapper = styled.div`
-  position: relative;
+  position: relative; /** */
 `;
 export const RadioLabelFemale = styled.label<{ $isActive: boolean }>`
   width: 40px;
@@ -138,7 +143,11 @@ export const AddPhotoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
+
+  @media (min-width: 768px) {
+    margin-bottom: 18px;
+  }
 `;
 export const AddPhoto = styled.img`
   border-radius: 100px;
@@ -191,10 +200,15 @@ export const UploadInput = styled.input`
   line-height: 1.33;
   letter-spacing: -0.02em;
   color: ${({ theme }) => theme.black};
-  position: relative;
+  /* position: relative; */
 
   @media (max-width: 374px) {
     width: 110px;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 278px;
+    height: 42px;
   }
 `;
 export const UploadButton = styled.label`
@@ -218,6 +232,11 @@ export const UploadButton = styled.label`
     width: 117px;
   }
 
+  @media (min-width: 768px) {
+    width: 146px;
+    height: 42px;
+  }
+
   &:hover {
     background-color: ${({ theme }) => theme.primaryDark};
     color: ${({ theme }) => theme.white};
@@ -235,10 +254,12 @@ export const IconUploadPhoto = styled(Iconsvg)`
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
   width: 100%;
 
-  border: 1px solid red; /************************** */
+  @media (min-width: 768px) {
+    gap: 18px;
+  }
 `;
 export const InputValue = styled.input`
   border: 1px solid ${({ theme }) => theme.opacity};
@@ -252,6 +273,12 @@ export const InputValue = styled.input`
   letter-spacing: -0.03em;
   color: ${({ theme }) => theme.opacityTr};
 
+  @media (min-width: 768px) {
+    font-size: 16px;
+    line-height: 1.25;
+    height: 50px;
+  }
+
   &:hover,
   &:focus {
     border: 1px solid ${({ theme }) => theme.primaryDark};
@@ -264,6 +291,10 @@ export const InputDate = styled(InputValue)`
   @media (max-width: 374px) {
     width: 130px;
   }
+
+  @media (min-width: 768px) {
+    width: 210px;
+  }
 `;
 export const WrapperDateType = styled.div`
   width: 100%;
@@ -271,13 +302,22 @@ export const WrapperDateType = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-export const AddSelectType = styled(AddStyledSelect)`
+export const AddSelectTypeWrapper = styled.div`
   position: relative;
+`;
+export const AddSelectType = styled(AddStyledSelect)`
   width: 140px;
+
+  @media (max-width: 374px) {
+    width: 108px;
+  }
+
+  @media (min-width: 768px) {
+    width: 210px;
+  }
 `;
 export const AddButtonWrapper = styled.div`
-  margin-top: 40px;
-  margin-bottom: 10px;
+  margin-top: 34px;
   display: flex;
   align-items: center;
   justify-content: flex-end;

@@ -9,9 +9,15 @@ const ErrorMessageStyled = styled.p`
   font-weight: 500;
   font-size: 10px;
   position: absolute;
-  bottom: -15px;
+  bottom: -10px;
   left: 10px;
+
+  @media (min-width: 768px) {
+    font-size: 12px;
+    bottom: -15px;
+  }
 `;
+
 
 export const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }) => {
   if (!message) return null;

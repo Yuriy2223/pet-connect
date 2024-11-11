@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { fetchTypes, OptionType } from '../../services/apiService';
 import { addPetSchema } from '../../components/Common/ValidationSchemas';
@@ -33,6 +33,7 @@ import {
   InputValue,
   InputDate,
   InputWrapper,
+  AddSelectTypeWrapper,
 } from './AddPetForm.styled';
 import { ErrorMessage } from './ErrorMessage';
 
@@ -48,11 +49,10 @@ interface PetFormData {
 export const AddPetForm: React.FC = () => {
   const {
     register,
-    // handleSubmit,
+    handleSubmit,
     formState: { errors },
     // trigger,
-    // handleSubmit,
-    // reset,
+    reset,
   } = useForm<PetFormData>({
     resolver: yupResolver(addPetSchema),
   });
@@ -90,42 +90,40 @@ export const AddPetForm: React.FC = () => {
     fetchData();
   }, []);
 
-  // const onSubmit = async (data: PetFormData) => {
-  //   try {
-  //     const updatedData = { ...data, imgUrl: uploadedImage };
-  //     const response = await fetch('/api/add-pet', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(updatedData),
-  //     });
+  const onSubmit = async (data: PetFormData) => {
+    try {
+      const updatedData = { ...data, imgUrl: uploadedImage };
+      const response = await fetch('/api/add-pet', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData),
+      });
 
-  //     if (!response.ok) {
-  //       throw new Error('Failed to add pet. Try again.');
-  //     }
+      if (!response.ok) {
+        throw new Error('Failed to add pet. Try again.');
+      }
 
-  //     toast.success('Pet added successfully!');
+      toast.success('Pet added successfully!');
 
-  //     reset();
-  //     setUploadedImage(null);
+      reset();
+      setUploadedImage(null);
 
-  //     setTimeout(() => {
-  //       navigate('/profile');
-  //     }, 2000);
-  //   } catch (error: unknown) {
-  //     if (error instanceof Error) {
-  //       toast.error(error.message || 'An error occurred. Please try again.');
-  //     } else {
-  //       toast.error('An unknown error occurred. Please try again.');
-  //     }
-  //   }
-  // };
+      setTimeout(() => {
+        navigate('/profile');
+      }, 2000);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message || 'An error occurred. Please try again.');
+      } else {
+        toast.error('An unknown error occurred. Please try again.');
+      }
+    }
+  };
 
   return (
-    <AddWrapperForm 
-    // onSubmit={handleSubmit(onSubmit)}
-    >
+    <AddWrapperForm onSubmit={handleSubmit(onSubmit)}>
       <TitleAdPet>
         Add my pet / <span>Personal details</span>
       </TitleAdPet>
@@ -166,7 +164,7 @@ export const AddPetForm: React.FC = () => {
             $isActive={filters.sex === 'unknown'}
           />
         </RadioLabelUnknown>
-        {/* <ErrorMessage message={errors.name?.message} /> */}
+        <ErrorMessage message={errors.sex?.message} />
       </AddRadioWrapper>
 
       <AddPhotoWrapper>
@@ -185,6 +183,7 @@ export const AddPetForm: React.FC = () => {
             value={uploadedImage || ''}
             readOnly
           />
+          <ErrorMessage message={errors.imgUrl?.message} />
           <UploadButton as="label" htmlFor="file-upload">
             Upload photo
             <IconUploadPhoto iconName="upload-cloud" />
@@ -216,24 +215,26 @@ export const AddPetForm: React.FC = () => {
           <InputWrapper>
             <InputDate
               type="date"
-              placeholder="00.00.0000"
+              placeholder="DD.MM.YYYY"
               {...register('birthday')}
             />
             <ErrorMessage message={errors.birthday?.message} />
           </InputWrapper>
-          <AddSelectType
-            options={typeOptions}
-            placeholder="By type"
-            {...register('species')}
-            value={filters.type}
-            onChange={option =>
-              handleFilterChange(
-                'type',
-                (option as OptionType | null)?.value || null
-              )
-            }
-          />
-          <ErrorMessage message={errors.species?.message} />
+          <AddSelectTypeWrapper>
+            <AddSelectType
+              options={typeOptions}
+              placeholder="By type"
+              {...register('species')}
+              value={filters.type}
+              onChange={option =>
+                handleFilterChange(
+                  'type',
+                  (option as OptionType | null)?.value || null
+                )
+              }
+            />
+            <ErrorMessage message={errors.species?.message} />
+          </AddSelectTypeWrapper>
         </WrapperDateType>
       </InputContainer>
 

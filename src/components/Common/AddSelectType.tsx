@@ -34,7 +34,7 @@ export const AddStyledSelect = styled(Select).attrs<DynamicSelectProps>(
           color: props.theme.primaryDark,
         },
         width: 'auto',
-        height: '40px',
+        height: window.innerWidth >= 768 ? '50px' : '40px',
       }),
       menu: (base: CSSObjectWithLabel): CSSObjectWithLabel => ({
         ...base, 
@@ -42,7 +42,7 @@ export const AddStyledSelect = styled(Select).attrs<DynamicSelectProps>(
         marginTop: '2px', 
         minWidth: '100%',
         zIndex: `2`,
-        maxHeight: '85px',
+        maxHeight: window.innerWidth >= 768 ? '120px' : '85px',
         overflowY: 'auto',
       }),
       option: (
@@ -59,7 +59,6 @@ export const AddStyledSelect = styled(Select).attrs<DynamicSelectProps>(
         fontSize: '14px', 
         fontWeight: 500, 
         lineHeight: 1.29,
-        // maxHeight: '85px', 
         '&:hover': {
           borderColor: props.theme.primaryDark,
           color: props.theme.primaryDark,
