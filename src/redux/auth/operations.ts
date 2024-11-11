@@ -1,5 +1,5 @@
 import { AppDispatch } from '../store';
-import { loginSuccess, logout } from './authSlice';
+import { loginSuccess, logout } from './slice';
 import { toast } from 'react-toastify';
 
 export const login = (credentials: { email: string; password: string }) => async (dispatch: AppDispatch) => {

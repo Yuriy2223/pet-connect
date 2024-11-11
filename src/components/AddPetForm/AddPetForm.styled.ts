@@ -8,7 +8,12 @@ export const AddWrapperForm = styled.form`
   width: 100%; /** */
   height: 100%; /** */
 
-  border: 1px solid red; /** */
+  border: 1px solid red; /*************************************************** */
+
+  @media (min-width: 768px) {
+    width: 432px;
+    margin: 0 auto;
+  }
 `;
 export const TitleAdPet = styled.h2`
   font-weight: 700;
@@ -18,10 +23,20 @@ export const TitleAdPet = styled.h2`
   color: ${({ theme }) => theme.black};
   margin-bottom: 24px;
 
+  @media (min-width: 768px) {
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+
   span {
     font-size: 14px;
     line-height: 1.29;
     color: ${({ theme }) => theme.opacityTr};
+
+    @media (min-width: 768px) {
+      font-size: 16px;
+      line-height: 1.25;
+    }
   }
 `;
 export const AddRadioWrapper = styled.div`
@@ -30,6 +45,10 @@ export const AddRadioWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative; /** */
+`;
+export const InputWrapper = styled.div`
+  position: relative;
 `;
 export const RadioLabelFemale = styled.label<{ $isActive: boolean }>`
   width: 40px;
@@ -95,6 +114,7 @@ export const RadioLabelUnknown = styled.label<{ $isActive: boolean }>`
     $isActive ? theme.primaryDark : theme.lightYellow};
   cursor: pointer;
   transition: all 300ms ease;
+  position: relative;
 
   &:hover {
     background-color: ${({ theme }) => theme.primaryDark};
@@ -126,6 +146,11 @@ export const AddPhoto = styled.img`
   height: 68px;
   object-fit: cover;
   margin: 0 auto 16px;
+
+  @media (min-width: 768px) {
+    width: 86px;
+    height: 86px;
+  }
 `;
 export const AddPhotoDefolt = styled.div`
   display: flex;
@@ -136,6 +161,11 @@ export const AddPhotoDefolt = styled.div`
   height: 68px;
   background: ${({ theme }) => theme.lightYellow};
   margin: 0 auto 16px;
+
+  @media (min-width: 768px) {
+    width: 86px;
+    height: 86px;
+  }
 `;
 export const IconPhoto = styled(Iconsvg)`
   width: 34px;
@@ -146,9 +176,11 @@ export const UploadWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  position: relative; /** */
 `;
 export const UploadInput = styled.input`
-  border: 1px solid rgba(38, 38, 38, 0.15);
+  border: 1px solid ${({ theme }) => theme.opacity};
   border-radius: 30px;
   padding: 9px 20px 9px 10px;
   width: 170px;
@@ -157,7 +189,8 @@ export const UploadInput = styled.input`
   font-size: 12px;
   line-height: 1.33;
   letter-spacing: -0.02em;
-  color: #262626;
+  color: ${({ theme }) => theme.black};
+  position: relative;
 `;
 export const UploadButton = styled.label`
   display: flex;
@@ -167,12 +200,12 @@ export const UploadButton = styled.label`
   padding: 12px;
   width: 117px;
   height: 36px;
-  background: #fff4df;
+  background: ${({ theme }) => theme.lightYellow};
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
   letter-spacing: -0.02em;
-  color: #262626;
+  color: ${({ theme }) => theme.black};
   border: none;
   cursor: pointer;
 
@@ -195,10 +228,10 @@ export const InputContainer = styled.div`
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  border: 1px solid red;
+
+  border: 1px solid red; /************************** */
 `;
 export const InputValue = styled.input`
-  position: relative;
   border: 1px solid ${({ theme }) => theme.opacity};
   border-radius: 30px;
   padding: 12px;
@@ -216,6 +249,7 @@ export const InputValue = styled.input`
   }
 `;
 export const InputDate = styled(InputValue)`
+  position: relative;
   width: 142px;
 `;
 export const WrapperDateType = styled.div`
@@ -229,7 +263,7 @@ export const AddSelectType = styled(AddStyledSelect)`
   width: 140px;
 `;
 export const AddButtonWrapper = styled.div`
-  margin-top: 30px;
+  margin-top: 40px;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -255,6 +289,13 @@ export const ButtonBack = styled.button`
     background-color: ${({ theme }) => theme.primaryDark};
     color: ${({ theme }) => theme.white};
   }
+
+  @media (min-width: 768px) {
+    width: 170px;
+    height: 48px;
+    font-size: 16px;
+    line-height: 1.25;
+  }
 `;
 export const ButtonSubmit = styled.button`
   border-radius: 30px;
@@ -274,9 +315,11 @@ export const ButtonSubmit = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.primaryDark};
   }
-`;
-export const ErrorMessage = styled.p`
-  color: ${({ theme }) => theme.red};
-  font-size: 14px;
-  margin-top: 5px;
+
+  @media (min-width: 768px) {
+    width: 170px;
+    height: 48px;
+    font-size: 16px;
+    line-height: 1.25;
+  }
 `;

@@ -1,14 +1,14 @@
-// import axios from 'axios';
+import axios from 'axios';
 
-// const API_URL = 'https://petlove.b.goit.study/api/';
+const API_URL = 'https://petlove.b.goit.study';
 
-// const instance = axios.create({
-//   baseURL: API_URL,
-//   headers: {
-//     Accept: 'application/json',
-//     'Content-Type': 'application/json',
-//   },
-// });
+const instance = axios.create({
+  baseURL: API_URL,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+});
 
 // export const setToken = token => {
 //   instance.defaults.headers.common.Authorization = `Bearer ${token}`;

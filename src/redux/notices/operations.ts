@@ -1,5 +1,5 @@
 import { AppDispatch } from '../store';
-import { setNotices, addFavorite, removeFavorite } from './noticesSlice';
+import { setNotices, addFavorite, removeFavorite } from './slice';
 
 export const fetchNotices = (category: string, page: number = 1) => async (dispatch: AppDispatch) => {
   try {

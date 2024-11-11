@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ModalUniversal } from '../UniversalModal';
 import alreadyImg from '../../assets/imeges/modal-log-2x.webp';
-import { logoutUser } from '../../redux/auth/authActions';
+import { logoutUser } from '../../redux/auth/operations';
 import { AppDispatch } from '../../redux/store';
 import {
   ModalButton,

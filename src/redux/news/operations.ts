@@ -1,5 +1,5 @@
 import { AppDispatch } from '../store';
-import { setNewsList, setCurrentPage } from './newsSlice';
+import { setNewsList, setCurrentPage } from './slice';
 
 export const fetchNews = (page: number = 1, searchQuery: string = '') => async (dispatch: AppDispatch) => {
   try {

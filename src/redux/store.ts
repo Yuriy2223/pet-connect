@@ -32,12 +32,11 @@
 // export type AppDispatch = typeof store.dispatch;
 // export type RootState = ReturnType<typeof store.getState>;
 
-
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './auth/authSlice';
-import userReducer from './user/userSlice';
-import noticesReducer from './notices/noticesSlice';
-import newsReducer from './news/newsSlice';
+import authReducer from './auth/slice';
+import userReducer from './user/slice';
+import noticesReducer from './notices/slice';
+import newsReducer from './news/slice';
 
 export const store = configureStore({
   reducer: {
@@ -50,4 +49,3 @@ export const store = configureStore({
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
- 

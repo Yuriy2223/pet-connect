@@ -9,7 +9,7 @@ export const AddPetPageContainer = styled(Container)`
   gap: 20px;
   padding: 20px;
 
-  @media (min-width: 768px) and (max-width: 1279px){
+  @media (min-width: 768px) and (max-width: 1279px) {
     gap: 32px;
     padding: 32px;
   }
@@ -104,7 +104,6 @@ export const IconLarge = styled(Iconsvg)`
 export const AddFormWrapper = styled.div`
   border-radius: 30px;
   width: 335px;
-  /* height: 489px; */
   background-color: ${({ theme }) => theme.white};
   padding: 28px 20px 20px;
 
@@ -119,10 +118,12 @@ export const AddFormWrapper = styled.div`
     border-radius: 60px;
     width: 704px;
     height: 614px;
+    padding: 40px;
   }
 
   @media (min-width: 1280px) {
     width: 592px;
     height: 654px;
+    padding: 60px;
   }
 `;
