@@ -39,7 +39,7 @@ export const addPetSchema = Yup.object().shape({
       /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/,
       'Invalid URL format'
     )
-    .required('Image URL is required'),
+    .required('Image url is required'),
   species: Yup.string().required('Species is required'),
   birthday: Yup.string()
     .matches(/^\d{2}\.\d{2}\.\d{4}$/, 'Enter a valid date')

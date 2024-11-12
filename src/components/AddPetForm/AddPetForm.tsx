@@ -51,8 +51,10 @@ export const AddPetForm: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-    // trigger,
+    trigger,
     reset,
+    clearErrors,
+    setError,
   } = useForm<PetFormData>({
     resolver: yupResolver(addPetSchema),
   });
@@ -68,6 +70,10 @@ export const AddPetForm: React.FC = () => {
 
   const handleFilterChange = (field: string, value: string | null) => {
     setFilters(prev => ({ ...prev, [field]: value }));
+    // Видаляємо помилку, якщо користувач обрав стать
+    if (field === 'sex' && value) {
+      clearErrors('sex');
+    }
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,11 +81,20 @@ export const AddPetForm: React.FC = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setUploadedImage(imageUrl);
+      clearErrors('imgUrl'); // Видаляє помилку, коли завантажено зображення
     }
   };
 
   const handleBack = () => {
     navigate('/profile');
+  };
+
+  const handleBlur = (field: keyof PetFormData) => {
+    trigger(field);
+  };
+
+  const handleFocus = (field: keyof PetFormData) => {
+    clearErrors(field);
   };
 
   useEffect(() => {
@@ -90,7 +105,21 @@ export const AddPetForm: React.FC = () => {
     fetchData();
   }, []);
 
+ 
   const onSubmit = async (data: PetFormData) => {
+    // Перевірка наявності вибраної статі
+    if (!filters.sex) {
+      setError('sex', { message: 'Please select a gender' });
+      return;
+    }
+
+    // Перевірка наявності завантаженого зображення
+    if (!uploadedImage) {
+      setError('imgUrl', { message: 'Please upload an image' });
+      return;
+    }
+
+    // Якщо помилок немає, переходимо до сабміту
     try {
       const updatedData = { ...data, imgUrl: uploadedImage };
       const response = await fetch('/api/add-pet', {
@@ -106,7 +135,6 @@ export const AddPetForm: React.FC = () => {
       }
 
       toast.success('Pet added successfully!');
-
       reset();
       setUploadedImage(null);
 
@@ -200,7 +228,13 @@ export const AddPetForm: React.FC = () => {
 
       <InputContainer>
         <InputWrapper>
-          <InputValue type="text" placeholder="Title" {...register('title')} />
+          <InputValue
+            type="text"
+            placeholder="Title"
+            {...register('title')}
+            onBlur={() => handleBlur('title')}
+            onFocus={() => handleFocus('title')}
+          />
           <ErrorMessage message={errors.title?.message} />
         </InputWrapper>
         <InputWrapper>
@@ -208,6 +242,8 @@ export const AddPetForm: React.FC = () => {
             type="text"
             placeholder="Pet’s Name"
             {...register('name')}
+            onBlur={() => handleBlur('name')}
+            onFocus={() => handleFocus('name')}
           />
           <ErrorMessage message={errors.name?.message} />
         </InputWrapper>
@@ -217,6 +253,8 @@ export const AddPetForm: React.FC = () => {
               type="date"
               placeholder="DD.MM.YYYY"
               {...register('birthday')}
+              onBlur={() => handleBlur('birthday')}
+              onFocus={() => handleFocus('birthday')}
             />
             <ErrorMessage message={errors.birthday?.message} />
           </InputWrapper>
@@ -232,6 +270,8 @@ export const AddPetForm: React.FC = () => {
                   (option as OptionType | null)?.value || null
                 )
               }
+              onBlur={() => handleBlur('species')}
+              onFocus={() => handleFocus('species')}
             />
             <ErrorMessage message={errors.species?.message} />
           </AddSelectTypeWrapper>
