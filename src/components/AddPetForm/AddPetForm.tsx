@@ -55,6 +55,7 @@ export const AddPetForm: React.FC = () => {
     reset,
     clearErrors,
     setError,
+    setValue,
   } = useForm<PetFormData>({
     resolver: yupResolver(addPetSchema),
   });
@@ -70,18 +71,20 @@ export const AddPetForm: React.FC = () => {
 
   const handleFilterChange = (field: string, value: string | null) => {
     setFilters(prev => ({ ...prev, [field]: value }));
-    // Видаляємо помилку, якщо користувач обрав стать
     if (field === 'sex' && value) {
-      clearErrors('sex');
+      setValue('sex', value || ''); // Синхронізація значення статі з формою
+      clearErrors('sex'); // Очищення помилки
     }
   };
 
+  // Додаємо uploadedImage у форму автоматично при зміні зображення
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setUploadedImage(imageUrl);
-      clearErrors('imgUrl'); // Видаляє помилку, коли завантажено зображення
+      setValue('imgUrl', imageUrl); // Встановлюємо значення imgUrl у форму
+      clearErrors('imgUrl'); // Очищаємо помилку, коли завантажено зображення
     }
   };
 
@@ -105,23 +108,24 @@ export const AddPetForm: React.FC = () => {
     fetchData();
   }, []);
 
- 
   const onSubmit = async (data: PetFormData) => {
-    // Перевірка наявності вибраної статі
     if (!filters.sex) {
       setError('sex', { message: 'Please select a gender' });
       return;
+    } else {
+      setValue('sex', filters.sex);
+      clearErrors('sex');
     }
 
-    // Перевірка наявності завантаженого зображення
     if (!uploadedImage) {
       setError('imgUrl', { message: 'Please upload an image' });
       return;
+    } else {
+      clearErrors('imgUrl'); // Очищення помилки, якщо зображення завантажене
     }
 
-    // Якщо помилок немає, переходимо до сабміту
     try {
-      const updatedData = { ...data, imgUrl: uploadedImage };
+      const updatedData = { ...data, imgUrl: uploadedImage, sex: filters.sex };
       const response = await fetch('/api/add-pet', {
         method: 'POST',
         headers: {
@@ -136,7 +140,8 @@ export const AddPetForm: React.FC = () => {
 
       toast.success('Pet added successfully!');
       reset();
-      setUploadedImage(null);
+      setUploadedImage(null); // Очищення завантаженого зображення
+      setFilters({ sex: null, type: null }); // Очищення стану фільтрів
 
       setTimeout(() => {
         navigate('/profile');
