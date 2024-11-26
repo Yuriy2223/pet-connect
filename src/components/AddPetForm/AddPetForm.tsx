@@ -108,7 +108,16 @@ export const AddPetForm: React.FC = () => {
     fetchData();
   }, []);
 
+  const [formattedDate, setFormattedDate] = useState('');
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const date = e.target.value;
+    setFormattedDate(new Date(date).toLocaleDateString('uk-UA')); // формат DD.MM.YYYY
+    setValue('birthday', date); // зберігаємо в форматі YYYY-MM-DD
+  };
+
   const onSubmit = async (data: PetFormData) => {
+    console.log(data);
     if (!filters.sex) {
       setError('sex', { message: 'Please select a gender' });
       return;
@@ -121,7 +130,7 @@ export const AddPetForm: React.FC = () => {
       setError('imgUrl', { message: 'Please upload an image' });
       return;
     } else {
-      clearErrors('imgUrl'); // Очищення помилки, якщо зображення завантажене
+      clearErrors('imgUrl');
     }
 
     try {
@@ -140,8 +149,8 @@ export const AddPetForm: React.FC = () => {
 
       toast.success('Pet added successfully!');
       reset();
-      setUploadedImage(null); // Очищення завантаженого зображення
-      setFilters({ sex: null, type: null }); // Очищення стану фільтрів
+      setUploadedImage(null);
+      setFilters({ sex: null, type: null });
 
       setTimeout(() => {
         navigate('/profile');
@@ -258,6 +267,7 @@ export const AddPetForm: React.FC = () => {
               type="date"
               placeholder="DD.MM.YYYY"
               {...register('birthday')}
+              onChange={handleDateChange}
               onBlur={() => handleBlur('birthday')}
               onFocus={() => handleFocus('birthday')}
             />
@@ -268,13 +278,17 @@ export const AddPetForm: React.FC = () => {
               options={typeOptions}
               placeholder="By type"
               {...register('species')}
-              value={filters.type}
-              onChange={option =>
-                handleFilterChange(
-                  'type',
-                  (option as OptionType | null)?.value || null
-                )
-              }
+              value={
+                typeOptions.find(
+                  option => option.value === filters.type?.value
+                ) || null
+              } // Пошук обраного об'єкта
+              onChange={option => {
+                const selectedOption = option as OptionType | null;
+                setFilters(prev => ({ ...prev, type: selectedOption })); // Оновлення фільтру з об'єктом
+                setValue('species', selectedOption?.value || ''); // Оновлення значення у формі
+                clearErrors('species');
+              }}
               onBlur={() => handleBlur('species')}
               onFocus={() => handleFocus('species')}
             />
