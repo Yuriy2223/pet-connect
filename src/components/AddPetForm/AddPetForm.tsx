@@ -116,51 +116,133 @@ export const AddPetForm: React.FC = () => {
     setValue('birthday', date); // зберігаємо в форматі YYYY-MM-DD
   };
 
+  // const onSubmit = async (data: PetFormData) => {
+  //   console.log(data);
+  //   if (!filters.sex) {
+  //     setError('sex', { message: 'Please select a gender' });
+  //     return;
+  //   } else {
+  //     setValue('sex', filters.sex);
+  //     clearErrors('sex');
+  //   }
+
+  //   if (!uploadedImage) {
+  //     setError('imgUrl', { message: 'Please upload an image' });
+  //     return;
+  //   } else {
+  //     clearErrors('imgUrl');
+  //   }
+
+  //   try {
+  //     const updatedData = { ...data, imgUrl: uploadedImage, sex: filters.sex };
+  //     const response = await fetch('/api/users/current/pets/add', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(updatedData),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('Failed to add pet. Try again.');
+  //     }
+
+  //     toast.success('Pet added successfully!');
+  //     reset();
+  //     setUploadedImage(null);
+  //     setFilters({ sex: null, type: null });
+
+  //     setTimeout(() => {
+  //       navigate('/profile');
+  //     }, 2000);
+  //   } catch (error: unknown) {
+  //     if (error instanceof Error) {
+  //       toast.error(error.message || 'An error occurred. Please try again.');
+  //     } else {
+  //       toast.error('An unknown error occurred. Please try again.');
+  //     }
+  //   }
+  // };
   const onSubmit = async (data: PetFormData) => {
     console.log(data);
+    // Перевірка статі
     if (!filters.sex) {
       setError('sex', { message: 'Please select a gender' });
       return;
-    } else {
-      setValue('sex', filters.sex);
-      clearErrors('sex');
     }
-
+  
+    // Перевірка зображення
     if (!uploadedImage) {
       setError('imgUrl', { message: 'Please upload an image' });
       return;
-    } else {
-      clearErrors('imgUrl');
     }
-
+  
     try {
-      const updatedData = { ...data, imgUrl: uploadedImage, sex: filters.sex };
-      const response = await fetch('/api/add-pet', {
+      // Перетворення локального зображення в File
+      const response = await fetch(uploadedImage);
+      const blob = await response.blob();
+      const imageFile = new File([blob], 'pet-image', { type: blob.type });
+  
+      // Створення FormData для завантаження зображення
+      const imageFormData = new FormData();
+      imageFormData.append('image', imageFile);
+  
+      // Завантаження зображення на сервер
+      const imageUploadResponse = await fetch('/api/upload-image', {
+        method: 'POST',
+        body: imageFormData
+      });
+  
+      if (!imageUploadResponse.ok) {
+        throw new Error('Image upload failed');
+      }
+  
+      // Отримання URL зображення з сервера
+      const { imageUrl } = await imageUploadResponse.json();
+  
+      // Підготовка даних для додавання домашнього улюбленця
+      const petData = {
+        ...data,
+        imgUrl: imageUrl,
+        sex: filters.sex,
+        species: filters.type?.value || '',
+        birthday: data.birthday
+      };
+  
+      // Надсилання даних про домашнього улюбленця
+      const addPetResponse = await fetch('/api/add-pet', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedData),
+        body: JSON.stringify(petData),
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to add pet. Try again.');
+  
+      if (!addPetResponse.ok) {
+        throw new Error('Failed to add pet');
       }
-
+  
+      // Успішне додавання
       toast.success('Pet added successfully!');
+      
+      // Скидання форми та стану
       reset();
       setUploadedImage(null);
       setFilters({ sex: null, type: null });
-
+  
+      // Перехід на сторінку профілю
       setTimeout(() => {
         navigate('/profile');
       }, 2000);
+  
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        toast.error(error.message || 'An error occurred. Please try again.');
-      } else {
-        toast.error('An unknown error occurred. Please try again.');
-      }
+      // Обробка помилок
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : 'An unknown error occurred';
+      
+      toast.error(errorMessage);
+      console.error(error);
     }
   };
 

@@ -107,7 +107,7 @@ export const AddFormWrapper = styled.div`
   background-color: ${({ theme }) => theme.white};
   padding: 28px 20px 20px;
 
-  border: 1px solid red; /** */
+  /* border: 1px solid red;  */
 
   @media (min-width: 320px) and (max-width: 374px) {
     width: 100%;
