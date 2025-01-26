@@ -36,7 +36,7 @@ export const registerUser = createAsyncThunk<
   }
   try {
     const response = await instance.post<RegisterResponse>(
-      '/users/signup',
+      '/api/users/signup',
       data
     );
 
@@ -67,7 +67,7 @@ export const loginUser = createAsyncThunk<
 
   try {
     const response = await instance.post<LoginResponse>(
-      '/users/signin',
+      '/api/users/signin',
       credentials
     );
 
