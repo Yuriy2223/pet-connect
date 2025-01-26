@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { loginSuccess, logout } from './slice';
 import { AppDispatch } from '../store';
-// import { AppDispatch, RootState } from '../store';
 
 // Типи даних для реєстрації та авторизації
 interface RegisterData {
@@ -52,12 +51,6 @@ export const registerUser = createAsyncThunk<
     toast.success('Registration successful! Welcome!');
     return result;
   } catch (error) {
-    //     toast.error(
-    //       'An error occurred during registration. Please try again later.'
-    //     );
-    //     return rejectWithValue('Registration failed');
-    //   }
-    // });
     console.error('Registration error:', error); // Вивід у консоль
     toast.error(
       error instanceof Error
@@ -94,10 +87,6 @@ export const loginUser = createAsyncThunk<
     toast.success('Login successful!');
     return result;
   } catch (error) {
-    //     toast.error('An error occurred during login. Please try again later.');
-    //     return rejectWithValue('Login failed');
-    //   }
-    // });
     console.error('Login error:', error); // Вивід у консоль
     toast.error(
       error instanceof Error
