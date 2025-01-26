@@ -40,6 +40,6 @@ const newsSlice = createSlice({
   },
 });
 
-export const { setNewsList, setSearchQuery, setCurrentPage } =
+export const { setNewsList, setSearchQuery, setCurrentPage, setTotalPages } =
   newsSlice.actions;
 export default newsSlice.reducer;
