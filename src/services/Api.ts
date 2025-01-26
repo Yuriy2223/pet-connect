@@ -1,3 +1,48 @@
+// import axios from 'axios';
+
+// const API_URL = 'https://petlove.b.goit.study';
+
+// // Створення екземпляра axios
+// export const instance = axios.create({
+//   baseURL: API_URL,
+// });
+
+// // Функція для встановлення токена
+// export const setToken = (token: string) => {
+//   instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+//   localStorage.setItem('token', token);
+// };
+
+// // Функція для очищення токена
+// export const clearToken = () => {
+//   delete instance.defaults.headers.common.Authorization;
+//   localStorage.removeItem('token');
+// };
+
+// // Інтерсептор для додавання токена
+// instance.interceptors.request.use(
+//   config => {
+//     const token = localStorage.getItem('token');
+//     if (token) {
+//       config.headers.Authorization = `Bearer ${token}`;
+//     }
+//     return config;
+//   },
+//   error => Promise.reject(error)
+// );
+
+// // Інтерсептор для обробки помилок
+// instance.interceptors.response.use(
+//   response => response,
+//   error => {
+//     if (error.response?.status === 401) {
+//       clearToken();
+//       window.location.href = '/login'; // Перенаправлення при помилці авторизації
+//     }
+//     return Promise.reject(error);
+//   }
+// );
+
 import axios from 'axios';
 
 const API_URL = 'https://petlove.b.goit.study';
@@ -5,30 +50,39 @@ const API_URL = 'https://petlove.b.goit.study';
 // Створення екземпляра axios
 export const instance = axios.create({
   baseURL: API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  },
 });
 
-// Функція для встановлення токена
-export const setToken = (token: string) => {
+// Ключ токена в localStorage
+const TOKEN_KEY = 'token';
+
+// Встановлення токена в інстанс axios і localStorage
+export const setToken = (token: string): void => {
   instance.defaults.headers.common.Authorization = `Bearer ${token}`;
-  localStorage.setItem('token', token);
+  localStorage.setItem(TOKEN_KEY, token);
 };
 
-// Функція для очищення токена
-export const clearToken = () => {
+// Очищення токена з інстансу axios і localStorage
+export const clearToken = (): void => {
   delete instance.defaults.headers.common.Authorization;
-  localStorage.removeItem('token');
+  localStorage.removeItem(TOKEN_KEY);
 };
 
-// Інтерсептор для додавання токена
+// Інтерсептор для автоматичного додавання токена
 instance.interceptors.request.use(
   config => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem(TOKEN_KEY);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  error => Promise.reject(error)
+  error => {
+    return Promise.reject(error);
+  }
 );
 
 // Інтерсептор для обробки помилок
@@ -36,8 +90,10 @@ instance.interceptors.response.use(
   response => response,
   error => {
     if (error.response?.status === 401) {
-      clearToken();
-      window.location.href = '/login'; // Перенаправлення при помилці авторизації
+      clearToken(); // Видаляємо токен, якщо авторизація недійсна
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login'; // Перенаправлення на сторінку логіну
+      }
     }
     return Promise.reject(error);
   }
