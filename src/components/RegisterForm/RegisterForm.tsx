@@ -89,34 +89,44 @@ export const RegisterForm: React.FC = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      console.log(data);
-      // const { confirmPassword, ...registrationData } = data;
-      await dispatch(registerUser(registrationData));
-      // console.log(registrationData); // тільки name, email, і password
-      toast.success(`Registration successful! Welcome, ${data.name}!`);
-      reset();
-      clearErrors();
+      const {
+        // confirmPassword,
+        ...registrationData
+      } = data;
 
-      // Очищаємо inputStates після сабміту
-      setInputStates({
-        name: undefined,
-        email: undefined,
-        password: undefined,
-        confirmPassword: undefined,
-      });
+      // Викликаємо dispatch для реєстрації користувача
+      await dispatch(registerUser(registrationData))
+        .unwrap() // обробка результату або помилки
+        .then(() => {
+          toast.success(`Registration successful! Welcome, ${data.name}!`);
+          reset();
+          clearErrors();
 
-      // Очищаємо стан фокуса полів
-      setIsFieldFocused({
-        name: false,
-        email: false,
-        password: false,
-        confirmPassword: false,
-      });
+          // Очищаємо inputStates та стан фокуса полів після успішної реєстрації
+          setInputStates({
+            name: undefined,
+            email: undefined,
+            password: undefined,
+            confirmPassword: undefined,
+          });
 
-      // Перенаправляємо на сторінку логіну після успішної реєстрації
-      navigate('/login'); // Тут ви вказуєте шлях до сторінки логіну
-    } catch {
-      toast.error('This email is already in use.');
+          setIsFieldFocused({
+            name: false,
+            email: false,
+            password: false,
+            confirmPassword: false,
+          });
+
+          // Перенаправлення на сторінку логіну після успішної реєстрації
+          navigate('/login');
+        })
+        .catch(error => {
+          // Обробка помилок
+          toast.error(error || 'This email is already in use.');
+        });
+    } catch (error) {
+      toast.error('An unexpected error occurred. Please try again later.');
+      console.error(error); // Виводимо помилку в консоль для діагностики
     }
   };
 
