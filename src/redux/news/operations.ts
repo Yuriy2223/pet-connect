@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { AppDispatch } from '../store';
 import { setNewsList, setCurrentPage, setTotalPages } from './slice';
+import { toast } from 'react-toastify';
 
 export const fetchNews =
   (page: number = 1, keyword: string = '', limit: number = 6) =>
@@ -25,5 +26,6 @@ export const fetchNews =
       }
     } catch (error) {
       console.error('Error fetching news:', error);
+      toast.error('Something went wrong while loading news.');
     }
   };
