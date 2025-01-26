@@ -25,7 +25,7 @@ interface LoginResponse {
   token: string;
 }
 
-// Реєстрації користувача
+// Реєстрація користувача
 export const registerUser = createAsyncThunk<
   RegisterResponse,
   RegisterData,
