@@ -29,7 +29,6 @@ import {
   WrongIcon,
 } from './LoginForm.styled';
 
-
 interface FormData {
   email: string;
   password: string;
@@ -59,7 +58,6 @@ export const LoginForm: React.FC = () => {
     email: false,
     password: false,
   });
-  
 
   const handleBlur = async (field: keyof typeof inputStates) => {
     const isValid = await trigger(field);
@@ -82,26 +80,34 @@ export const LoginForm: React.FC = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      console.log(data);
-      dispatch(loginUser(data));
-      
-      toast.success('Login successful!');
-      reset();
-      clearErrors();
+      await dispatch(loginUser(data))
+        .unwrap()
+        .then(() => {
+          toast.success('Login successful!');
+          reset();
+          clearErrors();
 
-      // Очищаємо inputStates після сабміту
-      setInputStates({
-        email: undefined,
-        password: undefined,
-      });
+          setInputStates({
+            email: undefined,
+            password: undefined,
+          });
 
-      setIsFieldFocused({
-        email: false,
-        password: false,
-      });
-      navigate('/profile'); 
-    } catch {
-      toast.error('Something went wrong!');
+          setIsFieldFocused({
+            email: false,
+            password: false,
+          });
+
+          navigate('/profile');
+        })
+        .catch(error => {
+          toast.error(error || 'Login failed. Please check your credentials.');
+        });
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : 'An unexpected error occurred. Please try again later.';
+      toast.error(errorMessage);
     }
   };
 
