@@ -88,9 +88,6 @@ export const RegisterForm: React.FC = () => {
   };
 
   const onSubmit = async (data: FormData) => {
-    console.log('onSubmit:', data); /**=========------------------------- */
-
-    // Перевірка на співпадіння паролів
     if (data.password !== data.confirmPassword) {
       toast.error('Passwords do not match!');
       return;
@@ -99,15 +96,13 @@ export const RegisterForm: React.FC = () => {
       /*// eslint-disable-next-line @typescript-eslint/no-unused-vars*/
       const { confirmPassword, ...registrationData } = data;
 
-      // Викликаємо dispatch для реєстрації користувача
       await dispatch(registerUser(registrationData))
-        .unwrap() // обробка результату або помилки
+        .unwrap()
         .then(() => {
           toast.success(`Registration successful! Welcome, ${data.name}!`);
           reset();
           clearErrors();
 
-          // Очищаємо inputStates та стан фокуса полів після успішної реєстрації
           setInputStates({
             name: undefined,
             email: undefined,
@@ -122,16 +117,17 @@ export const RegisterForm: React.FC = () => {
             confirmPassword: false,
           });
 
-          // Перенаправлення на сторінку логіну після успішної реєстрації
           navigate('/login');
         })
         .catch(error => {
-          // Обробка помилок
           toast.error(error || 'This email is already in use.');
         });
-    } catch (error) {
-      toast.error('An unexpected error occurred. Please try again later.');
-      console.error(error); // Виводимо помилку в консоль для діагностики
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : 'An unexpected error occurred. Please try again later.';
+      toast.error(errorMessage);
     }
   };
 
