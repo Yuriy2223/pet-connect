@@ -34,8 +34,12 @@ const newsSlice = createSlice({
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload;
     },
+    setTotalPages: (state, action: PayloadAction<number>) => {
+      state.totalPages = action.payload;
+    },
   },
 });
 
-export const { setNewsList, setSearchQuery, setCurrentPage } = newsSlice.actions;
+export const { setNewsList, setSearchQuery, setCurrentPage } =
+  newsSlice.actions;
 export default newsSlice.reducer;
