@@ -88,11 +88,16 @@ export const RegisterForm: React.FC = () => {
   };
 
   const onSubmit = async (data: FormData) => {
+    console.log('onSubmit:', data); /**========= */
+
+    // Перевірка на співпадіння паролів
+    if (data.password !== data.confirmPassword) {
+      toast.error('Passwords do not match!');
+      return;
+    }
     try {
-      const {
-        // confirmPassword,
-        ...registrationData
-      } = data;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { confirmPassword, ...registrationData } = data;
 
       // Викликаємо dispatch для реєстрації користувача
       await dispatch(registerUser(registrationData))
