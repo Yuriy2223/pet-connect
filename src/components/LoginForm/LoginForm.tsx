@@ -4,6 +4,9 @@ import { toast } from 'react-toastify';
 import { loginSchema } from '../Common/ValidationSchemas';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
+import { loginUser } from '../../redux/auth/operations';
 import {
   Button,
   ErrorText,
@@ -26,12 +29,14 @@ import {
   WrongIcon,
 } from './LoginForm.styled';
 
+
 interface FormData {
   email: string;
   password: string;
 }
 
 export const LoginForm: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const {
     register,
     handleSubmit,
@@ -43,6 +48,7 @@ export const LoginForm: React.FC = () => {
     resolver: yupResolver(loginSchema),
   });
   const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [inputStates, setInputStates] = useState({
     email: undefined,
@@ -53,6 +59,7 @@ export const LoginForm: React.FC = () => {
     email: false,
     password: false,
   });
+  
 
   const handleBlur = async (field: keyof typeof inputStates) => {
     const isValid = await trigger(field);
@@ -76,6 +83,7 @@ export const LoginForm: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     try {
       console.log(data);
+      dispatch(loginUser(data));
       
       toast.success('Login successful!');
       reset();

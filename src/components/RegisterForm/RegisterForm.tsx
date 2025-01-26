@@ -4,6 +4,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { registerSchema } from '../Common/ValidationSchemas';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
+import { registerUser } from '../../redux/auth/operations';
 import {
   FormWrapper,
   InputWrapper,
@@ -34,6 +37,7 @@ interface FormData {
 }
 
 export const RegisterForm: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const {
     register,
     handleSubmit,
@@ -87,7 +91,7 @@ export const RegisterForm: React.FC = () => {
     try {
       console.log(data);
       // const { confirmPassword, ...registrationData } = data;
-
+      await dispatch(registerUser(registrationData));
       // console.log(registrationData); // тільки name, email, і password
       toast.success(`Registration successful! Welcome, ${data.name}!`);
       reset();
