@@ -31,6 +31,9 @@ export const registerUser = createAsyncThunk<
   RegisterData,
   { rejectValue: string }
 >('auth/registerUser', async (data, { rejectWithValue, dispatch }) => {
+  if (!data.name || !data.email || !data.password) {
+    return rejectWithValue('All fields (name, email, password) are required.');
+  }
   try {
     const response = await fetch('/api/users/signup', {
       method: 'POST',
@@ -69,6 +72,10 @@ export const loginUser = createAsyncThunk<
   LoginData,
   { rejectValue: string }
 >('auth/loginUser', async (credentials, { rejectWithValue, dispatch }) => {
+  if (!credentials.email || !credentials.password) {
+    return rejectWithValue('Email and password are required.');
+  }
+
   try {
     const response = await fetch('/api/users/signin', {
       method: 'POST',
