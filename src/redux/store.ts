@@ -16,15 +16,13 @@ import noticesReducer from './notices/slice';
 import newsReducer from './news/slice';
 import friendsReducer from './friends/slice';
 
-// Конфігурація для redux-persist
 const persistConfig = {
   key: 'root',
   storage,
   whitelist: ['auth'],
-  // whitelist: ['auth', 'news'], // Додаємо 'news' до whitelist
+  // whitelist: ['auth', 'news'],
 };
 
-// Об'єднання ред'юсерів
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
@@ -33,10 +31,8 @@ const rootReducer = combineReducers({
   friends: friendsReducer,
 });
 
-// Створення persistReducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// Налаштування store
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
