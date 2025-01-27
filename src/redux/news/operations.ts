@@ -1,28 +1,51 @@
 import axios from 'axios';
 import { AppDispatch } from '../store';
-import { setNewsList, setCurrentPage, setTotalPages } from './slice';
+import {
+  setNewsList,
+  setPerPage,
+  setTotalPages,
+  setCurrentPage,
+} from './slice';
 import { toast } from 'react-toastify';
 
+interface GetNewsResponse {
+  page: number;
+  perPage: number;
+  totalPages: number;
+  results: {
+    _id: string;
+    imgUrl: string;
+    title: string;
+    text: string;
+    date: string;
+    url: string;
+  }[];
+}
+
 export const fetchNews =
-  (page: number = 1, keyword: string = '', limit: number = 6) =>
+  (page: number = 1, keyword: string = '', perPage: number = 6) =>
   async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.get('/news', {
+      const response = await axios.get<GetNewsResponse>('/api/news/', {
         params: {
           page,
           keyword,
-          limit,
+          perPage,
         },
       });
 
+      console.log('Server response:', response.data);
+
       if (response.status === 200) {
-        const { results, totalPages } = response.data;
+        const { results, totalPages, page, perPage } = response.data;
 
         dispatch(setNewsList(results));
         dispatch(setCurrentPage(page));
+        dispatch(setPerPage(perPage));
         dispatch(setTotalPages(totalPages));
       } else {
         console.error('Unexpected response status:', response.status);
+        toast.error('Failed to fetch news. Please try again.');
       }
     } catch (error) {
       console.error('Error fetching news:', error);

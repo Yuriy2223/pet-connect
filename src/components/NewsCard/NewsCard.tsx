@@ -11,33 +11,31 @@ import {
   ReadMoreLink,
 } from './NewsCard.styled';
 
-interface NewsCardProps {
-  imageUrl: string;
+export interface NewsCardProps {
+  _id: string;
+  imgUrl: string;
   title: string;
-  description: string;
+  text: string;
   date: string;
-  link: string;
+  url: string;
+  // id: string;
 }
 
 export const NewsCard: React.FC<NewsCardProps> = ({
-  // imageUrl,
+  imgUrl,
   title,
-  description,
+  text,
   date,
-  link,
+  url,
 }) => {
   return (
     <NewsCardContainer>
-      <NewsImage
-        // src={imageUrl || defaultImage}
-        src={defaultImage}
-        alt={title}
-      />
+      <NewsImage src={imgUrl || defaultImage} alt={title} />
       <NewsTitle>{title}</NewsTitle>
-      <NewsDescription>{description}</NewsDescription>
+      <NewsDescription>{text}</NewsDescription>
       <NewsFooter>
         <NewsDate>{date}</NewsDate>
-        <ReadMoreLink href={link} target="_blank" rel="noopener noreferrer">
+        <ReadMoreLink href={url} target="_blank" rel="noopener noreferrer">
           Read more
         </ReadMoreLink>
       </NewsFooter>
