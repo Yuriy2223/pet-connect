@@ -34,8 +34,6 @@ export const fetchNews =
         },
       });
 
-      console.log('Server response:', response.data);
-
       if (response.status === 200) {
         const { results, totalPages, page, perPage } = response.data;
 

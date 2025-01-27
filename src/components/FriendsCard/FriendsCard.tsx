@@ -11,7 +11,9 @@ import {
   Name,
   InfolinkWrapper,
 } from './FriendsCard.styled';
+
 import defaultImage from '../../assets/imeges/deffLogoFrends.webp';
+
 interface WorkDay {
   isOpen: boolean;
   from?: string;
@@ -30,7 +32,7 @@ interface FriendItemProps {
 
 export const FriendsCard: React.FC<FriendItemProps> = ({
   title,
-  // imageUrl,
+  imageUrl,
   address,
   addressUrl,
   phone,
@@ -54,13 +56,7 @@ export const FriendsCard: React.FC<FriendItemProps> = ({
       </WorkingHours>
       <DatalisWrapper>
         <LogoWrapper>
-          <ImgLogo
-            src={
-              // imageUrl ||
-              defaultImage
-            }
-            alt="logo images"
-          />
+          <ImgLogo src={imageUrl || defaultImage} alt="logo images" />
         </LogoWrapper>
         <InfolinkWrapper>
           <Name>{title}</Name>

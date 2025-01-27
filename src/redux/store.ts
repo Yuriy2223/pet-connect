@@ -14,6 +14,7 @@ import authReducer from './auth/slice';
 import userReducer from './user/slice';
 import noticesReducer from './notices/slice';
 import newsReducer from './news/slice';
+import friendsReducer from './friends/slice';
 
 // Конфігурація для redux-persist
 const persistConfig = {
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   notices: noticesReducer,
   news: newsReducer,
+  friends: friendsReducer,
 });
 
 // Створення persistReducer
@@ -54,7 +56,7 @@ export const persistor = persistStore(store);
 // import { configureStore } from '@reduxjs/toolkit';
 // import {
 //   persistStore,
-//   persistReducer,
+//   // persistReducer,
 //   FLUSH,
 //   REHYDRATE,
 //   PAUSE,
@@ -62,24 +64,26 @@ export const persistor = persistStore(store);
 //   PURGE,
 //   REGISTER,
 // } from 'redux-persist';
-// import storage from 'redux-persist/lib/storage';
-// import authReducer from './auth/slice';
+// // import storage from 'redux-persist/lib/storage';
+// // import authReducer from './auth/slice';
 // import userReducer from './user/slice';
 // import noticesReducer from './notices/slice';
 // import newsReducer from './news/slice';
+// import friendsReducer from './friends/slice';
 
-// const persistConfig = {
-//   key: 'root-auth',
-//   storage,
-//   whitelist: ['auth'],
-// };
+// // const persistConfig = {
+// //   key: 'pet-auth',
+// //   storage,
+// //   whitelist: ['token'],
+// // };
 
 // export const store = configureStore({
 //   reducer: {
-//     auth: persistReducer(persistConfig, authReducer),
+//     // auth: persistReducer(persistConfig, authReducer),
 //     user: userReducer,
 //     notices: noticesReducer,
 //     news: newsReducer,
+//     friends: friendsReducer,
 //   },
 //   middleware: getDefaultMiddleware =>
 //     getDefaultMiddleware({
@@ -89,6 +93,6 @@ export const persistor = persistStore(store);
 //     }),
 // });
 
-// export type AppDispatch = typeof store.dispatch;
-// export type RootState = ReturnType<typeof store.getState>;
+// // export type AppDispatch = typeof store.dispatch;
+// // export type RootState = ReturnType<typeof store.getState>;
 // export const persistor = persistStore(store);
