@@ -1,19 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Nav } from '../Nav/Nav';
-import { AuthNav } from '../AuthNav/AuthNav';
 import { UserNav } from '../UserNav/UserNav';
-
-const DesktopMenuContainer = styled.nav`
-  display: none;
-
-  @media (min-width: 1280px) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 70%;
-  }
-`;
+import { AuthNav } from '../AuthNav/AuthNav';
+import { DesktopMenuContainer } from './Header.styled';
 
 interface DesktopMenuProps {
   isAuthenticated: boolean;
@@ -32,13 +21,13 @@ export const DesktopMenu: React.FC<DesktopMenuProps> = ({
     <DesktopMenuContainer>
       <Nav />
       {isAuthenticated ? (
-        <AuthNav />
-      ) : (
         <UserNav
           userName={userName}
           userAvatar={userAvatar}
           onLogout={onLogout}
         />
+      ) : (
+        <AuthNav />
       )}
     </DesktopMenuContainer>
   );

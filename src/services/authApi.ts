@@ -30,5 +30,5 @@ export const loginUserApi = async (
 
 // logout
 export const logOutApi = async (): Promise<void> => {
-  await instance.post('/api/users/logout');
+  await instance.post('/api/users/signout');
 };
