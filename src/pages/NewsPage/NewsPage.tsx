@@ -3,12 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SearchField } from '../../components/Common/SearchField/SearchField';
 import { NewsCard } from '../../components/NewsCard/NewsCard';
 import { Pagination } from '../../components/Pagination/Pagination';
-import {
-  NewsList,
-  NewsPageContainer,
-  NewsSearchWrapper,
-  PaginationWrapper,
-} from './NewsPage.styled';
 import { AppDispatch } from '../../redux/store';
 import { fetchNews } from '../../redux/news/operations';
 import {
@@ -17,6 +11,12 @@ import {
   selectCurrentPage,
   selectPerPage,
 } from '../../redux/news/selectors';
+import {
+  NewsList,
+  NewsPageContainer,
+  NewsSearchWrapper,
+  PaginationWrapper,
+} from './NewsPage.styled';
 
 export const NewsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,16 +27,16 @@ export const NewsPage: React.FC = () => {
   const perPage = useSelector(selectPerPage);
 
   useEffect(() => {
-    dispatch(fetchNews(currentPage, searchQuery, perPage));
+    dispatch(fetchNews({ page: currentPage, keyword: searchQuery, perPage }));
   }, [currentPage, searchQuery, perPage, dispatch]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    dispatch(fetchNews(1, query, perPage));
+    dispatch(fetchNews({ page: 1, keyword: query, perPage }));
   };
 
   const handlePageChange = (page: number) => {
-    dispatch(fetchNews(page, searchQuery, perPage));
+    dispatch(fetchNews({ page, keyword: searchQuery, perPage }));
   };
 
   return (
@@ -67,8 +67,6 @@ export const NewsPage: React.FC = () => {
 
       <PaginationWrapper>
         <Pagination
-          // totalItems={totalPages * perPage} // Загальна кількість новин
-          // itemsPerPage={perPage} // Ліміт новин на сторінку
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={handlePageChange}

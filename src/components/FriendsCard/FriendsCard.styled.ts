@@ -90,7 +90,7 @@ export const InfoList = styled.div`
   flex-direction: column;
   gap: 8px;
 
-  li {
+  div {
     font-weight: 500;
     font-size: 14px;
     line-height: 1.29;

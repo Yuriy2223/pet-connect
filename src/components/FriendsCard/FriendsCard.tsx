@@ -30,6 +30,18 @@ interface FriendItemProps {
   workDays: WorkDay[];
 }
 
+const getWorkingHours = (workDays: WorkDay[]): string => {
+  if (!workDays || workDays.length === 0) return 'No hours available';
+
+  const today = new Date().getDay();
+  const todayWorkDay = workDays[today === 0 ? 6 : today - 1];
+
+  if (todayWorkDay && todayWorkDay.isOpen) {
+    return `${todayWorkDay.from || 'N/A'} - ${todayWorkDay.to || 'N/A'}`;
+  }
+  return 'Closed today';
+};
+
 export const FriendsCard: React.FC<FriendItemProps> = ({
   title,
   imageUrl,
@@ -39,15 +51,7 @@ export const FriendsCard: React.FC<FriendItemProps> = ({
   email,
   workDays,
 }) => {
-  // Визначаємо сьогоднішній день тижня
-  const today = new Date().getDay(); // Повертає індекс дня (0 - Неділя, 1 - Понеділок...)
-  const todayWorkDay = workDays[today - 1]; // Оскільки масив починається з понеділка
-
-  // Перевіряємо чи існує todayWorkDay і чи має воно властивість isOpen
-  const workingHours =
-    todayWorkDay && todayWorkDay.isOpen
-      ? `${todayWorkDay.from} - ${todayWorkDay.to}`
-      : 'Closed today';
+  const workingHours = getWorkingHours(workDays);
 
   return (
     <CardContainer>
@@ -61,18 +65,18 @@ export const FriendsCard: React.FC<FriendItemProps> = ({
         <InfolinkWrapper>
           <Name>{title}</Name>
           <InfoList>
-            <li>
-              Email:<ContactLink href={`mailto:${email}`}> {email}</ContactLink>
-            </li>
-            <li>
+            <div>
+              Email: <ContactLink href={`mailto:${email}`}>{email}</ContactLink>
+            </div>
+            <div>
               Address:
               <ContactLink href={addressUrl} target="_blank">
                 {address}
               </ContactLink>
-            </li>
-            <li>
-              Phone: <ContactLink href={`tel:${phone}`}> {phone}</ContactLink>
-            </li>
+            </div>
+            <div>
+              Phone: <ContactLink href={`tel:${phone}`}>{phone}</ContactLink>
+            </div>
           </InfoList>
         </InfolinkWrapper>
       </DatalisWrapper>

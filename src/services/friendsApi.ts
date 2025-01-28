@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { Friend } from '../redux/friends/slice';
+import { instance } from './Api';
+import { Friend } from '../redux/friends/types';
 
 export const fetchFriendsApi = async (): Promise<Friend[]> => {
-  const response = await axios.get<Friend[]>('/api/friends');
+  const response = await instance.get<Friend[]>('/api/friends');
   return response.data;
 };

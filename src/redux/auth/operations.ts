@@ -1,93 +1,66 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { loginSuccess, logout } from './slice';
-import { AppDispatch } from '../store';
-import { instance } from '../../services/Api';
+import {
+  registerUserApi,
+  loginUserApi,
+  logOutApi,
+} from '../../services/authApi';
+import {
+  RegisterData,
+  LoginData,
+  RegisterResponse,
+  LoginResponse,
+} from './types';
 
-interface RegisterData {
-  name: string;
-  email: string;
-  password: string;
-}
-
-interface LoginData {
-  email: string;
-  password: string;
-}
-
-interface RegisterResponse {
-  user: { id: string; name: string; email: string };
-  token: string;
-}
-
-interface LoginResponse {
-  user: { id: string; name: string; email: string };
-  token: string;
-}
-
-// Реєстрація користувача
+// Register
 export const registerUser = createAsyncThunk<
   RegisterResponse,
   RegisterData,
   { rejectValue: string }
->('auth/registerUser', async (data, { rejectWithValue, dispatch }) => {
-  if (!data.name || !data.email || !data.password) {
-    return rejectWithValue('All fields (name, email, password) are required.');
-  }
+>('auth/registerUser', async (data, { rejectWithValue }) => {
   try {
-    const response = await instance.post<RegisterResponse>(
-      '/api/users/signup',
-      data
-    );
-
-    const result = response.data;
-    dispatch(loginSuccess({ user: result.user, token: result.token }));
-    toast.success('Registration successful! Welcome!');
-    return result;
+    return await registerUserApi(data);
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      const errorMessage =
-        error.message || 'Registration failed. Please try again.';
-      toast.error(errorMessage);
-      return rejectWithValue(errorMessage);
-    }
-    return rejectWithValue('An unexpected error occurred.');
+    const message =
+      error instanceof Error
+        ? error.message
+        : 'Registration failed. Please try again.';
+    toast.error(message);
+    return rejectWithValue(message);
   }
 });
 
-// Авторизація користувача
+// Login
 export const loginUser = createAsyncThunk<
   LoginResponse,
   LoginData,
   { rejectValue: string }
->('auth/loginUser', async (credentials, { rejectWithValue, dispatch }) => {
-  if (!credentials.email || !credentials.password) {
-    return rejectWithValue('Email and password are required.');
-  }
-
+>('auth/loginUser', async (credentials, { rejectWithValue }) => {
   try {
-    const response = await instance.post<LoginResponse>(
-      '/api/users/signin',
-      credentials
-    );
-
-    const result = response.data;
-    dispatch(loginSuccess({ user: result.user, token: result.token }));
-    toast.success('Login successful!');
-    return result;
+    return await loginUserApi(credentials);
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      const errorMessage = error.message || 'Login failed. Please try again.';
-      toast.error(errorMessage);
-      return rejectWithValue(errorMessage);
-    }
-    return rejectWithValue('An unexpected error occurred.');
+    const message =
+      error instanceof Error
+        ? error.message
+        : 'Login failed. Please try again.';
+    toast.error(message);
+    return rejectWithValue(message);
   }
 });
 
-// Вихід з облікового запису
-export const logoutUser = () => (dispatch: AppDispatch) => {
-  dispatch(logout());
-  localStorage.clear();
-  toast.success('Logout successful!');
-};
+// logout
+export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
+  'auth/logOut',
+  async (_, { rejectWithValue }) => {
+    try {
+      return await logOutApi();
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'Logout failed. Please try again.';
+      toast.error(message);
+      return rejectWithValue(message);
+    }
+  }
+);
