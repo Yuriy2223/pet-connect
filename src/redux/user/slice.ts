@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchUserProfile, addPetAsync, removePetAsync } from './operations';
-import { GetUserProfileResponse, Pet, UserState } from './types';
+import { Pet, UserState } from './types';
 
 const initialState: UserState = {
   profile: null,
@@ -14,39 +13,62 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(fetchUserProfile.pending, state => {
+      // Get current user info
+      .addCase(fetchUserCurrent.pending, state => {
         state.loading = true;
-        state.error = null;
       })
-      .addCase(
-        fetchUserProfile.fulfilled,
-        (state, action: PayloadAction<GetUserProfileResponse>) => {
-          state.profile = action.payload;
-          state.loading = false;
-        }
-      )
-      .addCase(fetchUserProfile.rejected, (state, action) => {
+      .addCase(fetchUserCurrent.fulfilled, (state, action) => {
+        state.profile = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchUserCurrent.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
-      .addCase(addPetAsync.pending, state => {
+      //  Get current user full info
+      .addCase(fetchUserFullInfo.pending, state => {
+        state.loading = true;
+      })
+      .addCase(fetchUserFullInfo.fulfilled, (state, action) => {
+        state.profile = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchUserFullInfo.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      // User edit
+      .addCase(updateUserProfile.pending, state => {
+        state.loading = true;
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.profile = action.payload;
+        state.loading = false;
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      // User adds pet
+      .addCase(addUserPet.pending, state => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(addPetAsync.fulfilled, (state, action: PayloadAction<Pet>) => {
+      .addCase(addUserPet.fulfilled, (state, action: PayloadAction<Pet>) => {
         state.profile?.pets.push(action.payload);
         state.loading = false;
       })
-      .addCase(addPetAsync.rejected, (state, action) => {
+      .addCase(addUserPet.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
-      .addCase(removePetAsync.pending, state => {
+      // Remove a pet from user pets
+      .addCase(removeUserPet.pending, state => {
         state.loading = true;
         state.error = null;
       })
       .addCase(
-        removePetAsync.fulfilled,
+        removeUserPet.fulfilled,
         (state, action: PayloadAction<string>) => {
           if (state.profile) {
             state.profile.pets = state.profile.pets.filter(
@@ -56,7 +78,7 @@ const userSlice = createSlice({
           state.loading = false;
         }
       )
-      .addCase(removePetAsync.rejected, (state, action) => {
+      .addCase(removeUserPet.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });
