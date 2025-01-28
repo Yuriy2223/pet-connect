@@ -31,9 +31,9 @@ const authSlice = createSlice({
         }
       )
       .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
         state.error =
           action.payload || 'An error occurred during registration.';
-        state.loading = false;
       })
       // Login
       .addCase(loginUser.pending, state => {
@@ -58,9 +58,17 @@ const authSlice = createSlice({
         state.loading = false;
       })
       // logout
+      .addCase(logoutUser.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(logoutUser.fulfilled, () => {
         localStorage.removeItem('token');
         return initialState;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'An error occurred while logging out.';
       });
   },
 });
