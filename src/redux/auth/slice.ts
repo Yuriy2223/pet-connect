@@ -26,6 +26,10 @@ const authSlice = createSlice({
           state.loading = false;
         }
       )
+      .addCase(registerUser.pending, state => {
+        state.loading = true; // Додано обробку стану `pending`    ??? додав блок 
+        state.error = null;
+      })
       .addCase(registerUser.rejected, (state, action) => {
         state.error =
           action.payload || 'An error occurred during registration.';
@@ -45,6 +49,11 @@ const authSlice = createSlice({
           state.loading = false;
         }
       )
+      .addCase(loginUser.pending, state => {
+        state.loading = true; // Додано обробку стану `pending`   ??? додав блок 
+        state.error = null;
+      })
+
       .addCase(loginUser.rejected, (state, action) => {
         state.error = action.payload || 'An error occurred during login.';
         state.loading = false;
