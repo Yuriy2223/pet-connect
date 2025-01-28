@@ -21,7 +21,7 @@ import { newsReducer } from './news/slice';
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token-pet'],
+  whitelist: ['token'],
 };
 
 const persistedAuthReducer = persistReducer<AuthState>(
