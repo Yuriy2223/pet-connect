@@ -21,14 +21,12 @@ export const DesktopMenu: React.FC<DesktopMenuProps> = ({
     <DesktopMenuContainer>
       <Nav />
       {isAuthenticated ? (
-        // Виправлено: Використовується UserNav для відображення меню авторизованого користувача
         <UserNav
           userName={userName}
           userAvatar={userAvatar}
           onLogout={onLogout}
         />
       ) : (
-        // Виправлено: Відсутність авторизації відображає навігацію для гостей
         <AuthNav />
       )}
     </DesktopMenuContainer>
