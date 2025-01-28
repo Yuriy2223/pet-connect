@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Logo } from '../Logo/Logo';
 import { MobileMenu } from './MobileMenu';
 import { DesktopMenu } from './DesktopMenu';
-import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../redux/store';
 import { selectIsSignedIn, selectUser } from '../../redux/auth/selectors';
 import { logoutUser } from '../../redux/auth/operations';
