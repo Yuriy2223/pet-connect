@@ -15,7 +15,7 @@ import { AuthState } from './auth/types';
 import { authReducer } from './auth/slice';
 import { friendsReducer } from './friends/slice';
 import { newsReducer } from './news/slice';
-// import { userReducer } from './user/slice';
+import { userReducer } from './user/slice';
 // import { noticesReducer } from './notices/slice';
 
 const authPersistConfig = {
@@ -33,10 +33,10 @@ export const store = configureStore({
   reducer: {
     // auth: persistReducer(authPersistConfig, authReducer),
     auth: persistedAuthReducer,
-    // user: userReducer,
-    // notices: noticesReducer,
+    user: userReducer,
     news: newsReducer,
     friends: friendsReducer,
+    // notices: noticesReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
