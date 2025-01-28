@@ -17,6 +17,10 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       // Register
+      .addCase(registerUser.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(
         registerUser.fulfilled,
         (state, action: PayloadAction<{ user: User }>) => {
@@ -26,16 +30,16 @@ const authSlice = createSlice({
           state.loading = false;
         }
       )
-      .addCase(registerUser.pending, state => {
-        state.loading = true; // Додано обробку стану `pending`    ??? додав блок 
-        state.error = null;
-      })
       .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
         state.error =
           action.payload || 'An error occurred during registration.';
-        state.loading = false;
       })
       // Login
+      .addCase(loginUser.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(
         loginUser.fulfilled,
         (state, action: PayloadAction<{ user: User; token: string }>) => {
@@ -49,19 +53,22 @@ const authSlice = createSlice({
           state.loading = false;
         }
       )
-      .addCase(loginUser.pending, state => {
-        state.loading = true; // Додано обробку стану `pending`   ??? додав блок 
-        state.error = null;
-      })
-
       .addCase(loginUser.rejected, (state, action) => {
         state.error = action.payload || 'An error occurred during login.';
         state.loading = false;
       })
       // logout
+      .addCase(logoutUser.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(logoutUser.fulfilled, () => {
         localStorage.removeItem('token');
         return initialState;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'An error occurred while logging out.';
       });
   },
 });
