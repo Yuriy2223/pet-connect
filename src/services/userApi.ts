@@ -1,37 +1,41 @@
-import { GetUserProfileResponse, Pet } from '../redux/user/types';
 import { instance } from './Api';
+import { PetUProfile, UserProfile } from '../redux/user/types';
 
 // Get current user info
-export const fetchUserCurrentApi =
-  async (): Promise<GetUserProfileResponse> => {
-    const response = await instance.get<>(
-      '/api/user/profile'
-    );
-    return response.data;
-  };
-
-//  Get current user full info
-export const fetchUserFullInfoApi = async (): Promise<> => {
-  const response = await instance.get<>('/api/user/profile');
+export const fetchUserCurrentApi = async (): Promise<UserProfile> => {
+  const response = await instance.get<UserProfile>('/api/user/profile');
   return response.data;
 };
 
-// User edit
-export const updateUserProfileApi = async (): Promise<> => {
-  const response = await instance.patch<>('/api/user/profile');
+// Get full user info
+export const fetchUserFullInfoApi = async (): Promise<UserProfile> => {
+  const response = await instance.get<UserProfile>('/api/user/profile/full');
   return response.data;
 };
 
-// Add Pet
-export const addUserPetApi = async (petData: Partial<Pet>): Promise<Pet> => {
-  const response = await instance.post<Pet>(
-    '/api/users/current/pets/add',
+// Update user profile
+export const updateUserProfileApi = async (
+  userData: Partial<UserProfile>
+): Promise<UserProfile> => {
+  const response = await instance.patch<UserProfile>(
+    '/api/user/profile',
+    userData
+  );
+  return response.data;
+};
+
+// Add pet
+export const addUserPetApi = async (
+  petData: Partial<PetUProfile>
+): Promise<PetUProfile> => {
+  const response = await instance.post<PetUProfile>(
+    '/api/users/current/pets',
     petData
   );
   return response.data;
 };
 
-// Remove Pet
+// Remove pet
 export const removeUserPetApi = async (petId: string): Promise<void> => {
-  await instance.delete(`/api/users/current/pets/remove/${petId}`);
+  await instance.delete(`/api/users/current/pets/${petId}`);
 };

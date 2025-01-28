@@ -1,5 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Pet, UserState } from './types';
+import { PetUProfile, UserProfile, UserState } from './types';
+import {
+  addUserPet,
+  fetchFullUserInfo,
+  fetchUserCurrent,
+  removeUserPet,
+  updateUserProfile,
+} from './operations';
 
 const initialState: UserState = {
   profile: null,
@@ -16,35 +23,44 @@ const userSlice = createSlice({
       // Get current user info
       .addCase(fetchUserCurrent.pending, state => {
         state.loading = true;
+        state.error = null;
       })
       .addCase(fetchUserCurrent.fulfilled, (state, action) => {
         state.profile = action.payload;
         state.loading = false;
+        state.error = null;
       })
       .addCase(fetchUserCurrent.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
       //  Get current user full info
-      .addCase(fetchUserFullInfo.pending, state => {
+      .addCase(fetchFullUserInfo.pending, state => {
         state.loading = true;
+        state.error = null;
       })
-      .addCase(fetchUserFullInfo.fulfilled, (state, action) => {
+      .addCase(fetchFullUserInfo.fulfilled, (state, action) => {
         state.profile = action.payload;
         state.loading = false;
+        state.error = null;
       })
-      .addCase(fetchUserFullInfo.rejected, (state, action) => {
+      .addCase(fetchFullUserInfo.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
       // User edit
       .addCase(updateUserProfile.pending, state => {
         state.loading = true;
+        state.error = null;
       })
-      .addCase(updateUserProfile.fulfilled, (state, action) => {
-        state.profile = action.payload;
-        state.loading = false;
-      })
+      .addCase(
+        updateUserProfile.fulfilled,
+        (state, action: PayloadAction<UserProfile>) => {
+          state.profile = action.payload;
+          state.loading = false;
+          state.error = null;
+        }
+      )
       .addCase(updateUserProfile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
@@ -54,10 +70,14 @@ const userSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(addUserPet.fulfilled, (state, action: PayloadAction<Pet>) => {
-        state.profile?.pets.push(action.payload);
-        state.loading = false;
-      })
+      .addCase(
+        addUserPet.fulfilled,
+        (state, action: PayloadAction<PetUProfile>) => {
+          state.profile?.pets.push(action.payload);
+          state.loading = false;
+          state.error = null;
+        }
+      )
       .addCase(addUserPet.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
@@ -72,10 +92,11 @@ const userSlice = createSlice({
         (state, action: PayloadAction<string>) => {
           if (state.profile) {
             state.profile.pets = state.profile.pets.filter(
-              pet => pet.id !== action.payload
+              pet => pet._id !== action.payload
             );
           }
           state.loading = false;
+          state.error = null;
         }
       )
       .addCase(removeUserPet.rejected, (state, action) => {

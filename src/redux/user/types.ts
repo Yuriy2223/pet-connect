@@ -1,26 +1,22 @@
-export interface Pet {
-  id: string;
+export interface PetUProfile {
+  _id: string;
   name: string;
-  age: number;
+  title: string;
+  imgURL: string;
   species: string;
+  birthday: string;
+  sex: string;
 }
 
 export interface UserProfile {
-  id: string;
+  _id: string;
   name: string;
   email: string;
-  pets: Pet[];
+  avatar: string;
+  phone: string;
+  token: string;
+  pets: PetUProfile[];
 }
-
-export type GetUserProfileResponse = UserProfile;
-
-export interface AddPetRequest {
-  name: string;
-  age: number;
-  species: string;
-}
-
-export type AddPetResponse = Pet;
 
 export interface UserState {
   profile: UserProfile | null;
