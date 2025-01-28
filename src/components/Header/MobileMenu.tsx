@@ -8,7 +8,7 @@ import {
   MenuWrapper,
   MobileMenuContainer,
   Overlay,
-} from './header.styled';
+} from './Header.styled';
 
 interface MobileMenuProps {
   isOpen: boolean;

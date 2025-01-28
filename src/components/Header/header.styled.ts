@@ -27,7 +27,6 @@ export const MenuIcon = styled(Iconsvg)`
   height: 32px;
   stroke: ${({ theme }) => theme.black};
 `;
-
 export const MobileMenuContainer = styled.div<{ $isOpen: boolean }>`
   position: fixed;
   top: 0;

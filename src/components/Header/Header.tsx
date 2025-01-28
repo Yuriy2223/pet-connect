@@ -6,7 +6,7 @@ import { DesktopMenu } from './DesktopMenu';
 import { useAppDispatch } from '../../redux/store';
 import { selectIsSignedIn, selectUser } from '../../redux/auth/selectors';
 import { logoutUser } from '../../redux/auth/operations';
-import { BurgerMenuButton, HeaderContainer, MenuIcon } from './header.styled';
+import { BurgerMenuButton, HeaderContainer, MenuIcon } from './Header.styled';
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
