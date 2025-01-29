@@ -89,7 +89,7 @@ export const App: React.FC = () => {
   // }, [showSplash]);
 
   // Показуємо Splash Screen, якщо showSplash == true
-  
+
   // if (showSplash) {
   //   return <SplashScreen />;
   // }
@@ -102,34 +102,33 @@ export const App: React.FC = () => {
   return (
     <ThemeProvider theme={themes[themeType]}>
       {/* <ModalProvider> */}
-        <Suspense fallback={<Loader />}>
-          <Layout toggleTheme={toggleTheme}>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/home" element={<HomePage />} />
-              <Route path="/news" element={<NewsPage />} />
-              <Route path="/notices" element={<NoticesPage />} />
-              <Route path="/friends" element={<OurFriendsPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/add-pet" element={<AddPetPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Layout>
-        </Suspense>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<Layout toggleTheme={toggleTheme} />}>
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/news" element={<NewsPage />} />
+            <Route path="/notices" element={<NoticesPage />} />
+            <Route path="/friends" element={<OurFriendsPage />} />
+            <Route path="/add-pet" element={<AddPetPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </Suspense>
 
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       {/* </ModalProvider> */}
     </ThemeProvider>
   );
