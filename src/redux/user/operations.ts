@@ -6,7 +6,7 @@ import {
   addUserPetApi,
   removeUserPetApi,
 } from '../../services/userApi';
-import { PetUProfile, UserProfile } from './types';
+import { PetProfile, UserProfile } from './types';
 
 // Get current user info
 export const fetchUserCurrent = createAsyncThunk<
@@ -17,9 +17,9 @@ export const fetchUserCurrent = createAsyncThunk<
   try {
     return await fetchUserCurrentApi();
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : 'Failed to fetch user data.';
-    return rejectWithValue(message);
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Failed to fetch user data.'
+    );
   }
 });
 
@@ -32,11 +32,9 @@ export const fetchFullUserInfo = createAsyncThunk<
   try {
     return await fetchUserFullInfoApi();
   } catch (error) {
-    const message =
-      error instanceof Error
-        ? error.message
-        : 'Failed to fetch full user data.';
-    return rejectWithValue(message);
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Failed to fetch full user data.'
+    );
   }
 });
 
@@ -49,24 +47,24 @@ export const updateUserProfile = createAsyncThunk<
   try {
     return await updateUserProfileApi(userData);
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : 'Failed to update profile.';
-    return rejectWithValue(message);
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Failed to update profile.'
+    );
   }
 });
 
 // Add pet
 export const addUserPet = createAsyncThunk<
-  PetUProfile,
-  Partial<PetUProfile>,
+  PetProfile,
+  Partial<PetProfile>,
   { rejectValue: string }
 >('user/addUserPet', async (petData, { rejectWithValue }) => {
   try {
     return await addUserPetApi(petData);
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : 'Failed to add pet.';
-    return rejectWithValue(message);
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Failed to add pet.'
+    );
   }
 });
 
@@ -80,8 +78,8 @@ export const removeUserPet = createAsyncThunk<
     await removeUserPetApi(petId);
     return petId;
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : 'Failed to remove pet.';
-    return rejectWithValue(message);
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Failed to remove pet.'
+    );
   }
 });
