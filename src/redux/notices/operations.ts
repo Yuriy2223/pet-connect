@@ -1,55 +1,122 @@
-import { AppDispatch } from '../store';
-import { setNotices, addFavorite, removeFavorite } from './slice';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  fetchNoticesApi,
+  fetchNoticesCategoriesApi,
+  fetchNoticesSexesApi,
+  fetchNoticesSpeciesApi,
+  addNoticesFavoriteApi,
+  removeNoticesFavoriteApi,
+  fetchNoticesNoticeByIdApi,
+} from '../../services/noticesApi';
+import { Notice } from './types';
 
-export const fetchNotices = (category: string, page: number = 1) => async (dispatch: AppDispatch) => {
+// Get all notices
+export const fetchNotices = createAsyncThunk<
+  Notice[],
+  void,
+  { rejectValue: string }
+>('notices/fetchNotices', async (_, { rejectWithValue }) => {
   try {
-    const response = await fetch(`/api/notices?category=${category}&page=${page}`);
-    const data = await response.json();
-
-    if (response.ok) {
-      dispatch(setNotices(data.notices));
-    } else {
-      console.error('Error fetching notices:', data.message);
-    }
+    return await fetchNoticesApi();
   } catch (error) {
-    console.error('Error fetching notices:', error);
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Failed to fetch notices.'
+    );
   }
-};
+});
 
-export const addToFavorites = (noticeId: string) => async (dispatch: AppDispatch) => {
+// Get notice categories
+export const fetchNoticesCategories = createAsyncThunk<
+  string[],
+  void,
+  { rejectValue: string }
+>('notices/fetchNoticesCategories', async (_, { rejectWithValue }) => {
   try {
-    const response = await fetch(`/api/notices/favorites/${noticeId}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
-
-    if (response.ok) {
-      dispatch(addFavorite(noticeId));
-    } else {
-      console.error('Error adding to favorites:', response.statusText);
-    }
+    return await fetchNoticesCategoriesApi();
   } catch (error) {
-    console.error('Error adding to favorites:', error);
+    return rejectWithValue(
+      error instanceof Error
+        ? error.message
+        : 'Failed to fetch notice categories.'
+    );
   }
-};
+});
 
-export const removeFromFavorites = (noticeId: string) => async (dispatch: AppDispatch) => {
+// Get notice sexes
+export const fetchNoticesSexes = createAsyncThunk<
+  string[],
+  void,
+  { rejectValue: string }
+>('notices/fetchNoticesSexes', async (_, { rejectWithValue }) => {
   try {
-    const response = await fetch(`/api/notices/favorites/${noticeId}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
-
-    if (response.ok) {
-      dispatch(removeFavorite(noticeId));
-    } else {
-      console.error('Error removing from favorites:', response.statusText);
-    }
+    return await fetchNoticesSexesApi();
   } catch (error) {
-    console.error('Error removing from favorites:', error);
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Failed to fetch notice sexes.'
+    );
   }
-};
+});
+
+// Get notice species
+export const fetchNoticesSpecies = createAsyncThunk<
+  string[],
+  void,
+  { rejectValue: string }
+>('notices/fetchNoticesSpecies', async (_, { rejectWithValue }) => {
+  try {
+    return await fetchNoticesSpeciesApi();
+  } catch (error) {
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Failed to fetch notice species.'
+    );
+  }
+});
+
+// Add a notice to favorites
+export const addNoticesFavorite = createAsyncThunk<
+  string,
+  string,
+  { rejectValue: string }
+>('notices/addFavorite', async (noticeId, { rejectWithValue }) => {
+  try {
+    await addNoticesFavoriteApi(noticeId);
+    return noticeId;
+  } catch (error) {
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Failed to add favorite notice.'
+    );
+  }
+});
+
+// Remove a notice from favorites
+export const removeNoticesFavorite = createAsyncThunk<
+  string,
+  string,
+  { rejectValue: string }
+>('notices/removeFavorite', async (noticeId, { rejectWithValue }) => {
+  try {
+    await removeNoticesFavoriteApi(noticeId);
+    return noticeId;
+  } catch (error) {
+    return rejectWithValue(
+      error instanceof Error
+        ? error.message
+        : 'Failed to remove favorite notice.'
+    );
+  }
+});
+
+// Get a notice by ID
+export const fetchNoticesNoticeId = createAsyncThunk<
+  Notice,
+  string,
+  { rejectValue: string }
+>('notices/fetchNoticesNoticeId', async (noticeId, { rejectWithValue }) => {
+  try {
+    return await fetchNoticesNoticeByIdApi(noticeId);
+  } catch (error) {
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Failed to fetch notice by ID.'
+    );
+  }
+});
