@@ -1,15 +1,15 @@
 import { instance } from './Api';
-import { PetUProfile, UserProfile } from '../redux/user/types';
+import { PetProfile, UserProfile } from '../redux/user/types';
 
 // Get current user info
 export const fetchUserCurrentApi = async (): Promise<UserProfile> => {
-  const response = await instance.get<UserProfile>('/api/user/profile');
+  const response = await instance.get<UserProfile>('/api/users/current');
   return response.data;
 };
 
 // Get full user info
 export const fetchUserFullInfoApi = async (): Promise<UserProfile> => {
-  const response = await instance.get<UserProfile>('/api/user/profile/full');
+  const response = await instance.get<UserProfile>('/api/users/current/full');
   return response.data;
 };
 
@@ -18,7 +18,7 @@ export const updateUserProfileApi = async (
   userData: Partial<UserProfile>
 ): Promise<UserProfile> => {
   const response = await instance.patch<UserProfile>(
-    '/api/user/profile',
+    '/api/users/current/edit',
     userData
   );
   return response.data;
@@ -26,10 +26,10 @@ export const updateUserProfileApi = async (
 
 // Add pet
 export const addUserPetApi = async (
-  petData: Partial<PetUProfile>
-): Promise<PetUProfile> => {
-  const response = await instance.post<PetUProfile>(
-    '/api/users/current/pets',
+  petData: Partial<PetProfile>
+): Promise<PetProfile> => {
+  const response = await instance.post<PetProfile>(
+    '/api/users/current/pets/add',
     petData
   );
   return response.data;
@@ -37,5 +37,5 @@ export const addUserPetApi = async (
 
 // Remove pet
 export const removeUserPetApi = async (petId: string): Promise<void> => {
-  await instance.delete(`/api/users/current/pets/${petId}`);
+  await instance.delete(`/api/users/current/pets/remove/${petId}`);
 };

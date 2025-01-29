@@ -1,4 +1,4 @@
-export interface PetUProfile {
+export interface PetProfile {
   _id: string;
   name: string;
   title: string;
@@ -14,8 +14,7 @@ export interface UserProfile {
   email: string;
   avatar: string;
   phone: string;
-  token: string;
-  pets: PetUProfile[];
+  pets: PetProfile[];
 }
 
 export interface UserState {

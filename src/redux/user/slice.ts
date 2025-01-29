@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { PetUProfile, UserProfile, UserState } from './types';
+import { PetProfile, UserProfile, UserState } from './types';
 import {
   addUserPet,
   fetchFullUserInfo,
@@ -34,7 +34,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-      //  Get current user full info
+      // Get current user full info
       .addCase(fetchFullUserInfo.pending, state => {
         state.loading = true;
         state.error = null;
@@ -72,7 +72,7 @@ const userSlice = createSlice({
       })
       .addCase(
         addUserPet.fulfilled,
-        (state, action: PayloadAction<PetUProfile>) => {
+        (state, action: PayloadAction<PetProfile>) => {
           state.profile?.pets.push(action.payload);
           state.loading = false;
           state.error = null;
