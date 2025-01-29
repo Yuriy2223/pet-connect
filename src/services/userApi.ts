@@ -36,6 +36,6 @@ export const addUserPetApi = async (
 };
 
 // Remove pet
-export const removeUserPetApi = async (_Id: string): Promise<void> => {
-  await instance.delete(`/api/users/current/pets/remove/${_Id}`);
+export const removeUserPetApi = async (petId: string): Promise<void> => {
+  await instance.delete(`/api/users/current/pets/remove/${petId}`);
 };
