@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchFriends } from './operations';
-import { Friend, FriendsState } from './types';
+import { Friend, FriendsState } from './friends.types';
 
 const initialState: FriendsState = {
   friends: [],

@@ -10,7 +10,7 @@ import {
   LoginData,
   RegisterResponse,
   LoginResponse,
-} from './types';
+} from './auth.types';
 
 // Register
 export const registerUser = createAsyncThunk<

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchCities, fetchCityLocations } from './operations';
-import { City, CitiesState } from './types';
+import { City, CitiesState } from './cities.types';
 
 const initialState: CitiesState = {
   cities: [],

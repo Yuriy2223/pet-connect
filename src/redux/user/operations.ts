@@ -6,7 +6,7 @@ import {
   addUserPetApi,
   removeUserPetApi,
 } from '../../services/userApi';
-import { PetProfile, UserProfile } from './types';
+import { PetProfile, UserProfile } from './user.types';
 
 // Get current user info
 export const fetchUserCurrent = createAsyncThunk<

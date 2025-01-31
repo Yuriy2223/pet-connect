@@ -11,7 +11,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { AuthState } from './auth/types';
+import { AuthState } from './auth/auth.types';
 import { authReducer } from './auth/slice';
 import { friendsReducer } from './friends/slice';
 import { newsReducer } from './news/slice';

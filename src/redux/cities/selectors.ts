@@ -1,5 +1,5 @@
 import { RootState } from '../store';
-import { City } from './types';
+import { City } from './cities.types';
 
 export const selectCities = (state: RootState): City[] => state.cities.cities;
 

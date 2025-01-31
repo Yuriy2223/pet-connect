@@ -4,7 +4,7 @@ import {
   LoginData,
   RegisterResponse,
   LoginResponse,
-} from '../redux/auth/types';
+} from '../redux/auth/auth.types';
 
 // Register
 export const registerUserApi = async (

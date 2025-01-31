@@ -8,7 +8,7 @@ import {
   removeNoticesFavoriteApi,
   fetchNoticesNoticeByIdApi,
 } from '../../services/noticesApi';
-import { Notice } from './types';
+import { Notice } from './notices.types';
 
 // Get all notices
 export const fetchNotices = createAsyncThunk<
