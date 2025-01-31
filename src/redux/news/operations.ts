@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { GetNewsResponse } from './types';
+import { GetNewsResponse } from './news.types';
 import { toast } from 'react-toastify';
 import { fetchNewsApi } from '../../services/newsApi';
 

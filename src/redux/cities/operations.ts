@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { City } from './types';
+import { City } from './cities.types';
 import {
   fetchCitiesApi,
   fetchCityLocationsApi,

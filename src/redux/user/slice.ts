@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { PetProfile, UserProfile, UserState } from './types';
+import { PetProfile, UserProfile, UserState } from './user.types';
 import {
   addUserPet,
   fetchFullUserInfo,

@@ -1,5 +1,5 @@
 import { instance } from './Api';
-import { Notice } from '../redux/notices/types';
+import { Notice } from '../redux/notices/notices.types';
 
 // Get all notices
 export const fetchNoticesApi = async (): Promise<Notice[]> => {
@@ -26,19 +26,29 @@ export const fetchNoticesSpeciesApi = async (): Promise<string[]> => {
 };
 
 // Add a notice to favorites
-export const addNoticesFavoriteApi = async (noticeId: string): Promise<string[]> => {
-  const response = await instance.post<string[]>(`/api/notices/favorites/add/${noticeId}`);
+export const addNoticesFavoriteApi = async (
+  noticeId: string
+): Promise<string[]> => {
+  const response = await instance.post<string[]>(
+    `/api/notices/favorites/add/${noticeId}`
+  );
   return response.data;
 };
 
 // Remove a notice from favorites
-export const removeNoticesFavoriteApi = async (noticeId: string): Promise<string[]> => {
-  const response = await instance.delete<string[]>(`/api/notices/favorites/remove/${noticeId}`);
+export const removeNoticesFavoriteApi = async (
+  noticeId: string
+): Promise<string[]> => {
+  const response = await instance.delete<string[]>(
+    `/api/notices/favorites/remove/${noticeId}`
+  );
   return response.data;
 };
 
 // Get a notice by ID
-export const fetchNoticesNoticeByIdApi = async (noticeId: string): Promise<Notice> => {
+export const fetchNoticesNoticeByIdApi = async (
+  noticeId: string
+): Promise<Notice> => {
   const response = await instance.get<Notice>(`/api/notices/${noticeId}`);
   return response.data;
 };

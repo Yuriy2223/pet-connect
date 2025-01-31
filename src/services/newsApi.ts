@@ -1,5 +1,5 @@
 import { instance } from './Api';
-import { GetNewsResponse } from '../redux/news/types';
+import { GetNewsResponse } from '../redux/news/news.types';
 
 export const fetchNewsApi = async (
   page: number,

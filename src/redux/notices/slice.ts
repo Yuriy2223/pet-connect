@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Notice, NoticesState } from './types';
+import { Notice, NoticesState } from './notices.types';
 import {
   addNoticesFavorite,
   fetchNotices,

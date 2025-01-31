@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchNews } from './operations';
-import { News, GetNewsResponse } from './types';
+import { News, GetNewsResponse } from './news.types';
 
 interface NewsState {
   newsList: News[];
