@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import 'react-toastify/dist/ReactToastify.css';
 import { ModalUniversal } from '../UniversalModal';
 import alreadyImg from '../../assets/imeges/modal-log-2x.webp';
 import { logoutUser } from '../../redux/auth/operations';
