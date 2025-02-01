@@ -10,7 +10,6 @@ import { ThemeProvider } from 'styled-components';
 import { themes, ThemeType } from './styles/Theme';
 import { Loader } from './components/loader/Loader';
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
-// import { ModalProvider } from './services/ModalProvder';
 // import { SplashScreen } from './components/SplashScreen/SplashScreen';
 
 const Layout = React.lazy(() =>
@@ -101,7 +100,6 @@ export const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={themes[themeType]}>
-      {/* <ModalProvider> */}
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Layout toggleTheme={toggleTheme} />}>
@@ -130,7 +128,6 @@ export const App: React.FC = () => {
         draggable
         pauseOnHover
       />
-      {/* </ModalProvider> */}
     </ThemeProvider>
   );
 };

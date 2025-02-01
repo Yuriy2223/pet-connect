@@ -75,7 +75,7 @@ export const Header: React.FC = () => {
       {isLogoutModalOpen && (
         <ModalApproveAction
           onLogout={handleLogout}
-          onClose={() => setIsLogoutModalOpen(false)}
+          closeModal={() => setIsLogoutModalOpen(false)}
         />
       )}
     </HeaderContainer>

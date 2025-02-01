@@ -33,11 +33,11 @@ export const MenuIcon = styled(Iconsvg)`
   stroke: ${({ theme }) => theme.black};
 `;
 
-export const UserActionsContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-`;
+// export const UserActionsContainer = styled.div`
+//   display: flex;
+//   align-items: center;
+//   gap: 16px;
+// `;
 
 export const ResponsiveNavContainer = styled.div<{ $isOpen: boolean }>`
   position: fixed;

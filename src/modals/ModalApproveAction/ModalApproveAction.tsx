@@ -10,22 +10,22 @@ import {
 } from './ModalApproveAction.styled';
 
 interface ModalLogoutProps {
-  onClose: () => void;
+  closeModal: () => void;
   onLogout: () => void;
 }
 
 export const ModalApproveAction: React.FC<ModalLogoutProps> = ({
-  onClose,
+  closeModal,
   onLogout,
 }) => (
-  <ModalUniversal onClose={onClose}>
+  <ModalUniversal closeModal={closeModal}>
     <ModalFormLogaut>
       <ModalImageWrapper>
         <ModalImage src={alreadyImg} alt="Logout icon" />
       </ModalImageWrapper>
       <ModalTitle>Are you sure you want to log out?</ModalTitle>
       <ModalButton onClick={onLogout}>Yes</ModalButton>
-      <ModalButton onClick={onClose}>Cancel</ModalButton>
+      <ModalButton onClick={closeModal}>Cancel</ModalButton>
     </ModalFormLogaut>
   </ModalUniversal>
 );
