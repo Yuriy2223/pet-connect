@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 interface UserNavProps {
   userName: string;
-  userAvatar?: string; // URL до аватарки користувача
+  userAvatar?: string; 
   onLogout: () => void;
-  closeMenu?: () => void; // Функція для виходу
+  closeMenu?: () => void; 
 }
 
 const UserNavContainer = styled.div`
@@ -46,9 +46,9 @@ const LogOutButton = styled.button`
 
 export const UserNav: React.FC<UserNavProps> = ({ userName, userAvatar, onLogout,closeMenu }) => {
   const handleLogout = () => {
-    onLogout(); // Викликаємо функцію для виходу
+    onLogout(); 
     if (closeMenu) {
-      closeMenu(); // Викликаємо тільки якщо визначена
+      closeMenu(); 
     }
   };
   return (
