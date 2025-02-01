@@ -32,7 +32,7 @@ const LogoIcon = styled(Iconsvg)`
 
 export const Logo: React.FC = () => {
   return (
-    <LogoContainer to="/">
+    <LogoContainer to="/home">
       <LogoText>
         Petl
         <LogoIcon width={20} height={20} iconName="heart" />
