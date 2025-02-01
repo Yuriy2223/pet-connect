@@ -4,7 +4,7 @@ import { Header } from '../Header/Header';
 import { Outlet } from 'react-router-dom';
 
 interface LayoutProps {
-  children?: React.ReactNode; // Робимо children необов'язковим
+  children?: React.ReactNode; 
   toggleTheme: (theme: ThemeType) => void;
 }
 

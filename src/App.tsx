@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import React, {
   Suspense,
   // useEffect,
@@ -105,10 +105,11 @@ export const App: React.FC = () => {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Layout toggleTheme={toggleTheme} />}>
+            <Route index element={<HomePage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/home" element={<HomePage />} />
+            <Route path="home" element={<Navigate to="/" replace />} />
             <Route path="/news" element={<NewsPage />} />
             <Route path="/notices" element={<NoticesPage />} />
             <Route path="/friends" element={<OurFriendsPage />} />

@@ -27,7 +27,22 @@ export const MenuIcon = styled(Iconsvg)`
   height: 32px;
   stroke: ${({ theme }) => theme.black};
 `;
-export const MobileMenuContainer = styled.div<{ $isOpen: boolean }>`
+// export const MobileMenuContainer = styled.div<{ $isOpen: boolean }>`
+//   position: fixed;
+//   top: 0;
+//   right: ${({ $isOpen }) => ($isOpen ? '0' : '-100%')};
+//   width: 60%;
+//   height: 100vh;
+//   background-color: ${({ theme }) => theme.primaryDark};
+//   transition: right 700ms ease;
+//   z-index: 5;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: end;
+//   padding: 40px 20px 40px;
+// `;
+
+export const ResponsiveNavContainer = styled.div<{ $isOpen: boolean }>`
   position: fixed;
   top: 0;
   right: ${({ $isOpen }) => ($isOpen ? '0' : '-100%')};
