@@ -34,7 +34,6 @@ export const ResponsiveNav: React.FC<ResponsiveNavProps> = ({
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, closeMenu]);
-
   return (
     <>
       <Overlay $isOpen={isOpen} onClick={closeMenu} />
@@ -50,17 +49,20 @@ export const ResponsiveNav: React.FC<ResponsiveNavProps> = ({
             <UserNav
               userName={userName}
               userAvatar={userAvatar}
-              onLogout={onLogout}
+              onLogout={() => {
+                onLogout();
+                closeMenu(); 
+              }}
+              closeMenu={closeMenu} 
             />
           ) : (
-            <AuthNav />
+            <AuthNav closeMenu={closeMenu} />
           )}
         </MenuWrapper>
       </ResponsiveNavContainer>
     </>
   );
 };
-
 // // import React, { useEffect } from 'react';
 // // import { Nav } from '../Nav/Nav';
 // // import { UserNav } from '../UserNav/UserNav';

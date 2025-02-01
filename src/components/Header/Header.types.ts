@@ -11,4 +11,10 @@ export interface UserNavProps {
   userName: string;
   userAvatar: string;
   onLogout: () => void;
+  closeMenu: () => void;
+}
+
+export interface LogOutButtonProps {
+  onLogout: () => void;
+  closeMenu?: () => void;
 }
