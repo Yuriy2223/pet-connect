@@ -15,6 +15,11 @@ export const BurgerMenuButton = styled.button`
   border: none;
   margin-left: 12px;
 
+  &:hover,
+  &:active {
+    transform: scale(1.2);
+  }
+
   @media (min-width: 768px) {
     margin-left: 16px;
   }
@@ -27,20 +32,12 @@ export const MenuIcon = styled(Iconsvg)`
   height: 32px;
   stroke: ${({ theme }) => theme.black};
 `;
-// export const MobileMenuContainer = styled.div<{ $isOpen: boolean }>`
-//   position: fixed;
-//   top: 0;
-//   right: ${({ $isOpen }) => ($isOpen ? '0' : '-100%')};
-//   width: 60%;
-//   height: 100vh;
-//   background-color: ${({ theme }) => theme.primaryDark};
-//   transition: right 700ms ease;
-//   z-index: 5;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: end;
-//   padding: 40px 20px 40px;
-// `;
+
+export const UserActionsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
 
 export const ResponsiveNavContainer = styled.div<{ $isOpen: boolean }>`
   position: fixed;
@@ -91,13 +88,13 @@ export const CloseIcon = styled(Iconsvg)`
   height: 32px;
   stroke: ${({ theme }) => theme.white};
 `;
-export const DesktopMenuContainer = styled.nav`
-  display: none;
+// export const DesktopMenuContainer = styled.nav`
+//   display: none;
 
-  @media (min-width: 1280px) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 70%;
-  }
-`;
+//   @media (min-width: 1280px) {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     width: 70%;
+//   }
+// `;

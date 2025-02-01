@@ -1,8 +1,9 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { LogOutButtonProps } from '../Header/Header.types';
+import { ModalApproveAction } from '../../modals/ModalApproveAction/ModalApproveAction';
 
-const AuthNavContainer = styled.div`
+const LogOutBtnContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +13,8 @@ const AuthNavContainer = styled.div`
     flex-direction: row;
   }
 `;
-const StyledNavLink = styled(NavLink)`
+
+const LogOutBtn = styled.button`
   border: 1px solid ${({ theme }) => theme.whiteOpacity};
   border-radius: 30px;
   width: 178px;
@@ -26,11 +28,8 @@ const StyledNavLink = styled(NavLink)`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  &.active {
-    background-color: ${({ theme }) => theme.lightYellow};
-    color: ${({ theme }) => theme.primaryDark};
-  }
+  background: transparent;
+  cursor: pointer;
 
   &:hover {
     background-color: ${({ theme }) => theme.lightYellow};
@@ -42,12 +41,6 @@ const StyledNavLink = styled(NavLink)`
     color: ${({ theme }) => theme.white};
     border: 1px solid ${({ theme }) => theme.primaryLight};
 
-    &.active {
-      background-color: ${({ theme }) => theme.primaryDark};
-      color: ${({ theme }) => theme.white};
-      border: 1px solid ${({ theme }) => theme.primaryDark};
-    }
-
     &:hover {
       background-color: ${({ theme }) => theme.primaryDark};
       color: ${({ theme }) => theme.white};
@@ -56,17 +49,29 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-export const AuthNav: React.FC<{ closeMenu?: () => void }> = ({
+export const LogOutButton: React.FC<LogOutButtonProps> = ({
+  onLogout,
   closeMenu,
 }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleLogout = () => {
+    onLogout();
+    closeModal();
+    if (closeMenu) {
+      closeMenu();
+    }
+  };
+
   return (
-    <AuthNavContainer>
-      <StyledNavLink to="/login" onClick={closeMenu}>
-        Log In
-      </StyledNavLink>
-      <StyledNavLink to="/register" onClick={closeMenu}>
-        Registration
-      </StyledNavLink>
-    </AuthNavContainer>
+    <LogOutBtnContainer>
+      <LogOutBtn onClick={openModal}>Log Out</LogOutBtn>
+      {isModalOpen && (
+        <ModalApproveAction onLogout={handleLogout} onClose={closeModal} />
+      )}
+    </LogOutBtnContainer>
   );
 };
