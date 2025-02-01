@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { ToastContainer } from 'react-toastify';
 import { Iconsvg } from '../components/Common/Icons';
 
 const ModalBackdrop = styled.div`
-  position: fixed;
+  /* position: fixed;
   top: 0;
-  left: 0;
+  left: 0; */
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
-  justify-content: center;
+  z-index: 20;
+  /* justify-content: center;
   animation: fadeIn 0.3s ease;
   z-index: 5;
 
@@ -23,11 +23,16 @@ const ModalBackdrop = styled.div`
     to {
       opacity: 1;
     }
-  }
+  } */
 `;
 const ModalContainer = styled.div`
   position: relative;
-  border-radius: 15px;
+  overflow-y: auto;
+  border-radius: 30px;
+  background-color: ${({ theme }) => theme.white};
+  /* background-color: #fff; */
+
+  /* border-radius: 15px;
   width: 90%;
   max-width: 566px;
   max-height: 95vh;
@@ -47,49 +52,51 @@ const ModalContainer = styled.div`
       transform: translateY(0);
       opacity: 1;
     }
-  }
+  } */
 `;
-const ButtonClose = styled.button`
+export const CloseButton = styled.button`
   padding: 6px;
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 28px;
+  right: 20px;
   border: none;
   background: transparent;
 
-  &:hover {
+  &:hover,
+  &:active {
     transform: scale(1.2);
   }
 `;
-const StyledIcon = styled(Iconsvg)`
+export const CloseIcon = styled(Iconsvg)`
   width: 32px;
   height: 32px;
+  stroke: ${({ theme }) => theme.black};
 `;
 interface ModalProps {
-  onClose: () => void;
+  closeModal: () => void;
   children: React.ReactNode;
 }
 
-export const ModalUniversal: React.FC<ModalProps> = ({ onClose, children }) => {
+export const ModalUniversal: React.FC<ModalProps> = ({
+  closeModal,
+  children,
+}) => {
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
+      if (event.key === 'Escape') closeModal();
     };
     document.addEventListener('keydown', handleEsc);
     return () => document.removeEventListener('keydown', handleEsc);
-  }, [onClose]);
+  }, [closeModal]);
 
   return (
-    <>
-      <ModalBackdrop onClick={onClose}>
-        <ModalContainer onClick={e => e.stopPropagation()}>
-          <ButtonClose onClick={onClose}>
-            <StyledIcon width={32} height={32} iconName="close" />
-          </ButtonClose>
-          {children}
-        </ModalContainer>
-      </ModalBackdrop>
-      <ToastContainer />
-    </>
+    <ModalBackdrop onClick={closeModal}>
+      <ModalContainer onClick={e => e.stopPropagation()}>
+        <CloseButton onClick={closeModal}>
+          <CloseIcon width={32} height={32} iconName="close" />
+        </CloseButton>
+        {children}
+      </ModalContainer>
+    </ModalBackdrop>
   );
 };

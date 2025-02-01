@@ -70,7 +70,7 @@ export const LogOutButton: React.FC<LogOutButtonProps> = ({
     <LogOutBtnContainer>
       <LogOutBtn onClick={openModal}>Log Out</LogOutBtn>
       {isModalOpen && (
-        <ModalApproveAction onLogout={handleLogout} onClose={closeModal} />
+        <ModalApproveAction onLogout={handleLogout} closeModal={closeModal} />
       )}
     </LogOutBtnContainer>
   );
