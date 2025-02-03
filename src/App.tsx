@@ -10,6 +10,7 @@ import { ThemeProvider } from 'styled-components';
 import { themes, ThemeType } from './styles/Theme';
 import { Loader } from './components/loader/Loader';
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
+import {ModalUniversal} from './modals/UniversalModal';
 // import { SplashScreen } from './components/SplashScreen/SplashScreen';
 
 const Layout = React.lazy(() =>
@@ -116,7 +117,7 @@ export const App: React.FC = () => {
           </Route>
         </Routes>
       </Suspense>
-
+      <ModalUniversal />
       <ToastContainer
         position="top-center"
         autoClose={5000}
