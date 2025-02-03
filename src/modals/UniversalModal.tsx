@@ -42,27 +42,16 @@ const Overlay = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background: white;
-  padding: 20px;
-
-  z-index: 1001;
   position: relative;
   overflow-y: auto;
-  border-radius: 30px;
   background-color: ${({ theme }) => theme.white};
   /* background-color: #fff; */
 
   border-radius: 30px;
   min-width: 320px;
   max-width: 500px;
-  /* width: 90%;
-  max-width: 566px;
-  max-height: 95vh; */
-  background: var(--white-color);
-  padding: 32px;
   overflow-y: auto;
 
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   animation: slideIn 0.3s ease;
 
   @keyframes slideIn {
