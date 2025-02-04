@@ -30,18 +30,6 @@ const BtnAuthNav = styled(NavLink)`
   letter-spacing: -0.03em;
   text-transform: uppercase;
 
-  /* color: ${({ theme }) => theme.white};
-  background-color: ${({ theme }) => theme.primaryDark};
-  border: 1px solid ${({ theme }) => theme.whiteOpacity};
-
-  &:hover,
-  &.active {
-    color: ${({ theme }) => theme.primaryDark};
-    background-color: ${({ theme }) => theme.lightYellow};
-    border: 1px solid ${({ theme }) => theme.lightYellow};
-  } */
-
-  /* @media (min-width: 1280px) { */
   color: ${({ theme }) => theme.primaryDark};
   background-color: ${({ theme }) => theme.lightYellow};
   border: 1px solid ${({ theme }) => theme.primaryDark};
@@ -52,7 +40,6 @@ const BtnAuthNav = styled(NavLink)`
     background-color: ${({ theme }) => theme.primaryDark};
     color: ${({ theme }) => theme.white};
   }
-  /* } */
 `;
 
 export const AuthNav: React.FC = () => {
@@ -63,22 +50,3 @@ export const AuthNav: React.FC = () => {
     </AuthNavContainer>
   );
 };
-
-/* @media (min-width: 1280px) { */
-/* background-color: ${({ theme }) => theme.primaryLight};
-    color: ${({ theme }) => theme.white};
-    border: 1px solid ${({ theme }) => theme.primaryLight};
-
-    &:hover,
-    &.active {
-      background-color: ${({ theme }) => theme.primaryDark};
-      color: ${({ theme }) => theme.white};
-      border: 1px solid ${({ theme }) => theme.primaryDark};
-    } */
-
-/* &:hover {
-      background-color: ${({ theme }) => theme.primaryDark};
-      color: ${({ theme }) => theme.white};
-      border: 1px solid ${({ theme }) => theme.primaryDark};
-    } */
-/* } */
