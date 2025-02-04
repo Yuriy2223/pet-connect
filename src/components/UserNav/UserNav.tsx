@@ -28,7 +28,6 @@ const UserName = styled.span`
 
   @media (min-width: 768px) {
     display: block;
-
     font-weight: 700;
     font-size: 20px;
     line-height: 1;
