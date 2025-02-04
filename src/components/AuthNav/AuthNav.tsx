@@ -3,18 +3,12 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const AuthNavContainer = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px; */
   display: none;
 
   @media (min-width: 768px) {
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
     gap: 8px;
-    /* flex-direction: row; */
   }
 `;
 const BtnAuthNav = styled(NavLink)`
