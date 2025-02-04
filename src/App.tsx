@@ -10,7 +10,7 @@ import { ThemeProvider } from 'styled-components';
 import { themes, ThemeType } from './styles/Theme';
 import { Loader } from './components/loader/Loader';
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
-import {ModalUniversal} from './modals/UniversalModal';
+import { ModalUniversal } from './modals/UniversalModal/UniversalModal';
 // import { SplashScreen } from './components/SplashScreen/SplashScreen';
 
 const Layout = React.lazy(() =>

@@ -3,13 +3,15 @@ export interface ResponsiveNavProps {
   closeMenu: () => void;
   isAuthenticated: boolean;
   userName: string;
-  userAvatar: string;
+  // userAvatar: string;
+  // userAvatar: string | React.ReactNode; 
   onLogout: () => void;
 }
 
 export interface UserNavProps {
   userName: string;
-  userAvatar: string;
+  // userAvatar: string;
+   userAvatar: string | React.ReactNode; 
   onLogout: () => void;
   closeMenu: () => void;
 }

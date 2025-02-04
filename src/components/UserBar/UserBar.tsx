@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import defAvatar from '../../assets/imeges/tablet/t404.webp';
 import { UserNavProps } from '../Header/Header.types';
 
 const UserBarContainer = styled.div`
@@ -25,7 +24,11 @@ const UserName = styled.span`
 export const UserBar: React.FC<UserNavProps> = ({ userName, userAvatar }) => {
   return (
     <UserBarContainer>
-      <UserAvatar src={userAvatar || defAvatar} alt={`${userName}'s avatar`} />
+      {typeof userAvatar === 'string' ? (
+        <UserAvatar src={userAvatar} alt="Avatar" />
+      ) : (
+        userAvatar
+      )}
       <UserName>{userName}</UserName>
     </UserBarContainer>
   );
