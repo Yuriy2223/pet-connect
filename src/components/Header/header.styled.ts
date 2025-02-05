@@ -20,9 +20,9 @@ export const HeaderMenuNav = styled.div`
   display: flex;
   align-items: center;
 
-  @media (min-width: 768px) {
+  /* @media (min-width: 768px) {
     padding: 12px;
-  }
+  } */
 `;
 export const BurgerMenuButton = styled.button`
   display: block;

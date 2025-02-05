@@ -7,10 +7,14 @@ export const Overlay = styled.div<{ $isOpen: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background: transparent;
-  z-index: 3;
+  z-index: 4;
+
+  @media (min-width: 1280px) {
+    display: none;
+  }
 `;
 export const BurgerMenuContainer = styled.div<{ $isOpen: boolean }>`
   position: fixed;
@@ -24,7 +28,11 @@ export const BurgerMenuContainer = styled.div<{ $isOpen: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: end;
-  padding: 40px 20px 40px;
+  padding: 40px 16px 40px;
+
+  @media (min-width: 1280px) {
+    display: none;
+  }
 `;
 export const CloseButton = styled.button`
   padding: 6px;
@@ -36,7 +44,8 @@ export const CloseButton = styled.button`
 
   &:hover,
   &:active {
-    transform: scale(1.2);
+    transform: rotate(3600deg) scale(1.2);
+    opacity: 0.8;
   }
 `;
 export const CloseIcon = styled(Iconsvg)`
@@ -45,133 +54,59 @@ export const CloseIcon = styled(Iconsvg)`
   stroke: ${({ theme }) => theme.white};
 `;
 export const BurgerMenuInner = styled.div`
-  /* display: flex;
+  display: flex;
   flex-direction: column;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
-  height: 70%; */
+  height: 84%;
 `;
+export const BurgerMenuNav = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+export const BurgerMenuNavLink = styled(NavLink)`
+  border: 1px solid ${({ theme }) => theme.whiteOpacity};
+  border-radius: 30px;
+  width: 120px;
+  height: 48px;
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.29;
+  letter-spacing: -0.03em;
+  color: ${({ theme }) => theme.white};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-export const BurgerMenuNav = styled.div``;
+  &.active,
+  &:hover {
+    border: 1px solid ${({ theme }) => theme.white};
+  }
+`;
+export const AuthButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 auto;
 
-export const BurgerMenuNavLink = styled(NavLink)``;
-
-// const AuthNavContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   gap: 8px;
-
-//   @media (min-width: 768px) {
-//     flex-direction: row;
-//   }
-// `;
-// const BtnAuthNav = styled(NavLink)`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   border-radius: 30px;
-//   width: 178px;
-//   height: 42px;
-//   font-weight: 700;
-//   font-size: 14px;
-//   line-height: 1.29;
-//   letter-spacing: -0.03em;
-//   text-transform: uppercase;
-
-//   color: ${({ theme }) => theme.white};
-//   background-color: ${({ theme }) => theme.primaryDark};
-//   border: 1px solid ${({ theme }) => theme.whiteOpacity};
-
-//   &:hover,
-//   &.active {
-//     color: ${({ theme }) => theme.primaryDark};
-//     background-color: ${({ theme }) => theme.lightYellow};
-//     border: 1px solid ${({ theme }) => theme.lightYellow};
-//   }
-
-//   @media (min-width: 1280px) {
-//     color: ${({ theme }) => theme.primaryDark};
-//     background-color: ${({ theme }) => theme.lightYellow};
-//     border: 1px solid ${({ theme }) => theme.primaryDark};
-
-//     &:hover,
-//     &.active {
-//       border: 1px solid ${({ theme }) => theme.primaryDark};
-//       background-color: ${({ theme }) => theme.primaryDark};
-//       color: ${({ theme }) => theme.white};
-//     }
-//   }
-// `;
-// const NavContainer = styled.nav`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   gap: 10px;
-
-//   @media (min-width: 1280px) {
-//     flex-direction: row;
-//     justify-content: space-between;
-//     align-items: center;
-//   }
-// `;
-// const HeaderNavLink = styled(NavLink)`
-//   border: 1px solid ${({ theme }) => theme.whiteOpacity};
-//   border-radius: 30px;
-//   width: 119px;
-//   height: 48px;
-//   white-space: nowrap;
-//   font-weight: 500;
-//   font-size: 14px;
-//   line-height: 1.29;
-//   letter-spacing: -0.03em;
-//   color: ${({ theme }) => theme.white};
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-
-//   &.active {
-//     border: 1px solid ${({ theme }) => theme.white};
-//   }
-
-//   &:hover {
-//     border: 1px solid ${({ theme }) => theme.white};
-//   }
-
-//   @media (min-width: 1280px) {
-//     border: 1px solid ${({ theme }) => theme.opacity};
-//     color: ${({ theme }) => theme.black};
-//     font-size: 16px;
-//     line-height: 1.25;
-
-//     &.active {
-//       border: 1px solid ${({ theme }) => theme.primaryDark};
-//     }
-
-//     &:hover {
-//       border: 1px solid ${({ theme }) => theme.primaryDark};
-//     }
-//   }
-// `;
-// const LogOutBtnContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   gap: 8px;
-
-//   @media (min-width: 768px) {
-//     flex-direction: row;
-//   }
-// `;
-
-export const AuthButtonWrapper = styled.div``;
-export const AuthButton = styled(NavLink)``;
-export const LogoutButton = styled.button`
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+`;
+export const AuthButton = styled(NavLink)`
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 30px;
-  width: 178px;
+  width: 156px;
   height: 42px;
   font-weight: 700;
   font-size: 14px;
@@ -190,74 +125,35 @@ export const LogoutButton = styled.button`
     border: 1px solid ${({ theme }) => theme.lightYellow};
   }
 
-  @media (min-width: 1280px) {
-    color: ${({ theme }) => theme.primaryDark};
-    background-color: ${({ theme }) => theme.lightYellow};
-    border: 1px solid ${({ theme }) => theme.primaryDark};
-
-    &:hover,
-    &.active {
-      border: 1px solid ${({ theme }) => theme.primaryDark};
-      background-color: ${({ theme }) => theme.primaryDark};
-      color: ${({ theme }) => theme.white};
-    }
+  @media (min-width: 768px) {
+    width: 178px;
   }
 `;
-// export const UserAvatarHeader = styled.img`
-//   width: 40px;
-//   height: 40px;
-//   border-radius: 50%;
-//   object-fit: cover;
-//   position: absolute;
-//   right: 54px;
-//   top: 44%;
-//   border: 1px solid ${({ theme }) => theme.primaryDark};
-//   background-color: ${({ theme }) => theme.lightYellow};
+export const LogoutButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  width: 156px;
+  height: 42px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.29;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
 
-//   @media (min-width: 768px) {
-//     display: none;
-//   }
-// `;
-// export const AvatarWrapDefault = styled.div`
-//   width: 50px;
-//   height: 50px;
-//   border-radius: 50%;
-//   background-color: ${({ theme }) => theme.lightYellow};
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
+  color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => theme.primaryDark};
+  border: 1px solid ${({ theme }) => theme.whiteOpacity};
 
-//   /* @media (min-width: 768px) {
-//     display: none;
-//   } */
-// `;
-// export const AvatarDefaultIcon = styled(Iconsvg)`
-//   width: 30px;
-//   height: 30px;
-//   fill: ${({ theme }) => theme.primaryDark};
-//   stroke: ${({ theme }) => theme.primaryDark};
-// `;
+  &:hover,
+  &.active {
+    color: ${({ theme }) => theme.primaryDark};
+    background-color: ${({ theme }) => theme.lightYellow};
+    border: 1px solid ${({ theme }) => theme.lightYellow};
+  }
 
-// export const DefaultAvatarWrap = styled.div`
-//   width: 40px;
-//   height: 40px;
-//   border-radius: 50%;
-//   position: absolute;
-//   right: 64px;
-//   top: 46%;
-//   /* border: 1px solid ${({ theme }) => theme.primaryDark}; */
-//   background-color: ${({ theme }) => theme.lightYellow};
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-
-//   @media (min-width: 768px) {
-//     display: none;
-//   }
-// `;
-// export const DefaultAvatarIcon = styled(Iconsvg)`
-//   width: 24px;
-//   height: 24px;
-//   fill: ${({ theme }) => theme.primaryDark};
-//   stroke: ${({ theme }) => theme.primaryDark};
-// `;
+  @media (min-width: 768px) {
+    width: 178px;
+  }
+`;

@@ -117,7 +117,7 @@ export const App: React.FC = () => {
           </Route>
         </Routes>
       </Suspense>
-      <ModalUniversal />
+      {/* <ModalUniversal /> */}
       <ToastContainer
         position="top-center"
         autoClose={5000}

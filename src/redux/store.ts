@@ -33,7 +33,6 @@ const persistedAuthReducer = persistReducer<AuthState>(
 
 export const store = configureStore({
   reducer: {
-    // auth: persistReducer(authPersistConfig, authReducer),
     auth: persistedAuthReducer,
     user: userReducer,
     news: newsReducer,

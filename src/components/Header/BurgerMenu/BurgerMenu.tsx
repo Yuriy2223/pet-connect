@@ -12,7 +12,6 @@ import {
   AuthButtonWrapper,
   AuthButton,
 } from './BurgerMenu.styled';
-// import { useDispatch } from 'react-redux';
 
 export const BurgerMenu: React.FC<BurgerMenuProps> = ({
   isOpen,
@@ -35,13 +34,6 @@ export const BurgerMenu: React.FC<BurgerMenuProps> = ({
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, closeMenu]);
-
-  // const dispatch = useDispatch();
-  // const handleLogoutClick = useCallback(() => {
-  //   dispatch(
-  //     openModal({ type: 'ModalApproveAction', props: { actionType: 'logout' } })
-  //   );
-  // }, [dispatch]);
 
   return (
     <>

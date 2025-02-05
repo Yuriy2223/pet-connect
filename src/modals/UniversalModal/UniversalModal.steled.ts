@@ -11,16 +11,15 @@ export const OverlayModal = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 10;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: ${({ theme }) => theme.opacityTr};
 `;
 
 export const ModalContent = styled.div`
   position: relative;
   /* overflow-y: auto; */
   background-color: ${({ theme }) => theme.white};
-  border: 2px solid ${({ theme }) => theme.primaryDark};
   border-radius: 30px;
-  max-width: 334px;
+  max-width: 336px;
   width: 100%;
 
   @media (min-width: 768px) {
@@ -30,19 +29,21 @@ export const ModalContent = styled.div`
 export const CloseButton = styled.button`
   padding: 6px;
   position: absolute;
-  top: 28px;
+  top: 20px;
   right: 20px;
   border: none;
   background: transparent;
 
   &:hover,
   &:active {
-    transform: scale(1.2);
+    transform: rotate(3600deg) scale(1.2);
+    opacity: 0.8;
   }
 
   &:hover svg,
   &:active svg {
     stroke: ${({ theme }) => theme.primaryDark};
+    fill: ${({ theme }) => theme.primaryDark};
   }
 `;
 export const CloseIcon = styled(Iconsvg)`
