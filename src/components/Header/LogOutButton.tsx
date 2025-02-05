@@ -12,7 +12,6 @@ const LogOutBtnContainer = styled.div`
     align-items: center;
   }
 `;
-
 const LogOutBtn = styled.button`
   display: flex;
   align-items: center;
