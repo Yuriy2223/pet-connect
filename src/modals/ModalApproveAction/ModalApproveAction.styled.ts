@@ -3,8 +3,6 @@ import logautImg from '../../assets/imeges/mobail/logaut-mob.webp';
 import logautImg2x from '../../assets/imeges/desktop/logaut-desktop.webp';
 
 export const ModalLogaut = styled.div`
-  /* width: 335px;
-  height: 270px; */
   padding: 40px 0;
   z-index: 10;
   display: flex;
@@ -27,8 +25,6 @@ export const ModalLogaut = styled.div`
   }
 
   @media (min-width: 768px) {
-    width: 448px;
-    height: 364px;
     padding: 80px;
   }
 `;
