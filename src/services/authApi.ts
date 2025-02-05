@@ -4,7 +4,14 @@ import {
   LoginData,
   RegisterResponse,
   LoginResponse,
+  User,
 } from '../redux/auth/auth.types';
+
+// Refresh User
+export const refreshUserApi = async (): Promise<User> => {
+  const response = await instance.get<User>('/api/users/current');
+  return response.data;
+};
 
 // Register
 export const registerUserApi = async (

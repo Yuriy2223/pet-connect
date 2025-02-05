@@ -12,7 +12,7 @@ export const instance = axios.create({
 });
 
 // Ключ токена в localStorage
-const TOKEN_KEY = 'token';
+const TOKEN_KEY = 'token-user-pet';
 
 // Встановлення токена в інстанс axios і localStorage
 export const setToken = (token: string): void => {
