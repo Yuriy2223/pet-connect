@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { themes, ThemeType } from './styles/Theme';
 import { Loader } from './components/loader/Loader';
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
-import { ModalUniversal } from './modals/UniversalModal/UniversalModal';
+// import { ModalUniversal } from './modals/UniversalModal/UniversalModal';
 import { useAppDispatch } from './redux/store';
 import { refreshUser } from './redux/auth/operations';
 import { PrivateRoute } from './routes/PrivateRoute';
@@ -109,22 +109,22 @@ export const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Layout toggleTheme={toggleTheme} />}>
             <Route index element={<HomePage />} />
+            <Route path="home" element={<Navigate to="/" replace />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="home" element={<Navigate to="/" replace />} />
             <Route path="/news" element={<NewsPage />} />
             <Route path="/notices" element={<NoticesPage />} />
             <Route path="/friends" element={<OurFriendsPage />} />
+
             <Route element={<PrivateRoute />}>
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/add-pet" element={<AddPetPage />} />
             </Route>
+
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </Suspense>
-
-      <ModalUniversal />
 
       <ToastContainer
         position="top-center"

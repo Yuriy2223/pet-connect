@@ -58,6 +58,10 @@ export const ModalButtonWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 8px;
+
+  @media (min-width: 768px) {
+    gap: 20px;
+  }
 `;
 export const ModalButton = styled.button`
   border-radius: 30px;
