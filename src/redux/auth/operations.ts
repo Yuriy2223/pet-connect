@@ -4,13 +4,35 @@ import {
   registerUserApi,
   loginUserApi,
   logOutApi,
+  refreshUserApi,
 } from '../../services/authApi';
 import {
   RegisterData,
   LoginData,
   RegisterResponse,
   LoginResponse,
+  User,
 } from './auth.types';
+
+// Refresh User
+export const refreshUser = createAsyncThunk<
+  { user: User; token: string },
+  void,
+  { rejectValue: string }
+>('auth/refreshUser', async (_, { rejectWithValue }) => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    return rejectWithValue('No token found');
+  }
+
+  try {
+    const user = await refreshUserApi();
+    return { user, token };
+  } catch {
+    return rejectWithValue('Failed to refresh user');
+  }
+});
 
 // Register
 export const registerUser = createAsyncThunk<

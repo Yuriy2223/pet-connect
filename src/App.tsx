@@ -1,17 +1,16 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import React, {
-  Suspense,
-  // useEffect,
-  useState,
-} from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { ThemeProvider } from 'styled-components';
 import { themes, ThemeType } from './styles/Theme';
 import { Loader } from './components/loader/Loader';
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
-import { ModalUniversal } from './modals/UniversalModal/UniversalModal';
+// import { ModalUniversal } from './modals/UniversalModal/UniversalModal';
+import { useAppDispatch } from './redux/store';
+import { refreshUser } from './redux/auth/operations';
+import { PrivateRoute } from './routes/PrivateRoute';
 // import { SplashScreen } from './components/SplashScreen/SplashScreen';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Layout = React.lazy(() =>
   import('./components/Layout/Layout').then(module => ({
@@ -61,6 +60,7 @@ const AddPetPage = React.lazy(() =>
 
 export const App: React.FC = () => {
   const [themeType, setThemeType] = useState<ThemeType>('light');
+  const dispatch = useAppDispatch();
   // const [showSplash, setShowSplash] = useState(true);
   // const [loading, setLoading] = useState(true);
 
@@ -99,31 +99,36 @@ export const App: React.FC = () => {
   //   return <Loader />;
   // }
 
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
   return (
     <ThemeProvider theme={themes[themeType]}>
-      
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Layout toggleTheme={toggleTheme} />}>
             <Route index element={<HomePage />} />
+            <Route path="home" element={<Navigate to="/" replace />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="home" element={<Navigate to="/" replace />} />
             <Route path="/news" element={<NewsPage />} />
             <Route path="/notices" element={<NoticesPage />} />
             <Route path="/friends" element={<OurFriendsPage />} />
-            <Route path="/add-pet" element={<AddPetPage />} />
+
+            <Route element={<PrivateRoute />}>
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/add-pet" element={<AddPetPage />} />
+            </Route>
+
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </Suspense>
 
-      <ModalUniversal />
-
       <ToastContainer
         position="top-center"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ModalApproveAction } from '../ModalApproveAction/ModalApproveAction';
 import { closeModal } from '../../redux/modal/slice';
@@ -19,6 +19,18 @@ export const ModalUniversal: React.FC = () => {
   const isOpen = useSelector(selectIsModalOpen);
   const modalType = useSelector(selectModalType);
   const modalProps = useSelector(selectModalProps);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 

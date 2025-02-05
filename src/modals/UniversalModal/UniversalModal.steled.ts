@@ -13,10 +13,8 @@ export const OverlayModal = styled.div`
   z-index: 10;
   background-color: ${({ theme }) => theme.opacityTr};
 `;
-
 export const ModalContent = styled.div`
   position: relative;
-  /* overflow-y: auto; */
   background-color: ${({ theme }) => theme.white};
   border-radius: 30px;
   max-width: 336px;

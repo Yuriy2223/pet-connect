@@ -31,12 +31,10 @@ const HeaderNavLink = styled(NavLink)`
     font-size: 16px;
     line-height: 1.25;
 
+    &:hover,
     &.active {
       border: 1px solid ${({ theme }) => theme.primaryDark};
-    }
-
-    &:hover {
-      border: 1px solid ${({ theme }) => theme.primaryDark};
+      color: ${({ theme }) => theme.primaryDark};
     }
   }
 `;

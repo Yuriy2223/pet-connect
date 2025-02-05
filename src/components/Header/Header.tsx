@@ -1,13 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsSignedIn, selectUser } from '../../redux/auth/selectors';
-import { selectModalType } from '../../redux/modal/selectors';
 import { openModal } from '../../redux/modal/slice';
 import { Logo } from '../Logo/Logo';
 import { Nav } from '../Nav/Nav';
 import { AuthNav } from '../AuthNav/AuthNav';
 import { UserNav } from '../UserNav/UserNav';
-import { ModalApproveAction } from '../../modals/ModalApproveAction/ModalApproveAction';
 import { BurgerMenu } from './BurgerMenu/BurgerMenu';
 import {
   AvatarDefaultIcon,
@@ -16,12 +14,11 @@ import {
   HeaderContainer,
   HeaderMenuNav,
   MenuIcon,
-} from './Header.styled';
+} from './TyreHeader.styled';
 
 export const Header: React.FC = () => {
   const isAuthenticated = useSelector(selectIsSignedIn);
   const user = useSelector(selectUser);
-  const modalType = useSelector(selectModalType);
   const dispatch = useDispatch();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -66,7 +63,6 @@ export const Header: React.FC = () => {
         onLogout={() => dispatch(openModal({ type: 'ModalApproveAction' }))}
         closeMenu={closeMenu}
       />
-      {modalType === 'ModalApproveAction' && <ModalApproveAction />}
     </HeaderContainer>
   );
 };

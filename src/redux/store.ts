@@ -23,7 +23,7 @@ import { modalReducer } from './modal/slice';
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token'],
+  whitelist: ['token-user-pet'],
 };
 
 const persistedAuthReducer = persistReducer<AuthState>(
