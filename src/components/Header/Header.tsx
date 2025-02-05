@@ -14,7 +14,7 @@ import {
   HeaderContainer,
   HeaderMenuNav,
   MenuIcon,
-} from './TyreHeader.styled';
+} from './Header.styled';
 
 export const Header: React.FC = () => {
   const isAuthenticated = useSelector(selectIsSignedIn);
