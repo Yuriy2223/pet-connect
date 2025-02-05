@@ -101,6 +101,7 @@ export const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={themes[themeType]}>
+      
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Layout toggleTheme={toggleTheme} />}>
@@ -117,7 +118,9 @@ export const App: React.FC = () => {
           </Route>
         </Routes>
       </Suspense>
+
       <ModalUniversal />
+
       <ToastContainer
         position="top-center"
         autoClose={5000}

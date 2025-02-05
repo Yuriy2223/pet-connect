@@ -18,9 +18,17 @@ export const ModalApproveAction: React.FC = () => {
 
   if (modalType !== 'ModalApproveAction') return null;
 
+  // const handleLogout = async () => {
+  //   await dispatch(logoutUser());
+  //   dispatch(closeModal());
+  // };
+
   const handleLogout = async () => {
-    await dispatch(logoutUser());
-    dispatch(closeModal());
+    try {
+      await dispatch(logoutUser());
+    } finally {
+      dispatch(closeModal());
+    }
   };
 
   return (
