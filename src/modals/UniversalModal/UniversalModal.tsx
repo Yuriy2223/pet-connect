@@ -7,8 +7,12 @@ import {
   selectModalProps,
   selectModalType,
 } from '../../redux/modal/selectors';
-import { ModalContent, OverlayModal } from './UniversalModal.steled';
-
+import {
+  CloseButton,
+  CloseIcon,
+  ModalContent,
+  OverlayModal,
+} from './UniversalModal.steled';
 
 export const ModalUniversal: React.FC = () => {
   const dispatch = useDispatch();
@@ -32,6 +36,9 @@ export const ModalUniversal: React.FC = () => {
   return (
     <OverlayModal onClick={closeHandler}>
       <ModalContent onClick={e => e.stopPropagation()}>
+        <CloseButton onClick={closeHandler}>
+          <CloseIcon width={32} height={32} iconName="close" />
+        </CloseButton>
         {renderModalContent()}
       </ModalContent>
     </OverlayModal>

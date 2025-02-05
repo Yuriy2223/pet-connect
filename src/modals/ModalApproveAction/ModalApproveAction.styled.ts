@@ -3,18 +3,13 @@ import logautImg from '../../assets/imeges/mobail/logaut-mob.webp';
 import logautImg2x from '../../assets/imeges/desktop/logaut-desktop.webp';
 
 export const ModalLogaut = styled.div`
-  max-width: 276px;
-  max-height: 270px;
-  width: 100%;
-  height: 100%;
-  /* padding: 40px 0; */
+  /* width: 335px;
+  height: 270px; */
+  padding: 40px 0;
   z-index: 10;
-
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 
   h2 {
     font-weight: 700;
@@ -27,14 +22,14 @@ export const ModalLogaut = styled.div`
 
     @media (min-width: 768px) {
       font-size: 24px;
-      line-height: 117;
+      line-height: 1.17;
     }
   }
 
   @media (min-width: 768px) {
-    max-width: 288px;
-    max-height: 364px;
-    /* padding: 80px 0; */
+    width: 448px;
+    height: 364px;
+    padding: 80px;
   }
 `;
 export const LogautImageWrapper = styled.div`
@@ -48,67 +43,62 @@ export const LogautImageWrapper = styled.div`
   margin-bottom: 20px;
 
   div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 44px;
     height: 44px;
     background-image: url(${logautImg});
     background-size: cover;
     background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
     @media (min-width: 768px) {
       background-image: url(${logautImg2x});
     }
   }
 `;
-export const ModalButtonYes = styled.button`
+export const ModalButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+`;
+export const ModalButton = styled.button`
   border-radius: 30px;
-  width: 137px;
+  width: 136px;
   height: 42px;
   font-weight: 700;
   font-size: 14px;
   line-height: 1.29;
   letter-spacing: -0.03em;
-  color: #fff;
-  color: ${({ theme }) => theme.white};
-  background-color: ${({ theme }) => theme.primaryColorLight};
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  &:hover,
-  &:active {
-    background-color: ${({ theme }) => theme.primaryColorDark};
-  }
   @media (min-width: 768px) {
-    width: 140px;
+    width: 142px;
     height: 48px;
+    font-size: 16px;
+    line-height: 1.25;
   }
 `;
-export const ModalButtonClose = styled.button`
-  border-radius: 30px;
-  width: 134px;
-  height: 42px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 1.29;
-  letter-spacing: -0.03em;
-  color: ${({ theme }) => theme.black};
-  background-color: ${({ theme }) => theme.opacityTr};
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+export const ModalButtonYes = styled(ModalButton)`
+  color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => theme.primaryLight};
 
   &:hover,
   &:active {
-    background-color: ${({ theme }) => theme.primaryColorDark};
+    background-color: ${({ theme }) => theme.primaryDark};
   }
+`;
+export const ModalButtonClose = styled(ModalButton)`
+  color: ${({ theme }) => theme.black};
+  background-color: ${({ theme }) => theme.opacity};
 
-  @media (min-width: 768px) {
-    width: 140px;
-    height: 48px;
+  &:hover,
+  &:active {
+    background-color: ${({ theme }) => theme.primaryDark};
+    color: ${({ theme }) => theme.white};
   }
 `;

@@ -5,18 +5,11 @@ import { useDispatch } from 'react-redux';
 import { openModal } from '../../redux/modal/slice';
 
 const LogOutBtnContainer = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px; */
   display: none;
 
   @media (min-width: 768px) {
-    /* flex-direction: row; */
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
-    /* gap: 8px; */
   }
 `;
 
@@ -33,18 +26,6 @@ const LogOutBtn = styled.button`
   letter-spacing: -0.03em;
   text-transform: uppercase;
 
-  /* color: ${({ theme }) => theme.white};
-  background-color: ${({ theme }) => theme.primaryDark};
-  border: 1px solid ${({ theme }) => theme.whiteOpacity};
-
-  &:hover,
-  &.active {
-    color: ${({ theme }) => theme.primaryDark};
-    background-color: ${({ theme }) => theme.lightYellow};
-    border: 1px solid ${({ theme }) => theme.lightYellow};
-  } */
-
-  /* @media (min-width: 1280px) { */
   color: ${({ theme }) => theme.primaryDark};
   background-color: ${({ theme }) => theme.lightYellow};
   border: 1px solid ${({ theme }) => theme.primaryDark};
@@ -55,7 +36,6 @@ const LogOutBtn = styled.button`
     background-color: ${({ theme }) => theme.primaryDark};
     color: ${({ theme }) => theme.white};
   }
-  /* } */
 `;
 
 export const LogOutButton: React.FC<LogOutButtonProps> = () => {

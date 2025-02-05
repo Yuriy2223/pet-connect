@@ -7,6 +7,7 @@ import { AppDispatch } from '../../redux/store';
 import {
   LogautImageWrapper,
   ModalButtonClose,
+  ModalButtonWrapper,
   ModalButtonYes,
   ModalLogaut,
 } from './ModalApproveAction.styled';
@@ -28,12 +29,12 @@ export const ModalApproveAction: React.FC = () => {
         <div></div>
       </LogautImageWrapper>
       <h2>Already leaving?</h2>
-      <div>
+      <ModalButtonWrapper>
         <ModalButtonYes onClick={handleLogout}>Yes</ModalButtonYes>
         <ModalButtonClose onClick={() => dispatch(closeModal())}>
           Cancel
         </ModalButtonClose>
-      </div>
+      </ModalButtonWrapper>
     </ModalLogaut>
   );
 };
