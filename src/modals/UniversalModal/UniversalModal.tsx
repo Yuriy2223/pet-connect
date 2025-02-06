@@ -57,19 +57,4 @@ export const ModalUniversal: React.FC = () => {
   );
 };
 
-//   const renderModalContent = () => {
-//     switch (modalType) {
-//       case 'ModalApproveAction':
-//         return <ModalApproveAction {...modalProps} />;
-//       case 'Modal2':
-//         return <Modal2 {...modalProps} />;
-//       case 'Modal3':
-//         return <Modal3 {...modalProps} />;
-//       case 'Modal4':
-//         return <Modal4 {...modalProps} />;
-//       case 'Modal5':
-//         return <Modal5 {...modalProps} />;
-//       default:
-//         return null;
-//     }
-//   };
+
