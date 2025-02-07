@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { Iconsvg } from '../../Common/Icons';
+import { Iconsvg } from '../Common/Icons';
 
 export const Overlay = styled.div<{ $isOpen: boolean }>`
   display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
