@@ -40,6 +40,12 @@ export const ModalUniversal: React.FC = () => {
     switch (modalType) {
       case 'ModalApproveAction':
         return <ModalApproveAction {...modalProps} />;
+      // case 'ModalEditUser':
+      //   return <ModalEditUser {...modalProps} />;
+      // case 'ModalNotice':
+      //   return <ModalNotice {...modalProps} />;
+      // case 'ModalAttention':
+      //   return <ModalAttention {...modalProps} />;
       default:
         return null;
     }
@@ -56,5 +62,3 @@ export const ModalUniversal: React.FC = () => {
     </OverlayModal>
   );
 };
-
-
