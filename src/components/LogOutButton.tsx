@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { LogOutButtonProps } from '../Header/Header.types';
+import { LogOutButtonProps } from './Header/Header.types';
 import { useDispatch } from 'react-redux';
-import { openModal } from '../../redux/modal/slice';
+import { openModal } from '../redux/modal/slice';
 
 const LogOutBtnContainer = styled.div`
   display: none;

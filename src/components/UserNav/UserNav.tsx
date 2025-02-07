@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { UserNavProps } from '../Header/Header.types';
-import { LogOutButton } from '../Header/LogOutButton';
+import { LogOutButton } from '../LogOutButton';
 
 const UserNavContainer = styled.div`
   display: flex;

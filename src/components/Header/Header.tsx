@@ -6,7 +6,7 @@ import { Logo } from '../Logo/Logo';
 import { Nav } from '../Nav/Nav';
 import { AuthNav } from '../AuthNav/AuthNav';
 import { UserNav } from '../UserNav/UserNav';
-import { BurgerMenu } from './BurgerMenu/BurgerMenu';
+import { BurgerMenu } from '../BurgerMenu/BurgerMenu';
 import {
   AvatarDefaultIcon,
   AvatarWrapDefault,
