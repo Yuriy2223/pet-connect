@@ -10,13 +10,3 @@ export const ProfilePageContainer = styled(Container)`
 
 export const UserInformationWrappper = styled.div``;
 export const PetsInformationWrappper = styled.div``;
-// export const ProfilePageContainer = styled.div``;
-// export const ProfilePageContainer = styled.div``;
-// export const ProfilePageContainer = styled.div``;
-// export const ProfilePageContainer = styled.div``;
-// export const ProfilePageContainer = styled.div``;
-// export const ProfilePageContainer = styled.div``;
-// export const ProfilePageContainer = styled.div``;
-// export const ProfilePageContainer = styled.div``;
-// export const ProfilePageContainer = styled.div``;
-// export const ProfilePageContainer = styled.div``;
