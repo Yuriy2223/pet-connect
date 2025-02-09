@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { LogOutButtonProps } from './Header/Header.types';
 import { useDispatch } from 'react-redux';
 import { openModal } from '../redux/modal/slice';
 
@@ -36,6 +35,11 @@ const LogOutBtn = styled.button`
     color: ${({ theme }) => theme.white};
   }
 `;
+
+interface LogOutButtonProps {
+  onLogout: () => void;
+  closeMenu?: () => void;
+}
 
 export const LogOutButton: React.FC<LogOutButtonProps> = () => {
   const dispatch = useDispatch();
