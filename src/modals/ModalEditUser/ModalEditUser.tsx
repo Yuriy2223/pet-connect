@@ -46,69 +46,69 @@ interface EditUser {
 }
 
 export const ModalEditUser: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const userProfile = useSelector(selectUserProfile);
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    // trigger,
-    // reset,
-    clearErrors,
-    // setError,
-    setValue,
-  } = useForm<EditUser>({
-    resolver: yupResolver<EditUser>(editUserSchema),
-    defaultValues: {
-      name: userProfile?.name || '',
-      email: userProfile?.email || '',
-      avatar: userProfile?.avatar || '',
-      phone: userProfile?.phone || '',
-    },
-  });
+  // const dispatch = useAppDispatch();
+  // const userProfile = useSelector(selectUserProfile);
+  // const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  //   // trigger,
+  //   // reset,
+  //   clearErrors,
+  //   // setError,
+  //   setValue,
+  // } = useForm<EditUser>({
+  //   resolver: yupResolver<EditUser>(editUserSchema),
+  //   defaultValues: {
+  //     name: userProfile?.name || '',
+  //     email: userProfile?.email || '',
+  //     avatar: userProfile?.avatar || '',
+  //     phone: userProfile?.phone || '',
+  //   },
+  // });
 
-  useEffect(() => {
-    if (!userProfile) {
-      dispatch(fetchUserCurrent());
-    }
-  }, [dispatch, userProfile]);
+  // // useEffect(() => {
+  // //   if (!userProfile) {
+  // //     dispatch(fetchUserCurrent());
+  // //   }
+  // // }, [dispatch, userProfile]);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  // const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if (!file) return;
 
-    if (!file.type.startsWith('image/')) {
-      toast.error('Only image files are allowed.');
-      return;
-    }
+  //   if (!file.type.startsWith('image/')) {
+  //     toast.error('Only image files are allowed.');
+  //     return;
+  //   }
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setUploadedImage(reader.result as string);
-      setValue('avatar', reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  };
+  //   const reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     setUploadedImage(reader.result as string);
+  //     setValue('avatar', reader.result as string);
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
 
-  const handleBlur = (field: keyof EditUser) => {
-    clearErrors(field);
-  };
-  const handleFocus = (field: keyof EditUser) => {
-    clearErrors(field);
-  };
-  const onSubmit = async (data: EditUser) => {
-    try {
-      await dispatch(updateUserProfile(data)).unwrap();
-      toast.success('Profile updated successfully!');
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : 'An error occurred. Please try again.';
-      toast.error(errorMessage);
-    }
-  };
+  // const handleBlur = (field: keyof EditUser) => {
+  //   clearErrors(field);
+  // };
+  // const handleFocus = (field: keyof EditUser) => {
+  //   clearErrors(field);
+  // };
+  // const onSubmit = async (data: EditUser) => {
+  //   try {
+  //     await dispatch(updateUserProfile(data)).unwrap();
+  //     toast.success('Profile updated successfully!');
+  //   } catch (error) {
+  //     const errorMessage =
+  //       error instanceof Error
+  //         ? error.message
+  //         : 'An error occurred. Please try again.';
+  //     toast.error(errorMessage);
+  //   }
+  // };
 
   return (
     <ModalEditUserContainer>

@@ -19,7 +19,9 @@ export const ModalApproveAction: React.FC = () => {
   if (modalType !== 'ModalApproveAction') return null;
 
   const handleLogout = async () => {
+    console.log('handleLogout triggered!'); // ✅ Має з’явитися в консолі
     await dispatch(logoutUser());
+    console.log('Token after logout:', localStorage.getItem('token')); // Має бути null
     dispatch(closeModal());
   };
 
