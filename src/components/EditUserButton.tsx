@@ -2,28 +2,29 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { openModal } from '../redux/modal/slice';
+import { Iconsvg } from './Common/Icons';
 
-const EditUserButtonContainer = styled.div`
-  display: none;
+export const EditUserButtonContainer = styled.div`
+  /* display: none;
 
   @media (min-width: 768px) {
     display: flex;
     align-items: center;
-  }
+  } */
 `;
 
-const EditUserBtn = styled.button`
+export const EditUserBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 30px;
-  width: 178px;
-  height: 42px;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
   font-weight: 700;
   font-size: 14px;
   line-height: 1.29;
   letter-spacing: -0.03em;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 
   color: ${({ theme }) => theme.primaryDark};
   background-color: ${({ theme }) => theme.lightYellow};
@@ -35,6 +36,12 @@ const EditUserBtn = styled.button`
     background-color: ${({ theme }) => theme.primaryDark};
     color: ${({ theme }) => theme.white};
   }
+`;
+
+export const EditUserBtnIcon = styled(Iconsvg)`
+  width: 32px;
+  height: 32px;
+  stroke: ${({ theme }) => theme.black};
 `;
 
 export interface EditUserButtonProps {
@@ -49,14 +56,16 @@ export const EditUserButton: React.FC<EditUserButtonProps> = () => {
     dispatch(
       openModal({
         type: 'ModalEditUser',
-        props: { actionType: '???????????????????????????????????' },
+        props: { actionType: 'editUser' },
       })
     );
   }, [dispatch]);
 
   return (
     <EditUserButtonContainer>
-      <EditUserBtn onClick={handleLogoutClick}>Log Out</EditUserBtn>
+      <EditUserBtn onClick={handleLogoutClick}>
+        <EditUserBtnIcon width={32} height={32} iconName="edit" />
+      </EditUserBtn>
     </EditUserButtonContainer>
   );
 };
