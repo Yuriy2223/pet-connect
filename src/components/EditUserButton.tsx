@@ -4,14 +4,7 @@ import { useDispatch } from 'react-redux';
 import { openModal } from '../redux/modal/slice';
 import { Iconsvg } from './Common/Icons';
 
-export const EditUserButtonContainer = styled.div`
-  /* display: none;
-
-  @media (min-width: 768px) {
-    display: flex;
-    align-items: center;
-  } */
-`;
+export const EditUserButtonContainer = styled.div``;
 
 export const EditUserBtn = styled.button`
   display: flex;
@@ -20,11 +13,6 @@ export const EditUserBtn = styled.button`
   border-radius: 50%;
   width: 38px;
   height: 38px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 1.29;
-  letter-spacing: -0.03em;
-  /* text-transform: uppercase; */
 
   color: ${({ theme }) => theme.primaryDark};
   background-color: ${({ theme }) => theme.lightYellow};

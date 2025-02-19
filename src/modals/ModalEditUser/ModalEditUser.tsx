@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
-
 import { toast } from 'react-toastify';
+import {
+  fetchUserCurrent,
+  updateUserProfile,
+} from '../../redux/user/operations';
+import { useAppDispatch } from '../../redux/store';
+import { selectUserProfile } from '../../redux/user/selectors';
 import { ModalEditUserContainer } from './ModalEditUser.styled';
+import {
+  IconPhoto,
+  IconUploadPhoto,
+} from '../../components/AddPetForm/AddPetForm.styled';
 
-const schemaEditUser = yup.object().shape({
+const editUserSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
   email: yup
     .string()
@@ -29,7 +38,7 @@ const schemaEditUser = yup.object().shape({
     .required('Phone is required'),
 });
 
-interface FormData {
+interface EditUser {
   name: string;
   email: string;
   avatar: string;
@@ -37,96 +46,166 @@ interface FormData {
 }
 
 export const ModalEditUser: React.FC = () => {
-  const dispatch = useDispatch();
-
+  const dispatch = useAppDispatch();
+  const userProfile = useSelector(selectUserProfile);
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<FormData>({
-    resolver: yupResolver(schemaEditUser),
+    formState: { errors },
+    // trigger,
+    // reset,
+    clearErrors,
+    // setError,
+    setValue,
+  } = useForm<EditUser>({
+    resolver: yupResolver<EditUser>(editUserSchema),
+    defaultValues: {
+      name: userProfile?.name || '',
+      email: userProfile?.email || '',
+      avatar: userProfile?.avatar || '',
+      phone: userProfile?.phone || '',
+    },
   });
 
-  const onSubmit = async (data: FormData) => {
+  useEffect(() => {
+    if (!userProfile) {
+      dispatch(fetchUserCurrent());
+    }
+  }, [dispatch, userProfile]);
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      toast.error('Only image files are allowed.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setUploadedImage(reader.result as string);
+      setValue('avatar', reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleBlur = (field: keyof EditUser) => {
+    clearErrors(field);
+  };
+  const handleFocus = (field: keyof EditUser) => {
+    clearErrors(field);
+  };
+  const onSubmit = async (data: EditUser) => {
     try {
-      // Запит на бекенд
-      const response = await fetch('/api/user/update', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update profile');
-      }
-
+      await dispatch(updateUserProfile(data)).unwrap();
       toast.success('Profile updated successfully!');
-      dispatch(closeModal());
     } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : 'Something went wrong'
-      );
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'An error occurred. Please try again.';
+      toast.error(errorMessage);
     }
   };
 
   return (
     <ModalEditUserContainer>
+      <h2>Edit information</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" placeholder="Avatar URL" {...register('avatar')} />
-        <p>{errors.avatar?.message}</p>
+        <div>
+          {uploadedImage ? (
+            <img src={uploadedImage} alt="Uploaded user photo" />
+          ) : (
+            <div>
+              <IconPhoto iconName="user" />
+            </div>
+          )}
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="URL"
+            value={uploadedImage || ''}
+            readOnly
+            hidden
+          />
+          <p>{errors.avatar?.message}</p>
+          <label htmlFor="file-upload">
+            Upload photo
+            <IconUploadPhoto iconName="upload-cloud" />
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={handleImageUpload}
+          />
+        </div>
 
-        <input type="text" placeholder="Name" {...register('name')} />
-        <p>{errors.name?.message}</p>
-
-        <input type="email" placeholder="Email" {...register('email')} />
-        <p>{errors.email?.message}</p>
-
-        <input type="text" placeholder="Phone" {...register('phone')} />
-        <p>{errors.phone?.message}</p>
-
-        <button type="submit">Save</button>
+        <div>
+          <label>
+            <input
+              type="text"
+              placeholder="Name"
+              {...register('name')}
+              onBlur={() => handleBlur('name')}
+              onFocus={() => handleFocus('name')}
+            />
+            <p>{errors.name?.message}</p>
+          </label>
+          <label>
+            <input
+              type="email"
+              placeholder="Email"
+              {...register('email')}
+              onBlur={() => handleBlur('email')}
+              onFocus={() => handleFocus('email')}
+            />
+            <p>{errors.email?.message}</p>
+          </label>
+          <label>
+            <input
+              type="text"
+              placeholder="Phone"
+              {...register('phone')}
+              onBlur={() => handleBlur('phone')}
+              onFocus={() => handleFocus('phone')}
+            />
+            <p>{errors.phone?.message}</p>
+          </label>
+        </div>
+        <div>
+          <button type="submit">Go to profile</button>
+        </div>
       </form>
     </ModalEditUserContainer>
   );
 };
 
-// import React from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { closeModal } from '../../redux/modal/slice';
-// import { logoutUser } from '../../redux/auth/operations';
-// import { selectModalType } from '../../redux/modal/selectors';
-// import { AppDispatch } from '../../redux/store';
-// import {
-//   LogautImageWrapper,
-//   ModalButtonClose,
-//   ModalButtonWrapper,
-//   ModalButtonYes,
-//   ModalLogaut,
-// } from './ModalApproveAction.styled';
+// useEffect(() => {
+//   if (userProfile) {
+//     reset({
+//       name: userProfile.name,
+//       email: userProfile.email,
+//       avatar: userProfile.avatar || '',
+//       phone: userProfile.phone || '',
+//     });
+//     setUploadedImage(userProfile.avatar || null);
+//   }
+// }, [userProfile, reset]);
 
-// export const ModalApproveAction: React.FC = () => {
-//   const dispatch = useDispatch<AppDispatch>();
-//   const modalType = useSelector(selectModalType);
-
-//   if (modalType !== 'ModalApproveAction') return null;
-
-//   const handleLogout = async () => {
-//     await dispatch(logoutUser());
-//     dispatch(closeModal());
-//   };
-
-//   return (
-//     <ModalLogaut>
-//       <LogautImageWrapper>
-//         <div></div>
-//       </LogautImageWrapper>
-//       <h2>Already leaving?</h2>
-//       <ModalButtonWrapper>
-//         <ModalButtonYes onClick={handleLogout}>Yes</ModalButtonYes>
-//         <ModalButtonClose onClick={() => dispatch(closeModal())}>
-//           Cancel
-//         </ModalButtonClose>
-//       </ModalButtonWrapper>
-//     </ModalLogaut>
-//   );
+// const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+//   const file = event.target.files?.[0];
+//   if (file) {
+//     const imageUrl = URL.createObjectURL(file);
+//     setUploadedImage(imageUrl);
+//     setValue('avatar', imageUrl);
+//   }
 // };
+
+// // Selector to get the user profile
+// export const selectUserProfile = (state: RootState): UserProfile | null =>
+//   state.user.profile;
