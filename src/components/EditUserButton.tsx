@@ -44,7 +44,7 @@ export const EditUserButton: React.FC<EditUserButtonProps> = () => {
     dispatch(
       openModal({
         type: 'ModalEditUser',
-        props: { actionType: 'editUser' },
+        // props: { actionType: 'editUser' },
       })
     );
   }, [dispatch]);
