@@ -1,6 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
+
+import { toast } from 'react-toastify';
+import { ModalEditUserContainer } from './ModalEditUser.styled';
 
 const schemaEditUser = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -24,31 +29,64 @@ const schemaEditUser = yup.object().shape({
     .required('Phone is required'),
 });
 
+interface FormData {
+  name: string;
+  email: string;
+  avatar: string;
+  phone: string;
+}
+
 export const ModalEditUser: React.FC = () => {
-  const { register, handleSubmit, errors } = useForm({
+  const dispatch = useDispatch();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({
     resolver: yupResolver(schemaEditUser),
   });
 
-  const onSubmit = async data => {
-    // Логіка відправки даних на backend
+  const onSubmit = async (data: FormData) => {
+    try {
+      // Запит на бекенд
+      const response = await fetch('/api/user/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update profile');
+      }
+
+      toast.success('Profile updated successfully!');
+      dispatch(closeModal());
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : 'Something went wrong'
+      );
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="text" placeholder="Avatar URL" {...register('avatar')} />
-      <p>{errors.avatar?.message}</p>
+    <ModalEditUserContainer>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input type="text" placeholder="Avatar URL" {...register('avatar')} />
+        <p>{errors.avatar?.message}</p>
 
-      <input type="text" placeholder="Name" {...register('name')} />
-      <p>{errors.name?.message}</p>
+        <input type="text" placeholder="Name" {...register('name')} />
+        <p>{errors.name?.message}</p>
 
-      <input type="email" placeholder="Email" {...register('email')} />
-      <p>{errors.email?.message}</p>
+        <input type="email" placeholder="Email" {...register('email')} />
+        <p>{errors.email?.message}</p>
 
-      <input type="text" placeholder="Phone" {...register('phone')} />
-      <p>{errors.phone?.message}</p>
+        <input type="text" placeholder="Phone" {...register('phone')} />
+        <p>{errors.phone?.message}</p>
 
-      <button type="submit">Save</button>
-    </form>
+        <button type="submit">Save</button>
+      </form>
+    </ModalEditUserContainer>
   );
 };
 

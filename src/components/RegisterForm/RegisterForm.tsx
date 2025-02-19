@@ -93,7 +93,7 @@ export const RegisterForm: React.FC = () => {
       return;
     }
     try {
-      /*// eslint-disable-next-line @typescript-eslint/no-unused-vars*/
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { confirmPassword, ...registrationData } = data;
 
       await dispatch(registerUser(registrationData))

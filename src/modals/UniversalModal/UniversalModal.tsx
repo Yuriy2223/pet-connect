@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ModalApproveAction } from '../ModalApproveAction/ModalApproveAction';
 import { closeModal } from '../../redux/modal/slice';
 import {
   selectIsModalOpen,
   selectModalProps,
   selectModalType,
 } from '../../redux/modal/selectors';
+import { ModalApproveAction } from '../ModalApproveAction/ModalApproveAction';
+import { ModalEditUser } from '../ModalEditUser/ModalEditUser';
 import {
   CloseButton,
   CloseIcon,
@@ -40,8 +41,8 @@ export const ModalUniversal: React.FC = () => {
     switch (modalType) {
       case 'ModalApproveAction':
         return <ModalApproveAction {...modalProps} />;
-      // case 'ModalEditUser':
-      //   return <ModalEditUser {...modalProps} />;
+      case 'ModalEditUser':
+        return <ModalEditUser {...modalProps} />;
       // case 'ModalNotice':
       //   return <ModalNotice {...modalProps} />;
       // case 'ModalAttention':
