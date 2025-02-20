@@ -2,7 +2,7 @@ import axios from 'axios';
 import { store } from '../redux/store';
 import { logoutUser } from '../redux/auth/operations';
 
-const API_URL = 'https://petlove.b.goit.study';
+export const API_URL = 'https://petlove.b.goit.study';
 export const TOKEN_KEY = 'token-love-pet';
 
 export const instance = axios.create({
