@@ -10,7 +10,7 @@ export const selectAuthLoading = (state: RootState) => state.auth.loading;
 
 export const selectAuthError = (state: RootState) => state.auth.error;
 
-export const selectIsAuthenticated = (state: RootState) =>
-  Boolean(state.auth.token);
+// export const selectIsAuthenticated = (state: RootState) =>
+//   Boolean(state.auth.token);
 
-export const selectIsRefreshing = (state: RootState) => state.auth.loading;
+// export const selectIsRefreshing = (state: RootState) => state.auth.loading;
