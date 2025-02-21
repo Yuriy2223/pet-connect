@@ -33,7 +33,7 @@ export const EditUserBtnIcon = styled(Iconsvg)`
 `;
 
 export interface EditUserButtonProps {
-  onLogout?: () => void;
+  // onLogout?: () => void;
   closeMenu?: () => void;
 }
 

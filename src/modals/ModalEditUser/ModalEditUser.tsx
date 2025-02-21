@@ -2,210 +2,248 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { toast } from 'react-toastify';
-import {
-  fetchUserCurrent,
-  updateUserProfile,
-} from '../../redux/user/operations';
+import { EditUser } from './ModalEditUser.type';
+import { uploadImage } from '../../utils/uploadImages';
+import { editUserSchema } from '../../components/Common/ValidationSchemas';
+import { closeModal } from '../../redux/modal/slice';
 import { useAppDispatch } from '../../redux/store';
 import { selectUserProfile } from '../../redux/user/selectors';
-import { ModalEditUserContainer } from './ModalEditUser.styled';
 import {
-  IconPhoto,
-  IconUploadPhoto,
-} from '../../components/AddPetForm/AddPetForm.styled';
-
-const editUserSchema = yup.object().shape({
-  name: yup.string().required('Name is required'),
-  email: yup
-    .string()
-    .matches(
-      /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
-      'Invalid email format'
-    )
-    .required('Email is required'),
-  avatar: yup
-    .string()
-    .matches(
-      /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/,
-      'Invalid avatar URL'
-    )
-    .required('Avatar is required'),
-  phone: yup
-    .string()
-    .matches(/^\+38\d{10}$/, 'Invalid phone number')
-    .required('Phone is required'),
-});
-
-interface EditUser {
-  name: string;
-  email: string;
-  avatar: string;
-  phone: string;
-}
+  fetchFullUserInfo,
+  updateUserProfile,
+} from '../../redux/user/operations';
+import {
+  Button,
+  EditFormWraper,
+  ErrorText,
+  IconAvatar,
+  IconUploadBtnAvatar,
+  InputStyled,
+  LabelInput,
+  ModalEditUserContainer,
+  UploadButtonAvatar,
+  UploadWrapperAvatar,
+  UploadWrapperInputEndBtn,
+  WrapperInputsBlok,
+} from './ModalEditUser.styled';
 
 export const ModalEditUser: React.FC = () => {
   const dispatch = useAppDispatch();
   const userProfile = useSelector(selectUserProfile);
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [uploadedImage, setUploadedImage] = useState(userProfile?.avatar || '');
+  const [inputStates, setInputStates] = useState({
+    name: undefined,
+    email: undefined,
+    phone: undefined,
+    avatar: undefined,
+  });
+
+  const [isFieldFocused, setIsFieldFocused] = useState({
+    name: false,
+    email: false,
+    phone: false,
+    avatar: false,
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
-    // trigger,
-    // reset,
+    trigger,
+    reset,
     clearErrors,
-    // setError,
     setValue,
-  } = useForm<EditUser>({
-    resolver: yupResolver<EditUser>(editUserSchema),
+  } = useForm({
+    resolver: yupResolver(editUserSchema),
     defaultValues: {
+      avatar: userProfile?.avatar || '',
       name: userProfile?.name || '',
       email: userProfile?.email || '',
-      avatar: userProfile?.avatar || '',
       phone: userProfile?.phone || '',
     },
   });
 
   useEffect(() => {
-    if (!userProfile) {
-      dispatch(fetchUserCurrent());
-    }
-  }, [dispatch, userProfile]);
+    dispatch(fetchFullUserInfo());
+  }, [dispatch]);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    if (!file.type.startsWith('image/')) {
-      toast.error('Only image files are allowed.');
-      return;
+    const uploadedUrl = await uploadImage(file);
+    if (uploadedUrl) {
+      setUploadedImage(uploadedUrl);
+      setValue('avatar', uploadedUrl);
     }
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setUploadedImage(reader.result as string);
-      setValue('avatar', reader.result as string);
-    };
-    reader.readAsDataURL(file);
   };
 
-  const handleBlur = (field: keyof EditUser) => {
-    clearErrors(field);
+  const handleBlur = async (field: keyof typeof inputStates) => {
+    const isValid = await trigger(field);
+    setInputStates(prevState => ({
+      ...prevState,
+      [field]: isValid,
+    }));
+    setIsFieldFocused(prevState => ({
+      ...prevState,
+      [field]: false,
+    }));
   };
-  const handleFocus = (field: keyof EditUser) => {
-    clearErrors(field);
+
+  const handleFocus = (field: keyof typeof isFieldFocused) => {
+    setIsFieldFocused(prevState => ({
+      ...prevState,
+      [field]: true,
+    }));
   };
+
+  const getErrorMessage = (field: keyof typeof inputStates) => {
+    if (inputStates[field])
+      return `${field[0].toUpperCase() + field.slice(1)} is valid`;
+    return errors[field]?.message || '';
+  };
+
   const onSubmit = async (data: EditUser) => {
     try {
-      await dispatch(updateUserProfile(data)).unwrap();
+      await dispatch(updateUserProfile({ ...data }));
       toast.success('Profile updated successfully!');
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : 'An error occurred. Please try again.';
-      toast.error(errorMessage);
+      reset();
+      clearErrors();
+      setInputStates({
+        name: undefined,
+        email: undefined,
+        phone: undefined,
+        avatar: undefined,
+      });
+
+      setIsFieldFocused({
+        name: false,
+        email: false,
+        phone: false,
+        avatar: false,
+      });
+      dispatch(closeModal());
+    } catch {
+      toast.error('An error occurred.');
     }
   };
 
   return (
     <ModalEditUserContainer>
       <h2>Edit information</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
+      <EditFormWraper onSubmit={handleSubmit(onSubmit)}>
+        <UploadWrapperAvatar>
           {uploadedImage ? (
-            <img src={uploadedImage} alt="Uploaded user photo" />
+            <img src={uploadedImage} alt="Avatar" />
           ) : (
-            <div>
-              <IconPhoto iconName="user" />
-            </div>
+            <IconAvatar iconName="user" />
           )}
-        </div>
-        <div>
+        </UploadWrapperAvatar>
+        <UploadWrapperInputEndBtn>
           <input
             type="text"
             placeholder="URL"
-            value={uploadedImage || ''}
+            {...register('avatar')}
             readOnly
-            hidden
           />
-          <p>{errors.avatar?.message}</p>
-          <label htmlFor="file-upload">
-            Upload photo
-            <IconUploadPhoto iconName="upload-cloud" />
-          </label>
+          <ErrorText
+            isValid={inputStates.avatar}
+            isFieldFocused={isFieldFocused.avatar}
+          >
+            {inputStates.email
+              ? 'Email is valid'
+              : errors.avatar?.message || ''}
+          </ErrorText>
+          <UploadButtonAvatar htmlFor="file-upload">
+            Upload photo <IconUploadBtnAvatar iconName="upload-cloud" />
+          </UploadButtonAvatar>
           <input
             id="file-upload"
             type="file"
             accept="image/*"
-            style={{ display: 'none' }}
-            onChange={handleImageUpload}
+            hidden
+            onChange={handleFileUpload}
           />
-        </div>
-
-        <div>
-          <label>
-            <input
+        </UploadWrapperInputEndBtn>
+        <WrapperInputsBlok>
+          <LabelInput>
+            <InputStyled
               type="text"
               placeholder="Name"
               {...register('name')}
               onBlur={() => handleBlur('name')}
               onFocus={() => handleFocus('name')}
+              // isValid={inputStates.name}
             />
-            <p>{errors.name?.message}</p>
-          </label>
-          <label>
-            <input
+
+            {/* <ErrorText
+              isValid={inputStates.name}
+              isFieldFocused={isFieldFocused.name}
+            >
+              {inputStates.name ? 'Name is valid' : errors.name?.message || ''}
+            </ErrorText> */}
+            <ErrorText
+              isValid={inputStates.name}
+              isFieldFocused={isFieldFocused.name}
+            >
+              {getErrorMessage('name')}
+            </ErrorText>
+          </LabelInput>
+          <LabelInput>
+            <InputStyled
               type="email"
               placeholder="Email"
               {...register('email')}
               onBlur={() => handleBlur('email')}
               onFocus={() => handleFocus('email')}
+              // isValid={inputStates.email}
+              autoComplete="username"
             />
-            <p>{errors.email?.message}</p>
-          </label>
-          <label>
-            <input
+
+            {/* <ErrorText
+              isValid={inputStates.email}
+              isFieldFocused={isFieldFocused.email}
+            >
+              {inputStates.email
+                ? 'Email is valid'
+                : errors.email?.message || ''}
+            </ErrorText> */}
+            <ErrorText
+              isValid={inputStates.email}
+              isFieldFocused={isFieldFocused.email}
+            >
+              {getErrorMessage('email')}
+            </ErrorText>
+          </LabelInput>
+          <LabelInput>
+            <InputStyled
               type="text"
               placeholder="Phone"
               {...register('phone')}
-              onBlur={() => handleBlur('phone')}
-              onFocus={() => handleFocus('phone')}
+              // isValid={inputStates.phone}
+              autoComplete="tel"
             />
-            <p>{errors.phone?.message}</p>
-          </label>
-        </div>
-        <div>
-          <button type="submit">Go to profile</button>
-        </div>
-      </form>
+
+            {/* <ErrorText
+              isValid={inputStates.phone}
+              isFieldFocused={isFieldFocused.phone}
+            >
+              {inputStates.phone
+                ? 'Phone is valid'
+                : errors.phone?.message || ''}
+            </ErrorText> */}
+            <ErrorText
+              isValid={inputStates.phone}
+              isFieldFocused={isFieldFocused.phone}
+            >
+              {getErrorMessage('phone')}
+            </ErrorText>
+          </LabelInput>
+        </WrapperInputsBlok>
+        <Button type="submit">Go to profile</Button>
+      </EditFormWraper>
     </ModalEditUserContainer>
   );
 };
-
-// useEffect(() => {
-//   if (userProfile) {
-//     reset({
-//       name: userProfile.name,
-//       email: userProfile.email,
-//       avatar: userProfile.avatar || '',
-//       phone: userProfile.phone || '',
-//     });
-//     setUploadedImage(userProfile.avatar || null);
-//   }
-// }, [userProfile, reset]);
-
-// const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-//   const file = event.target.files?.[0];
-//   if (file) {
-//     const imageUrl = URL.createObjectURL(file);
-//     setUploadedImage(imageUrl);
-//     setValue('avatar', imageUrl);
-//   }
-// };
-
-// // Selector to get the user profile
-// export const selectUserProfile = (state: RootState): UserProfile | null =>
-//   state.user.profile;

@@ -46,3 +46,22 @@ export const addPetSchema = Yup.object().shape({
     .matches(/^\d{2}\.\d{2}\.\d{4}$/, 'Enter a valid date')
     .required('Birthday is required'),
 });
+
+export const editUserSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, 'Name must be at least 3 characters')
+    .max(50, 'Name cannot be longer than 50 characters')
+    .required('Name is required'),
+  email: Yup.string()
+    .matches(
+      /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
+      'Invalid email format'
+    )
+    .required('Email is required'),
+  avatar: Yup.string()
+    .optional()
+    .matches(/^https?:\/\/.*\.(?:png|jpg|jpeg|webp)$/, 'Invalid avatar URL'),
+  phone: Yup.string()
+    .optional()
+    .matches(/^\+38\d{10}$/, 'Invalid phone number'),
+});
