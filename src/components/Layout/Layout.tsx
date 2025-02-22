@@ -16,6 +16,7 @@ export const Layout: React.FC<LayoutProps> = () => {
   useEffect(() => {
     dispatch(fetchFullUserInfo());
   }, [dispatch]);
+
   return (
     <div>
       <Header />
