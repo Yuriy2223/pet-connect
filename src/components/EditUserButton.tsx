@@ -11,10 +11,8 @@ export const EditUserBtn = styled.button`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  width: 38px;
-  height: 38px;
-
-  color: ${({ theme }) => theme.primaryDark};
+  width: 40px;
+  height: 40px;
   background-color: ${({ theme }) => theme.lightYellow};
   border: 1px solid ${({ theme }) => theme.primaryDark};
 
@@ -22,14 +20,19 @@ export const EditUserBtn = styled.button`
   &.active {
     border: 1px solid ${({ theme }) => theme.primaryDark};
     background-color: ${({ theme }) => theme.primaryDark};
-    color: ${({ theme }) => theme.white};
+
+    svg {
+      stroke: ${({ theme }) => theme.white};
+      fill: ${({ theme }) => theme.white};
+    }
   }
 `;
 
 export const EditUserBtnIcon = styled(Iconsvg)`
-  width: 32px;
-  height: 32px;
-  stroke: ${({ theme }) => theme.black};
+  width: 20px;
+  height: 20px;
+  stroke: ${({ theme }) => theme.primaryDark};
+  fill: ${({ theme }) => theme.lightYellow};
 `;
 
 export interface EditUserButtonProps {
