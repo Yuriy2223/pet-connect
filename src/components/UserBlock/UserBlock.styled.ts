@@ -4,9 +4,13 @@ import { Iconsvg } from '../Common/Icons';
 export const UserBlockContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 20px 40px;
+  padding: 20px;
   background-color: ${({ theme }) => theme.white};
   border-radius: 30px;
+
+  @media (min-width: 768px) {
+    padding: 40px;
+  }
 
   @media (min-width: 1280px) {
     width: 520px;

@@ -5,8 +5,7 @@ export const UserCardContainer = styled.div`
   flex-direction: column;
   gap: 20px;
 
-  @media (min-width: 1280px) {
-    flex-direction: row;
+  /* @media (min-width: 1280px) {
     gap: 30px;
-  }
+  } */
 `;
