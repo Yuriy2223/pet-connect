@@ -45,14 +45,26 @@ export const MenuIcon = styled(Iconsvg)`
   height: 32px;
   stroke: ${({ theme }) => theme.black};
 `;
-export const AvatarWrapDefault = styled.div`
+export const AvatarWrapHeader = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.lightYellow};
+  border: 2px solid ${({ theme }) => theme.primaryDark};
   display: flex;
   align-items: center;
   justify-content: center;
+
+  img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+
+    @media (min-width: 768px) {
+      width: 48px;
+      height: 48px;
+    }
+  }
 
   @media (min-width: 768px) {
     width: 50px;

@@ -1,6 +1,13 @@
-import React, { useCallback, useState } from 'react';
+import React, {
+  useCallback,
+  // useEffect,
+  useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsSignedIn, selectUser } from '../../redux/auth/selectors';
+import {
+  selectIsSignedIn,
+  // selectUser
+} from '../../redux/auth/selectors';
 import { openModal } from '../../redux/modal/slice';
 import { Logo } from '../Logo/Logo';
 import { Nav } from '../Nav/Nav';
@@ -9,16 +16,17 @@ import { UserNav } from '../UserNav/UserNav';
 import { BurgerMenu } from '../BurgerMenu/BurgerMenu';
 import {
   AvatarDefaultIcon,
-  AvatarWrapDefault,
+  AvatarWrapHeader,
   BurgerMenuButton,
   HeaderContainer,
   HeaderMenuNav,
   MenuIcon,
 } from './Header.styled';
+import { selectUserProfile } from '../../redux/user/selectors';
 
 export const Header: React.FC = () => {
   const isAuthenticated = useSelector(selectIsSignedIn);
-  const user = useSelector(selectUser);
+  const userProfile = useSelector(selectUserProfile); /** */
   const dispatch = useDispatch();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -37,15 +45,15 @@ export const Header: React.FC = () => {
       <HeaderMenuNav>
         {isAuthenticated ? (
           <UserNav
-            userName={user?.name || 'User'}
+            userName={userProfile?.name || 'User'}
             userAvatar={
-              user?.avatar ? (
-                <img src={user.avatar} alt="User avatar" />
-              ) : (
-                <AvatarWrapDefault>
+              <AvatarWrapHeader>
+                {userProfile?.avatar ? (
+                  <img src={userProfile.avatar} alt="User avatar" />
+                ) : (
                   <AvatarDefaultIcon iconName="user" />
-                </AvatarWrapDefault>
-              )
+                )}
+              </AvatarWrapHeader>
             }
             onLogout={() => dispatch(openModal({ type: 'ModalApproveAction' }))}
             closeMenu={closeMenu}
