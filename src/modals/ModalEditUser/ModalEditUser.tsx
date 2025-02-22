@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  // useEffect,
+  useState,
+} from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,7 +13,7 @@ import { closeModal } from '../../redux/modal/slice';
 import { useAppDispatch } from '../../redux/store';
 import { selectUserProfile } from '../../redux/user/selectors';
 import {
-  fetchFullUserInfo,
+  // fetchFullUserInfo,
   updateUserProfile,
 } from '../../redux/user/operations';
 import {
@@ -63,9 +66,9 @@ export const ModalEditUser: React.FC = () => {
     },
   });
 
-  useEffect(() => {
-    dispatch(fetchFullUserInfo());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchFullUserInfo());
+  // }, [dispatch]);
 
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
