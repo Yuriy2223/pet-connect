@@ -1,19 +1,13 @@
-import React, {
-  useCallback,
-  // useEffect,
-  useState,
-} from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectIsSignedIn,
-  // selectUser
-} from '../../redux/auth/selectors';
+import { selectIsSignedIn } from '../../redux/auth/selectors';
 import { openModal } from '../../redux/modal/slice';
 import { Logo } from '../Logo/Logo';
 import { Nav } from '../Nav/Nav';
 import { AuthNav } from '../AuthNav/AuthNav';
 import { UserNav } from '../UserNav/UserNav';
 import { BurgerMenu } from '../BurgerMenu/BurgerMenu';
+import { selectUserProfile } from '../../redux/user/selectors';
 import {
   AvatarDefaultIcon,
   AvatarWrapHeader,
@@ -22,11 +16,10 @@ import {
   HeaderMenuNav,
   MenuIcon,
 } from './Header.styled';
-import { selectUserProfile } from '../../redux/user/selectors';
 
 export const Header: React.FC = () => {
   const isAuthenticated = useSelector(selectIsSignedIn);
-  const userProfile = useSelector(selectUserProfile); /** */
+  const userProfile = useSelector(selectUserProfile);
   const dispatch = useDispatch();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
