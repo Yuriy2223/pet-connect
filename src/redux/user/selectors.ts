@@ -1,7 +1,6 @@
 import { RootState } from '../store';
 import { UserProfile, PetProfile } from './user.types';
 
-// Selector to get the user profile
 export const selectUserProfile = (state: RootState): UserProfile | null =>
   state.user.profile;
 
