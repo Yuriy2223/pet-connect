@@ -5,6 +5,10 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { fetchTypes, OptionType } from '../../services/apiService';
 import { addPetSchema } from '../../components/Common/ValidationSchemas';
+import { ErrorMessage } from './ErrorMessage';
+import { uploadImage } from '../../utils/uploadImages';
+import { useAppDispatch } from '../../redux/store';
+import { addUserPet } from '../../redux/user/operations';
 import {
   AddButtonWrapper,
   AddPhoto,
@@ -35,12 +39,11 @@ import {
   InputWrapper,
   AddSelectTypeWrapper,
 } from './AddPetForm.styled';
-import { ErrorMessage } from './ErrorMessage';
 
 interface PetFormData {
   title: string;
   name: string;
-  imgUrl: string;
+  imgURL: string;
   species: string;
   birthday: string;
   sex: string;
@@ -59,7 +62,7 @@ export const AddPetForm: React.FC = () => {
   } = useForm<PetFormData>({
     resolver: yupResolver(addPetSchema),
   });
-
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [typeOptions, setTypeOptions] = useState<OptionType[]>([]);
   const [filters, setFilters] = useState({
@@ -72,19 +75,20 @@ export const AddPetForm: React.FC = () => {
   const handleFilterChange = (field: string, value: string | null) => {
     setFilters(prev => ({ ...prev, [field]: value }));
     if (field === 'sex' && value) {
-      setValue('sex', value || ''); // Синхронізація значення статі з формою
-      clearErrors('sex'); // Очищення помилки
+      setValue('sex', value || '');
+      clearErrors('sex');
     }
   };
-
-  // Додаємо uploadedImage у форму автоматично при зміні зображення
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setUploadedImage(imageUrl);
-      setValue('imgUrl', imageUrl); // Встановлюємо значення imgUrl у форму
-      clearErrors('imgUrl'); // Очищаємо помилку, коли завантажено зображення
+    if (!file) return;
+
+    const uploadedUrl = await uploadImage(file);
+    if (uploadedUrl) {
+      setUploadedImage(uploadedUrl);
+      setValue('imgURL', uploadedUrl);
     }
   };
 
@@ -108,141 +112,38 @@ export const AddPetForm: React.FC = () => {
     fetchData();
   }, []);
 
-  const [formattedDate, setFormattedDate] = useState('');
-
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const date = e.target.value;
-    setFormattedDate(new Date(date).toLocaleDateString('uk-UA')); // формат DD.MM.YYYY
-    setValue('birthday', date); // зберігаємо в форматі YYYY-MM-DD
+    setValue('birthday', date);
   };
 
-  // const onSubmit = async (data: PetFormData) => {
-  //   console.log(data);
-  //   if (!filters.sex) {
-  //     setError('sex', { message: 'Please select a gender' });
-  //     return;
-  //   } else {
-  //     setValue('sex', filters.sex);
-  //     clearErrors('sex');
-  //   }
-
-  //   if (!uploadedImage) {
-  //     setError('imgUrl', { message: 'Please upload an image' });
-  //     return;
-  //   } else {
-  //     clearErrors('imgUrl');
-  //   }
-
-  //   try {
-  //     const updatedData = { ...data, imgUrl: uploadedImage, sex: filters.sex };
-  //     const response = await fetch('/api/users/current/pets/add', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(updatedData),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Failed to add pet. Try again.');
-  //     }
-
-  //     toast.success('Pet added successfully!');
-  //     reset();
-  //     setUploadedImage(null);
-  //     setFilters({ sex: null, type: null });
-
-  //     setTimeout(() => {
-  //       navigate('/profile');
-  //     }, 2000);
-  //   } catch (error: unknown) {
-  //     if (error instanceof Error) {
-  //       toast.error(error.message || 'An error occurred. Please try again.');
-  //     } else {
-  //       toast.error('An unknown error occurred. Please try again.');
-  //     }
-  //   }
-  // };
   const onSubmit = async (data: PetFormData) => {
-    console.log(data);
-    // Перевірка статі
-    if (!filters.sex) {
+    if (!data.sex) {
       setError('sex', { message: 'Please select a gender' });
       return;
     }
-  
-    // Перевірка зображення
+
     if (!uploadedImage) {
-      setError('imgUrl', { message: 'Please upload an image' });
+      setError('imgURL', { message: 'Please upload an image' });
       return;
     }
-  
+
     try {
-      // Перетворення локального зображення в File
-      const response = await fetch(uploadedImage);
-      const blob = await response.blob();
-      const imageFile = new File([blob], 'pet-image', { type: blob.type });
-  
-      // Створення FormData для завантаження зображення
-      const imageFormData = new FormData();
-      imageFormData.append('image', imageFile);
-  
-      // Завантаження зображення на сервер
-      const imageUploadResponse = await fetch('/api/upload-image', {
-        method: 'POST',
-        body: imageFormData
-      });
-  
-      if (!imageUploadResponse.ok) {
-        throw new Error('Image upload failed');
-      }
-  
-      // Отримання URL зображення з сервера
-      const { imageUrl } = await imageUploadResponse.json();
-  
-      // Підготовка даних для додавання домашнього улюбленця
-      const petData = {
-        ...data,
-        imgUrl: imageUrl,
-        sex: filters.sex,
-        species: filters.type?.value || '',
-        birthday: data.birthday
-      };
-  
-      // Надсилання даних про домашнього улюбленця
-      const addPetResponse = await fetch('/api/add-pet', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(petData),
-      });
-  
-      if (!addPetResponse.ok) {
-        throw new Error('Failed to add pet');
-      }
-  
-      // Успішне додавання
+      await dispatch(addUserPet({ ...data }));
       toast.success('Pet added successfully!');
-      
-      // Скидання форми та стану
       reset();
+      clearErrors();
+
       setUploadedImage(null);
       setFilters({ sex: null, type: null });
-  
-      // Перехід на сторінку профілю
+
       setTimeout(() => {
         navigate('/profile');
       }, 2000);
-  
     } catch (error: unknown) {
-      // Обробка помилок
-      const errorMessage = error instanceof Error 
-        ? error.message 
-        : 'An unknown error occurred';
-      
+      const errorMessage =
+        error instanceof Error ? error.message : 'An unknown error occurred';
       toast.error(errorMessage);
-      console.error(error);
     }
   };
 
@@ -304,11 +205,11 @@ export const AddPetForm: React.FC = () => {
           <UploadInput
             type="text"
             placeholder="URL"
-            value={uploadedImage || ''}
+            {...register('imgURL')}
             readOnly
           />
-          <ErrorMessage message={errors.imgUrl?.message} />
-          <UploadButton as="label" htmlFor="file-upload">
+          <ErrorMessage message={errors.imgURL?.message} />
+          <UploadButton htmlFor="file-upload">
             Upload photo
             <IconUploadPhoto iconName="upload-cloud" />
           </UploadButton>
@@ -316,8 +217,8 @@ export const AddPetForm: React.FC = () => {
             id="file-upload"
             type="file"
             accept="image/*"
-            style={{ display: 'none' }}
-            onChange={handleImageUpload}
+            hidden
+            onChange={handleFileUpload}
           />
         </UploadWrapper>
       </AddPhotoWrapper>
@@ -364,11 +265,11 @@ export const AddPetForm: React.FC = () => {
                 typeOptions.find(
                   option => option.value === filters.type?.value
                 ) || null
-              } // Пошук обраного об'єкта
+              }
               onChange={option => {
                 const selectedOption = option as OptionType | null;
-                setFilters(prev => ({ ...prev, type: selectedOption })); // Оновлення фільтру з об'єктом
-                setValue('species', selectedOption?.value || ''); // Оновлення значення у формі
+                setFilters(prev => ({ ...prev, type: selectedOption }));
+                setValue('species', selectedOption?.value || '');
                 clearErrors('species');
               }}
               onBlur={() => handleBlur('species')}

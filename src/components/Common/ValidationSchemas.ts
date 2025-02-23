@@ -33,7 +33,7 @@ export const registerSchema = Yup.object().shape({
 
 export const addPetSchema = Yup.object().shape({
   sex: Yup.string().required('Sex is required'),
-  imgUrl: Yup.string()
+  imgURL: Yup.string()
     .matches(
       /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/,
       'Invalid URL format'
@@ -43,7 +43,7 @@ export const addPetSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
   species: Yup.string().required('Species is required'),
   birthday: Yup.string()
-    .matches(/^\d{2}\.\d{2}\.\d{4}$/, 'Enter a valid date')
+    .matches(/^\d{4}-\d{2}-\d{2}$/)
     .required('Birthday is required'),
 });
 
