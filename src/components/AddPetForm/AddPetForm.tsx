@@ -8,7 +8,7 @@ import { addPetSchema } from '../../components/Common/ValidationSchemas';
 import { ErrorMessage } from './ErrorMessage';
 import { uploadImage } from '../../utils/uploadImages';
 import { useAppDispatch } from '../../redux/store';
-import { addUserPet } from '../../redux/user/operations';
+import { addUserPet, fetchFullUserInfo } from '../../redux/user/operations';
 import {
   AddButtonWrapper,
   AddPhoto,
@@ -130,6 +130,7 @@ export const AddPetForm: React.FC = () => {
 
     try {
       await dispatch(addUserPet({ ...data }));
+      dispatch(fetchFullUserInfo());
       toast.success('Pet added successfully!');
       reset();
       clearErrors();

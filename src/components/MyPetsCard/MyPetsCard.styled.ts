@@ -12,6 +12,7 @@ export const MyPetsCardContainer = styled.div`
   @media (max-width: 374px) {
     padding: 6px;
     gap: 6px;
+    min-height: 111px;
   }
   @media (min-width: 768px) {
     width: 305px;
@@ -31,6 +32,7 @@ export const WrapAvatarPets = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 
   img {
     border-radius: 50%;
@@ -125,9 +127,9 @@ export const MyPetsCardList = styled.div`
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  @media (min-width: 1280px) {
+  /* @media (min-width: 1280px) {
     gap: 14px;
-  }
+  } */
 `;
 export const MyPetsCardItem = styled.div`
   p {
@@ -138,7 +140,7 @@ export const MyPetsCardItem = styled.div`
     color: ${({ theme }) => theme.opacityTr};
     @media (min-width: 1280px) {
       font-size: 14px;
-      margin-bottom: 8px;
+      /* margin-bottom: 8px; */
     }
   }
 
@@ -147,11 +149,39 @@ export const MyPetsCardItem = styled.div`
     font-size: 12px;
     line-height: 1.17;
     letter-spacing: -0.02em;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: ${({ theme }) => theme.black};
     @media (min-width: 1280px) {
       font-size: 16px;
     }
   }
-`;
 
-export const MyPetsCardValue = styled.p``;
+  .name {
+    max-width: 55px;
+    @media (min-width: 1280px) {
+      width: 64px;
+    }
+  }
+  .birthday {
+    width: 61px;
+    @media (min-width: 1280px) {
+      width: 78px;
+    }
+  }
+  .sex {
+    width: 48px;
+    @media (min-width: 1280px) {
+      max-width: 62px;
+      width: 100%;
+    }
+  }
+  .species {
+    width: 48px;
+    @media (min-width: 1280px) {
+      width: 55px;
+    }
+  }
+`;

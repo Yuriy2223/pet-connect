@@ -43,12 +43,3 @@ export const PetsBlock: React.FC = () => {
     </PetsBlockContainer>
   );
 };
-
-{
-  /* <PetsItem>
-          <MyPetsCard />
-        </PetsItem>
-        <PetsItem>
-          <MyPetsCard />
-        </PetsItem> */
-}

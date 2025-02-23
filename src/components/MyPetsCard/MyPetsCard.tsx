@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { PetProfile } from '../../redux/user/user.types';
-
+import { format } from 'date-fns';
 import {
   BtnTrash,
   IconTrash,
@@ -10,12 +10,36 @@ import {
   MyPetsCardItem,
   WrapAvatarPets,
 } from './MyPetsCard.styled';
+import { openModal } from '../../redux/modal/slice';
+import { useDispatch } from 'react-redux';
 
 interface MyPetsCardProps {
   pet: PetProfile;
 }
 
 export const MyPetsCard: React.FC<MyPetsCardProps> = ({ pet }) => {
+  const dispatch = useDispatch();
+  // const formatDate = (dateString: string) => {
+  //   return format(new Date(dateString), 'dd.MM.yyyy');
+  // };
+  const formatDate = (dateString: string) => {
+    if (!dateString || typeof dateString !== 'string') return 'Unknown date';
+
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return 'Invalid date';
+
+    return format(date, 'dd.MM.yyyy');
+  };
+
+  const handleDeletePets = useCallback(() => {
+    dispatch(
+      openModal({
+        type: 'ModalDeleteMyPets',
+        props: { petId: pet._id },
+      })
+    );
+  }, [dispatch, pet._id]);
+
   return (
     <MyPetsCardContainer>
       <WrapAvatarPets>
@@ -24,65 +48,29 @@ export const MyPetsCard: React.FC<MyPetsCardProps> = ({ pet }) => {
       <div>
         <MyPetsCardHeader>
           <h3>{pet.title}</h3>
-          <BtnTrash>
+          <BtnTrash onClick={handleDeletePets}>
             <IconTrash iconName="trash" />
           </BtnTrash>
         </MyPetsCardHeader>
         <MyPetsCardList>
           <MyPetsCardItem>
             <p>Name</p>
-            <span>{pet.name}</span>
+            <span className="name">{pet.name}</span>
           </MyPetsCardItem>
           <MyPetsCardItem>
             <p>Birthday</p>
-            <span>{pet.birthday}</span>
+            <span className="birthday">{formatDate(pet.birthday)}</span>
           </MyPetsCardItem>
           <MyPetsCardItem>
             <p>Sex</p>
-            <span>{pet.sex}</span>
+            <span className="sex">{pet.sex}</span>
           </MyPetsCardItem>
           <MyPetsCardItem>
             <p>Species</p>
-            <span>{pet.species}</span>
+            <span className="species">{pet.species}</span>
           </MyPetsCardItem>
         </MyPetsCardList>
       </div>
     </MyPetsCardContainer>
   );
 };
-
-// export const MyPetsCard: React.FC = () => {
-//   return (
-//     <MyPetsCardContainer>
-//       <WrapAvatarPets>
-//         <img src="#" alt="Avatar pets" />
-//       </WrapAvatarPets>
-//       <div>
-//         <MyPetsCardHeader>
-//           <h3>Golden Retriever Puppies</h3>
-//           <BtnTrash>
-//             <IconTrash iconName="trash" />
-//           </BtnTrash>
-//         </MyPetsCardHeader>
-//         <MyPetsCardList>
-//           <MyPetsCardItem>
-//             <p>Name</p>
-//             <span>Daisy</span>
-//           </MyPetsCardItem>
-//           <MyPetsCardItem>
-//             <p>Birthday</p>
-//             <span>01.10.2022</span>
-//           </MyPetsCardItem>
-//           <MyPetsCardItem>
-//             <p>Sex</p>
-//             <span>Female</span>
-//           </MyPetsCardItem>
-//           <MyPetsCardItem>
-//             <p>Species</p>
-//             <span>Dog</span>
-//           </MyPetsCardItem>
-//         </MyPetsCardList>
-//       </div>
-//     </MyPetsCardContainer>
-//   );
-// };
