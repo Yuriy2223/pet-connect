@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeModal } from '../../redux/modal/slice';
+import { ModalApproveAction } from '../ModalApproveAction/ModalApproveAction';
+import { ModalEditUser } from '../ModalEditUser/ModalEditUser';
+import { ModalDeleteMyPets } from '../ModalDeleteMyPets/ModalDeleteMyPets';
 import {
   selectIsModalOpen,
   selectModalProps,
   selectModalType,
 } from '../../redux/modal/selectors';
-import { ModalApproveAction } from '../ModalApproveAction/ModalApproveAction';
-import { ModalEditUser } from '../ModalEditUser/ModalEditUser';
 import {
   CloseButton,
   CloseIcon,
@@ -43,6 +44,8 @@ export const ModalUniversal: React.FC = () => {
         return <ModalApproveAction {...modalProps} />;
       case 'ModalEditUser':
         return <ModalEditUser {...modalProps} />;
+      case 'ModalDeleteMyPets':
+        return <ModalDeleteMyPets {...modalProps} />;
       // case 'ModalNotice':
       //   return <ModalNotice {...modalProps} />;
       // case 'ModalAttention':
