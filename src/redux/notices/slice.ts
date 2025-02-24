@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { GetNoticesResponse, Notice, NoticesState } from './notices.types';
+import { GetNoticesResponse, Notice, NoticesState } from '../../App.types';
 import {
   addNoticesFavorite,
+  fetchFavorites,
   fetchNotices,
   fetchNoticesCategories,
   fetchNoticesNoticeId,
   fetchNoticesSexes,
   fetchNoticesSpecies,
+  fetchViews,
   removeNoticesFavorite,
 } from './operations';
 
@@ -14,8 +16,9 @@ const initialState: NoticesState = {
   notices: [],
   categories: [],
   species: [],
-  sexes: [],
+  sex: [],
   favorites: [],
+  views: [],
   currentPage: 1,
   perPage: 6,
   totalPages: 1,
@@ -29,6 +32,34 @@ const noticesSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
+      // Get notice to views
+      .addCase(fetchViews.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchViews.fulfilled, (state, action) => {
+        state.views = action.payload;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(fetchViews.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      // Get notice to favorites
+      .addCase(fetchFavorites.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchFavorites.fulfilled, (state, action) => {
+        state.favorites = action.payload;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(fetchFavorites.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
       // Get notices
       .addCase(fetchNotices.pending, state => {
         state.loading = true;
@@ -77,7 +108,7 @@ const noticesSlice = createSlice({
       .addCase(
         fetchNoticesSexes.fulfilled,
         (state, action: PayloadAction<string[]>) => {
-          state.sexes = action.payload;
+          state.sex = action.payload;
           state.loading = false;
           state.error = null;
         }
@@ -110,13 +141,12 @@ const noticesSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-
       .addCase(
         addNoticesFavorite.fulfilled,
-        (state, action: PayloadAction<string>) => {
-          if (!state.favorites.includes(action.payload)) {
-            state.favorites.push(action.payload);
-          }
+        (state, action: PayloadAction<string[]>) => {
+          state.favorites = state.favorites.filter(notice =>
+            action.payload.includes(notice._id)
+          );
           state.loading = false;
           state.error = null;
         }
@@ -134,7 +164,9 @@ const noticesSlice = createSlice({
       .addCase(
         removeNoticesFavorite.fulfilled,
         (state, action: PayloadAction<string>) => {
-          state.favorites = state.favorites.filter(id => id !== action.payload);
+          state.favorites = state.favorites.filter(
+            notice => notice._id !== action.payload
+          );
           state.loading = false;
           state.error = null;
         }
@@ -149,14 +181,6 @@ const noticesSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      // .addCase(
-      //   fetchNoticesNoticeId.fulfilled,
-      //   (state, action: PayloadAction<Notice>) => {
-      //     state.notices = [action.payload];
-      //     state.loading = false;
-      //     state.error = null;
-      //   }
-      // )
       .addCase(
         fetchNoticesNoticeId.fulfilled,
         (state, action: PayloadAction<Notice | null>) => {

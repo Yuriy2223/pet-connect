@@ -1,5 +1,6 @@
 import { instance } from './Api';
-import { GetNoticesResponse, Notice } from '../redux/notices/notices.types';
+// import { GetNoticesResponse, Notice } from '../redux/notices/notices.types';
+import { GetNoticesResponse, Notice, UserProfile } from '../App.types';
 
 // Get all notices
 export const fetchNoticesApi = async (
@@ -9,6 +10,12 @@ export const fetchNoticesApi = async (
   const response = await instance.get<GetNoticesResponse>('/api/notices', {
     params: { page, perPage },
   });
+  return response.data;
+};
+
+// Get notice to favorites end views
+export const fetchUserFullApi = async (): Promise<UserProfile> => {
+  const response = await instance.get<UserProfile>('/api/users/current/full');
   return response.data;
 };
 

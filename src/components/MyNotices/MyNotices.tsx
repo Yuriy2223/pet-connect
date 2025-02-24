@@ -1,109 +1,89 @@
-// import { useState, useEffect } from 'react';
-// import { NavLink } from 'react-router-dom';
-// import {
-//   MyNoticesContainer,
-//   MyNoticesFavorite,
-//   MyNoticesInner,
-//   MyNoticesViewed,
-// } from './MyNotices.styled';
-// import { NoticesItem } from './NoticesItem'; // Компонент для одного оголошення
-// import {
-//   fetchFavorites,
-//   fetchViewed,
-//   removeFromFavorites,
-// } from '../api/noticesApi'; // Імітація API-запитів
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
+import { Notice } from '../../App.types';
+import { MyNoticesCard } from '../MyNoticesCard/MyNoticesCard';
+import { selectFavorites, selectViewed } from '../../redux/notices/selectors';
+import {
+  fetchFavorites,
+  fetchViews,
+  removeNoticesFavorite,
+} from '../../redux/notices/operations';
+import {
+  DefoltText,
+  MyNoticesBtn,
+  MyNoticesContainer,
+  MyNoticesList,
+  NavLinkStyled,
+  WrapperBtn,
+} from './MyNotices.styled';
 
-// export const MyNotices: React.FC = () => {
-// const [activeTab, setActiveTab] = useState<'favorites' | 'viewed'>(
-//   'favorites'
-// );
-// const [notices, setNotices] = useState([]);
+export const MyNotices: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'favorites' | 'viewed'>(
+    'favorites'
+  );
 
-// useEffect(() => {
-//   const loadNotices = async () => {
-//     const data =
-//       activeTab === 'favorites'
-//         ? await fetchFavorites()
-//         : await fetchViewed();
-//     setNotices(data);
-//   };
-//   loadNotices();
-// }, [activeTab]);
+  const dispatch = useDispatch<AppDispatch>();
+  const favorites = useSelector(selectFavorites);
+  const viewed = useSelector(selectViewed);
 
-// const handleRemove = async (id: string) => {
-//   await removeFromFavorites(id);
-//   setNotices(prev => prev.filter(notice => notice.id !== id)); // Оновлення списку без перезавантаження
-// };
+  useEffect(() => {
+    if (activeTab === 'favorites') {
+      dispatch(fetchFavorites());
+    } else {
+      dispatch(fetchViews());
+    }
+  }, [activeTab, dispatch]);
 
-//   return (
-//     <MyNoticesContainer>
-//       <MyNoticesInner>
-//         <MyNoticesFavorite
-//           onClick={() => setActiveTab('favorites')}
-//           className={activeTab === 'favorites' ? 'active' : ''}
-//         >
-//           My favorite pets
-//         </MyNoticesFavorite>
-//         <MyNoticesViewed
-//           onClick={() => setActiveTab('viewed')}
-//           className={activeTab === 'viewed' ? 'active' : ''}
-//         >
-//           Viewed
-//         </MyNoticesViewed>
-//       </MyNoticesInner>
+  const handleRemove = async (id: string) => {
+    try {
+      await dispatch(removeNoticesFavorite(id)).unwrap();
+    } catch (error) {
+      console.error('Failed to remove favorite:', error);
+    }
+  };
 
-//       {notices.length > 0 ? (
-//         notices.map(notice => (
-//           <NoticesItem
-//             key={notice.id}
-//             notice={notice}
-//             onRemove={activeTab === 'favorites' ? handleRemove : undefined} // Видалення тільки для улюблених
-//           />
-//         ))
-//       ) : (
-//         <p>
-//           Oops,{' '}
-//           <NavLink to="/friends">looks like there aren't any furries</NavLink>{' '}
-//           on our adorable page yet. Do not worry! View your pets on the "find
-//           your favorite pet" page and add them to your favorites.
-//         </p>
-//       )}
-//     </MyNoticesContainer>
-//   );
-// };
+  return (
+    <MyNoticesContainer>
+      <WrapperBtn>
+        <MyNoticesBtn
+          onClick={() => setActiveTab('favorites')}
+          className={activeTab === 'favorites' ? 'active' : ''}
+        >
+          My favorite pets
+        </MyNoticesBtn>
+        <MyNoticesBtn
+          onClick={() => setActiveTab('viewed')}
+          className={activeTab === 'viewed' ? 'active' : ''}
+        >
+          Viewed
+        </MyNoticesBtn>
+      </WrapperBtn>
 
-// import { NavLink } from 'react-router-dom';
-// import {
-//   MyNoticesContainer,
-//   MyNoticesFavorite,
-//   MyNoticesInner,
-//   MyNoticesViewed,
-// } from './MyNotices.styled';
-
-// export const MyNotices: React.FC<{
-//   activeTab: string;
-//   setActiveTab: (tab: string) => void;
-// }> = ({ activeTab, setActiveTab }) => (
-//   <MyNoticesContainer>
-//     <MyNoticesInner>
-//       <MyNoticesFavorite
-//         onClick={() => setActiveTab('favorites')}
-//         className={activeTab === 'favorites' ? 'active' : ''}
-//       >
-//         My favorite pets
-//       </MyNoticesFavorite>
-//       <MyNoticesViewed
-//         onClick={() => setActiveTab('viewed')}
-//         className={activeTab === 'viewed' ? 'active' : ''}
-//       >
-//         Viewed
-//       </MyNoticesViewed>
-//     </MyNoticesInner>
-//     <p>
-//       Oops,
-//       <NavLink to="/friends">looks like there aren't any furries</NavLink> on
-//       our adorable page yet. Do not worry! View your pets on the "find your
-//       favorite pet" page and add them to your favorites.
-//     </p>
-//   </MyNoticesContainer>
-// );
+      <MyNoticesList>
+        {activeTab === 'favorites' && favorites.length > 0 ? (
+          favorites.map((notice: Notice) => (
+            <li key={notice._id}>
+              <MyNoticesCard notice={notice} onRemove={handleRemove} />
+            </li>
+          ))
+        ) : activeTab === 'viewed' && viewed.length > 0 ? (
+          viewed.map((notice: Notice) => (
+            <li key={notice._id}>
+              <MyNoticesCard notice={notice} />
+            </li>
+          ))
+        ) : (
+          <DefoltText>
+            Oops,
+            <NavLinkStyled to="/friends">
+              looks like there aren't any furries
+            </NavLinkStyled>
+            on our adorable page yet. Do not worry! View your pets on the "find
+            your favorite pet" page and add them to your favorites.
+          </DefoltText>
+        )}
+      </MyNoticesList>
+    </MyNoticesContainer>
+  );
+};

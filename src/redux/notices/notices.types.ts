@@ -22,6 +22,7 @@ export interface NoticesState {
   species: string[];
   sexes: string[];
   favorites: string[];
+  views: string[];
   currentPage: number;
   perPage: number;
   totalPages: number;

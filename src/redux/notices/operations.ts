@@ -1,4 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
+import { GetNoticesResponse, Notice, UserProfile } from '../../App.types';
 import {
   fetchNoticesApi,
   fetchNoticesCategoriesApi,
@@ -7,9 +9,8 @@ import {
   addNoticesFavoriteApi,
   removeNoticesFavoriteApi,
   fetchNoticesNoticeByIdApi,
+  fetchUserFullApi,
 } from '../../services/noticesApi';
-import { GetNoticesResponse, Notice } from './notices.types';
-import { toast } from 'react-toastify';
 
 // Get all notices
 export const fetchNotices = createAsyncThunk<
@@ -76,13 +77,13 @@ export const fetchNoticesSpecies = createAsyncThunk<
 
 // Add a notice to favorites
 export const addNoticesFavorite = createAsyncThunk<
-  string,
+  string[],
   string,
   { rejectValue: string }
 >('notices/addFavorite', async (noticeId, { rejectWithValue }) => {
   try {
-    await addNoticesFavoriteApi(noticeId);
-    return noticeId;
+    const addedFavorites = await addNoticesFavoriteApi(noticeId);
+    return addedFavorites;
   } catch (error) {
     return rejectWithValue(
       error instanceof Error ? error.message : 'Failed to add favorite notice.'
@@ -119,6 +120,40 @@ export const fetchNoticesNoticeId = createAsyncThunk<
   } catch (error) {
     return rejectWithValue(
       error instanceof Error ? error.message : 'Failed to fetch notice by ID.'
+    );
+  }
+});
+
+// Get notice to favorites
+export const fetchFavorites = createAsyncThunk<
+  Notice[],
+  void,
+  { rejectValue: string }
+>('user/fetchFavorites', async (_, { rejectWithValue }) => {
+  try {
+    const userData: UserProfile = await fetchUserFullApi();
+    return userData.noticesFavorites;
+  } catch (error) {
+    return rejectWithValue(
+      error instanceof Error
+        ? error.message
+        : 'Failed to fetch favorite notices.'
+    );
+  }
+});
+
+// Get notice to views
+export const fetchViews = createAsyncThunk<
+  Notice[],
+  void,
+  { rejectValue: string }
+>('user/fetchViews', async (_, { rejectWithValue }) => {
+  try {
+    const userData: UserProfile = await fetchUserFullApi();
+    return userData.noticesViewed;
+  } catch (error) {
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Failed to fetch views notices.'
     );
   }
 });

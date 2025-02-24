@@ -6,7 +6,14 @@ export const ProfilePageContainer = styled(Container)`
   flex-direction: column;
   gap: 10px;
   padding-top: 20px;
-`;
 
-export const UserInformationWrappper = styled.div``;
-export const PetsInformationWrappper = styled.div``;
+  @media (min-width: 768px) {
+    gap: 20px;
+  }
+
+  @media (min-width: 1280px) {
+    flex-direction: row;
+    gap: 0;
+    justify-content: space-between;
+  }
+`;
