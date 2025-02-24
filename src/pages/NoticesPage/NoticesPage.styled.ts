@@ -40,3 +40,20 @@ export const PaginationWrapper = styled.div`
     margin-top: 60px;
   }
 `;
+export const NoticesList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  @media (min-width: 1280px) {
+    gap: 32px;
+    width: 1156px;
+    margin: 0 auto;
+  }
+`;

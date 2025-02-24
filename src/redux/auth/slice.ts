@@ -19,12 +19,30 @@ const authSlice = createSlice({
       .addCase(refreshUser.pending, state => {
         state.loading = true;
       })
+      // .addCase(
+      //   refreshUser.fulfilled,
+      //   (state, action: PayloadAction<{ user: User; token: string }>) => {
+      //     state.user = action.payload.user;
+      //     state.token = action.payload.token;
+      //     state.isSignedIn = true;
+      //     state.loading = false;
+      //   }
+      // )
       .addCase(
         refreshUser.fulfilled,
-        (state, action: PayloadAction<{ user: User; token: string }>) => {
-          state.user = action.payload.user;
-          state.token = action.payload.token;
-          state.isSignedIn = true;
+        (
+          state,
+          action: PayloadAction<{ user: User | null; token: string | null }>
+        ) => {
+          if (action.payload.user && action.payload.token) {
+            state.user = action.payload.user;
+            state.token = action.payload.token;
+            state.isSignedIn = true;
+          } else {
+            state.user = null;
+            state.token = null;
+            state.isSignedIn = false;
+          }
           state.loading = false;
         }
       )

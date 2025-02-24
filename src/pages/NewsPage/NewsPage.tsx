@@ -50,14 +50,7 @@ export const NewsPage: React.FC = () => {
         {newsData?.length ? (
           newsData.map(news => (
             <li key={news._id}>
-              <NewsCard
-                _id={news._id}
-                imgUrl={news.imgUrl}
-                title={news.title}
-                text={news.text}
-                date={new Date(news.date).toLocaleDateString()}
-                url={news.url}
-              />
+              <NewsCard news={news} />
             </li>
           ))
         ) : (

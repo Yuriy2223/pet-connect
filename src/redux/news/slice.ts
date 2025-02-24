@@ -1,16 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchNews } from './operations';
-import { News, GetNewsResponse } from './news.types';
-
-interface NewsState {
-  newsList: News[];
-  searchQuery: string;
-  currentPage: number;
-  perPage: number;
-  totalPages: number;
-  loading: boolean;
-  error: string | null;
-}
+import { GetNewsResponse, NewsState } from './news.types';
 
 const initialState: NewsState = {
   newsList: [],
@@ -45,6 +35,7 @@ const newsSlice = createSlice({
           state.perPage = perPage;
           state.totalPages = totalPages;
           state.loading = false;
+          state.error = null;
         }
       )
       .addCase(fetchNews.rejected, (state, action) => {

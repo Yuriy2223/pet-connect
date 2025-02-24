@@ -1,6 +1,6 @@
-import React from 'react';
-// import defaultImage from '../../assets/imeges/defaultNevs.webp';
-import defaultImage from '../../assets/imeges/deffImgNews.webp';
+import React, { useState } from 'react';
+import defaultImage from '../../assets/imeges/defaultNews.webp';
+import { News } from '../../redux/news/news.types';
 import {
   NewsCardContainer,
   NewsDate,
@@ -12,30 +12,24 @@ import {
 } from './NewsCard.styled';
 
 export interface NewsCardProps {
-  _id: string;
-  imgUrl: string;
-  title: string;
-  text: string;
-  date: string;
-  url: string;
-  // id: string;
+  news: News;
 }
 
-export const NewsCard: React.FC<NewsCardProps> = ({
-  imgUrl,
-  title,
-  text,
-  date,
-  url,
-}) => {
+export const NewsCard: React.FC<NewsCardProps> = ({ news }) => {
+  const [imgSrc, setImgSrc] = useState(news.imgUrl || defaultImage);
+
   return (
     <NewsCardContainer>
-      <NewsImage src={imgUrl || defaultImage} alt={title} />
-      <NewsTitle>{title}</NewsTitle>
-      <NewsDescription>{text}</NewsDescription>
+      <NewsImage
+        src={imgSrc}
+        alt={news.title}
+        onError={() => setImgSrc(defaultImage)}
+      />
+      <NewsTitle>{news.title}</NewsTitle>
+      <NewsDescription>{news.text}</NewsDescription>
       <NewsFooter>
-        <NewsDate>{date}</NewsDate>
-        <ReadMoreLink href={url} target="_blank" rel="noopener noreferrer">
+        <NewsDate>{new Date(news.date).toLocaleDateString()}</NewsDate>
+        <ReadMoreLink href={news.url} target="_blank" rel="noopener noreferrer">
           Read more
         </ReadMoreLink>
       </NewsFooter>

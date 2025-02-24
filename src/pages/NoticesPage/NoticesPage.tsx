@@ -1,64 +1,67 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Pagination } from '../../components/Pagination/Pagination';
-import { NoticesFilters } from '../../components/NoticesFilters/NoticesFilters';
-import { NoticesList } from '../../components/NoticesList/NoticesList';
+// import { NoticesFilters } from '../../components/NoticesFilters/NoticesFilters';
+import { fetchNotices } from '../../redux/notices/operations';
+import { AppDispatch } from '../../redux/store';
+import { NoticesCard } from '../../components/NoticesCard/NoticesCard';
 import {
+  selectCurrentPage,
+  selectNoticesList,
+  selectPerPage,
+  selectTotalPages,
+} from '../../redux/notices/selectors';
+import {
+  NoticesList,
   NoticesPageContainer,
   NoticesSearchWrapper,
-  NoticesTitle,
   PaginationWrapper,
 } from './NoticesPage.styled';
 
-import NoticesData from './NoticesData.json';
-
-interface Notice {
-  _id: string;
-  species: string;
-  category: string;
-  price?: number;
-  title: string;
-  name: string;
-  birthday: string;
-  comment: string;
-  sex: string;
-  location: string;
-  imgURL: string;
-  createdAt: string;
-  user: string;
-  popularity: number;
-  updatedAt?: string;
-}
-
 export const NoticesPage: React.FC = () => {
-  const [noticesData, setNoticesData] = useState<Notice[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const dispatch = useDispatch<AppDispatch>();
+  const noticesData = useSelector(selectNoticesList);
+  const totalPages = useSelector(selectTotalPages);
+  const currentPage = useSelector(selectCurrentPage);
+  const perPage = useSelector(selectPerPage);
 
   useEffect(() => {
-    // Симуляція отримання даних
-    setNoticesData(NoticesData.results);
-  }, []);
+    dispatch(fetchNotices({ page: currentPage, perPage }));
+  }, [currentPage, perPage, dispatch]);
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+    dispatch(fetchNotices({ page, perPage }));
   };
-
-  const lastNoticesIndex = currentPage * itemsPerPage;
-  const firstNoticesIndex = lastNoticesIndex - itemsPerPage;
-  const currentNotices = noticesData.slice(firstNoticesIndex, lastNoticesIndex);
-
+  // const handleFilters = (filters: FilterType) => {
+  //   console.log('Applied filters:', filters);
+  //   //  логіку для обробки фільтрів
+  // };
+  console.log('noticesData from Redux:', noticesData);
   return (
     <NoticesPageContainer>
-      <NoticesTitle>Find your favorite pet</NoticesTitle>
+      <h1>Find your favorite pet</h1>
       <NoticesSearchWrapper>
-        <NoticesFilters />
+        {/* <NoticesFilters
+        // onFilters={handleFilters}
+        /> */}
       </NoticesSearchWrapper>
-      <NoticesList notices={currentNotices} />
+      <NoticesList>
+        {noticesData?.length ? (
+          noticesData.map(notice =>
+            notice._id ? (
+              <li key={notice._id}>
+                <NoticesCard notice={notice} />
+              </li>
+            ) : null
+          )
+        ) : (
+          <p>No notices available.</p>
+        )}
+      </NoticesList>
       <PaginationWrapper>
         <Pagination
-          totalItems={noticesData.length}
-          itemsPerPage={itemsPerPage}
           currentPage={currentPage}
+          totalPages={totalPages}
           onPageChange={handlePageChange}
         />
       </PaginationWrapper>
