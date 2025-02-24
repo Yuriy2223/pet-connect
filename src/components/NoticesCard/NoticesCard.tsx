@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Notice } from '../../redux/notices/notices.types';
+import defaultImage from '../../assets/imeges/defaultNotice.webp';
 import {
   HeartButton,
   HeartIcon,
@@ -13,32 +15,19 @@ import {
   RaitingIcon,
 } from './NoticesCard.styled';
 
-interface Notice {
-  _id: string;
-  species: string;
-  category: string;
-  price?: number;
-  title: string;
-  name: string;
-  birthday: string;
-  comment: string;
-  sex: string;
-  location: string;
-  imgURL: string;
-  createdAt: string;
-  user: string;
-  popularity: number;
-  updatedAt?: string;
-}
-
-interface NoticeCardProps {
+export interface NoticeCardProps {
   notice: Notice;
 }
-
 export const NoticesCard: React.FC<NoticeCardProps> = ({ notice }) => {
+  const [imgSrc, setImgSrc] = useState(notice.imgURL || defaultImage);
+
   return (
     <NoticesCardContainer>
-      <NoticesImg src={notice.imgURL} alt="Notice img" />
+      <NoticesImg
+        src={imgSrc}
+        alt={notice.title}
+        onError={() => setImgSrc(defaultImage)}
+      />
       <NoticesDetails>
         <NoticesDetailsHeader>
           <h2>{notice.title}</h2>
@@ -52,7 +41,8 @@ export const NoticesCard: React.FC<NoticeCardProps> = ({ notice }) => {
             Name<span>{notice.name}</span>
           </li>
           <li>
-            Birthday<span>{notice.birthday.split('-').reverse().join('.')}</span>
+            Birthday
+            <span>{notice.birthday.split('-').reverse().join('.')}</span>
           </li>
           <li>
             Sex<span>{notice.sex}</span>

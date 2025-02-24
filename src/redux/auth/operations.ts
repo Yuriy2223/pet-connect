@@ -16,20 +16,44 @@ import {
 import { setToken, TOKEN_KEY } from '../../services/Api';
 
 // Refresh User
+// export const refreshUser = createAsyncThunk<
+//   { user: User; token: string },
+//   void,
+//   { rejectValue: string }
+// >('auth/refreshUser', async (_, { rejectWithValue }) => {
+//   const token = localStorage.getItem(TOKEN_KEY);
+
+//   if (!token) return rejectWithValue('No token found');
+
+//   setToken(token);
+
+//   try {
+//     const user = await refreshUserApi();
+//     return { user, token };
+//   } catch (error) {
+//     setToken(null);
+//     return rejectWithValue(
+//       error instanceof Error ? error.message : 'Failed to refresh user'
+//     );
+//   }
+// });
+// Refresh User
 export const refreshUser = createAsyncThunk<
-  { user: User; token: string },
+  { user: User | null; token: string | null },
   void,
   { rejectValue: string }
 >('auth/refreshUser', async (_, { rejectWithValue }) => {
   const token = localStorage.getItem(TOKEN_KEY);
 
-  if (!token) return rejectWithValue('No token found');
+  if (!token) {
+    return rejectWithValue('No token found');
+  }
 
   setToken(token);
 
   try {
     const user = await refreshUserApi();
-    return { user, token };
+    return { user: user ?? null, token }; // Якщо API повернув null, то user = null
   } catch (error) {
     setToken(null);
     return rejectWithValue(
@@ -37,6 +61,37 @@ export const refreshUser = createAsyncThunk<
     );
   }
 });
+// const setToken = (token: string | null) => {
+//   if (token) {
+//     localStorage.setItem(TOKEN_KEY, token);
+//   } else {
+//     localStorage.removeItem(TOKEN_KEY);
+//   }
+// };
+
+// export const refreshUser = createAsyncThunk<
+//   { user: User | null; token: string | null },
+//   void,
+//   { rejectValue: string }
+// >('auth/refreshUser', async (_, { rejectWithValue }) => {
+//   const token = localStorage.getItem(TOKEN_KEY);
+
+//   if (!token) {
+//     return rejectWithValue('No token found');
+//   }
+
+//   setToken(token);
+
+//   try {
+//     const user = await refreshUserApi();
+//     return { user: user ?? null, token };
+//   } catch (error) {
+//     setToken(null);
+//     return rejectWithValue(
+//       error instanceof Error ? error.message : 'Failed to refresh user'
+//     );
+//   }
+// });
 
 // Register
 export const registerUser = createAsyncThunk<

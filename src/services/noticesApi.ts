@@ -1,9 +1,14 @@
 import { instance } from './Api';
-import { Notice } from '../redux/notices/notices.types';
+import { GetNoticesResponse, Notice } from '../redux/notices/notices.types';
 
 // Get all notices
-export const fetchNoticesApi = async (): Promise<Notice[]> => {
-  const response = await instance.get<Notice[]>('/api/notices');
+export const fetchNoticesApi = async (
+  page: number,
+  perPage: number
+): Promise<GetNoticesResponse> => {
+  const response = await instance.get<GetNoticesResponse>('/api/notices', {
+    params: { page, perPage },
+  });
   return response.data;
 };
 

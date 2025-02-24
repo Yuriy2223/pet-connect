@@ -6,7 +6,6 @@ export const NewsCardContainer = styled.div`
   border-radius: 15px;
   width: 100%;
   height: 335px;
-  background-color:${({ theme }) => theme.white};
 
   @media (min-width: 768px) {
     width: 340px;

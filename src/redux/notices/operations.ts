@@ -8,20 +8,22 @@ import {
   removeNoticesFavoriteApi,
   fetchNoticesNoticeByIdApi,
 } from '../../services/noticesApi';
-import { Notice } from './notices.types';
+import { GetNoticesResponse, Notice } from './notices.types';
+import { toast } from 'react-toastify';
 
 // Get all notices
 export const fetchNotices = createAsyncThunk<
-  Notice[],
-  void,
+  GetNoticesResponse,
+  { page: number; perPage: number },
   { rejectValue: string }
->('notices/fetchNotices', async (_, { rejectWithValue }) => {
+>('notices/fetchNotices', async ({ page, perPage }, thunkAPI) => {
   try {
-    return await fetchNoticesApi();
+    return await fetchNoticesApi(page, perPage);
   } catch (error) {
-    return rejectWithValue(
-      error instanceof Error ? error.message : 'Failed to fetch notices.'
-    );
+    const message =
+      error instanceof Error ? error.message : 'Failed to fetch notices.';
+    toast.error(message);
+    return thunkAPI.rejectWithValue(message);
   }
 });
 

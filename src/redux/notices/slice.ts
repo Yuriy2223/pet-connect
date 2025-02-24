@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Notice, NoticesState } from './notices.types';
+import { GetNoticesResponse, Notice, NoticesState } from './notices.types';
 import {
   addNoticesFavorite,
   fetchNotices,
@@ -16,6 +16,9 @@ const initialState: NoticesState = {
   species: [],
   sexes: [],
   favorites: [],
+  currentPage: 1,
+  perPage: 6,
+  totalPages: 1,
   loading: false,
   error: null,
 };
@@ -33,8 +36,12 @@ const noticesSlice = createSlice({
       })
       .addCase(
         fetchNotices.fulfilled,
-        (state, action: PayloadAction<Notice[]>) => {
-          state.notices = action.payload;
+        (state, action: PayloadAction<GetNoticesResponse>) => {
+          const { results, page, perPage, totalPages } = action.payload;
+          state.notices = results;
+          state.currentPage = page;
+          state.perPage = perPage;
+          state.totalPages = totalPages;
           state.loading = false;
           state.error = null;
         }
