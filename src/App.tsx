@@ -15,32 +15,13 @@ export const App: React.FC = () => {
   const [isAppReady, setIsAppReady] = useState(false);
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   const initializeApp = async () => {
-  //     await Promise.all([
-  //       dispatch(refreshUser()),
-  //       dispatch(fetchFullUserInfo()),
-  //     ]);
-  //     setTimeout(() => setIsAppReady(true), 3000); // 3 секунди на SplashScreen
-  //   };
-
-  //   initializeApp();
-  // }, [dispatch]);
-
   useEffect(() => {
     const initializeApp = async () => {
-      try {
-        const result = await dispatch(refreshUser()).unwrap(); // Оновлення юзера
-
-        // Виконувати fetchFullUserInfo лише якщо токен існує
-        if (result?.token) {
-          await dispatch(fetchFullUserInfo()).unwrap();
-        }
-      } catch (error) {
-        console.warn('Користувач не авторизований або сталася помилка:', error);
-      } finally {
-        setTimeout(() => setIsAppReady(true), 3000);
+      const result = await dispatch(refreshUser()).unwrap();
+      if (result?.token) {
+        await dispatch(fetchFullUserInfo()).unwrap();
       }
+      setTimeout(() => setIsAppReady(true), 3000);
     };
 
     initializeApp();

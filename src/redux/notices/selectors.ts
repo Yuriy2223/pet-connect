@@ -6,9 +6,7 @@ export const selectNoticeCategories = (state: RootState) =>
 
 export const selectNoticeSpecies = (state: RootState) => state.notices.species;
 
-export const selectNoticeSexes = (state: RootState) => state.notices.sexes;
-
-export const selectFavorites = (state: RootState) => state.notices.favorites;
+export const selectNoticeSexes = (state: RootState) => state.notices.sex;
 
 export const selectNoticesLoading = (state: RootState) => state.notices.loading;
 
@@ -27,3 +25,7 @@ export const selectPerPage = (state: RootState): NoticesState['perPage'] =>
 export const selectTotalPages = (
   state: RootState
 ): NoticesState['totalPages'] => state.notices.totalPages;
+
+export const selectFavorites = (state: RootState) => state.notices.favorites;
+
+export const selectViewed = (state: RootState) => state.notices.views;
