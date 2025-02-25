@@ -4,6 +4,8 @@ import { closeModal } from '../../redux/modal/slice';
 import { ModalApproveAction } from '../ModalApproveAction/ModalApproveAction';
 import { ModalEditUser } from '../ModalEditUser/ModalEditUser';
 import { ModalDeleteMyPets } from '../ModalDeleteMyPets/ModalDeleteMyPets';
+import { ModalAttention } from '../ModalAttention/ModalAttention';
+import { ModalNotice } from '../ModalNotice/ModalNotice';
 import {
   selectIsModalOpen,
   selectModalProps,
@@ -46,10 +48,10 @@ export const ModalUniversal: React.FC = () => {
         return <ModalEditUser {...modalProps} />;
       case 'ModalDeleteMyPets':
         return <ModalDeleteMyPets {...modalProps} />;
-      // case 'ModalNotice':
-      //   return <ModalNotice {...modalProps} />;
-      // case 'ModalAttention':
-      //   return <ModalAttention {...modalProps} />;
+      case 'ModalNotice':
+        return <ModalNotice {...modalProps} />;
+      case 'ModalAttention':
+        return <ModalAttention {...modalProps} />;
       default:
         return null;
     }
