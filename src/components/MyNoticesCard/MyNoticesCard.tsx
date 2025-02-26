@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Notice } from '../../redux/notices/notices.types';
+import { Notice } from '../../App.types';
 import defaultImage from '../../assets/imeges/defaultNotice.webp';
 import {
   LearnButton,

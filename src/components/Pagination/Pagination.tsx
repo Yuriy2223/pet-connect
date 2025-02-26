@@ -8,7 +8,6 @@ import {
 } from './Pagination.styled';
 
 interface PaginationProps {
-  // itemsPerPage: number; // Ліміт новин на сторінку
   currentPage: number;
   onPageChange: (page: number) => void;
   siblingCount?: number;
@@ -18,7 +17,6 @@ interface PaginationProps {
 type PageType = number | '...';
 
 export const Pagination: React.FC<PaginationProps> = ({
-  // itemsPerPage,
   currentPage,
   onPageChange,
   siblingCount = 1,

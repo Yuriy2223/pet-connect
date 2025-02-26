@@ -34,7 +34,7 @@ export const currentUser = createAsyncThunk<
   }
 });
 
-// Register
+// Register User
 export const registerUser = createAsyncThunk<
   UserAuth,
   RegisterData,
@@ -52,7 +52,7 @@ export const registerUser = createAsyncThunk<
   }
 });
 
-// Login
+// Login User
 export const loginUser = createAsyncThunk<
   UserAuth,
   LoginData,

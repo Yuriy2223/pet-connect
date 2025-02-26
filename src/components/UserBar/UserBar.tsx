@@ -1,24 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
-import { UserNavProps } from '../Header/Header.types';
+import { UserAvatar, UserBarContainer, UserName } from './UserBar.styled';
 
-const UserBarContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-const UserAvatar = styled.img`
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--golden-yellow);
-`;
-const UserName = styled.span`
-  font-weight: 500;
-`;
-
-export const UserBar: React.FC<UserNavProps> = ({ userName, userAvatar }) => {
+export interface UserBarProps {
+  userName: string;
+  userAvatar: string;
+}
+export const UserBar: React.FC<UserBarProps> = ({ userName, userAvatar }) => {
   return (
     <UserBarContainer>
       {typeof userAvatar === 'string' ? (

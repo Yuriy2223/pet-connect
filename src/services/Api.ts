@@ -26,13 +26,8 @@ if (savedToken) {
 }
 
 instance.interceptors.request.use(config => {
-  // const token = store.getState().auth.token;
   const token = store.getState().auth.user?.token;
-  // let token = store.getState().auth.user?.token;
 
-  // if (!token) {
-  //   token = localStorage.getItem(TOKEN_KEY);
-  // }
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { loginUser } from '../../redux/auth/operations';
+import { LoginData } from '../../services/authApi';
 import {
   Button,
   ErrorText,
@@ -29,11 +30,6 @@ import {
   WrongIcon,
 } from './LoginForm.styled';
 
-interface FormData {
-  email: string;
-  password: string;
-}
-
 export const LoginForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const {
@@ -43,7 +39,7 @@ export const LoginForm: React.FC = () => {
     reset,
     clearErrors,
     trigger,
-  } = useForm<FormData>({
+  } = useForm<LoginData>({
     resolver: yupResolver(loginSchema),
   });
   const navigate = useNavigate();
@@ -78,7 +74,7 @@ export const LoginForm: React.FC = () => {
     }));
   };
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: LoginData) => {
     try {
       await dispatch(loginUser(data))
         .unwrap()

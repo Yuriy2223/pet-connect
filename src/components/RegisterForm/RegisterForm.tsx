@@ -29,6 +29,13 @@ import {
   WrapperLinkRegister,
 } from './RegisterForm.styled';
 
+// import { RegisterData } from '../../services/authApi';
+// export interface RegisterData {
+//   name: string;
+//   email: string;
+//   password: string;
+// } вибери правильну незабуть
+
 interface FormData {
   name: string;
   email: string;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import defaultImage from '../../assets/imeges/defaultNews.webp';
-import { News } from '../../redux/news/news.types';
+import { News } from '../../App.types';
 import {
   NewsCardContainer,
   NewsDate,

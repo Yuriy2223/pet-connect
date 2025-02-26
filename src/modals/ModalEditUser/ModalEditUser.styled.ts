@@ -3,7 +3,7 @@ import { Iconsvg } from '../../components/Common/Icons';
 import {
   FocusedProps,
   // InputProps
-} from './ModalEditUser.type';
+} from './ModalEditUser';
 
 export const ErrorText = styled.p.withConfig({
   shouldForwardProp: prop => !['isValid', 'isFieldFocused'].includes(prop),
