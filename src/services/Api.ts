@@ -43,3 +43,4 @@ instance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+VITE_TOKEN_KEY;
