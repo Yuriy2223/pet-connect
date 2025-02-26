@@ -1,5 +1,5 @@
+import { City } from '../App.types';
 import { instance } from './Api';
-import { City } from '../redux/cities/cities.types';
 
 // Get Ukrainian cities
 export const fetchCitiesApi = async (keyword: string): Promise<City[]> => {
