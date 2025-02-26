@@ -18,9 +18,9 @@ import {
 } from './Header.styled';
 
 export const Header: React.FC = () => {
-  const isAuthenticated = useSelector(selectIsSignedIn);
-  const userProfile = useSelector(selectUserProfile);
   const dispatch = useDispatch();
+  const isAuth = useSelector(selectIsSignedIn);
+  const userProfile = useSelector(selectUserProfile);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = useCallback(() => {
@@ -36,7 +36,7 @@ export const Header: React.FC = () => {
       <Logo />
       <Nav />
       <HeaderMenuNav>
-        {isAuthenticated ? (
+        {isAuth ? (
           <UserNav
             userName={userProfile?.name || 'User'}
             userAvatar={
@@ -60,7 +60,7 @@ export const Header: React.FC = () => {
       </HeaderMenuNav>
       <BurgerMenu
         isOpen={isMenuOpen}
-        isAuthenticated={isAuthenticated}
+        isAuth={isAuth}
         onLogout={() => dispatch(openModal({ type: 'ModalApproveAction' }))}
         closeMenu={closeMenu}
       />

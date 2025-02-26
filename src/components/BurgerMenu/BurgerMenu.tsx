@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { BurgerMenuProps } from './BurgerMenu.types';
 import {
   CloseButton,
   CloseIcon,
@@ -13,12 +12,12 @@ import {
   AuthButton,
 } from './BurgerMenu.styled';
 
-export const BurgerMenu: React.FC<BurgerMenuProps> = ({
-  isOpen,
-  closeMenu,
-  isAuthenticated,
-  onLogout,
-}) => {
+export const BurgerMenu: React.FC<{
+  isOpen: boolean;
+  isAuth: boolean;
+  closeMenu: () => void;
+  onLogout: () => void;
+}> = ({ isOpen, closeMenu, isAuth, onLogout }) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -54,7 +53,7 @@ export const BurgerMenu: React.FC<BurgerMenuProps> = ({
               Our Friends
             </BurgerMenuNavLink>
           </BurgerMenuNav>
-          {isAuthenticated ? (
+          {isAuth ? (
             <LogoutButton
               onClick={() => {
                 onLogout();

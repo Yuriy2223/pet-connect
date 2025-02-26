@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
-import { PetProfile } from '../../redux/user/user.types';
 import { format } from 'date-fns';
+import { openModal } from '../../redux/modal/slice';
+import { useDispatch } from 'react-redux';
+import { PetProfile } from '../../App.types';
 import {
   BtnTrash,
   IconTrash,
@@ -10,8 +12,6 @@ import {
   MyPetsCardItem,
   WrapAvatarPets,
 } from './MyPetsCard.styled';
-import { openModal } from '../../redux/modal/slice';
-import { useDispatch } from 'react-redux';
 
 interface MyPetsCardProps {
   pet: PetProfile;

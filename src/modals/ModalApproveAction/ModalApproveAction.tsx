@@ -4,6 +4,7 @@ import { closeModal } from '../../redux/modal/slice';
 import { logoutUser } from '../../redux/auth/operations';
 import { selectModalType } from '../../redux/modal/selectors';
 import { AppDispatch } from '../../redux/store';
+import { toast } from 'react-toastify';
 import {
   LogautImageWrapper,
   ModalButtonClose,
@@ -20,6 +21,7 @@ export const ModalApproveAction: React.FC = () => {
 
   const handleLogout = async () => {
     await dispatch(logoutUser());
+    toast.success('Logaut successful!');
     dispatch(closeModal());
   };
 

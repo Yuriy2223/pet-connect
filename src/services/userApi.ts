@@ -1,5 +1,5 @@
+import { PetProfile, UserProfile } from '../App.types';
 import { instance } from './Api';
-import { PetProfile, UserProfile } from '../redux/user/user.types';
 
 // Get current user info
 export const fetchUserCurrentApi = async (): Promise<UserProfile> => {

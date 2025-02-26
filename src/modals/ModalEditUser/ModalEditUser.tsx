@@ -1,21 +1,14 @@
-import React, {
-  // useEffect,
-  useState,
-} from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
-import { EditUser } from './ModalEditUser.type';
 import { uploadImage } from '../../utils/uploadImages';
 import { editUserSchema } from '../../components/Common/ValidationSchemas';
 import { closeModal } from '../../redux/modal/slice';
 import { useAppDispatch } from '../../redux/store';
 import { selectUserProfile } from '../../redux/user/selectors';
-import {
-  // fetchFullUserInfo,
-  updateUserProfile,
-} from '../../redux/user/operations';
+import { updateUserProfile } from '../../redux/user/operations';
 import {
   Button,
   EditFormWraper,
@@ -30,6 +23,21 @@ import {
   UploadWrapperInputEndBtn,
   WrapperInputsBlok,
 } from './ModalEditUser.styled';
+
+export interface EditUser {
+  name: string;
+  email: string;
+  avatar?: string;
+  phone?: string;
+}
+
+export interface InputProps {
+  isValid?: boolean;
+}
+
+export interface FocusedProps {
+  isFieldFocused?: boolean;
+}
 
 export const ModalEditUser: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -65,10 +73,6 @@ export const ModalEditUser: React.FC = () => {
       phone: userProfile?.phone || '',
     },
   });
-
-  // useEffect(() => {
-  //   dispatch(fetchFullUserInfo());
-  // }, [dispatch]);
 
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
