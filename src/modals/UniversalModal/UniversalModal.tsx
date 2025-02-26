@@ -17,6 +17,7 @@ import {
   ModalContent,
   OverlayModal,
 } from './UniversalModal.steled';
+import { Notice } from '../../App.types';
 
 export const ModalUniversal: React.FC = () => {
   const dispatch = useDispatch();
@@ -48,8 +49,18 @@ export const ModalUniversal: React.FC = () => {
         return <ModalEditUser {...modalProps} />;
       case 'ModalDeleteMyPets':
         return <ModalDeleteMyPets {...modalProps} />;
-      case 'ModalNotice':
-        return <ModalNotice {...modalProps} />;
+      // case 'ModalNotice':
+      //   return <ModalNotice {...modalProps} />;
+      // case 'ModalNotice': {
+      //   const { notice } = modalProps as { notice: Notice };
+      //   return notice ? <ModalNotice notice={notice} /> : null;
+      // }
+      case 'ModalNotice': {
+        return (
+          <ModalNotice notice={(modalProps as { notice: Notice }).notice} />
+        );
+      }
+
       case 'ModalAttention':
         return <ModalAttention {...modalProps} />;
       default:

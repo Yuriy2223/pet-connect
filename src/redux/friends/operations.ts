@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { Friend } from './friends.types';
 import { fetchFriendsApi } from '../../services/friendsApi';
+import { Friend } from '../../App.types';
 
 export const fetchFriends = createAsyncThunk<
   Friend[],

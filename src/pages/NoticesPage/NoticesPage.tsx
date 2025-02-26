@@ -36,7 +36,7 @@ export const NoticesPage: React.FC = () => {
   //   console.log('Applied filters:', filters);
   //   //  логіку для обробки фільтрів
   // };
-  console.log('noticesData from Redux:', noticesData);
+  // console.log('noticesData from Redux:', noticesData);
   return (
     <NoticesPageContainer>
       <h1>Find your favorite pet</h1>

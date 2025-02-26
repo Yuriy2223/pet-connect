@@ -1,45 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { setToken, TOKEN_KEY } from '../../services/Api';
+import { UserAuth } from '../../App.types';
 import {
   registerUserApi,
   loginUserApi,
-  logOutApi,
-  refreshUserApi,
-} from '../../services/authApi';
-import {
+  currentUserApi,
   RegisterData,
+  logoutApi,
   LoginData,
-  RegisterResponse,
-  LoginResponse,
-  User,
-} from './auth.types';
-import { setToken, TOKEN_KEY } from '../../services/Api';
+} from '../../services/authApi';
 
-// Refresh User
-// export const refreshUser = createAsyncThunk<
-//   { user: User; token: string },
-//   void,
-//   { rejectValue: string }
-// >('auth/refreshUser', async (_, { rejectWithValue }) => {
-//   const token = localStorage.getItem(TOKEN_KEY);
-
-//   if (!token) return rejectWithValue('No token found');
-
-//   setToken(token);
-
-//   try {
-//     const user = await refreshUserApi();
-//     return { user, token };
-//   } catch (error) {
-//     setToken(null);
-//     return rejectWithValue(
-//       error instanceof Error ? error.message : 'Failed to refresh user'
-//     );
-//   }
-// });
-// Refresh User
-export const refreshUser = createAsyncThunk<
-  { user: User | null; token: string | null },
+// Сurrent User
+export const currentUser = createAsyncThunk<
+  { user: UserAuth | null; token: string | null },
   void,
   { rejectValue: string }
 >('auth/refreshUser', async (_, { rejectWithValue }) => {
@@ -48,12 +22,10 @@ export const refreshUser = createAsyncThunk<
   if (!token) {
     return rejectWithValue('No token found');
   }
-
-  setToken(token);
-
+  // setToken(token);
   try {
-    const user = await refreshUserApi();
-    return { user: user ?? null, token }; // Якщо API повернув null, то user = null
+    const user = await currentUserApi();
+    return { user: user ?? null, token };
   } catch (error) {
     setToken(null);
     return rejectWithValue(
@@ -61,46 +33,17 @@ export const refreshUser = createAsyncThunk<
     );
   }
 });
-// const setToken = (token: string | null) => {
-//   if (token) {
-//     localStorage.setItem(TOKEN_KEY, token);
-//   } else {
-//     localStorage.removeItem(TOKEN_KEY);
-//   }
-// };
-
-// export const refreshUser = createAsyncThunk<
-//   { user: User | null; token: string | null },
-//   void,
-//   { rejectValue: string }
-// >('auth/refreshUser', async (_, { rejectWithValue }) => {
-//   const token = localStorage.getItem(TOKEN_KEY);
-
-//   if (!token) {
-//     return rejectWithValue('No token found');
-//   }
-
-//   setToken(token);
-
-//   try {
-//     const user = await refreshUserApi();
-//     return { user: user ?? null, token };
-//   } catch (error) {
-//     setToken(null);
-//     return rejectWithValue(
-//       error instanceof Error ? error.message : 'Failed to refresh user'
-//     );
-//   }
-// });
 
 // Register
 export const registerUser = createAsyncThunk<
-  RegisterResponse,
+  UserAuth,
   RegisterData,
   { rejectValue: string }
 >('auth/registerUser', async (data, { rejectWithValue }) => {
   try {
-    return await registerUserApi(data);
+    const response = await registerUserApi(data);
+    setToken(response.token);
+    return response;
   } catch (error: unknown) {
     const message =
       error instanceof Error ? error.message : 'Registration failed.';
@@ -111,7 +54,7 @@ export const registerUser = createAsyncThunk<
 
 // Login
 export const loginUser = createAsyncThunk<
-  LoginResponse,
+  UserAuth,
   LoginData,
   { rejectValue: string }
 >('auth/loginUser', async (credentials, { rejectWithValue }) => {
@@ -134,7 +77,7 @@ export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
   'auth/logOut',
   async (_, { rejectWithValue }) => {
     try {
-      await logOutApi();
+      await logoutApi();
       setToken(null);
     } catch (error: unknown) {
       const message =

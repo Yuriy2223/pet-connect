@@ -4,32 +4,64 @@ import { ThemeProvider } from 'styled-components';
 import 'react-toastify/dist/ReactToastify.css';
 import { themes, ThemeType } from './styles/Theme';
 import { Loader } from './components/loader/Loader';
-import { SplashScreen } from './components/SplashScreen/SplashScreen';
+// import { SplashScreen } from './components/SplashScreen/SplashScreen';
 import { useAppDispatch } from './redux/store';
-import { refreshUser } from './redux/auth/operations';
 import { fetchFullUserInfo } from './redux/user/operations';
 import { AppRoutes } from './routes/AppRoutes';
+import { useSelector } from 'react-redux';
+import { selectToken } from './redux/auth/selectors';
+import { currentUser } from './redux/auth/operations';
+import { TOKEN_KEY } from './services/Api';
+// import { currentUser } from './redux/auth/operations';
 
 export const App: React.FC = () => {
-  const [themeType, setThemeType] = useState<ThemeType>('light');
-  const [isAppReady, setIsAppReady] = useState(false);
   const dispatch = useAppDispatch();
+  const token = useSelector(selectToken);
+  const [themeType, setThemeType] = useState<ThemeType>('light');
+  // const [isAppReady, setIsAppReady] = useState(false);
+
+  useEffect(() => {
+    const savedToken = localStorage.getItem(TOKEN_KEY);
+    if (savedToken) {
+      dispatch(currentUser());
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     const initializeApp = async () => {
-      const result = await dispatch(refreshUser()).unwrap();
-      if (result?.token) {
+      // const result = await dispatch(currentUser()).unwrap();
+      // if (result?.token) {
+      if (token) {
         await dispatch(fetchFullUserInfo()).unwrap();
       }
-      setTimeout(() => setIsAppReady(true), 3000);
+      // setTimeout(() => setIsAppReady(true), 3000);
     };
 
     initializeApp();
-  }, [dispatch]);
+  }, [dispatch, token]);
 
-  if (!isAppReady) {
-    return <SplashScreen />;
-  }
+  // useEffect(() => {
+  //   const initializeApp = async () => {
+  //     const token = localStorage.getItem('token');
+  //     if (token) {
+  //       try {
+  //         const result = await dispatch(currentUser()).unwrap();
+  //         if (result?.token) {
+  //           await dispatch(fetchFullUserInfo()).unwrap();
+  //         }
+  //       } catch (error) {
+  //         console.error('Failed to refresh user:', error);
+  //       }
+  //     }
+  //     setTimeout(() => setIsAppReady(true), 3000);
+  //   };
+
+  //   initializeApp();
+  // }, [dispatch]);
+
+  // if (!isAppReady) {
+  //   return <SplashScreen />;
+  // }
 
   return (
     <ThemeProvider theme={themes[themeType]}>

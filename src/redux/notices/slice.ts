@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { GetNoticesResponse, Notice, NoticesState } from '../../App.types';
+import { GetNoticesResponse, Notice } from '../../App.types';
 import {
   addNoticesFavorite,
   fetchFavorites,
@@ -11,6 +11,20 @@ import {
   fetchViews,
   removeNoticesFavorite,
 } from './operations';
+
+export interface NoticesState {
+  notices: Notice[];
+  categories: string[];
+  species: string[];
+  sex: string[];
+  favorites: Notice[];
+  views: Notice[];
+  currentPage: number;
+  perPage: number;
+  totalPages: number;
+  loading: boolean;
+  error: string | null;
+}
 
 const initialState: NoticesState = {
   notices: [],

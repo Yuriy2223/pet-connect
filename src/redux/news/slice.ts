@@ -1,7 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchNews } from './operations';
-import { GetNewsResponse, NewsState } from './news.types';
+import { GetNewsResponse, News } from '../../App.types';
 
+export interface NewsState {
+  newsList: News[];
+  searchQuery: string;
+  currentPage: number;
+  perPage: number;
+  totalPages: number;
+  loading: boolean;
+  error: string | null;
+}
 const initialState: NewsState = {
   newsList: [],
   searchQuery: '',

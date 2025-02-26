@@ -1,5 +1,5 @@
 import { RootState } from '../store';
-import { NoticesState } from './notices.types';
+import { NoticesState } from './slice';
 
 export const selectNoticeCategories = (state: RootState) =>
   state.notices.categories;

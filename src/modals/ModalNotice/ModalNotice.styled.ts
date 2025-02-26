@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
 
 export const ModalContainer = styled.div`
   padding: 40px 20px;
@@ -69,7 +68,7 @@ export const ModalButtonWrapper = styled.div`
     gap: 20px;
   }
 `;
-export const ModalButton = styled(NavLink)`
+export const ModalButton = styled.button`
   border-radius: 30px;
   width: 136px;
   height: 42px;

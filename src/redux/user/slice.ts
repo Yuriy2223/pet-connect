@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { PetProfile, UserProfile, UserState } from './user.types';
+//
 import {
   addUserPet,
   fetchFullUserInfo,
@@ -7,7 +7,13 @@ import {
   removeUserPet,
   updateUserProfile,
 } from './operations';
+import { PetProfile, UserProfile } from '../../App.types';
 
+export interface UserState {
+  profile: UserProfile | null;
+  loading: boolean;
+  error: string | null;
+}
 const initialState: UserState = {
   profile: null,
   loading: false,
@@ -61,16 +67,6 @@ const userSlice = createSlice({
           state.error = null;
         }
       )
-      // .addCase(
-      //   updateUserProfile.fulfilled,
-      //   (state, action: PayloadAction<UserProfile | null>) => {
-      //     if (action.payload) {
-      //       state.profile = { ...state.profile, ...action.payload };
-      //     }
-      //     state.loading = false;
-      //     state.error = null;
-      //   }
-      // )
       .addCase(updateUserProfile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
