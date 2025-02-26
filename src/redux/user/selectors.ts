@@ -1,5 +1,5 @@
+import { PetProfile, UserProfile } from '../../App.types';
 import { RootState } from '../store';
-import { UserProfile, PetProfile } from './user.types';
 
 export const selectUserProfile = (state: RootState): UserProfile | null =>
   state.user.profile;

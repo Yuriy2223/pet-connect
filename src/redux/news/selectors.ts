@@ -1,5 +1,5 @@
 import { RootState } from '../store';
-import { NewsState } from './news.types';
+import { NewsState } from './slice';
 
 export const selectNewsList = (state: RootState): NewsState['newsList'] =>
   state.news.newsList;

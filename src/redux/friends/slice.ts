@@ -1,7 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchFriends } from './operations';
-import { Friend, FriendsState } from './friends.types';
+import { Friend } from '../../App.types';
 
+export interface FriendsState {
+  friends: Friend[];
+  loading: boolean;
+  error: string | null;
+}
 const initialState: FriendsState = {
   friends: [],
   loading: false,

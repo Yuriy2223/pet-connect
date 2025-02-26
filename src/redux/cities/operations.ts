@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { City } from './cities.types';
 import {
   fetchCitiesApi,
   fetchCityLocationsApi,
 } from '../../services/citiesApi';
+import { City } from '../../App.types';
 
 // Get Ukrainian cities
 export const fetchCities = createAsyncThunk<

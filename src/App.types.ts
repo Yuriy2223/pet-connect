@@ -1,3 +1,9 @@
+export interface UserAuth {
+  _id: string;
+  name: string;
+  email: string;
+  token: string;
+}
 export interface UserProfile {
   _id: string;
   name: string;
@@ -9,7 +15,6 @@ export interface UserProfile {
   noticesViewed: Notice[];
   noticesFavorites: Notice[];
 }
-
 export interface PetProfile {
   _id: string;
   name: string;
@@ -21,7 +26,6 @@ export interface PetProfile {
   createdAt: string;
   updatedAt: string;
 }
-
 export interface Notice {
   _id: string;
   species: string;
@@ -38,29 +42,47 @@ export interface Notice {
   popularity: number;
   updatedAt: string;
 }
-
+export interface News {
+  _id: string;
+  imgUrl: string;
+  title: string;
+  text: string;
+  date: string;
+  url: string;
+}
 export interface GetNoticesResponse {
   page: number;
   perPage: number;
   totalPages: number;
   results: Notice[];
 }
-
-export interface UserState {
-  profile: UserProfile | null;
-  loading: boolean;
-  error: string | null;
-}
-export interface NoticesState {
-  notices: Notice[];
-  categories: string[];
-  species: string[];
-  sex: string[];
-  favorites: Notice[];
-  views: Notice[];
-  currentPage: number;
+export interface GetNewsResponse {
+  page: number;
   perPage: number;
   totalPages: number;
-  loading: boolean;
-  error: string | null;
+  results: News[];
+}
+export interface WorkDay {
+  _id: string;
+  isOpen: boolean;
+  from?: string;
+  to?: string;
+}
+export interface Friend {
+  _id: string;
+  title: string;
+  url: string;
+  addressUrl: string;
+  imageUrl: string;
+  address: string;
+  workDays: WorkDay[];
+  phone: string;
+  email: string;
+}
+export interface City {
+  _id: string;
+  useCounty: string;
+  stateEn: string;
+  cityEn: string;
+  countyEn: string;
 }

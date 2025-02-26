@@ -20,8 +20,19 @@ export const setToken = (token: string | null) => {
   }
 };
 
+const savedToken = localStorage.getItem(TOKEN_KEY);
+if (savedToken) {
+  setToken(savedToken);
+}
+
 instance.interceptors.request.use(config => {
-  const token = store.getState().auth.token;
+  // const token = store.getState().auth.token;
+  const token = store.getState().auth.user?.token;
+  // let token = store.getState().auth.user?.token;
+
+  // if (!token) {
+  //   token = localStorage.getItem(TOKEN_KEY);
+  // }
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
@@ -31,24 +42,9 @@ instance.interceptors.response.use(
   async error => {
     if (error.response?.status === 401) {
       store.dispatch(logoutUser());
+      // await store.dispatch(logoutUser()).unwrap();
+      setToken(null);
     }
     return Promise.reject(error);
   }
 );
-
-// let isLoggingOut = false; // Флаг для уникнення повторного виклику logoutUser
-
-// instance.interceptors.response.use(
-//   response => response,
-//   async error => {
-//     if (error.response?.status === 401) {
-//       if (!isLoggingOut) {
-//         isLoggingOut = true;
-//         store.dispatch(logoutUser()).finally(() => {
-//           isLoggingOut = false; // Скидаємо флаг після завершення логауту
-//         });
-//       }
-//     }
-//     return Promise.reject(error);
-//   }
-// );

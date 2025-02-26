@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const ModalContainer = styled.div`
-  padding: 40px 20px;
+  padding: 60px 30px 40px;
   z-index: 10;
   display: flex;
   align-items: center;
@@ -15,7 +15,7 @@ export const ModalContainer = styled.div`
     letter-spacing: -0.03em;
     color: ${({ theme }) => theme.primaryDark};
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 10px;
 
     @media (min-width: 768px) {
       font-size: 24px;
@@ -38,6 +38,7 @@ export const ModalContainer = styled.div`
 
   @media (min-width: 768px) {
     padding: 60px;
+    padding: 60px 40px 40px;
   }
 `;
 export const ImageWrapper = styled.div`
@@ -56,17 +57,26 @@ export const ImageWrapper = styled.div`
     height: 44px;
 
     @media (min-width: 768px) {
+      width: 52px;
+      height: 52px;
     }
+  }
+  @media (min-width: 768px) {
+    width: 90px;
+    height: 90px;
   }
 `;
 export const ModalButtonWrapper = styled.div`
+  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  margin-top: 20px;
 
   @media (min-width: 768px) {
-    gap: 20px;
+    gap: 40px;
+    margin-top: 30px;
   }
 `;
 export const ModalButton = styled(NavLink)`
