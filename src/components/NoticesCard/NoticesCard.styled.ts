@@ -63,6 +63,7 @@ export const NoticesDetailsHeader = styled.div`
     color: ${({ theme }) => theme.black};
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 
     @media (min-width: 768px) {
       font-size: 18px;
@@ -92,28 +93,36 @@ export const RaitingIcon = styled(Iconsvg)`
 `;
 export const NoticeCardList = styled.ul`
   display: flex;
-  align-items: center;
   justify-content: space-between;
   flex-wrap: nowrap;
   margin-bottom: 16px;
 
   li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 35px;
-    height: 30px;
+    /* width: 35px;
+    height: 30px; */
+    width: 61px;
+    height: 36px;
     font-weight: 500;
     font-size: 10px;
     line-height: 1.4;
     letter-spacing: -0.02em;
     color: ${({ theme }) => theme.opacityTr};
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     span {
+      width: 100%;
       font-size: 12px;
       line-height: 1.17;
       letter-spacing: -0.02em;
       color: ${({ theme }) => theme.black};
+      margin-top: 4px;
+      display: block;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 `;
@@ -149,20 +158,27 @@ export const LearnButton = styled.button`
   }
 `;
 export const HeartButton = styled.button`
-  background: ${({ theme }) => theme.lightYellow};
-  border: none;
+  background-color: ${({ theme }) => theme.lightYellow};
+  border: 1px solid ${({ theme }) => theme.primaryDark};
   border-radius: 30px;
-  padding: 14px;
   width: 46px;
   height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover,
+  .isActive {
+    background-color: ${({ theme }) => theme.primaryDark};
+
+    svg {
+      stroke: ${({ theme }) => theme.red};
+      fill: ${({ theme }) => theme.red};
+    }
+  }
 `;
 export const HeartIcon = styled(Iconsvg)`
   fill: none;
   stroke: ${({ theme }) => theme.primaryDark};
   transition: all 300ms ease;
-
-  ${HeartButton}:hover &,
-  ${HeartButton}.isActive & {
-    fill: ${({ theme }) => theme.primaryDark};
-  }
 `;

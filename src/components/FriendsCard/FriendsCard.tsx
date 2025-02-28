@@ -15,12 +15,6 @@ import {
 import defaultImage from '../../assets/imeges/deffLogoFrends.webp';
 import { WorkDay } from '../../App.types';
 
-// interface WorkDay {
-//   isOpen: boolean;
-//   from?: string;
-//   to?: string;
-// }
-
 interface FriendItemProps {
   title: string;
   imageUrl?: string;

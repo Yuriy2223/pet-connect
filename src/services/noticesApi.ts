@@ -1,5 +1,4 @@
 import { instance } from './Api';
-// import { GetNoticesResponse, Notice } from '../redux/notices/notices.types';
 import { GetNoticesResponse, Notice, UserProfile } from '../App.types';
 
 // Get all notices

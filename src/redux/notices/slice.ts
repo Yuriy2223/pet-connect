@@ -175,11 +175,21 @@ const noticesSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
+      // .addCase(
+      //   removeNoticesFavorite.fulfilled,
+      //   (state, action: PayloadAction<string[]>) => {
+      //     state.favorites = state.favorites.filter(
+      //       notice => notice._id !== action.payload
+      //     );
+      //     state.loading = false;
+      //     state.error = null;
+      //   }
+      // )
       .addCase(
         removeNoticesFavorite.fulfilled,
-        (state, action: PayloadAction<string>) => {
+        (state, action: PayloadAction<string[]>) => {
           state.favorites = state.favorites.filter(
-            notice => notice._id !== action.payload
+            notice => !action.payload.includes(notice._id)
           );
           state.loading = false;
           state.error = null;

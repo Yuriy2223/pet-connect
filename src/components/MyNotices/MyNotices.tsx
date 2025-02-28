@@ -76,7 +76,7 @@ export const MyNotices: React.FC = () => {
         ) : (
           <DefoltText>
             Oops,
-            <NavLinkStyled to="/friends">
+            <NavLinkStyled to="/notices">
               looks like there aren't any furries
             </NavLinkStyled>
             on our adorable page yet. Do not worry! View your pets on the "find

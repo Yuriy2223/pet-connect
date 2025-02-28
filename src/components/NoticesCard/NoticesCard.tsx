@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-// import { Notice } from '../../redux/notices/notices.types';
 import defaultImage from '../../assets/imeges/defaultNotice.webp';
 import { selectIsSignedIn } from '../../redux/auth/selectors';
 import { openModal } from '../../redux/modal/slice';
 import { selectFavorites } from '../../redux/notices/selectors';
 import { useAppDispatch } from '../../redux/store';
+import { Notice } from '../../App.types';
+import { toast } from 'react-toastify';
 import {
   addNoticesFavorite,
   removeNoticesFavorite,
@@ -23,12 +24,7 @@ import {
   NoticesRaiting,
   RaitingIcon,
 } from './NoticesCard.styled';
-import { Notice } from '../../App.types';
-// import { NoticeCardProps } from '../../App.types';
-
-// export interface NoticeCardProps {
-//   notice: Notice;
-// }
+import { fetchFullUserInfo } from '../../redux/user/operations';
 
 export const NoticesCard: React.FC<{ notice: Notice }> = ({ notice }) => {
   const dispatch = useAppDispatch();
@@ -54,16 +50,14 @@ export const NoticesCard: React.FC<{ notice: Notice }> = ({ notice }) => {
       return;
     }
 
-    // if (isFavorite) {
-    //   dispatch(removeNoticesFavorite(notice));
-    // } else {
-    //   dispatch(addNoticesFavorite(notice));
-    // }
     if (isFavorite) {
       dispatch(removeNoticesFavorite(notice._id));
+      toast.success('Removed from favorites');
     } else {
       dispatch(addNoticesFavorite(notice._id));
+      toast.success('Added to favorites');
     }
+    dispatch(fetchFullUserInfo());
   };
 
   return (
@@ -87,7 +81,7 @@ export const NoticesCard: React.FC<{ notice: Notice }> = ({ notice }) => {
           </li>
           <li>
             Birthday
-            <span>{notice.birthday.split('-').reverse().join('.')}</span>
+            <span>{notice.birthday?.split('-').reverse().join('.')}</span>
           </li>
           <li>
             Sex<span>{notice.sex}</span>
@@ -105,7 +99,6 @@ export const NoticesCard: React.FC<{ notice: Notice }> = ({ notice }) => {
       <NoticesBtnWrapper>
         <LearnButton onClick={handleLearnMoreClick}>Learn more</LearnButton>
         <HeartButton
-          title="Add to favorites"
           onClick={handleHeartClick}
           className={isFavorite ? 'isActive' : ''}
         >
