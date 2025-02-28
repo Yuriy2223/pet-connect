@@ -109,7 +109,7 @@ export interface Friend {
   addressUrl: string;
   imageUrl: string;
   address: string;
-  workDays: WorkDay;
+  workDays: WorkDay[];
   phone: string;
   email: string;
 }
