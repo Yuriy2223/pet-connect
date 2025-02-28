@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux';
 import defaultImage from '../../assets/imeges/defaultNotice.webp';
 import { selectIsSignedIn } from '../../redux/auth/selectors';
 import { openModal } from '../../redux/modal/slice';
-import { selectFavorites } from '../../redux/notices/selectors';
 import { useAppDispatch } from '../../redux/store';
 import { Notice } from '../../App.types';
 import { toast } from 'react-toastify';
 import {
   addNoticesFavorite,
+  fetchFavorites,
   removeNoticesFavorite,
 } from '../../redux/notices/operations';
 import {
@@ -24,17 +24,15 @@ import {
   NoticesRaiting,
   RaitingIcon,
 } from './NoticesCard.styled';
-import { fetchFullUserInfo } from '../../redux/user/operations';
 
-export const NoticesCard: React.FC<{ notice: Notice }> = ({ notice }) => {
+export const NoticesCard: React.FC<{ notice: Notice; favorites: Notice[] }> = ({
+  notice,
+  favorites,
+}) => {
   const dispatch = useAppDispatch();
   const isSignedIn = useSelector(selectIsSignedIn);
   const [imgSrc, setImgSrc] = useState(notice.imgURL || defaultImage);
-
-  const favorites = useSelector(selectFavorites);
-  const isFavorite = favorites.some(
-    favoriteNotice => favoriteNotice._id === notice._id
-  );
+  const isFavorite = favorites.some(favorite => favorite._id === notice._id);
 
   const handleLearnMoreClick = () => {
     if (isSignedIn) {
@@ -44,20 +42,21 @@ export const NoticesCard: React.FC<{ notice: Notice }> = ({ notice }) => {
     }
   };
 
-  const handleHeartClick = () => {
+  const handleHeartClick = async (id: string) => {
     if (!isSignedIn) {
       dispatch(openModal({ type: 'ModalAttention' }));
       return;
     }
 
     if (isFavorite) {
-      dispatch(removeNoticesFavorite(notice._id));
+      await dispatch(removeNoticesFavorite(id));
       toast.success('Removed from favorites');
     } else {
-      dispatch(addNoticesFavorite(notice._id));
+      await dispatch(addNoticesFavorite(id));
       toast.success('Added to favorites');
     }
-    dispatch(fetchFullUserInfo());
+
+    dispatch(fetchFavorites());
   };
 
   return (
@@ -98,9 +97,10 @@ export const NoticesCard: React.FC<{ notice: Notice }> = ({ notice }) => {
 
       <NoticesBtnWrapper>
         <LearnButton onClick={handleLearnMoreClick}>Learn more</LearnButton>
+
         <HeartButton
-          onClick={handleHeartClick}
-          className={isFavorite ? 'isActive' : ''}
+          $isActive={isFavorite}
+          onClick={() => handleHeartClick(notice._id)}
         >
           <HeartIcon width={18} height={18} iconName="heart" />
         </HeartButton>

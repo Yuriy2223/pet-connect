@@ -98,8 +98,6 @@ export const NoticeCardList = styled.ul`
   margin-bottom: 16px;
 
   li {
-    /* width: 35px;
-    height: 30px; */
     width: 61px;
     height: 36px;
     font-weight: 500;
@@ -157,8 +155,14 @@ export const LearnButton = styled.button`
     line-height: 1.25;
   }
 `;
-export const HeartButton = styled.button`
-  background-color: ${({ theme }) => theme.lightYellow};
+export const HeartIcon = styled(Iconsvg)`
+  fill: none;
+  stroke: ${({ theme }) => theme.primaryDark};
+  transition: all 300ms ease;
+`;
+export const HeartButton = styled.button<{ $isActive?: boolean }>`
+  background-color: ${({ theme, $isActive }) =>
+    $isActive ? theme.primaryDark : theme.lightYellow};
   border: 1px solid ${({ theme }) => theme.primaryDark};
   border-radius: 30px;
   width: 46px;
@@ -166,19 +170,15 @@ export const HeartButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  &:hover,
-  .isActive {
-    background-color: ${({ theme }) => theme.primaryDark};
-
-    svg {
-      stroke: ${({ theme }) => theme.red};
-      fill: ${({ theme }) => theme.red};
-    }
-  }
-`;
-export const HeartIcon = styled(Iconsvg)`
-  fill: none;
-  stroke: ${({ theme }) => theme.primaryDark};
   transition: all 300ms ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.primaryDark};
+  }
+
+  svg {
+    stroke: ${({ theme, $isActive }) =>
+      $isActive ? theme.red : theme.primaryDark};
+    fill: ${({ theme, $isActive }) => ($isActive ? theme.red : 'none')};
+  }
 `;

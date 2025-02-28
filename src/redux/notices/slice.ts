@@ -158,38 +158,33 @@ const noticesSlice = createSlice({
       .addCase(
         addNoticesFavorite.fulfilled,
         (state, action: PayloadAction<string[]>) => {
-          state.favorites = state.favorites.filter(notice =>
-            action.payload.includes(notice._id)
-          );
+          action.payload.forEach(id => {
+            const notice = state.notices.find(n => n._id === id);
+            if (
+              notice &&
+              !state.favorites.some(fav => fav._id === notice._id)
+            ) {
+              state.favorites.push(notice);
+            }
+          });
           state.loading = false;
           state.error = null;
         }
       )
-      .addCase(addNoticesFavorite.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      })
-
       // Remove a notice from user favorites
       .addCase(removeNoticesFavorite.pending, state => {
         state.loading = true;
         state.error = null;
       })
-      // .addCase(
-      //   removeNoticesFavorite.fulfilled,
-      //   (state, action: PayloadAction<string[]>) => {
-      //     state.favorites = state.favorites.filter(
-      //       notice => notice._id !== action.payload
-      //     );
-      //     state.loading = false;
-      //     state.error = null;
-      //   }
-      // )
       .addCase(
         removeNoticesFavorite.fulfilled,
-        (state, action: PayloadAction<string[]>) => {
+        (state, action: PayloadAction<string | string[]>) => {
+          const idsToRemove = Array.isArray(action.payload)
+            ? action.payload
+            : [action.payload];
+
           state.favorites = state.favorites.filter(
-            notice => !action.payload.includes(notice._id)
+            notice => !idsToRemove.includes(notice._id)
           );
           state.loading = false;
           state.error = null;
