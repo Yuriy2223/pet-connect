@@ -92,14 +92,30 @@ export const addNoticesFavorite = createAsyncThunk<
 });
 
 // Remove a notice from favorites
+// export const removeNoticesFavorite = createAsyncThunk<
+//   string[],
+//   string,
+//   { rejectValue: string }
+// >('notices/removeFavorite', async (noticeId, { rejectWithValue }) => {
+//   try {
+//     await removeNoticesFavoriteApi(noticeId);
+//     return noticeId;
+//   } catch (error) {
+//     return rejectWithValue(
+//       error instanceof Error
+//         ? error.message
+//         : 'Failed to remove favorite notice.'
+//     );
+//   }
+// });
 export const removeNoticesFavorite = createAsyncThunk<
-  string,
+  string[],
   string,
   { rejectValue: string }
 >('notices/removeFavorite', async (noticeId, { rejectWithValue }) => {
   try {
-    await removeNoticesFavoriteApi(noticeId);
-    return noticeId;
+    const deletedIds = await removeNoticesFavoriteApi(noticeId);
+    return deletedIds;
   } catch (error) {
     return rejectWithValue(
       error instanceof Error

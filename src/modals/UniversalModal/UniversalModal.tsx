@@ -6,6 +6,7 @@ import { ModalEditUser } from '../ModalEditUser/ModalEditUser';
 import { ModalDeleteMyPets } from '../ModalDeleteMyPets/ModalDeleteMyPets';
 import { ModalAttention } from '../ModalAttention/ModalAttention';
 import { ModalNotice } from '../ModalNotice/ModalNotice';
+import { ModalCongrats } from '../ModalCongrats/ModalCongrats';
 import {
   selectIsModalOpen,
   selectModalProps,
@@ -49,20 +50,15 @@ export const ModalUniversal: React.FC = () => {
         return <ModalEditUser {...modalProps} />;
       case 'ModalDeleteMyPets':
         return <ModalDeleteMyPets {...modalProps} />;
-      // case 'ModalNotice':
-      //   return <ModalNotice {...modalProps} />;
-      // case 'ModalNotice': {
-      //   const { notice } = modalProps as { notice: Notice };
-      //   return notice ? <ModalNotice notice={notice} /> : null;
-      // }
+      case 'ModalCongrats':
+        return <ModalCongrats {...modalProps} />;
+      case 'ModalAttention':
+        return <ModalAttention {...modalProps} />;
       case 'ModalNotice': {
         return (
           <ModalNotice notice={(modalProps as { notice: Notice }).notice} />
         );
       }
-
-      case 'ModalAttention':
-        return <ModalAttention {...modalProps} />;
       default:
         return null;
     }

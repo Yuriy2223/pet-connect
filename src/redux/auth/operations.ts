@@ -16,7 +16,7 @@ export const currentUser = createAsyncThunk<
   { user: UserAuth | null; token: string | null },
   void,
   { rejectValue: string }
->('auth/refreshUser', async (_, { rejectWithValue }) => {
+>('auth/currentUser', async (_, { rejectWithValue }) => {
   const token = localStorage.getItem(TOKEN_KEY);
 
   if (!token) {
