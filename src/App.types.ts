@@ -15,16 +15,6 @@ export interface UserProfile {
   noticesViewed: Notice[];
   noticesFavorites: Notice[];
 }
-export interface UserFavVivProfile {
-  _id: string;
-  name: string;
-  email: string;
-  avatar: string;
-  phone: string;
-  token: string;
-  noticesViewed: Notice[];
-  noticesFavorites: Notice[];
-}
 export interface PetProfile {
   _id: string;
   name: string;

@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination } from '../../components/Pagination/Pagination';
 // import { NoticesFilters } from '../../components/NoticesFilters/NoticesFilters';
-import { fetchNotices } from '../../redux/notices/operations';
+import { fetchFavorites, fetchNotices } from '../../redux/notices/operations';
 import { AppDispatch } from '../../redux/store';
 import { NoticesCard } from '../../components/NoticesCard/NoticesCard';
 import {
   selectCurrentPage,
+  selectFavorites,
   selectNoticesList,
   selectPerPage,
   selectTotalPages,
@@ -24,10 +25,15 @@ export const NoticesPage: React.FC = () => {
   const totalPages = useSelector(selectTotalPages);
   const currentPage = useSelector(selectCurrentPage);
   const perPage = useSelector(selectPerPage);
+  const favorites = useSelector(selectFavorites);
 
   useEffect(() => {
     dispatch(fetchNotices({ page: currentPage, perPage }));
   }, [currentPage, perPage, dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [dispatch]);
 
   const handlePageChange = (page: number) => {
     dispatch(fetchNotices({ page, perPage }));
@@ -50,7 +56,7 @@ export const NoticesPage: React.FC = () => {
           noticesData.map(notice =>
             notice._id ? (
               <li key={notice._id}>
-                <NoticesCard notice={notice} />
+                <NoticesCard notice={notice} favorites={favorites} />
               </li>
             ) : null
           )
