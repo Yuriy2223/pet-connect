@@ -4,7 +4,7 @@ import { AppDispatch } from '../../redux/store';
 import { selectFavorites, selectViewed } from '../../redux/notices/selectors';
 import { toast } from 'react-toastify';
 import { MyFavoriteCard } from '../MyFavoriteCard/MyFavoriteCard';
-import { NoticesCard } from '../NoticesCard/NoticesCard';
+import { MyViewedCard } from '../MyViewedCard/MyViewedCard';
 import {
   fetchFavorites,
   fetchViews,
@@ -82,7 +82,7 @@ export const MyNotices: React.FC = () => {
                   onRemove={handleRemoveFavorite}
                 />
               ) : (
-                <NoticesCard notice={notice} favorites={favorites} />
+                <MyViewedCard notice={notice} favorites={favorites} />
               )}
             </li>
           ))
@@ -91,30 +91,3 @@ export const MyNotices: React.FC = () => {
     </MyNoticesContainer>
   );
 };
-
-{
-  /* <MyNoticesList>
-        {activeTab === 'favorites' && favorites.length > 0 ? (
-          favorites.map((notice: Notice) => (
-            <li key={notice._id}>
-              <MyFavoriteCard notice={notice} onRemove={handleRemoveFavorite} />
-            </li>
-          ))
-        ) : activeTab === 'viewed' && viewed.length > 0 ? (
-          viewed.map((notice: Notice) => (
-            <li key={notice._id}>
-              <NoticesCard notice={notice} favorites={favorites} />
-            </li>
-          ))
-        ) : (
-          <DefoltText>
-            Oops,
-            <NavLinkStyled to="/notices">
-              looks like there aren't any furries
-            </NavLinkStyled>
-            on our adorable page yet. Do not worry! View your pets on the "find
-            your favorite pet" page and add them to your favorites.
-          </DefoltText>
-        )}
-      </MyNoticesList> */
-}
