@@ -2,12 +2,11 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const MyNoticesContainer = styled.div`
-  background-color: ${({ theme }) => theme.white};
-  padding: 20px;
+  padding: 20px 0;
   border-radius: 30px;
 
   @media (min-width: 768px) {
-    padding: 40px;
+    padding: 40px 0;
   }
 
   @media (min-width: 1280px) {
@@ -22,10 +21,10 @@ export const WrapperBtn = styled.div`
   margin-bottom: 20px;
   @media (min-width: 768px) {
     gap: 30px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
 `;
-export const MyNoticesBtn = styled.button`
+export const MyNoticesBtn = styled.button<{ $isActive: boolean }>`
   border-radius: 30px;
   width: 124px;
   height: 42px;
@@ -41,12 +40,14 @@ export const MyNoticesBtn = styled.button`
   justify-content: center;
   text-align: center;
 
-  &:hover {
-    color: ${({ theme }) => theme.white};
-    background-color: ${({ theme }) => theme.primaryDark};
-  }
+  ${({ $isActive, theme }) =>
+    $isActive &&
+    `
+      color: ${theme.white};
+      background-color: ${theme.primaryDark};
+    `}
 
-  .active {
+  &:hover {
     color: ${({ theme }) => theme.white};
     background-color: ${({ theme }) => theme.primaryDark};
   }
@@ -67,11 +68,10 @@ export const MyNoticesList = styled.ul`
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
+    gap: 22px;
   }
   @media (min-width: 1280px) {
-    /* gap: 32px;
-    width: 1156px;
-    margin: 0 auto; */
+    gap: 24px;
   }
 `;
 

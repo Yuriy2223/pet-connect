@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
-import { Notice } from '../../App.types';
-import { MyNoticesCard } from '../MyNoticesCard/MyNoticesCard';
 import { selectFavorites, selectViewed } from '../../redux/notices/selectors';
+import { toast } from 'react-toastify';
+import { MyFavoriteCard } from '../MyFavoriteCard/MyFavoriteCard';
+import { NoticesCard } from '../NoticesCard/NoticesCard';
 import {
   fetchFavorites,
   fetchViews,
@@ -19,13 +20,15 @@ import {
 } from './MyNotices.styled';
 
 export const MyNotices: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'favorites' | 'viewed'>(
-    'favorites'
-  );
-
   const dispatch = useDispatch<AppDispatch>();
   const favorites = useSelector(selectFavorites);
   const viewed = useSelector(selectViewed);
+  const [activeTab, setActiveTab] = useState<'favorites' | 'viewed'>(
+    'favorites'
+  );
+  const isFavoritesTab = activeTab === 'favorites';
+  const noticesList = isFavoritesTab ? favorites : viewed;
+  const isEmpty = noticesList.length === 0;
 
   useEffect(() => {
     if (activeTab === 'favorites') {
@@ -35,12 +38,10 @@ export const MyNotices: React.FC = () => {
     }
   }, [activeTab, dispatch]);
 
-  const handleRemove = async (id: string) => {
-    try {
-      await dispatch(removeNoticesFavorite(id)).unwrap();
-    } catch (error) {
-      console.error('Failed to remove favorite:', error);
-    }
+  const handleRemoveFavorite = async (id: string) => {
+    await dispatch(removeNoticesFavorite(id)).unwrap();
+    toast.success('Removed from favorites');
+    // dispatch(fetchFavorites());
   };
 
   return (
@@ -49,28 +50,60 @@ export const MyNotices: React.FC = () => {
         <MyNoticesBtn
           onClick={() => setActiveTab('favorites')}
           className={activeTab === 'favorites' ? 'active' : ''}
+          $isActive={isFavoritesTab}
         >
           My favorite pets
         </MyNoticesBtn>
         <MyNoticesBtn
           onClick={() => setActiveTab('viewed')}
           className={activeTab === 'viewed' ? 'active' : ''}
+          $isActive={!isFavoritesTab}
         >
           Viewed
         </MyNoticesBtn>
       </WrapperBtn>
 
       <MyNoticesList>
+        {isEmpty ? (
+          <DefoltText>
+            Oops,
+            <NavLinkStyled to="/notices">
+              looks like there aren't any furries
+            </NavLinkStyled>
+            on our adorable page yet. Do not worry! View your pets on the "find
+            your favorite pet" page and add them to your favorites.
+          </DefoltText>
+        ) : (
+          noticesList.map(notice => (
+            <li key={notice._id}>
+              {isFavoritesTab ? (
+                <MyFavoriteCard
+                  notice={notice}
+                  onRemove={handleRemoveFavorite}
+                />
+              ) : (
+                <NoticesCard notice={notice} favorites={favorites} />
+              )}
+            </li>
+          ))
+        )}
+      </MyNoticesList>
+    </MyNoticesContainer>
+  );
+};
+
+{
+  /* <MyNoticesList>
         {activeTab === 'favorites' && favorites.length > 0 ? (
           favorites.map((notice: Notice) => (
             <li key={notice._id}>
-              <MyNoticesCard notice={notice} onRemove={handleRemove} />
+              <MyFavoriteCard notice={notice} onRemove={handleRemoveFavorite} />
             </li>
           ))
         ) : activeTab === 'viewed' && viewed.length > 0 ? (
           viewed.map((notice: Notice) => (
             <li key={notice._id}>
-              <MyNoticesCard notice={notice} />
+              <NoticesCard notice={notice} favorites={favorites} />
             </li>
           ))
         ) : (
@@ -83,7 +116,5 @@ export const MyNotices: React.FC = () => {
             your favorite pet" page and add them to your favorites.
           </DefoltText>
         )}
-      </MyNoticesList>
-    </MyNoticesContainer>
-  );
-};
+      </MyNoticesList> */
+}

@@ -36,7 +36,9 @@ export const NoticesCard: React.FC<{ notice: Notice; favorites: Notice[] }> = ({
 
   const handleLearnMoreClick = () => {
     if (isSignedIn) {
-      dispatch(openModal({ type: 'ModalNotice', props: { notice } }));
+      dispatch(
+        openModal({ type: 'ModalNotice', props: { notice, favorites } })
+      );
     } else {
       dispatch(openModal({ type: 'ModalAttention' }));
     }

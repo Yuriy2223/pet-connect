@@ -170,10 +170,13 @@ export const HeartButton = styled.button<{ $isActive?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 300ms ease;
 
   &:hover {
     background-color: ${({ theme }) => theme.primaryDark};
+    svg {
+      stroke: ${({ theme }) => theme.lightYellow};
+      fill: ${({ theme }) => theme.lightYellow};
+    }
   }
 
   svg {

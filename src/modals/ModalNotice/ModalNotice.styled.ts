@@ -40,7 +40,7 @@ export const ModalContainer = styled.div`
   }
 
   @media (min-width: 768px) {
-    padding: 60px;
+    padding: 60px 30px;
   }
 `;
 export const ImageWrapper = styled.div`
@@ -91,11 +91,27 @@ export const ImageWrapper = styled.div`
     background-color: ${({ theme }) => theme.lightYellow};
   }
 `;
+export const RaitingEndPriseWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+
+  p {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 4px;
+      color: ${({ theme }) => theme.red};
+    }
+  }
+`;
 export const RaitingWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 
   span {
     font-weight: 500;
@@ -168,17 +184,19 @@ export const ModalButtonWrapper = styled.div`
     gap: 8px;
   }
 `;
-export const ModalButton = styled.button`
+export const ModalButton = styled.button<{ $isActive?: boolean }>`
   border-radius: 30px;
-  width: 136px;
+  width: 166px;
   height: 44px;
   font-weight: 700;
   font-size: 14px;
   line-height: 1.25;
   letter-spacing: -0.03em;
   border: 1px solid ${({ theme }) => theme.primaryDark};
-  background-color: ${({ theme }) => theme.lightYellow};
-  color: ${({ theme }) => theme.primaryDark};
+  background-color: ${({ theme, $isActive }) =>
+    $isActive ? theme.primaryDark : theme.lightYellow};
+  color: ${({ theme, $isActive }) =>
+    $isActive ? theme.white : theme.primaryDark};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -191,26 +209,33 @@ export const ModalButton = styled.button`
     color: ${({ theme }) => theme.white};
 
     svg {
-      stroke: ${({ theme }) => theme.white};
+      stroke: ${({ theme }) => theme.lightYellow};
+      fill: ${({ theme }) => theme.lightYellow};
     }
   }
 
   @media (min-width: 768px) {
-    width: 142px;
+    width: 166px;
     height: 48px;
     font-size: 16px;
     line-height: 1.25;
   }
+
+  svg {
+    stroke: ${({ theme, $isActive }) =>
+      $isActive ? theme.red : theme.primaryDark};
+    fill: ${({ theme, $isActive }) => ($isActive ? theme.red : 'none')};
+  }
 `;
 export const HeartIcon = styled(Iconsvg)`
-  fill: none;
-  stroke: ${({ theme }) => theme.primaryDark};
+  /* fill: ${({ theme }) => theme.primaryDark};
+  stroke: ${({ theme }) => theme.primaryDark}; */
   transition: all 300ms ease;
 `;
 export const ModalButtonLink = styled.a`
   border-radius: 30px;
-  width: 136px;
-  height: 44px;
+  width: 122px;
+  height: 40px;
   font-weight: 700;
   font-size: 14px;
   line-height: 1.25;
@@ -231,8 +256,7 @@ export const ModalButtonLink = styled.a`
   }
 
   @media (min-width: 768px) {
-    width: 142px;
-    height: 48px;
+    width: 132px;
     font-size: 16px;
     line-height: 1.25;
   }

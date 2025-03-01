@@ -19,6 +19,7 @@ export const ModalContent = styled.div`
   border-radius: 30px;
   max-width: 336px;
   width: 100%;
+  overflow-y: auto;
 
   @media (min-width: 768px) {
     max-width: 466px;

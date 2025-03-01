@@ -55,9 +55,11 @@ export const ModalUniversal: React.FC = () => {
       case 'ModalAttention':
         return <ModalAttention {...modalProps} />;
       case 'ModalNotice': {
-        return (
-          <ModalNotice notice={(modalProps as { notice: Notice }).notice} />
-        );
+        const { notice, favorites } = modalProps as {
+          notice: Notice;
+          favorites: Notice[];
+        };
+        return <ModalNotice notice={notice} favorites={favorites} />;
       }
       default:
         return null;
