@@ -24,7 +24,8 @@ export const NoticesCardContainer = styled.div`
   }
 
   @media (min-width: 1280px) {
-    width: 363px;
+    width: 320px;
+    padding: 14px 14px 18px;
   }
 `;
 export const NoticesImg = styled.img`
@@ -166,24 +167,10 @@ export const RemoveFavoriteBtn = styled.button`
       stroke: ${({ theme }) => theme.white};
     }
   }
-
-  @media (min-width: 768px) {
-    width: 32px;
-    height: 32px;
-  }
-  @media (min-width: 1280px) {
-    width: 38px;
-    height: 38px;
-  }
 `;
 export const RemoveIcon = styled(Iconsvg)`
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   stroke: ${({ theme }) => theme.primaryDark};
   fill: ${({ theme }) => theme.lightYellow};
-
-  @media (min-width: 768px) {
-    width: 20px;
-    height: 20px;
-  }
 `;

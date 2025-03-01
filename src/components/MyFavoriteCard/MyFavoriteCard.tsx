@@ -13,13 +13,13 @@ import {
   RaitingIcon,
   RemoveFavoriteBtn,
   RemoveIcon,
-} from './MyNoticesCard.styled';
+} from './MyFavoriteCard.styled';
 
 export interface NoticeCardProps {
   notice: Notice;
-  onRemove?: (id: string) => void;
+  onRemove: (id: string) => void;
 }
-export const MyNoticesCard: React.FC<NoticeCardProps> = ({
+export const MyFavoriteCard: React.FC<NoticeCardProps> = ({
   notice,
   onRemove,
 }) => {
@@ -63,14 +63,12 @@ export const MyNoticesCard: React.FC<NoticeCardProps> = ({
 
       <NoticesBtnWrapper>
         <LearnButton>Learn more</LearnButton>
-        {onRemove && (
-          <RemoveFavoriteBtn
-            title="Remove favorites"
-            onClick={() => onRemove(notice._id)}
-          >
-            <RemoveIcon width={18} height={18} iconName="trash" />
-          </RemoveFavoriteBtn>
-        )}
+        <RemoveFavoriteBtn
+          title="Remove favorites"
+          onClick={() => onRemove(notice._id)}
+        >
+          <RemoveIcon width={18} height={18} iconName="trash" />
+        </RemoveFavoriteBtn>
       </NoticesBtnWrapper>
     </NoticesCardContainer>
   );

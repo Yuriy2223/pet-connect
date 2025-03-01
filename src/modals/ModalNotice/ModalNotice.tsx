@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import { closeModal } from '../../redux/modal/slice';
 import { AppDispatch } from '../../redux/store';
 import defaultImage from '../../assets/imeges/defaultNotice.webp';
 import { Notice } from '../../App.types';
+import { fetchNoticesNoticeByIdApi } from '../../services/noticesApi';
+import {
+  addNoticesFavorite,
+  fetchFavorites,
+  removeNoticesFavorite,
+} from '../../redux/notices/operations';
 import {
   ModalContainer,
   RaitingIcon,
@@ -14,35 +21,20 @@ import {
   RaitingWrapper,
   ModalList,
   ModalButtonLink,
+  RaitingEndPriseWrapper,
 } from './ModalNotice.styled';
-import { selectFavorites } from '../../redux/notices/selectors';
-import {
-  addNoticesFavorite,
-  removeNoticesFavorite,
-} from '../../redux/notices/operations';
-// import { selectIsSignedIn } from '../../redux/auth/selectors';
-import { toast } from 'react-toastify';
-import { fetchFullUserInfo } from '../../redux/user/operations';
-import { fetchNoticesNoticeByIdApi } from '../../services/noticesApi';
 
-export const ModalNotice: React.FC<{ notice: Notice }> = ({ notice }) => {
+export const ModalNotice: React.FC<{ notice: Notice; favorites: Notice[] }> = ({
+  notice,
+  favorites,
+}) => {
   const dispatch = useDispatch<AppDispatch>();
-  // const isSignedIn = useSelector(selectIsSignedIn);
-  const favorites = useSelector(selectFavorites);
+  const isFavorite = favorites.some(favorite => favorite._id === notice._id);
   const [imgSrc, setImgSrc] = useState(notice.imgURL || defaultImage);
   const [userContact, setUserContact] = useState<{
     email: string;
     phone: string;
   } | null>(null);
-
-  const isFavorite = favorites.some(
-    favoriteNotice => favoriteNotice._id === notice._id
-  );
-
-  // if (!isSignedIn) {
-  //   dispatch(closeModal());
-  //   return;
-  // }
 
   useEffect(() => {
     const fetchContactInfo = async () => {
@@ -53,15 +45,16 @@ export const ModalNotice: React.FC<{ notice: Notice }> = ({ notice }) => {
     fetchContactInfo();
   }, [notice._id]);
 
-  const handleClickFavorites = () => {
+  const handleClickFavorites = async (id: string) => {
     if (isFavorite) {
-      dispatch(removeNoticesFavorite(notice._id));
+      await dispatch(removeNoticesFavorite(id));
       toast.success('Removed from favorites');
     } else {
-      dispatch(addNoticesFavorite(notice._id));
+      await dispatch(addNoticesFavorite(id));
       toast.success('Added to favorites');
     }
-    dispatch(fetchFullUserInfo());
+
+    dispatch(fetchFavorites());
     dispatch(closeModal());
   };
 
@@ -80,14 +73,19 @@ export const ModalNotice: React.FC<{ notice: Notice }> = ({ notice }) => {
         <div>{notice.category}</div>
       </ImageWrapper>
       <h2>{notice.title}</h2>
-      <RaitingWrapper>
-        <RaitingIcon width={18} height={18} iconName="star" />
-        <RaitingIcon width={18} height={18} iconName="star" />
-        <RaitingIcon width={18} height={18} iconName="star" />
-        <RaitingIcon width={18} height={18} iconName="star" />
-        <RaitingIcon width={18} height={18} iconName="star" />
-        <span>{notice.popularity}</span>
-      </RaitingWrapper>
+      <RaitingEndPriseWrapper>
+        <p>
+          Price: <span>{notice.price ? `${notice.price}$` : '🙂'}</span>
+        </p>
+        <RaitingWrapper>
+          <RaitingIcon width={18} height={18} iconName="star" />
+          <RaitingIcon width={18} height={18} iconName="star" />
+          <RaitingIcon width={18} height={18} iconName="star" />
+          <RaitingIcon width={18} height={18} iconName="star" />
+          <RaitingIcon width={18} height={18} iconName="star" />
+          <span>{notice.popularity}</span>
+        </RaitingWrapper>
+      </RaitingEndPriseWrapper>
       <ModalList>
         <li>
           Name<span>{notice.name}</span>
@@ -108,8 +106,12 @@ export const ModalNotice: React.FC<{ notice: Notice }> = ({ notice }) => {
       </ModalList>
       <p>{notice.comment}</p>
       <ModalButtonWrapper>
-        <ModalButton title="Add to favorites" onClick={handleClickFavorites}>
-          Add to <HeartIcon width={18} height={18} iconName="heart" />
+        <ModalButton
+          $isActive={isFavorite}
+          onClick={() => handleClickFavorites(notice._id)}
+        >
+          Add or Remove
+          <HeartIcon width={18} height={18} iconName="heart" />
         </ModalButton>
         <div>
           <ModalButtonLink
