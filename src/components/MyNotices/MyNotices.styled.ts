@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const MyNoticesContainer = styled.div`
-  /* background-color: ${({ theme }) => theme.white}; */
   padding: 20px 0;
   border-radius: 30px;
 
