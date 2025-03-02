@@ -15,7 +15,6 @@ import {
 
 export const UserBlock: React.FC = () => {
   const userProfile = useSelector(selectUserProfile);
-  console.log('userProfile:', userProfile);
 
   return (
     <UserBlockContainer>

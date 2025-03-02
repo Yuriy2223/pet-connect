@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination } from '../../components/Pagination/Pagination';
-// import { NoticesFilters } from '../../components/NoticesFilters/NoticesFilters';
 import { fetchFavorites, fetchNotices } from '../../redux/notices/operations';
 import { AppDispatch } from '../../redux/store';
+import { selectIsSignedIn } from '../../redux/auth/selectors';
 import { NoticesCard } from '../../components/NoticesCard/NoticesCard';
+// import { NoticesFilters } from '../../components/NoticesFilters/NoticesFilters';
 import {
   selectCurrentPage,
   selectFavorites,
@@ -25,15 +26,18 @@ export const NoticesPage: React.FC = () => {
   const totalPages = useSelector(selectTotalPages);
   const currentPage = useSelector(selectCurrentPage);
   const perPage = useSelector(selectPerPage);
+  const isSignedIn = useSelector(selectIsSignedIn);
   const favorites = useSelector(selectFavorites);
 
   useEffect(() => {
     dispatch(fetchNotices({ page: currentPage, perPage }));
   }, [currentPage, perPage, dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(fetchFavorites());
-  // }, [dispatch]);
+  useEffect(() => {
+    if (isSignedIn) {
+      dispatch(fetchFavorites());
+    }
+  }, [dispatch, isSignedIn]);
 
   const handlePageChange = (page: number) => {
     dispatch(fetchNotices({ page, perPage }));
