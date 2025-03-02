@@ -31,9 +31,9 @@ export const NoticesPage: React.FC = () => {
     dispatch(fetchNotices({ page: currentPage, perPage }));
   }, [currentPage, perPage, dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchFavorites());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchFavorites());
+  // }, [dispatch]);
 
   const handlePageChange = (page: number) => {
     dispatch(fetchNotices({ page, perPage }));

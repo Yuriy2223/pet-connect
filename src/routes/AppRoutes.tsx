@@ -1,9 +1,10 @@
 import React, { lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeType } from '../styles/Theme';
 import { Layout } from '../components/Layout/Layout';
 import { PrivateRoute } from './PrivateRoute';
+import { RestrictedRoute } from './RestrictedRoute';
 import { NotFoundPage } from '../pages/NotFoundPage/NotFoundPage';
-import { ThemeType } from '../styles/Theme';
 
 const HomePage = lazy(() =>
   import('../pages/HomePage/HomePage').then(m => ({ default: m.HomePage }))
@@ -50,11 +51,15 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({ toggleTheme }) => {
       <Route path="/" element={<Layout toggleTheme={toggleTheme} />}>
         <Route index element={<HomePage />} />
         <Route path="home" element={<Navigate to="/" replace />} />
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="login" element={<LoginPage />} />
+
         <Route path="news" element={<NewsPage />} />
         <Route path="notices" element={<NoticesPage />} />
         <Route path="friends" element={<OurFriendsPage />} />
+
+        <Route element={<RestrictedRoute />}>
+          <Route path="register" element={<RegisterPage />} />
+          <Route path="login" element={<LoginPage />} />
+        </Route>
 
         <Route element={<PrivateRoute />}>
           <Route path="profile" element={<ProfilePage />} />

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Iconsvg } from '../Common/Icons';
 
-export const NoticesCardContainer = styled.div`
+export const ViewedCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,13 +27,13 @@ export const NoticesCardContainer = styled.div`
     width: 363px;
   }
 `;
-export const NoticesImg = styled.img`
+export const ViewedImg = styled.img`
   border-radius: 16px;
   width: 100%;
   height: 180px;
   object-fit: cover;
 `;
-export const NoticesDetails = styled.div`
+export const ViewedDetails = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -50,7 +50,7 @@ export const NoticesDetails = styled.div`
     text-overflow: ellipsis;
   }
 `;
-export const NoticesDetailsHeader = styled.div`
+export const ViewedDetailsHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -71,7 +71,7 @@ export const NoticesDetailsHeader = styled.div`
     }
   }
 `;
-export const NoticesRaiting = styled.div`
+export const ViewedRaiting = styled.div`
   display: flex;
   align-items: center;
   gap: 2px;
@@ -91,7 +91,7 @@ export const RaitingIcon = styled(Iconsvg)`
   fill: ${({ theme }) => theme.star};
   stroke: ${({ theme }) => theme.star};
 `;
-export const NoticeCardList = styled.ul`
+export const ViewedCardList = styled.ul`
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap;
@@ -124,7 +124,7 @@ export const NoticeCardList = styled.ul`
     }
   }
 `;
-export const NoticesBtnWrapper = styled.div`
+export const ViewedBtnWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;

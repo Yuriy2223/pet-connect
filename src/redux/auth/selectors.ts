@@ -9,3 +9,5 @@ export const selectIsSignedIn = (state: RootState) => state.auth.isSignedIn;
 export const selectAuthLoading = (state: RootState) => state.auth.loading;
 
 export const selectAuthError = (state: RootState) => state.auth.error;
+
+export const selectIsAuthChecking = (state: RootState) => state.auth.isChecking;

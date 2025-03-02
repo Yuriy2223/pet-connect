@@ -41,7 +41,6 @@ export const MyNotices: React.FC = () => {
   const handleRemoveFavorite = async (id: string) => {
     await dispatch(removeNoticesFavorite(id)).unwrap();
     toast.success('Removed from favorites');
-    // dispatch(fetchFavorites());
   };
 
   return (

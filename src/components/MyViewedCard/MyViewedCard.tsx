@@ -15,14 +15,14 @@ import {
   HeartButton,
   HeartIcon,
   LearnButton,
-  NoticeCardList,
-  NoticesBtnWrapper,
-  NoticesCardContainer,
-  NoticesDetails,
-  NoticesDetailsHeader,
-  NoticesImg,
-  NoticesRaiting,
   RaitingIcon,
+  ViewedBtnWrapper,
+  ViewedCardContainer,
+  ViewedCardList,
+  ViewedDetails,
+  ViewedDetailsHeader,
+  ViewedImg,
+  ViewedRaiting,
 } from './MyViewedCard.styled';
 
 export const MyViewedCard: React.FC<{
@@ -62,21 +62,21 @@ export const MyViewedCard: React.FC<{
   };
 
   return (
-    <NoticesCardContainer>
-      <NoticesImg
+    <ViewedCardContainer>
+      <ViewedImg
         src={imgSrc}
         alt={notice.title}
         onError={() => setImgSrc(defaultImage)}
       />
-      <NoticesDetails>
-        <NoticesDetailsHeader>
+      <ViewedDetails>
+        <ViewedDetailsHeader>
           <h2>{notice.title}</h2>
-          <NoticesRaiting>
+          <ViewedRaiting>
             <RaitingIcon width={18} height={18} iconName="star" />
             <span>{notice.popularity}</span>
-          </NoticesRaiting>
-        </NoticesDetailsHeader>
-        <NoticeCardList>
+          </ViewedRaiting>
+        </ViewedDetailsHeader>
+        <ViewedCardList>
           <li>
             Name<span>{notice.name}</span>
           </li>
@@ -93,11 +93,11 @@ export const MyViewedCard: React.FC<{
           <li>
             Category<span>{notice.category}</span>
           </li>
-        </NoticeCardList>
+        </ViewedCardList>
         <p>{notice.comment}</p>
-      </NoticesDetails>
+      </ViewedDetails>
 
-      <NoticesBtnWrapper>
+      <ViewedBtnWrapper>
         <LearnButton onClick={handleLearnMoreClick}>Learn more</LearnButton>
 
         <HeartButton
@@ -106,7 +106,7 @@ export const MyViewedCard: React.FC<{
         >
           <HeartIcon width={18} height={18} iconName="heart" />
         </HeartButton>
-      </NoticesBtnWrapper>
-    </NoticesCardContainer>
+      </ViewedBtnWrapper>
+    </ViewedCardContainer>
   );
 };

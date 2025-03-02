@@ -5,6 +5,7 @@ import { UserAuth } from '../../App.types';
 export interface AuthState {
   user: UserAuth | null;
   isSignedIn: boolean;
+  isChecking: boolean;
   loading: boolean;
   error: string | null;
 }
@@ -12,6 +13,7 @@ export interface AuthState {
 const initialState: AuthState = {
   user: null,
   isSignedIn: false,
+  isChecking: true,
   loading: false,
   error: null,
 };
@@ -30,14 +32,10 @@ const authSlice = createSlice({
       .addCase(
         currentUser.fulfilled,
         (state, action: PayloadAction<{ user: UserAuth | null }>) => {
-          if (action.payload.user) {
-            state.user = action.payload.user;
-            state.isSignedIn = true;
-          } else {
-            state.user = null;
-            state.isSignedIn = false;
-          }
+          state.user = action.payload.user;
+          state.isSignedIn = !!action.payload.user;
           state.loading = false;
+          state.isChecking = false;
           state.error = null;
         }
       )
@@ -45,7 +43,8 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = null;
         state.isSignedIn = false;
-        state.error = action.error.message || 'Failed to refresh user';
+        state.isChecking = false;
+        state.error = action.error.message || 'Failed to fetch current user';
       })
       // Registration User
       .addCase(registerUser.pending, state => {
