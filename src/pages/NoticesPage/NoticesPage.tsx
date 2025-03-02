@@ -18,6 +18,7 @@ import {
   NoticesSearchWrapper,
   PaginationWrapper,
 } from './NoticesPage.styled';
+import { selectIsSignedIn } from '../../redux/auth/selectors';
 
 export const NoticesPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -25,15 +26,18 @@ export const NoticesPage: React.FC = () => {
   const totalPages = useSelector(selectTotalPages);
   const currentPage = useSelector(selectCurrentPage);
   const perPage = useSelector(selectPerPage);
+  const isSignedIn = useSelector(selectIsSignedIn);
   const favorites = useSelector(selectFavorites);
 
   useEffect(() => {
     dispatch(fetchNotices({ page: currentPage, perPage }));
   }, [currentPage, perPage, dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(fetchFavorites());
-  // }, [dispatch]);
+  useEffect(() => {
+    if (isSignedIn) {
+      dispatch(fetchFavorites());
+    }
+  }, [dispatch, isSignedIn]);
 
   const handlePageChange = (page: number) => {
     dispatch(fetchNotices({ page, perPage }));

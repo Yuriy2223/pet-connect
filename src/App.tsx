@@ -43,37 +43,7 @@ export const App: React.FC = () => {
     </ThemeProvider>
   );
 };
-// import { TOKEN_KEY } from './services/Api';
-// import { useSelector } from 'react-redux';
-// import { selectAuthLoading } from './redux/auth/selectors';
-// const isFirstLoad = useRef(true);
-// const isAuthLoading = useSelector(selectAuthLoading);
 
-// useEffect(() => {
-//   if (!isFirstLoad.current) return;
-//   isFirstLoad.current = false;
-
-//   const savedToken = localStorage.getItem(TOKEN_KEY);
-//   if (savedToken) {
-//     dispatch(currentUser());
-//   }
-// }, [dispatch]);
-
-// if (isAuthLoading) return <Loader />;
-// import { useSelector } from 'react-redux';
-// import { selectAuthLoading } from './redux/auth/selectors';
-// const token = useSelector(selectToken);
-// const isAuthLoading = useSelector(selectAuthLoading);
-// useEffect(() => {
-//   const savedToken = localStorage.getItem(TOKEN_KEY);
-//   if (savedToken) {
-//     dispatch(currentUser());
-//   }
-// }, [dispatch]);
-// if (isAuthLoading) {
-//   return <Loader />;
-// }
-// // if (isAuthLoading) return null;
 //   const [themeType, setThemeType] = useState<ThemeType>('light');
 //   const toggleTheme = (newTheme: ThemeType) => {
 //     setThemeType(newTheme);
