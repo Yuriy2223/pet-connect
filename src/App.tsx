@@ -44,10 +44,6 @@ export const App: React.FC = () => {
   );
 };
 
-//   const [themeType, setThemeType] = useState<ThemeType>('light');
-//   const toggleTheme = (newTheme: ThemeType) => {
-//     setThemeType(newTheme);
-//   };
 //   const dispatch = useAppDispatch();
 //   const [showSplash, setShowSplash] = useState(true);
 //   const [loading, setLoading] = useState(true);
@@ -82,7 +78,3 @@ export const App: React.FC = () => {
 //   if (loading) {
 //     return <Loader />;
 //   }
-
-//   useEffect(() => {
-//     dispatch(fetchFullUserInfo());
-//   }, [dispatch]);

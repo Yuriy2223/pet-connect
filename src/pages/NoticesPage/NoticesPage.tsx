@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination } from '../../components/Pagination/Pagination';
-// import { NoticesFilters } from '../../components/NoticesFilters/NoticesFilters';
 import { fetchFavorites, fetchNotices } from '../../redux/notices/operations';
 import { AppDispatch } from '../../redux/store';
+import { selectIsSignedIn } from '../../redux/auth/selectors';
 import { NoticesCard } from '../../components/NoticesCard/NoticesCard';
+// import { NoticesFilters } from '../../components/NoticesFilters/NoticesFilters';
 import {
   selectCurrentPage,
   selectFavorites,
@@ -18,7 +19,6 @@ import {
   NoticesSearchWrapper,
   PaginationWrapper,
 } from './NoticesPage.styled';
-import { selectIsSignedIn } from '../../redux/auth/selectors';
 
 export const NoticesPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
