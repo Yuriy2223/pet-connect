@@ -5,63 +5,23 @@ import 'react-toastify/dist/ReactToastify.css';
 import { themes, ThemeType } from './styles/Theme';
 import { Loader } from './components/loader/Loader';
 // import { SplashScreen } from './components/SplashScreen/SplashScreen';
-import { useAppDispatch } from './redux/store';
-import { fetchFullUserInfo } from './redux/user/operations';
 import { AppRoutes } from './routes/AppRoutes';
-import { useSelector } from 'react-redux';
-import { selectToken } from './redux/auth/selectors';
+import { useAppDispatch } from './redux/store';
 import { currentUser } from './redux/auth/operations';
-import { TOKEN_KEY } from './services/Api';
-// import { currentUser } from './redux/auth/operations';
+import { useSelector } from 'react-redux';
+import { selectIsSignedIn } from './redux/auth/selectors';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
-  const token = useSelector(selectToken);
   const [themeType, setThemeType] = useState<ThemeType>('light');
   // const [isAppReady, setIsAppReady] = useState(false);
+  const isSignedIn = useSelector(selectIsSignedIn);
 
   useEffect(() => {
-    const savedToken = localStorage.getItem(TOKEN_KEY);
-    if (savedToken) {
+    if (!isSignedIn) {
       dispatch(currentUser());
     }
-  }, [dispatch]);
-
-  useEffect(() => {
-    const initializeApp = async () => {
-      // const result = await dispatch(currentUser()).unwrap();
-      // if (result?.token) {
-      if (token) {
-        await dispatch(fetchFullUserInfo()).unwrap();
-      }
-      // setTimeout(() => setIsAppReady(true), 3000);
-    };
-
-    initializeApp();
-  }, [dispatch, token]);
-
-  // useEffect(() => {
-  //   const initializeApp = async () => {
-  //     const token = localStorage.getItem('token');
-  //     if (token) {
-  //       try {
-  //         const result = await dispatch(currentUser()).unwrap();
-  //         if (result?.token) {
-  //           await dispatch(fetchFullUserInfo()).unwrap();
-  //         }
-  //       } catch (error) {
-  //         console.error('Failed to refresh user:', error);
-  //       }
-  //     }
-  //     setTimeout(() => setIsAppReady(true), 3000);
-  //   };
-
-  //   initializeApp();
-  // }, [dispatch]);
-
-  // if (!isAppReady) {
-  //   return <SplashScreen />;
-  // }
+  }, [dispatch, isSignedIn]);
 
   return (
     <ThemeProvider theme={themes[themeType]}>
@@ -70,75 +30,50 @@ export const App: React.FC = () => {
       </Suspense>
 
       <ToastContainer
-        // position="top-center"
+        position="top-center"
         autoClose={3000}
         hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
       />
     </ThemeProvider>
   );
 };
+// import { TOKEN_KEY } from './services/Api';
+// import { useSelector } from 'react-redux';
+// import { selectAuthLoading } from './redux/auth/selectors';
+// const isFirstLoad = useRef(true);
+// const isAuthLoading = useSelector(selectAuthLoading);
 
-// import { Routes, Route, Navigate } from 'react-router-dom';
-// import React, { Suspense, useEffect, useState } from 'react';
-// import { ToastContainer } from 'react-toastify';
-// import { ThemeProvider } from 'styled-components';
-// import { themes, ThemeType } from './styles/Theme';
-// import { Loader } from './components/loader/Loader';
-// import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
-// import { PrivateRoute } from './routes/PrivateRoute';
-// import { SplashScreen } from './components/SplashScreen/SplashScreen';
-// import 'react-toastify/dist/ReactToastify.css';
-// import { useAppDispatch } from './redux/store';
-// import { refreshUser } from './redux/auth/operations';
-// import { fetchFullUserInfo } from './redux/user/operations';
+// useEffect(() => {
+//   if (!isFirstLoad.current) return;
+//   isFirstLoad.current = false;
 
-// const Layout = React.lazy(() =>
-//   import('./components/Layout/Layout').then(module => ({
-//     default: module.Layout,
-//   }))
-// );
-// const HomePage = React.lazy(() =>
-//   import('./pages/HomePage/HomePage').then(module => ({
-//     default: module.HomePage,
-//   }))
-// );
-// const NewsPage = React.lazy(() =>
-//   import('./pages/NewsPage/NewsPage').then(module => ({
-//     default: module.NewsPage,
-//   }))
-// );
-// const NoticesPage = React.lazy(() =>
-//   import('./pages/NoticesPage/NoticesPage').then(module => ({
-//     default: module.NoticesPage,
-//   }))
-// );
-// const OurFriendsPage = React.lazy(() =>
-//   import('./pages/OurFriendsPage/OurFriendsPage').then(module => ({
-//     default: module.OurFriendsPage,
-//   }))
-// );
-// const RegisterPage = React.lazy(() =>
-//   import('./pages/RegistrationPage/RegistrationPage').then(module => ({
-//     default: module.RegistrationPage,
-//   }))
-// );
-// const LoginPage = React.lazy(() =>
-//   import('./pages/LoginPage/LoginPage').then(module => ({
-//     default: module.LoginPage,
-//   }))
-// );
-// const ProfilePage = React.lazy(() =>
-//   import('./pages/ProfilePage/ProfilePage').then(module => ({
-//     default: module.ProfilePage,
-//   }))
-// );
-// const AddPetPage = React.lazy(() =>
-//   import('./pages/AddPetPage/AddPetPage').then(module => ({
-//     default: module.AddPetPage,
-//   }))
-// );
+//   const savedToken = localStorage.getItem(TOKEN_KEY);
+//   if (savedToken) {
+//     dispatch(currentUser());
+//   }
+// }, [dispatch]);
 
-// export const App: React.FC = () => {
+// if (isAuthLoading) return <Loader />;
+// import { useSelector } from 'react-redux';
+// import { selectAuthLoading } from './redux/auth/selectors';
+// const token = useSelector(selectToken);
+// const isAuthLoading = useSelector(selectAuthLoading);
+// useEffect(() => {
+//   const savedToken = localStorage.getItem(TOKEN_KEY);
+//   if (savedToken) {
+//     dispatch(currentUser());
+//   }
+// }, [dispatch]);
+// if (isAuthLoading) {
+//   return <Loader />;
+// }
+// // if (isAuthLoading) return null;
 //   const [themeType, setThemeType] = useState<ThemeType>('light');
 //   const toggleTheme = (newTheme: ThemeType) => {
 //     setThemeType(newTheme);
@@ -181,45 +116,3 @@ export const App: React.FC = () => {
 //   useEffect(() => {
 //     dispatch(fetchFullUserInfo());
 //   }, [dispatch]);
-
-//   useEffect(() => {
-//     dispatch(refreshUser());
-//   }, [dispatch]);
-
-//   return (
-//     <ThemeProvider theme={themes[themeType]}>
-//       <Suspense fallback={<Loader />}>
-//         <Routes>
-//           <Route path="/" element={<Layout toggleTheme={toggleTheme} />}>
-//             <Route index element={<HomePage />} />
-//             <Route path="home" element={<Navigate to="/" replace />} />
-//             <Route path="/register" element={<RegisterPage />} />
-//             <Route path="/login" element={<LoginPage />} />
-//             <Route path="/news" element={<NewsPage />} />
-//             <Route path="/notices" element={<NoticesPage />} />
-//             <Route path="/friends" element={<OurFriendsPage />} />
-
-//             <Route element={<PrivateRoute />}>
-//               <Route path="/profile" element={<ProfilePage />} />
-//               <Route path="/add-pet" element={<AddPetPage />} />
-//             </Route>
-
-//             <Route path="*" element={<NotFoundPage />} />
-//           </Route>
-//         </Routes>
-//       </Suspense>
-
-//       <ToastContainer
-//         position="top-center"
-//         autoClose={3000}
-//         hideProgressBar={false}
-//         newestOnTop={false}
-//         closeOnClick
-//         rtl={false}
-//         pauseOnFocusLoss
-//         draggable
-//         pauseOnHover
-//       />
-//     </ThemeProvider>
-//   );
-// };

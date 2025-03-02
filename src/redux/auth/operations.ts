@@ -22,7 +22,7 @@ export const currentUser = createAsyncThunk<
   if (!token) {
     return rejectWithValue('No token found');
   }
-  // setToken(token);
+  setToken(token);
   try {
     const user = await currentUserApi();
     return { user: user ?? null, token };
