@@ -19,9 +19,6 @@ interface MyPetsCardProps {
 
 export const MyPetsCard: React.FC<MyPetsCardProps> = ({ pet }) => {
   const dispatch = useDispatch();
-  // const formatDate = (dateString: string) => {
-  //   return format(new Date(dateString), 'dd.MM.yyyy');
-  // };
   const formatDate = (dateString: string) => {
     if (!dateString || typeof dateString !== 'string') return 'Unknown date';
 
