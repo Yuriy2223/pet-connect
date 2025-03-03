@@ -5,8 +5,6 @@ import { AddStyledSelect } from '../Common/AddSelectType';
 export const AddWrapperForm = styled.form`
   display: flex;
   flex-direction: column;
-  /* width: 100%; 
-  height: 100%;  */
 
   @media (min-width: 768px) {
     width: 432px;
