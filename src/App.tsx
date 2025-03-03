@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+// import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from 'styled-components';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { themes, ThemeType } from './styles/Theme';
 import { Loader } from './components/loader/Loader';
@@ -30,7 +31,6 @@ export const App: React.FC = () => {
       </Suspense>
 
       <ToastContainer
-        position="top-center"
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}

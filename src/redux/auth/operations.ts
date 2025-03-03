@@ -10,6 +10,7 @@ import {
   logoutApi,
   LoginData,
 } from '../../services/authApi';
+import { resetNoticesState } from '../notices/slice';
 
 // Сurrent User
 export const currentUser = createAsyncThunk<
@@ -75,10 +76,11 @@ export const loginUser = createAsyncThunk<
 // Logout
 export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
   'auth/logOut',
-  async (_, { rejectWithValue }) => {
+  async (_, { dispatch, rejectWithValue }) => {
     try {
       await logoutApi();
       setToken(null);
+      dispatch(resetNoticesState());
     } catch (error: unknown) {
       const message =
         error instanceof Error
