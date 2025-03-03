@@ -43,7 +43,9 @@ const initialState: NoticesState = {
 const noticesSlice = createSlice({
   name: 'notices',
   initialState,
-  reducers: {},
+  reducers: {
+    resetNoticesState: () => initialState,
+  },
   extraReducers: builder => {
     builder
       // Get notice to views
@@ -215,4 +217,5 @@ const noticesSlice = createSlice({
   },
 });
 
+export const { resetNoticesState } = noticesSlice.actions;
 export const noticesReducer = noticesSlice.reducer;
