@@ -36,7 +36,6 @@ export const EditUserBtnIcon = styled(Iconsvg)`
 `;
 
 export interface EditUserButtonProps {
-  // onLogout?: () => void;
   closeMenu?: () => void;
 }
 
@@ -47,7 +46,6 @@ export const EditUserButton: React.FC<EditUserButtonProps> = () => {
     dispatch(
       openModal({
         type: 'ModalEditUser',
-        // props: { actionType: 'editUser' },
       })
     );
   }, [dispatch]);
