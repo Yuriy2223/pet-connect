@@ -3,12 +3,6 @@ export interface OptionType {
   label: string;
 }
 
-// Інтерфейс для локацій, які повертає бекенд
-export interface Location {
-  stateEn: string;
-  cityEn: string;
-}
-
 // Функція для отримання категорій з бекенду
 export const fetchCategories = async (): Promise<OptionType[]> => {
   return [
@@ -52,22 +46,27 @@ export const fetchTypes = async (): Promise<OptionType[]> => {
   ];
 };
 
-// Функція для завантаження локацій з бекенду
-export const fetchLocations = (
-  inputValue: string,
-  callback: (options: OptionType[]) => void
-) => {
-  fetch(`/api/locations?search=${inputValue}`)
-    .then(response => response.json())
-    .then((data: Location[]) => {
-      const formattedOptions: OptionType[] = data.map((location: Location) => ({
-        value: `${location.stateEn}, ${location.cityEn}`,
-        label: `${location.stateEn}, ${location.cityEn}`,
-      }));
-      callback(formattedOptions);
-    })
-    .catch(error => {
-      console.error('Error fetching locations:', error);
-      callback([]);
-    });
-};
+// Інтерфейс для локацій, які повертає бекенд
+// export interface Location {
+//   stateEn: string;
+//   cityEn: string;
+// }
+// // Функція для завантаження локацій з бекенду
+// export const fetchLocations = (
+//   inputValue: string,
+//   callback: (options: OptionType[]) => void
+// ) => {
+//   fetch(`/api/locations?search=${inputValue}`)
+//     .then(response => response.json())
+//     .then((data: Location[]) => {
+//       const formattedOptions: OptionType[] = data.map((location: Location) => ({
+//         value: `${location.stateEn}, ${location.cityEn}`,
+//         label: `${location.stateEn}, ${location.cityEn}`,
+//       }));
+//       callback(formattedOptions);
+//     })
+//     .catch(error => {
+//       console.error('Error fetching locations:', error);
+//       callback([]);
+//     });
+// };

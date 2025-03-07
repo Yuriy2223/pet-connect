@@ -4,6 +4,10 @@ import { NewsState } from './slice';
 export const selectNewsList = (state: RootState): NewsState['newsList'] =>
   state.news.newsList;
 
+export const selectNewsLoading = (state: RootState) => state.news.loading;
+
+export const selectNewsError = (state: RootState) => state.news.error;
+
 export const selectCurrentPage = (state: RootState): NewsState['currentPage'] =>
   state.news.currentPage;
 

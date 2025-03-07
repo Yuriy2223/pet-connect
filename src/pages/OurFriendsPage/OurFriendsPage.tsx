@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { fetchFriends } from '../../redux/friends/operations';
-import { selectFriends } from '../../redux/friends/selectors';
 import { FriendsCard } from '../../components/FriendsCard/FriendsCard';
 import { useAppDispatch } from '../../redux/store';
+import { Loader } from '../../components/loader/Loader';
+import {
+  selectFriends,
+  selectFriendsLoading,
+} from '../../redux/friends/selectors';
 import {
   FriendsList,
   FriendsPageContainer,
@@ -13,10 +17,15 @@ import {
 export const OurFriendsPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const friendsData = useSelector(selectFriends);
+  const isLoading = useSelector(selectFriendsLoading);
 
   useEffect(() => {
     dispatch(fetchFriends());
   }, [dispatch]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <FriendsPageContainer>

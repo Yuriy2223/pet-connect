@@ -1,4 +1,103 @@
-// import React, { useState, useEffect } from 'react';
+import React from 'react';
+import {
+  ClearButtonRatio,
+  FilterRow,
+  FiltersContainer,
+  IconCloseRatio,
+  RadioButtonInput,
+  RadioButtonLabel,
+  RadioGroup,
+  ResetButton,
+  SelectCategory,
+  SelectGender,
+  SelectType,
+} from './NoticesFilters.styled';
+import { SearchField } from '../Common/SearchField/SearchField';
+import { LocationSelect } from './LocationSelect/LocationSelect';
+import { Filters } from '../../pages/NoticesPage/NoticesPage';
+import { City } from '../../App.types';
+
+interface NoticesFiltersProps {
+  filters: Filters;
+  categoryOptions: string[];
+  genderOptions: string[];
+  typeOptions: string[];
+  onFilterChange: <T extends keyof Filters>(
+    field: T,
+    value: Filters[T]
+  ) => void;
+  onLocationChange: (location: City | null) => void;
+  onReset: () => void;
+}
+
+export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
+  filters,
+  categoryOptions,
+  genderOptions,
+  typeOptions,
+  onFilterChange,
+  onReset,
+}) => {
+  return (
+    <FiltersContainer>
+      <FilterRow>
+        <SearchField
+          value={filters.search}
+          onSearch={query => onFilterChange('search', query)}
+        />
+        <SelectCategory
+          options={['Show all', ...categoryOptions]}
+          value={filters.category}
+          onChange={option => onFilterChange('category', option || 'Show all')}
+        />
+        <SelectGender
+          options={['Show all', ...genderOptions]}
+          value={filters.gender}
+          onChange={option => onFilterChange('gender', option || 'Show all')}
+        />
+        <SelectType
+          options={['Show all', ...typeOptions]}
+          value={filters.type}
+          onChange={option => onFilterChange('type', option || 'Show all')}
+        />
+        <LocationSelect
+          value={filters.location}
+          onChange={location => onFilterChange('location', location)}
+        />
+      </FilterRow>
+
+      <RadioGroup>
+        {['popular', 'unpopular', 'cheap', 'expensive'].map(sortType => (
+          <RadioButtonLabel
+            key={sortType}
+            $isActive={filters.sort === sortType}
+          >
+            <RadioButtonInput
+              type="radio"
+              name="sort"
+              value={sortType}
+              checked={filters.sort === sortType}
+              onChange={() => onFilterChange('sort', sortType)}
+            />
+            {sortType.charAt(0).toUpperCase() + sortType.slice(1)}
+            {filters.sort === sortType && (
+              <ClearButtonRatio
+                $isActive={filters.sort === sortType}
+                onClick={() => onFilterChange('sort', '')}
+              >
+                <IconCloseRatio width={16} height={16} iconName="close" />
+              </ClearButtonRatio>
+            )}
+          </RadioButtonLabel>
+        ))}
+        <ResetButton onClick={onReset}>Reset</ResetButton>
+      </RadioGroup>
+    </FiltersContainer>
+  );
+};
+
+/****************************************************** */
+// import React from 'react';
 // import {
 //   ClearButtonRatio,
 //   FilterRow,
@@ -12,110 +111,195 @@
 //   SelectGender,
 //   SelectType,
 // } from './NoticesFilters.styled';
-// import {
-//   fetchCategories,
-//   fetchGenders,
-//   fetchTypes,
-//   OptionType,
-// } from '../../services/apiService';
-// import { LocationSelect } from './LocationSelect';
+
 // import { SearchField } from '../Common/SearchField/SearchField';
+// import { City } from '../../App.types';
+// import { LocationSelect } from './LocationSelect/LocationSelect';
 
-// export const NoticesFilters: React.FC = () => {
-//   const [categoryOptions, setCategoryOptions] = useState<OptionType[]>([]);
-//   const [genderOptions, setGenderOptions] = useState<OptionType[]>([]);
-//   const [typeOptions, setTypeOptions] = useState<OptionType[]>([]);
-//   const [filters, setFilters] = useState({
-//     category: null as OptionType | null,
-//     gender: null as OptionType | null,
-//     type: null as OptionType | null,
-//     location: null as OptionType | null,
-//     sort: null as string | null,
-//   });
-
-//   // Викликаємо функції для отримання даних з бекенду при завантаженні компонента
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       const categories = await fetchCategories();
-//       const genders = await fetchGenders();
-//       const types = await fetchTypes();
-//       setCategoryOptions(categories);
-//       setGenderOptions(genders);
-//       setTypeOptions(types);
-//     };
-//     fetchData();
-//   }, []);
-
-//   // Функція для зміни фільтра
-//   const handleFilterChange = (field: string, value: string | null) => {
-//     setFilters(prev => ({ ...prev, [field]: value }));
+// interface NoticesFiltersProps {
+//   filters: {
+//     category: string;
+//     gender: string;
+//     type: string;
+//     location: City | null;
+//     search: string;
+//     sort: string;
 //   };
+//   categoryOptions: string[];
+//   genderOptions: string[];
+//   typeOptions: string[];
+//   onSimpleFilterChange: (
+//     field: 'category' | 'gender' | 'type' | 'search' | 'sort',
+//     value: string
+//   ) => void;
+//   onLocationChange: (location: City | null) => void;
+//   onReset: () => void;
+// }
 
-//   const handleClearSort = () => {
-//     setFilters(prev => ({ ...prev, sort: null }));
-//   };
-
-//   // Очищення фільтрів до дефолтних значень
-//   const handleReset = () => {
-//     setFilters({
-//       category: null,
-//       gender: null,
-//       type: null,
-//       location: null,
-//       sort: null,
-//     });
-//   };
-
+// export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
+//   filters,
+//   categoryOptions,
+//   genderOptions,
+//   typeOptions,
+//   onSimpleFilterChange,
+//   onLocationChange,
+//   onReset,
+// }) => {
 //   return (
 //     <FiltersContainer>
 //       <FilterRow>
 //         <SearchField
-//           onSearch={(query: string) => console.log(`Searching for ${query}`)}
+//           value={filters.search}
+//           onSearch={query => onSimpleFilterChange('search', query)}
 //         />
+
+//         <SelectCategory
+//           options={['Show all', ...categoryOptions]}
+//           placeholder="Category"
+//           value={filters.category}
+//           onChange={option =>
+//             onSimpleFilterChange('category', option || 'Show all')
+//           }
+//         />
+//         <SelectGender
+//           options={['Show all', ...genderOptions]}
+//           placeholder="By gender"
+//           value={filters.gender}
+//           onChange={option =>
+//             onSimpleFilterChange('gender', option || 'Show all')
+//           }
+//         />
+//         <SelectType
+//           options={['Show all', ...typeOptions]}
+//           placeholder="By type"
+//           value={filters.type}
+//           onChange={option =>
+//             onSimpleFilterChange('type', option || 'Show all')
+//           }
+//         />
+//         <LocationSelect value={filters.location} onChange={onLocationChange} />
+//       </FilterRow>
+
+//       <RadioGroup>
+//         {['popular', 'unpopular', 'cheap', 'expensive'].map(sortType => (
+//           <RadioButtonLabel
+//             key={sortType}
+//             $isActive={filters.sort === sortType}
+//           >
+//             <RadioButtonInput
+//               type="radio"
+//               name="sort"
+//               value={sortType}
+//               checked={filters.sort === sortType}
+//               onChange={() => onSimpleFilterChange('sort', sortType)}
+//             />
+//             {sortType.charAt(0).toUpperCase() + sortType.slice(1)}
+//             {filters.sort === sortType && (
+//               <ClearButtonRatio
+//                 type="button"
+//                 $isActive={true}
+//                 onClick={() => onSimpleFilterChange('sort', '')}
+//               >
+//                 <IconCloseRatio width={16} height={16} iconName="close" />
+//               </ClearButtonRatio>
+//             )}
+//           </RadioButtonLabel>
+//         ))}
+//         <ResetButton
+//           type="button"
+//           onClick={onReset}
+//           // $isActive={true}
+//         >
+//           Reset
+//         </ResetButton>
+//       </RadioGroup>
+//     </FiltersContainer>
+//   );
+// };
+/*************************************** */
+// import {
+//   ClearButtonRatio,
+//   FilterRow,
+//   FiltersContainer,
+//   IconCloseRatio,
+//   RadioButtonInput,
+//   RadioButtonLabel,
+//   RadioGroup,
+//   ResetButton,
+//   SelectCategory,
+//   SelectGender,
+//   SelectType,
+// } from './NoticesFilters.styled';
+
+// import { LocationSelect } from './LocationSelect';
+// import { SearchField } from '../Common/SearchField/SearchField';
+// import { OptionType } from '../../services/apiService';
+// import { City } from '../../App.types';
+
+// interface NoticesFiltersProps {
+//   filters: {
+//     category: OptionType | null;
+//     gender: OptionType | null;
+//     type: OptionType | null;
+//     location: City | null;
+//     sort: string | null;
+//   };
+//   categoryOptions: OptionType[];
+//   genderOptions: OptionType[];
+//   typeOptions: OptionType[];
+//   onFilterChange: (field: string, value: any) => void;
+//   onReset: () => void;
+// }
+
+// export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
+//   filters,
+//   categoryOptions,
+//   genderOptions,
+//   typeOptions,
+//   onFilterChange,
+//   onReset,
+// }) => {
+//   return (
+//     <FiltersContainer>
+//       <FilterRow>
+//         <SearchField
+//           value={filters.search}
+//           onSearch={query => onFilterChange('search', query)}
+//         />
+
 //         <SelectCategory
 //           options={categoryOptions}
 //           placeholder="Category"
 //           value={filters.category}
-//           onChange={option =>
-//             handleFilterChange(
-//               'category',
-//               (option as OptionType | null)?.value || null
-//             )
-//           }
+//           onChange={option => onFilterChange('category', option)}
 //         />
 //         <SelectGender
 //           options={genderOptions}
 //           placeholder="By gender"
 //           value={filters.gender}
-//           onChange={option =>
-//             handleFilterChange(
-//               'gender',
-//               (option as OptionType | null)?.value || null
-//             )
-//           }
+//           onChange={option => onFilterChange('gender', option)}
 //         />
 //         <SelectType
 //           options={typeOptions}
 //           placeholder="By type"
 //           value={filters.type}
-//           onChange={option =>
-//             handleFilterChange(
-//               'type',
-//               (option as OptionType | null)?.value || null
-//             )
-//           }
+//           onChange={option => onFilterChange('type', option)}
+//           // }
 //         />
-//         <LocationSelect />
+//         <LocationSelect
+//           value={filters.location}
+//           onChange={location => onFilterChange('location', location)}
+//         />
 //       </FilterRow>
 
-//       <RadioGroup>
+//       {/* <RadioGroup>
 //         <RadioButtonLabel $isActive={filters.sort === 'popular'}>
 //           <RadioButtonInput
 //             type="radio"
 //             name="sort"
 //             value="popular"
 //             checked={filters.sort === 'popular'}
-//             onChange={() => handleFilterChange('sort', 'popular')}
+//             onChange={() => onFilterChange('sort', 'popular')}
 //           />
 //           Popular
 //           <ClearButtonRatio
@@ -182,7 +366,34 @@
 //         </RadioButtonLabel>
 
 //         <ResetButton onClick={handleReset}>Reset</ResetButton>
+//       </RadioGroup> */}
+//       <RadioGroup>
+//         {['popular', 'unpopular', 'cheap', 'expensive'].map(sortType => (
+//           <RadioButtonLabel
+//             key={sortType}
+//             $isActive={filters.sort === sortType}
+//           >
+//             <RadioButtonInput
+//               type="radio"
+//               name="sort"
+//               value={sortType}
+//               checked={filters.sort === sortType}
+//               onChange={() => onFilterChange('sort', sortType)}
+//             />
+//             {sortType.charAt(0).toUpperCase() + sortType.slice(1)}
+//             <ClearButtonRatio
+//               type="button"
+//               $isActive={filters.sort === sortType}
+//               onClick={() => onFilterChange('sort', null)}
+//             >
+//               <IconCloseRatio width={16} height={16} iconName="close" />
+//             </ClearButtonRatio>
+//           </RadioButtonLabel>
+//         ))}
+//         <ResetButton onClick={onReset}>Reset</ResetButton>
 //       </RadioGroup>
 //     </FiltersContainer>
 //   );
 // };
+
+/******************************************************* */

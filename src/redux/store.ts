@@ -18,7 +18,6 @@ import { userReducer } from './user/slice';
 import { noticesReducer } from './notices/slice';
 import { citiesReducer } from './cities/slice';
 import { modalReducer } from './modal/slice';
-import { loaderReducer } from './loader/loaderSlice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -40,7 +39,6 @@ export const store = configureStore({
     notices: noticesReducer,
     cities: citiesReducer,
     modal: modalReducer,
-    loader: loaderReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

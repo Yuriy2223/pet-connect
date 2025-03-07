@@ -36,7 +36,8 @@ const citiesSlice = createSlice({
       )
       .addCase(
         fetchCities.rejected,
-        (state, action: PayloadAction<string | undefined>) => {
+        // (state, action: PayloadAction<string | undefined>) => {
+        (state, action) => {
           state.loading = false;
           state.error = action.payload || 'Unknown error occurred';
         }
