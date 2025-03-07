@@ -1,3 +1,3 @@
 // import { RootState } from '../store';
 
-// export const selectLoaderLoading = (state: RootState) => state.loading;
+// export const selectLoaderLoading = (state: RootState) => state.loader.loading;

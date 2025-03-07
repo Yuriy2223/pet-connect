@@ -46,7 +46,7 @@ export interface Notice {
   sex: string;
   imgURL: string;
   // location: string;
-  location: Location[];
+  location: City[];
   // city: string;
   city: City[];
   // user: string;
@@ -59,13 +59,6 @@ export interface UserNotice {
   name: string;
   email: string;
   phone: string;
-}
-export interface Location {
-  _id: string;
-  useCounty: string;
-  stateEn: string;
-  cityEn: string;
-  countyEn: string;
 }
 export interface City {
   _id: string;
@@ -103,3 +96,10 @@ export interface Friend {
   phone: string;
   email: string;
 }
+// export interface Location {
+//   _id: string;
+//   useCounty: string;
+//   stateEn: string;
+//   cityEn: string;
+//   countyEn: string;
+// }

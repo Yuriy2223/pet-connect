@@ -5,11 +5,13 @@ import { NewsCard } from '../../components/NewsCard/NewsCard';
 import { Pagination } from '../../components/Pagination/Pagination';
 import { AppDispatch } from '../../redux/store';
 import { fetchNews } from '../../redux/news/operations';
+import { Loader } from '../../components/loader/Loader';
 import {
   selectNewsList,
   selectTotalPages,
   selectCurrentPage,
   selectPerPage,
+  selectNewsLoading,
 } from '../../redux/news/selectors';
 import {
   NewsList,
@@ -25,6 +27,7 @@ export const NewsPage: React.FC = () => {
   const totalPages = useSelector(selectTotalPages);
   const currentPage = useSelector(selectCurrentPage);
   const perPage = useSelector(selectPerPage);
+  const isLoading = useSelector(selectNewsLoading);
 
   useEffect(() => {
     dispatch(fetchNews({ page: currentPage, keyword: searchQuery, perPage }));
@@ -47,7 +50,9 @@ export const NewsPage: React.FC = () => {
       </NewsSearchWrapper>
 
       <NewsList>
-        {newsData?.length ? (
+        {isLoading ? (
+          <Loader />
+        ) : newsData?.length ? (
           newsData.map(news => (
             <li key={news._id}>
               <NewsCard news={news} />

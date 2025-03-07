@@ -1,65 +1,102 @@
-// import { useState } from 'react';
-// import AsyncSelect from 'react-select/async';
-// import { StylesConfig } from 'react-select';
-// import styled, { useTheme } from 'styled-components';
-// import { fetchLocations, OptionType } from '../../services/apiService';
-// import { Iconsvg } from '../Common/Icons';
+import React, { useCallback } from 'react';
+import AsyncSelect from 'react-select/async';
+import { useTheme } from 'styled-components';
+import { StylesConfig } from 'react-select';
+import { fetchCityLocations } from '../../../redux/cities/operations';
+import { useAppDispatch } from '../../../redux/store';
+import { City } from '../../../App.types';
 
-// export const SearchContainer = styled.div`
-//   position: relative;
-//   width: 100%;
-//   max-width: 335px;
+import {
+  ButtonClose,
+  IconClose,
+  SearchContainer,
+} from './LocationSelect.styled';
 
-//   @media (min-width: 768px) {
-//     width: 227px;
-//   }
-// `;
-// export const ButtonSearch = styled.button`
-//   position: absolute;
-//   top: 50%;
-//   right: 12px;
-//   transform: translateY(-50%);
-//   background: none;
-//   border: none;
-//   padding: 0;
-//   z-index: 1;
-// `;
-// export const IconsSearch = styled(Iconsvg)`
-//   stroke: ${({ theme }) => theme.opacityTr};
+interface OptionType {
+  value: string;
+  label: string;
+  cityData: City;
+}
 
-//   &:hover {
-//     stroke: ${({ theme }) => theme.primaryDark};
-//   }
+interface LocationSelectProps {
+  value: City | null;
+  onChange: (value: City | null) => void;
+}
 
-//   @media (min-width: 768px) {
-//     width: 20px;
-//     height: 20px;
-//   }
-// `;
-// export const ButtonClose = styled.button`
-//   background: none;
-//   border: none;
-//   position: absolute;
-//   right: 36px;
-//   top: 50%;
-//   transform: translateY(-50%);
-//   padding: 0;
-//   z-index: 1;
-// `;
-// export const IconClose = styled(Iconsvg)`
-//   stroke: ${({ theme }) => theme.opacityTr};
+export const LocationSelect: React.FC<LocationSelectProps> = ({
+  value,
+  onChange,
+}) => {
+  const dispatch = useAppDispatch();
+  const theme = useTheme();
 
-//   &:hover {
-//     stroke: ${({ theme }) => theme.red};
-//   }
+  const loadOptions = useCallback(
+    async (inputValue: string) => {
+      if (!inputValue.trim()) return [];
+      const cities = await dispatch(fetchCityLocations(inputValue)).unwrap();
+      return cities.map((city: City) => ({
+        value: city._id,
+        label: `${city.cityEn}, ${city.countyEn}`,
+        cityData: city,
+      }));
+    },
+    [dispatch]
+  );
 
-//   @media (min-width: 768px) {
-//     width: 20px;
-//     height: 20px;
-//   }
-// `;
+  const handleChange = (selected: OptionType | null) => {
+    onChange(selected ? selected.cityData : null);
+  };
 
-// export const LocationSelect = () => {
+  const clearInput = () => {
+    onChange(null);
+  };
+
+  const customStyles: StylesConfig<OptionType, false> = {
+    control: base => ({
+      ...base,
+      borderRadius: '30px',
+      fontSize: '14px',
+      border: `1px solid ${theme.opacity}`,
+      padding: '4px 6px',
+    }),
+  };
+
+  return (
+    <SearchContainer>
+      <ButtonClose type="button" onClick={clearInput}>
+        <IconClose width={18} height={18} iconName="close" />
+      </ButtonClose>
+      <AsyncSelect
+        cacheOptions
+        loadOptions={loadOptions}
+        defaultOptions
+        value={
+          value
+            ? {
+                value: value._id,
+                label: `${value.cityEn}, ${value.countyEn}`,
+                cityData: value,
+              }
+            : null
+        }
+        onChange={handleChange}
+        styles={customStyles}
+        placeholder="Location"
+      />
+    </SearchContainer>
+  );
+};
+
+/****************************стартова********************************* */
+// interface LocationSelectProps {
+//   value: string | null;
+//   onChange: (value: string | null) => void;
+// }
+
+// export const LocationSelect: React.FC<LocationSelectProps> = ({
+//   value,
+//   onChange,
+// }) => {
 //   const theme = useTheme();
 //   const [inputValue, setInputValue] = useState<string>('');
 //   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -73,7 +110,7 @@
 //     setSearchQuery(inputValue);
 //   };
 
-//   const customStyles: StylesConfig<OptionType, false> = {
+//   const customStyles: StylesConfig<false> = {
 //     control: (provided, { isFocused }) => ({
 //       ...provided,
 //       borderRadius: '30px',
@@ -139,9 +176,8 @@
 //         <IconsSearch width={18} height={18} iconName="search" />
 //       </ButtonSearch>
 //       <AsyncSelect
-//         loadOptions={(inputValue, callback) =>
-//           fetchLocations(searchQuery, callback)
-//         }
+//         loadOptions={() => fetchCityLocations()}
+//         onChange={selected => onChange(selected?.value ?? null)}
 //         defaultOptions
 //         styles={customStyles}
 //         value={null}
