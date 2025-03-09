@@ -1,91 +1,91 @@
-import React, { useCallback } from 'react';
-import AsyncSelect from 'react-select/async';
-import { useTheme } from 'styled-components';
-import { StylesConfig } from 'react-select';
-import { fetchCityLocations } from '../../../redux/cities/operations';
-import { useAppDispatch } from '../../../redux/store';
-import { City } from '../../../App.types';
+// import React, { useCallback } from 'react';
+// import AsyncSelect from 'react-select/async';
+// import { useTheme } from 'styled-components';
+// import { StylesConfig } from 'react-select';
+// import { fetchCityLocations } from '../../../redux/cities/operations';
+// import { useAppDispatch } from '../../../redux/store';
+// import { City } from '../../../App.types';
 
-import {
-  ButtonClose,
-  IconClose,
-  SearchContainer,
-} from './LocationSelect.styled';
+// import {
+//   ButtonClose,
+//   IconClose,
+//   SearchContainer,
+// } from './LocationSelect.styled';
 
-interface OptionType {
-  value: string;
-  label: string;
-  cityData: City;
-}
+// interface OptionType {
+//   value: string;
+//   label: string;
+//   cityData: City;
+// }
 
-interface LocationSelectProps {
-  value: City | null;
-  onChange: (value: City | null) => void;
-}
+// interface LocationSelectProps {
+//   value: City | null;
+//   onChange: (value: City | null) => void;
+// }
 
-export const LocationSelect: React.FC<LocationSelectProps> = ({
-  value,
-  onChange,
-}) => {
-  const dispatch = useAppDispatch();
-  const theme = useTheme();
+// export const LocationSelect: React.FC<LocationSelectProps> = ({
+//   value,
+//   onChange,
+// }) => {
+//   const dispatch = useAppDispatch();
+//   const theme = useTheme();
 
-  const loadOptions = useCallback(
-    async (inputValue: string) => {
-      if (!inputValue.trim()) return [];
-      const cities = await dispatch(fetchCityLocations(inputValue)).unwrap();
-      return cities.map((city: City) => ({
-        value: city._id,
-        label: `${city.cityEn}, ${city.countyEn}`,
-        cityData: city,
-      }));
-    },
-    [dispatch]
-  );
+//   const loadOptions = useCallback(
+//     async (inputValue: string) => {
+//       if (!inputValue.trim()) return [];
+//       const cities = await dispatch(fetchCityLocations(inputValue)).unwrap();
+//       return cities.map((city: City) => ({
+//         value: city._id,
+//         label: `${city.cityEn}, ${city.countyEn}`,
+//         cityData: city,
+//       }));
+//     },
+//     [dispatch]
+//   );
 
-  const handleChange = (selected: OptionType | null) => {
-    onChange(selected ? selected.cityData : null);
-  };
+//   const handleChange = (selected: OptionType | null) => {
+//     onChange(selected ? selected.cityData : null);
+//   };
 
-  const clearInput = () => {
-    onChange(null);
-  };
+//   const clearInput = () => {
+//     onChange(null);
+//   };
 
-  const customStyles: StylesConfig<OptionType, false> = {
-    control: base => ({
-      ...base,
-      borderRadius: '30px',
-      fontSize: '14px',
-      border: `1px solid ${theme.opacity}`,
-      padding: '4px 6px',
-    }),
-  };
+//   const customStyles: StylesConfig<OptionType, false> = {
+//     control: base => ({
+//       ...base,
+//       borderRadius: '30px',
+//       fontSize: '14px',
+//       border: `1px solid ${theme.opacity}`,
+//       padding: '4px 6px',
+//     }),
+//   };
 
-  return (
-    <SearchContainer>
-      <ButtonClose type="button" onClick={clearInput}>
-        <IconClose width={18} height={18} iconName="close" />
-      </ButtonClose>
-      <AsyncSelect
-        cacheOptions
-        loadOptions={loadOptions}
-        defaultOptions
-        value={
-          value
-            ? {
-                value: value._id,
-                label: `${value.cityEn}, ${value.countyEn}`,
-                cityData: value,
-              }
-            : null
-        }
-        onChange={handleChange}
-        styles={customStyles}
-        placeholder="Location"
-      />
-    </SearchContainer>
-  );
-};
+//   return (
+//     <SearchContainer>
+//       <ButtonClose type="button" onClick={clearInput}>
+//         <IconClose width={18} height={18} iconName="close" />
+//       </ButtonClose>
+//       <AsyncSelect
+//         cacheOptions
+//         loadOptions={loadOptions}
+//         defaultOptions
+//         value={
+//           value
+//             ? {
+//                 value: value._id,
+//                 label: `${value.cityEn}, ${value.countyEn}`,
+//                 cityData: value,
+//               }
+//             : null
+//         }
+//         onChange={handleChange}
+//         styles={customStyles}
+//         placeholder="Location"
+//       />
+//     </SearchContainer>
+//   );
+// };
 
 /****************************стартова********************************* */
 // interface LocationSelectProps {
