@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination } from '../../components/Pagination/Pagination';
+import { AppDispatch } from '../../redux/store';
+import { selectIsSignedIn } from '../../redux/auth/selectors';
+import { NoticesCard } from '../../components/NoticesCard/NoticesCard';
+import { Loader } from '../../components/loader/Loader';
+import { NoticesFilters } from '../../components/NoticesFilters/NoticesFilters';
 import {
   fetchFavorites,
   fetchNotices,
@@ -8,11 +13,6 @@ import {
   fetchNoticesSexes,
   fetchNoticesSpecies,
 } from '../../redux/notices/operations';
-import { AppDispatch } from '../../redux/store';
-import { selectIsSignedIn } from '../../redux/auth/selectors';
-import { NoticesCard } from '../../components/NoticesCard/NoticesCard';
-import { Loader } from '../../components/loader/Loader';
-import { NoticesFilters } from '../../components/NoticesFilters/NoticesFilters';
 import {
   selectCurrentPage,
   selectFavorites,
@@ -64,13 +64,16 @@ export const NoticesPage: React.FC = () => {
     dispatch(fetchNoticesSpecies());
   }, [dispatch]);
 
-  const handleFilterChange = (field: keyof Filters, value: string) => {
+  const handleFilterChange = (field: keyof Filters, value: string | null) => {
     console.log(`Changing filter: ${field} -> ${value}`);
-    setFilters(prev => ({ ...prev, [field]: value }));
+    setFilters(prev => ({
+      ...prev,
+      [field]: value === 'Show all' ? null : value,
+    }));
   };
 
   const normalizeFilterValue = (value: string) =>
-    value === 'Show all' ? undefined : value;
+    value === 'Show all' ? null : value;
 
   useEffect(() => {
     dispatch(
@@ -91,7 +94,7 @@ export const NoticesPage: React.FC = () => {
   }, [dispatch, isSignedIn]);
 
   const handlePageChange = (page: number) => {
-    dispatch(fetchNotices({ page, perPage }));
+    dispatch(fetchNotices({ page, perPage, ...filters }));
   };
 
   return (
@@ -102,9 +105,7 @@ export const NoticesPage: React.FC = () => {
           selectedCategory={filters.category}
           selectedGender={filters.gender}
           selectedType={filters.type}
-          onCategoryChange={value => handleFilterChange('category', value)}
-          onGenderChange={value => handleFilterChange('gender', value)}
-          onTypeChange={value => handleFilterChange('type', value)}
+          handleFilterChange={handleFilterChange}
           onReset={handleResetFilters}
         />
       </NoticesSearchWrapper>
@@ -134,6 +135,9 @@ export const NoticesPage: React.FC = () => {
   );
 };
 
+// onCategoryChange={value => handleFilterChange('category', value)}
+// onGenderChange={value => handleFilterChange('gender', value)}
+// onTypeChange={value => handleFilterChange('type', value)}
 // const handleCategoryChange = (category: string) => {
 //   setFilters({ category });
 //   dispatch(fetchNotices({ page: 1, perPage, category }));

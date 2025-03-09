@@ -14,6 +14,7 @@ import {
   SelectGender,
   SelectType,
 } from './NoticesFilters.styled';
+import { Filters } from '../../pages/NoticesPage/NoticesPage';
 
 interface CategoryOption {
   value: string;
@@ -22,22 +23,18 @@ interface CategoryOption {
 
 interface NoticesFiltersProps {
   onReset: () => void;
-  selectedCategory: string;
-  selectedGender: string;
-  selectedType: string;
-  onCategoryChange: (value: string) => void;
-  onGenderChange: (value: string) => void;
-  onTypeChange: (value: string) => void;
+  handleFilterChange: (field: keyof Filters, value: string | null) => void;
+  selectedCategory: string | null;
+  selectedGender: string | null;
+  selectedType: string | null;
 }
 
 export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
   onReset,
+  handleFilterChange,
   selectedCategory,
   selectedGender,
   selectedType,
-  onCategoryChange,
-  onGenderChange,
-  onTypeChange,
 }) => {
   const categories = useSelector(selectNoticeCategories);
   const genders = useSelector(selectNoticeSexes);
@@ -62,6 +59,47 @@ export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
     <FiltersContainer>
       <FilterRow>
         <SelectCategory
+          options={categoryOptions}
+          placeholder="Category"
+          value={
+            categoryOptions.find(option => option.value === selectedCategory) ||
+            categoryOptions[0]
+          }
+          onChange={selectedOption =>
+            handleFilterChange('category', selectedOption?.value ?? 'Show all')
+          }
+        />
+        <SelectGender
+          options={genderOptions}
+          placeholder="By gender"
+          value={
+            genderOptions.find(option => option.value === selectedGender) ||
+            genderOptions[0]
+          }
+          onChange={selectedOption =>
+            handleFilterChange('gender', selectedOption?.value ?? 'Show all')
+          }
+        />
+        <SelectType
+          options={typeOptions}
+          placeholder="By type"
+          value={
+            typeOptions.find(option => option.value === selectedType) ||
+            typeOptions[0]
+          }
+          onChange={selectedOption =>
+            handleFilterChange('type', selectedOption?.value ?? 'Show all')
+          }
+        />
+      </FilterRow>
+      <RadioGroup>
+        <ResetButton onClick={onReset}>Reset</ResetButton>
+      </RadioGroup>
+    </FiltersContainer>
+  );
+};
+{
+  /* <SelectCategory
           options={categoryOptions}
           value={
             categoryOptions.find(opt => opt.value === selectedCategory) || null
@@ -95,15 +133,41 @@ export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
           placeholder="Selec type"
           defaultValue={{ value: 'Show all', label: 'Selec type' }}
           isClearable
+        /> */
+}
+{
+  /* <SelectCategory
+          options={categoryOptions}
+          value={
+            categoryOptions.find(opt => opt.value === selectedCategory) || null
+          }
+          onChange={selectedOption =>
+            onCategoryChange(selectedOption?.value ?? 'Show all')
+          }
+          placeholder="Select category"
+          isClearable
         />
-      </FilterRow>
-      <RadioGroup>
-        <ResetButton onClick={onReset}>Reset</ResetButton>
-      </RadioGroup>
-    </FiltersContainer>
-  );
-};
-
+        <SelectGender
+          options={genderOptions}
+          value={
+            genderOptions.find(opt => opt.value === selectedGender) || null
+          }
+          onChange={selectedOption =>
+            onGenderChange(selectedOption?.value ?? 'Show all')
+          }
+          placeholder="Select gender"
+          isClearable
+        />
+        <SelectType
+          options={typeOptions}
+          value={typeOptions.find(opt => opt.value === selectedType) || null}
+          onChange={selectedOption =>
+            onTypeChange(selectedOption?.value ?? 'Show all')
+          }
+          placeholder="Select type"
+          isClearable
+        /> */
+}
 /****************************************************** */
 // import React from 'react';
 // import {

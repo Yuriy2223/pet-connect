@@ -28,12 +28,13 @@ import {
 //   }
 // });
 
-// Get all notices with filters
+// Get all notices
 export const fetchNotices = createAsyncThunk<
   GetNoticesResponse,
   { page: number; perPage: number } & Record<
     string,
-    string | number | undefined
+    // string | number | undefined
+    string | number | null
   >,
   { rejectValue: string }
 >('notices/fetchNotices', async (filters, thunkAPI) => {

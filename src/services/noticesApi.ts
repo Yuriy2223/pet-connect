@@ -15,11 +15,12 @@ import { GetNoticesResponse, Notice, UserProfile } from '../App.types';
 //   return response.data;
 // };
 
-// Get all notices with filters
+// Get all notices
 export const fetchNoticesApi = async (
   filters: { page: number; perPage: number } & Record<
     string,
-    string | number | undefined
+    // string | number | undefined
+    string | number | null
   >
 ): Promise<GetNoticesResponse> => {
   const response = await publicInstance.get<GetNoticesResponse>(
