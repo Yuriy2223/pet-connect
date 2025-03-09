@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-// import { fetchTypes, OptionType } from '../../services/apiService';
+import { fetchTypes, OptionType } from '../../services/apiService';
 import { addPetSchema } from '../../components/Common/ValidationSchemas';
 import { ErrorMessage } from './ErrorMessage';
 import { uploadImage } from '../../utils/uploadImages';
