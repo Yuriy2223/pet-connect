@@ -45,11 +45,8 @@ export interface Notice {
   comment: string;
   sex: string;
   imgURL: string;
-  // location: string;
   location: City[];
-  // city: string;
   city: City[];
-  // user: string;
   user: UserNotice;
   popularity: number;
   updatedAt: string;
@@ -96,10 +93,3 @@ export interface Friend {
   phone: string;
   email: string;
 }
-// export interface Location {
-//   _id: string;
-//   useCounty: string;
-//   stateEn: string;
-//   cityEn: string;
-//   countyEn: string;
-// }
