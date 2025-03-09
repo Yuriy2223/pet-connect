@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Filters } from '../../pages/NoticesPage/NoticesPage';
 import {
   selectNoticeCategories,
   selectNoticeSexes,
@@ -14,7 +15,6 @@ import {
   SelectGender,
   SelectType,
 } from './NoticesFilters.styled';
-import { Filters } from '../../pages/NoticesPage/NoticesPage';
 
 interface CategoryOption {
   value: string;
