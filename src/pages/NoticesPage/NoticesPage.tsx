@@ -134,14 +134,7 @@ export const NoticesPage: React.FC = () => {
     </NoticesPageContainer>
   );
 };
-
-// onCategoryChange={value => handleFilterChange('category', value)}
-// onGenderChange={value => handleFilterChange('gender', value)}
-// onTypeChange={value => handleFilterChange('type', value)}
-// const handleCategoryChange = (category: string) => {
-//   setFilters({ category });
-//   dispatch(fetchNotices({ page: 1, perPage, category }));
-// };
+/********************************** */
 // gender: string;
 // type: string;
 // search: string;
@@ -163,9 +156,7 @@ export const NoticesPage: React.FC = () => {
 //   sort: '',
 //   location: null,
 // });
-// const categoryOptions = useSelector(selectNoticeCategories);
-// const genderOptions = useSelector(selectNoticeSexes);
-// const typeOptions = useSelector(selectNoticeSpecies);
+
 // const handleResetFilters = () => {
 //   setFilters({
 //     category: 'Show all',
@@ -175,23 +166,6 @@ export const NoticesPage: React.FC = () => {
 //     sort: '',
 //     location: null,
 //   });
-// };
-// filters={filters}
-// categoryOptions={categoryOptions}
-// genderOptions={genderOptions}
-// typeOptions={typeOptions}
-// onFilterChange={handleFilterChange}
-// onLocationChange={handleLocationChange}
-// useEffect(() => {
-//   dispatch(fetchNoticesCategories());
-//   dispatch(fetchNoticesSexes());
-//   dispatch(fetchNoticesSpecies());
-// }, [dispatch]);
-// const handleFilterChange = <T extends keyof Filters>(
-//   field: T,
-//   value: Filters[T]
-// ) => {
-//   setFilters(prev => ({ ...prev, [field]: value }));
 // };
 
 // const handleLocationChange = (location: City | null) => {
