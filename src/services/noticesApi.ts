@@ -3,13 +3,15 @@ import { GetNoticesResponse, Notice, UserProfile } from '../App.types';
 
 // Get all notices
 export const fetchNoticesApi = async (
-  page: number,
-  perPage: number
+  filters: { page: number; perPage: number } & Record<
+    string,
+    string | number | null
+  >
 ): Promise<GetNoticesResponse> => {
   const response = await publicInstance.get<GetNoticesResponse>(
     '/api/notices',
     {
-      params: { page, perPage },
+      params: filters,
     }
   );
   return response.data;

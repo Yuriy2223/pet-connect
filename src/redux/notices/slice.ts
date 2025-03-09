@@ -48,34 +48,7 @@ const noticesSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      // Get notice to views
-      .addCase(fetchViews.pending, state => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchViews.fulfilled, (state, action) => {
-        state.views = action.payload;
-        state.loading = false;
-        state.error = null;
-      })
-      .addCase(fetchViews.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      })
-      // Get notice to favorites
-      .addCase(fetchFavorites.pending, state => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchFavorites.fulfilled, (state, action) => {
-        state.favorites = action.payload;
-        state.loading = false;
-        state.error = null;
-      })
-      .addCase(fetchFavorites.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      })
+
       // Get notices
       .addCase(fetchNotices.pending, state => {
         state.loading = true;
@@ -193,6 +166,35 @@ const noticesSlice = createSlice({
         }
       )
       .addCase(removeNoticesFavorite.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+
+      // Get notice to views
+      .addCase(fetchViews.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchViews.fulfilled, (state, action) => {
+        state.views = action.payload;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(fetchViews.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      // Get notice to favorites
+      .addCase(fetchFavorites.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchFavorites.fulfilled, (state, action) => {
+        state.favorites = action.payload;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(fetchFavorites.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })

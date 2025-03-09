@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination } from '../../components/Pagination/Pagination';
+import { AppDispatch } from '../../redux/store';
+import { selectIsSignedIn } from '../../redux/auth/selectors';
+import { NoticesCard } from '../../components/NoticesCard/NoticesCard';
+import { Loader } from '../../components/loader/Loader';
+import { NoticesFilters } from '../../components/NoticesFilters/NoticesFilters';
 import {
   fetchFavorites,
   fetchNotices,
@@ -8,20 +13,11 @@ import {
   fetchNoticesSexes,
   fetchNoticesSpecies,
 } from '../../redux/notices/operations';
-import { AppDispatch } from '../../redux/store';
-import { selectIsSignedIn } from '../../redux/auth/selectors';
-import { NoticesCard } from '../../components/NoticesCard/NoticesCard';
-import { Loader } from '../../components/loader/Loader';
-import { NoticesFilters } from '../../components/NoticesFilters/NoticesFilters';
-import { City } from '../../App.types';
 import {
   selectCurrentPage,
   selectFavorites,
-  selectNoticeCategories,
-  selectNoticeSexes,
   selectNoticesList,
   selectNoticesLoading,
-  selectNoticeSpecies,
   selectPerPage,
   selectTotalPages,
 } from '../../redux/notices/selectors';
@@ -36,9 +32,6 @@ export interface Filters {
   category: string;
   gender: string;
   type: string;
-  search: string;
-  sort: string;
-  location: City | null;
 }
 
 export const NoticesPage: React.FC = () => {
@@ -50,20 +43,48 @@ export const NoticesPage: React.FC = () => {
   const isSignedIn = useSelector(selectIsSignedIn);
   const favorites = useSelector(selectFavorites);
   const isLoading = useSelector(selectNoticesLoading);
-  const categoryOptions = useSelector(selectNoticeCategories);
-  const genderOptions = useSelector(selectNoticeSexes);
-  const typeOptions = useSelector(selectNoticeSpecies);
+
   const [filters, setFilters] = useState<Filters>({
     category: 'Show all',
     gender: 'Show all',
     type: 'Show all',
-    search: '',
-    sort: '',
-    location: null,
   });
 
+  const handleResetFilters = () => {
+    setFilters({
+      category: 'Show all',
+      gender: 'Show all',
+      type: 'Show all',
+    });
+  };
+
   useEffect(() => {
-    dispatch(fetchNotices({ page: currentPage, perPage, ...filters }));
+    dispatch(fetchNoticesCategories());
+    dispatch(fetchNoticesSexes());
+    dispatch(fetchNoticesSpecies());
+  }, [dispatch]);
+
+  const handleFilterChange = (field: keyof Filters, value: string | null) => {
+    console.log(`Changing filter: ${field} -> ${value}`);
+    setFilters(prev => ({
+      ...prev,
+      [field]: value === 'Show all' ? null : value,
+    }));
+  };
+
+  const normalizeFilterValue = (value: string) =>
+    value === 'Show all' ? null : value;
+
+  useEffect(() => {
+    dispatch(
+      fetchNotices({
+        page: currentPage,
+        perPage,
+        category: normalizeFilterValue(filters.category),
+        gender: normalizeFilterValue(filters.gender),
+        type: normalizeFilterValue(filters.type),
+      })
+    );
   }, [currentPage, perPage, filters, dispatch]);
 
   useEffect(() => {
@@ -72,36 +93,8 @@ export const NoticesPage: React.FC = () => {
     }
   }, [dispatch, isSignedIn]);
 
-  useEffect(() => {
-    dispatch(fetchNoticesCategories());
-    dispatch(fetchNoticesSexes());
-    dispatch(fetchNoticesSpecies());
-  }, [dispatch]);
-
   const handlePageChange = (page: number) => {
     dispatch(fetchNotices({ page, perPage, ...filters }));
-  };
-
-  const handleFilterChange = <T extends keyof Filters>(
-    field: T,
-    value: Filters[T]
-  ) => {
-    setFilters(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleLocationChange = (location: City | null) => {
-    setFilters(prev => ({ ...prev, location }));
-  };
-
-  const handleResetFilters = () => {
-    setFilters({
-      category: 'Show all',
-      gender: 'Show all',
-      type: 'Show all',
-      search: '',
-      sort: '',
-      location: null,
-    });
   };
 
   return (
@@ -109,12 +102,10 @@ export const NoticesPage: React.FC = () => {
       <h1>Find your favorite pet</h1>
       <NoticesSearchWrapper>
         <NoticesFilters
-          filters={filters}
-          categoryOptions={categoryOptions}
-          genderOptions={genderOptions}
-          typeOptions={typeOptions}
-          onFilterChange={handleFilterChange}
-          onLocationChange={handleLocationChange}
+          selectedCategory={filters.category}
+          selectedGender={filters.gender}
+          selectedType={filters.type}
+          handleFilterChange={handleFilterChange}
           onReset={handleResetFilters}
         />
       </NoticesSearchWrapper>
@@ -143,3 +134,40 @@ export const NoticesPage: React.FC = () => {
     </NoticesPageContainer>
   );
 };
+/********************************** */
+// gender: string;
+// type: string;
+// search: string;
+// sort: string;
+// location: City | null;
+// export interface Filters {
+//   category: string;
+//   gender: string;
+//   type: string;
+//   search: string;
+//   sort: string;
+//   location: City | null;
+// }
+// const [filters, setFilters] = useState<Filters>({
+//   category: 'Show all',
+//   gender: 'Show all',
+//   type: 'Show all',
+//   search: '',
+//   sort: '',
+//   location: null,
+// });
+
+// const handleResetFilters = () => {
+//   setFilters({
+//     category: 'Show all',
+//     gender: 'Show all',
+//     type: 'Show all',
+//     search: '',
+//     sort: '',
+//     location: null,
+//   });
+// };
+
+// const handleLocationChange = (location: City | null) => {
+//   setFilters(prev => ({ ...prev, location }));
+// };

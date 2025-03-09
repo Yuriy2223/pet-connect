@@ -1,73 +1,99 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
-  ClearButtonRatio,
+  selectNoticeCategories,
+  selectNoticeSexes,
+  selectNoticeSpecies,
+} from '../../redux/notices/selectors';
+import {
   FilterRow,
   FiltersContainer,
-  IconCloseRatio,
-  RadioButtonInput,
-  RadioButtonLabel,
   RadioGroup,
   ResetButton,
   SelectCategory,
   SelectGender,
   SelectType,
 } from './NoticesFilters.styled';
-import { SearchField } from '../Common/SearchField/SearchField';
-import { LocationSelect } from './LocationSelect/LocationSelect';
 import { Filters } from '../../pages/NoticesPage/NoticesPage';
-import { City } from '../../App.types';
+
+interface CategoryOption {
+  value: string;
+  label: string;
+}
 
 interface NoticesFiltersProps {
-  filters: Filters;
-  categoryOptions: string[];
-  genderOptions: string[];
-  typeOptions: string[];
-  onFilterChange: <T extends keyof Filters>(
-    field: T,
-    value: Filters[T]
-  ) => void;
-  onLocationChange: (location: City | null) => void;
   onReset: () => void;
+  handleFilterChange: (field: keyof Filters, value: string | null) => void;
+  selectedCategory: string | null;
+  selectedGender: string | null;
+  selectedType: string | null;
 }
 
 export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
-  filters,
-  categoryOptions,
-  genderOptions,
-  typeOptions,
-  onFilterChange,
   onReset,
+  handleFilterChange,
+  selectedCategory,
+  selectedGender,
+  selectedType,
 }) => {
+  const categories = useSelector(selectNoticeCategories);
+  const genders = useSelector(selectNoticeSexes);
+  const types = useSelector(selectNoticeSpecies);
+
+  const categoryOptions: CategoryOption[] = [
+    { value: 'Show all', label: 'Show all' },
+    ...categories.map(category => ({ value: category, label: category })),
+  ];
+
+  const genderOptions: CategoryOption[] = [
+    { value: 'Show all', label: 'Show all' },
+    ...genders.map(gender => ({ value: gender, label: gender })),
+  ];
+
+  const typeOptions: CategoryOption[] = [
+    { value: 'Show all', label: 'Show all' },
+    ...types.map(type => ({ value: type, label: type })),
+  ];
+
   return (
     <FiltersContainer>
       <FilterRow>
-        <SearchField
-          value={filters.search}
-          onSearch={query => onFilterChange('search', query)}
-        />
         <SelectCategory
-          options={['Show all', ...categoryOptions]}
-          value={filters.category}
-          onChange={option => onFilterChange('category', option || 'Show all')}
+          options={categoryOptions}
+          placeholder="Category"
+          value={
+            categoryOptions.find(option => option.value === selectedCategory) ||
+            categoryOptions[0]
+          }
+          onChange={selectedOption =>
+            handleFilterChange('category', selectedOption?.value ?? 'Show all')
+          }
         />
         <SelectGender
-          options={['Show all', ...genderOptions]}
-          value={filters.gender}
-          onChange={option => onFilterChange('gender', option || 'Show all')}
+          options={genderOptions}
+          placeholder="By gender"
+          value={
+            genderOptions.find(option => option.value === selectedGender) ||
+            genderOptions[0]
+          }
+          onChange={selectedOption =>
+            handleFilterChange('gender', selectedOption?.value ?? 'Show all')
+          }
         />
         <SelectType
-          options={['Show all', ...typeOptions]}
-          value={filters.type}
-          onChange={option => onFilterChange('type', option || 'Show all')}
-        />
-        <LocationSelect
-          value={filters.location}
-          onChange={location => onFilterChange('location', location)}
+          options={typeOptions}
+          placeholder="By type"
+          value={
+            typeOptions.find(option => option.value === selectedType) ||
+            typeOptions[0]
+          }
+          onChange={selectedOption =>
+            handleFilterChange('type', selectedOption?.value ?? 'Show all')
+          }
         />
       </FilterRow>
-
       <RadioGroup>
-        {['popular', 'unpopular', 'cheap', 'expensive'].map(sortType => (
+        {/* {['popular', 'unpopular', 'cheap', 'expensive'].map(sortType => (
           <RadioButtonLabel
             key={sortType}
             $isActive={filters.sort === sortType}
@@ -77,145 +103,26 @@ export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
               name="sort"
               value={sortType}
               checked={filters.sort === sortType}
-              onChange={() => onFilterChange('sort', sortType)}
+              onChange={() => onSimpleFilterChange('sort', sortType)}
             />
             {sortType.charAt(0).toUpperCase() + sortType.slice(1)}
             {filters.sort === sortType && (
               <ClearButtonRatio
-                $isActive={filters.sort === sortType}
-                onClick={() => onFilterChange('sort', '')}
+                type="button"
+                $isActive={true}
+                onClick={() => onSimpleFilterChange('sort', '')}
               >
                 <IconCloseRatio width={16} height={16} iconName="close" />
               </ClearButtonRatio>
             )}
           </RadioButtonLabel>
-        ))}
+        ))} */}
         <ResetButton onClick={onReset}>Reset</ResetButton>
       </RadioGroup>
     </FiltersContainer>
   );
 };
 
-/****************************************************** */
-// import React from 'react';
-// import {
-//   ClearButtonRatio,
-//   FilterRow,
-//   FiltersContainer,
-//   IconCloseRatio,
-//   RadioButtonInput,
-//   RadioButtonLabel,
-//   RadioGroup,
-//   ResetButton,
-//   SelectCategory,
-//   SelectGender,
-//   SelectType,
-// } from './NoticesFilters.styled';
-
-// import { SearchField } from '../Common/SearchField/SearchField';
-// import { City } from '../../App.types';
-// import { LocationSelect } from './LocationSelect/LocationSelect';
-
-// interface NoticesFiltersProps {
-//   filters: {
-//     category: string;
-//     gender: string;
-//     type: string;
-//     location: City | null;
-//     search: string;
-//     sort: string;
-//   };
-//   categoryOptions: string[];
-//   genderOptions: string[];
-//   typeOptions: string[];
-//   onSimpleFilterChange: (
-//     field: 'category' | 'gender' | 'type' | 'search' | 'sort',
-//     value: string
-//   ) => void;
-//   onLocationChange: (location: City | null) => void;
-//   onReset: () => void;
-// }
-
-// export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
-//   filters,
-//   categoryOptions,
-//   genderOptions,
-//   typeOptions,
-//   onSimpleFilterChange,
-//   onLocationChange,
-//   onReset,
-// }) => {
-//   return (
-//     <FiltersContainer>
-//       <FilterRow>
-//         <SearchField
-//           value={filters.search}
-//           onSearch={query => onSimpleFilterChange('search', query)}
-//         />
-
-//         <SelectCategory
-//           options={['Show all', ...categoryOptions]}
-//           placeholder="Category"
-//           value={filters.category}
-//           onChange={option =>
-//             onSimpleFilterChange('category', option || 'Show all')
-//           }
-//         />
-//         <SelectGender
-//           options={['Show all', ...genderOptions]}
-//           placeholder="By gender"
-//           value={filters.gender}
-//           onChange={option =>
-//             onSimpleFilterChange('gender', option || 'Show all')
-//           }
-//         />
-//         <SelectType
-//           options={['Show all', ...typeOptions]}
-//           placeholder="By type"
-//           value={filters.type}
-//           onChange={option =>
-//             onSimpleFilterChange('type', option || 'Show all')
-//           }
-//         />
-//         <LocationSelect value={filters.location} onChange={onLocationChange} />
-//       </FilterRow>
-
-//       <RadioGroup>
-//         {['popular', 'unpopular', 'cheap', 'expensive'].map(sortType => (
-//           <RadioButtonLabel
-//             key={sortType}
-//             $isActive={filters.sort === sortType}
-//           >
-//             <RadioButtonInput
-//               type="radio"
-//               name="sort"
-//               value={sortType}
-//               checked={filters.sort === sortType}
-//               onChange={() => onSimpleFilterChange('sort', sortType)}
-//             />
-//             {sortType.charAt(0).toUpperCase() + sortType.slice(1)}
-//             {filters.sort === sortType && (
-//               <ClearButtonRatio
-//                 type="button"
-//                 $isActive={true}
-//                 onClick={() => onSimpleFilterChange('sort', '')}
-//               >
-//                 <IconCloseRatio width={16} height={16} iconName="close" />
-//               </ClearButtonRatio>
-//             )}
-//           </RadioButtonLabel>
-//         ))}
-//         <ResetButton
-//           type="button"
-//           onClick={onReset}
-//           // $isActive={true}
-//         >
-//           Reset
-//         </ResetButton>
-//       </RadioGroup>
-//     </FiltersContainer>
-//   );
-// };
 /*************************************** */
 // import {
 //   ClearButtonRatio,
