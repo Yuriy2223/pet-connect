@@ -12,14 +12,33 @@ import {
   fetchUserFullApi,
 } from '../../services/noticesApi';
 
-// Get all notices
+// // Get all notices
+// export const fetchNotices = createAsyncThunk<
+//   GetNoticesResponse,
+//   { page: number; perPage: number },
+//   { rejectValue: string }
+// >('notices/fetchNotices', async ({ page, perPage }, thunkAPI) => {
+//   try {
+//     return await fetchNoticesApi(page, perPage);
+//   } catch (error) {
+//     const message =
+//       error instanceof Error ? error.message : 'Failed to fetch notices.';
+//     toast.error(message);
+//     return thunkAPI.rejectWithValue(message);
+//   }
+// });
+
+// Get all notices with filters
 export const fetchNotices = createAsyncThunk<
   GetNoticesResponse,
-  { page: number; perPage: number },
+  { page: number; perPage: number } & Record<
+    string,
+    string | number | undefined
+  >,
   { rejectValue: string }
->('notices/fetchNotices', async ({ page, perPage }, thunkAPI) => {
+>('notices/fetchNotices', async (filters, thunkAPI) => {
   try {
-    return await fetchNoticesApi(page, perPage);
+    return await fetchNoticesApi(filters);
   } catch (error) {
     const message =
       error instanceof Error ? error.message : 'Failed to fetch notices.';

@@ -67,6 +67,9 @@
 //     }),
 //   },
 // }))<DynamicSelectProps>``;
+
+/****************************************** */
+
 import styled from 'styled-components';
 import Select, {
   Props as SelectProps,
@@ -74,17 +77,26 @@ import Select, {
   GroupBase,
 } from 'react-select';
 
-// Задаємо чіткий тип для опцій
-type StringSelectProps = SelectProps<string, false, GroupBase<string>> & {
+// Задаємо правильний тип для опцій
+interface CategoryOption {
+  value: string;
+  label: string;
+}
+
+type StringSelectProps = SelectProps<
+  CategoryOption,
+  false,
+  GroupBase<CategoryOption>
+> & {
   width?: string | number;
 };
 
 export const StyledSelect = styled(
-  Select<string, false, GroupBase<string>>
+  Select<CategoryOption, false, GroupBase<CategoryOption>>
 ).attrs<StringSelectProps>(props => ({
-  // Важливо — тут вже типи правильні
-  getOptionLabel: (option: string) => option,
-  getOptionValue: (option: string) => option,
+  // Оновлені функції для отримання значень та міток
+  getOptionLabel: (option: CategoryOption) => option.label,
+  getOptionValue: (option: CategoryOption) => option.value,
 
   styles: {
     control: (

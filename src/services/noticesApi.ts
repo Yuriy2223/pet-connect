@@ -2,14 +2,30 @@ import { instance, publicInstance } from './Api';
 import { GetNoticesResponse, Notice, UserProfile } from '../App.types';
 
 // Get all notices
+// export const fetchNoticesApi = async (
+//   page: number,
+//   perPage: number
+// ): Promise<GetNoticesResponse> => {
+//   const response = await publicInstance.get<GetNoticesResponse>(
+//     '/api/notices',
+//     {
+//       params: { page, perPage },
+//     }
+//   );
+//   return response.data;
+// };
+
+// Get all notices with filters
 export const fetchNoticesApi = async (
-  page: number,
-  perPage: number
+  filters: { page: number; perPage: number } & Record<
+    string,
+    string | number | undefined
+  >
 ): Promise<GetNoticesResponse> => {
   const response = await publicInstance.get<GetNoticesResponse>(
     '/api/notices',
     {
-      params: { page, perPage },
+      params: filters,
     }
   );
   return response.data;
