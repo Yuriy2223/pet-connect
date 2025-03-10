@@ -5,7 +5,8 @@ import { GetNoticesResponse, Notice, UserProfile } from '../App.types';
 export const fetchNoticesApi = async (
   filters: { page: number; perPage: number } & Record<
     string,
-    string | number | null
+    // string | number | null
+    string | number
   >
 ): Promise<GetNoticesResponse> => {
   const response = await publicInstance.get<GetNoticesResponse>(
@@ -14,12 +15,6 @@ export const fetchNoticesApi = async (
       params: filters,
     }
   );
-  return response.data;
-};
-
-// Get notice to favorites end views
-export const fetchUserFullApi = async (): Promise<UserProfile> => {
-  const response = await instance.get<UserProfile>('/api/users/current/full');
   return response.data;
 };
 
@@ -68,5 +63,11 @@ export const fetchNoticesNoticeByIdApi = async (
   noticeId: string
 ): Promise<Notice> => {
   const response = await instance.get<Notice>(`/api/notices/${noticeId}`);
+  return response.data;
+};
+
+// Get notice to favorites end views
+export const fetchUserFullApi = async (): Promise<UserProfile> => {
+  const response = await instance.get<UserProfile>('/api/users/current/full');
   return response.data;
 };

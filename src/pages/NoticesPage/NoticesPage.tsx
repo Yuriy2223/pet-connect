@@ -45,16 +45,16 @@ export const NoticesPage: React.FC = () => {
   const isLoading = useSelector(selectNoticesLoading);
 
   const [filters, setFilters] = useState<Filters>({
-    category: 'Show all',
-    gender: 'Show all',
-    type: 'Show all',
+    category: '',
+    gender: '',
+    type: '',
   });
 
   const handleResetFilters = () => {
     setFilters({
-      category: 'Show all',
-      gender: 'Show all',
-      type: 'Show all',
+      category: '',
+      gender: '',
+      type: '',
     });
   };
 
@@ -64,25 +64,20 @@ export const NoticesPage: React.FC = () => {
     dispatch(fetchNoticesSpecies());
   }, [dispatch]);
 
-  const handleFilterChange = (field: keyof Filters, value: string | null) => {
-    console.log(`Changing filter: ${field} -> ${value}`);
+  const handleFilterChange = (field: keyof Filters, value: string) => {
     setFilters(prev => ({
       ...prev,
-      [field]: value === 'Show all' ? null : value,
+      [field]: value === 'Show all' ? '' : value,
     }));
   };
 
-  const normalizeFilterValue = (value: string) =>
-    value === 'Show all' ? null : value;
-
   useEffect(() => {
+    console.log('Фільтри перед відправкою:', filters);
     dispatch(
       fetchNotices({
         page: currentPage,
         perPage,
-        category: normalizeFilterValue(filters.category),
-        gender: normalizeFilterValue(filters.gender),
-        type: normalizeFilterValue(filters.type),
+        ...filters,
       })
     );
   }, [currentPage, perPage, filters, dispatch]);
@@ -102,9 +97,9 @@ export const NoticesPage: React.FC = () => {
       <h1>Find your favorite pet</h1>
       <NoticesSearchWrapper>
         <NoticesFilters
-          selectedCategory={filters.category}
-          selectedGender={filters.gender}
-          selectedType={filters.type}
+          selectedCategory={filters.category || 'Show all'}
+          selectedGender={filters.gender || 'Show all'}
+          selectedType={filters.type || 'Show all'}
           handleFilterChange={handleFilterChange}
           onReset={handleResetFilters}
         />
@@ -135,6 +130,42 @@ export const NoticesPage: React.FC = () => {
   );
 };
 /********************************** */
+
+// const [filters, setFilters] = useState<Filters>({
+//   category: 'Show all',
+//   gender: 'Show all',
+//   type: 'Show all',
+// });
+
+// const handleResetFilters = () => {
+//   setFilters({
+//     category: 'Show all',
+//     gender: 'Show all',
+//     type: 'Show all',
+//   });
+// };
+// selectedCategory={filters.category}
+// selectedGender={filters.gender}
+// selectedType={filters.type}
+// handleFilterChange={handleFilterChange}
+// onReset={handleResetFilters}
+
+// const normalizeFilterValue = (value: string) =>
+//   value === 'Show all' ? null : value;
+// const normalizeFilterValue = (value: string) =>
+//   value === 'Show all' ? '' : value;
+
+// useEffect(() => {
+//   dispatch(
+//     fetchNotices({
+//       page: currentPage,
+//       perPage,
+//       category: normalizeFilterValue(filters.category),
+//       gender: normalizeFilterValue(filters.gender),
+//       type: normalizeFilterValue(filters.type),
+//     })
+//   );
+// }, [currentPage, perPage, filters, dispatch]);
 // gender: string;
 // type: string;
 // search: string;
