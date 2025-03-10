@@ -23,10 +23,10 @@ interface CategoryOption {
 
 interface NoticesFiltersProps {
   onReset: () => void;
-  handleFilterChange: (field: keyof Filters, value: string | null) => void;
-  selectedCategory: string | null;
-  selectedGender: string | null;
-  selectedType: string | null;
+  handleFilterChange: (field: keyof Filters, value: string) => void;
+  selectedCategory: string;
+  selectedGender: string;
+  selectedType: string;
 }
 
 export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
@@ -62,38 +62,72 @@ export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
           options={categoryOptions}
           placeholder="Category"
           value={
-            categoryOptions.find(option => option.value === selectedCategory) ||
-            categoryOptions[0]
+            selectedCategory === 'Show all'
+              ? null
+              : categoryOptions.find(
+                  option => option.value === selectedCategory
+                )
           }
           onChange={selectedOption =>
-            handleFilterChange('category', selectedOption?.value ?? 'Show all')
+            handleFilterChange(
+              'category',
+              selectedOption ? selectedOption.value : 'Show all'
+            )
           }
         />
+
         <SelectGender
           options={genderOptions}
           placeholder="By gender"
           value={
-            genderOptions.find(option => option.value === selectedGender) ||
-            genderOptions[0]
+            selectedGender === 'Show all'
+              ? null
+              : genderOptions.find(option => option.value === selectedGender)
           }
           onChange={selectedOption =>
-            handleFilterChange('gender', selectedOption?.value ?? 'Show all')
+            handleFilterChange(
+              'gender',
+              selectedOption ? selectedOption.value : 'Show all'
+            )
           }
         />
         <SelectType
           options={typeOptions}
           placeholder="By type"
           value={
-            typeOptions.find(option => option.value === selectedType) ||
-            typeOptions[0]
+            selectedType === 'Show all'
+              ? null
+              : typeOptions.find(option => option.value === selectedType)
           }
           onChange={selectedOption =>
-            handleFilterChange('type', selectedOption?.value ?? 'Show all')
+            handleFilterChange(
+              'type',
+              selectedOption ? selectedOption.value : 'Show all'
+            )
           }
         />
       </FilterRow>
       <RadioGroup>
-        {/* {['popular', 'unpopular', 'cheap', 'expensive'].map(sortType => (
+        <ResetButton onClick={onReset}>Reset</ResetButton>
+      </RadioGroup>
+    </FiltersContainer>
+  );
+};
+
+/********** */
+// onChange={selectedOption =>
+//   handleFilterChange('category', selectedOption?.value ?? 'Show all')
+// }
+// value={
+//   categoryOptions.find(option => option.value === selectedCategory) ||
+//   categoryOptions[0]
+// }
+// handleFilterChange: (field: keyof Filters, value: string | null) => void;
+// selectedCategory: string | null;
+// selectedGender: string | null;
+// selectedType: string | null;
+{
+  /* {['popular', 'unpopular', 'cheap', 'expensive'].map(sortType => (
           <RadioButtonLabel
             key={sortType}
             $isActive={filters.sort === sortType}
@@ -116,13 +150,8 @@ export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
               </ClearButtonRatio>
             )}
           </RadioButtonLabel>
-        ))} */}
-        <ResetButton onClick={onReset}>Reset</ResetButton>
-      </RadioGroup>
-    </FiltersContainer>
-  );
-};
-
+        ))} */
+}
 /*************************************** */
 // import {
 //   ClearButtonRatio,

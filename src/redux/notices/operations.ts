@@ -15,7 +15,8 @@ import {
 // Get all notices
 export const fetchNotices = createAsyncThunk<
   GetNoticesResponse,
-  { page: number; perPage: number } & Record<string, string | number | null>,
+  // { page: number; perPage: number } & Record<string, string | number | null>,
+  { page: number; perPage: number } & Record<string, string | number>,
   { rejectValue: string }
 >('notices/fetchNotices', async (filters, thunkAPI) => {
   try {
