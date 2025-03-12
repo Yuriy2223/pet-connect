@@ -7,25 +7,6 @@ import {
 } from '../App.types';
 
 // Get all notices
-// export const fetchNoticesApi =
-//   async (): // filters: { page: number; perPage: number } & Record<
-//   //   string,
-//   //   // string | number | null
-//   //   string | number
-//   // >
-//   Promise<GetNoticesResponse> => {
-//     const response = await publicInstance.get<GetNoticesResponse>(
-//       '/api/notices'
-//       // {
-//       //   params: filters,
-//       // }
-//     );
-//     return response.data;
-//   };
-// export const fetchNoticesApi = async (): Promise<GetNoticesResponse> => {
-//   const response = await publicInstance.get<GetNoticesResponse>('/api/notices');
-//   return response.data;
-// };
 export const fetchNoticesApi = async (
   params: NoticesParams
 ): Promise<GetNoticesResponse> => {
@@ -33,7 +14,7 @@ export const fetchNoticesApi = async (
     '/api/notices',
     { params }
   );
-  return response.data; // API поверне всі оголошення в полі `results`
+  return response.data;
 };
 
 // Get notice categories
