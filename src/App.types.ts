@@ -70,6 +70,19 @@ export interface GetNoticesResponse {
   totalPages: number;
   results: Notice[];
 }
+export interface NoticesParams {
+  page: number;
+  perPage: number;
+  category?: string;
+  gender?: string;
+  type?: string;
+  species?: string;
+  price?: number;
+  title?: string;
+  name?: string;
+  city?: string;
+  popularity?: number;
+}
 export interface GetNewsResponse {
   page: number;
   perPage: number;

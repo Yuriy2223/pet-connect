@@ -27,11 +27,14 @@ import {
   NoticesSearchWrapper,
   PaginationWrapper,
 } from './NoticesPage.styled';
+import { City } from '../../App.types';
+import { fetchCityLocations } from '../../redux/cities/operations';
 
 export interface Filters {
   category: string;
   gender: string;
   type: string;
+  location: City | null;
 }
 
 export const NoticesPage: React.FC = () => {
@@ -48,6 +51,7 @@ export const NoticesPage: React.FC = () => {
     category: '',
     gender: '',
     type: '',
+    location: null,
   });
 
   const handleResetFilters = () => {
@@ -55,6 +59,7 @@ export const NoticesPage: React.FC = () => {
       category: '',
       gender: '',
       type: '',
+      location: null,
     });
   };
 
@@ -62,9 +67,13 @@ export const NoticesPage: React.FC = () => {
     dispatch(fetchNoticesCategories());
     dispatch(fetchNoticesSexes());
     dispatch(fetchNoticesSpecies());
+    dispatch(fetchCityLocations());
   }, [dispatch]);
 
-  const handleFilterChange = (field: keyof Filters, value: string) => {
+  const handleFilterChange = (
+    field: keyof Filters,
+    value: string | City | ''
+  ) => {
     setFilters(prev => ({
       ...prev,
       [field]: value === 'Show all' ? '' : value,
@@ -72,7 +81,6 @@ export const NoticesPage: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log('Фільтри перед відправкою:', filters);
     dispatch(
       fetchNotices({
         page: currentPage,
@@ -97,9 +105,10 @@ export const NoticesPage: React.FC = () => {
       <h1>Find your favorite pet</h1>
       <NoticesSearchWrapper>
         <NoticesFilters
-          selectedCategory={filters.category || 'Show all'}
-          selectedGender={filters.gender || 'Show all'}
-          selectedType={filters.type || 'Show all'}
+          selectedCategory={filters.category}
+          selectedGender={filters.gender}
+          selectedType={filters.type}
+          selectedLocation={filters.location}
           handleFilterChange={handleFilterChange}
           onReset={handleResetFilters}
         />
@@ -130,42 +139,16 @@ export const NoticesPage: React.FC = () => {
   );
 };
 /********************************** */
-
-// const [filters, setFilters] = useState<Filters>({
-//   category: 'Show all',
-//   gender: 'Show all',
-//   type: 'Show all',
-// });
-
-// const handleResetFilters = () => {
-//   setFilters({
-//     category: 'Show all',
-//     gender: 'Show all',
-//     type: 'Show all',
-//   });
+// const handleFilterChange = (field: keyof Filters, value: string) => {
+//   setFilters(prev => ({
+//     ...prev,
+//     [field]: value === 'Show all' ? '' : value,
+//   }));
 // };
-// selectedCategory={filters.category}
-// selectedGender={filters.gender}
-// selectedType={filters.type}
-// handleFilterChange={handleFilterChange}
-// onReset={handleResetFilters}
-
-// const normalizeFilterValue = (value: string) =>
-//   value === 'Show all' ? null : value;
-// const normalizeFilterValue = (value: string) =>
-//   value === 'Show all' ? '' : value;
-
-// useEffect(() => {
-//   dispatch(
-//     fetchNotices({
-//       page: currentPage,
-//       perPage,
-//       category: normalizeFilterValue(filters.category),
-//       gender: normalizeFilterValue(filters.gender),
-//       type: normalizeFilterValue(filters.type),
-//     })
-//   );
-// }, [currentPage, perPage, filters, dispatch]);
+// selectedCategory={filters.category || 'Show all'}
+// selectedGender={filters.gender || 'Show all'}
+// selectedType={filters.type || 'Show all'}
+// selectedLocation={filters.location || ''}
 // gender: string;
 // type: string;
 // search: string;
@@ -187,17 +170,6 @@ export const NoticesPage: React.FC = () => {
 //   sort: '',
 //   location: null,
 // });
-
-// const handleResetFilters = () => {
-//   setFilters({
-//     category: 'Show all',
-//     gender: 'Show all',
-//     type: 'Show all',
-//     search: '',
-//     sort: '',
-//     location: null,
-//   });
-// };
 
 // const handleLocationChange = (location: City | null) => {
 //   setFilters(prev => ({ ...prev, location }));
