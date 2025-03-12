@@ -1,6 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { GetNoticesResponse, Notice, UserProfile } from '../../App.types';
+import {
+  GetNoticesResponse,
+  Notice,
+  NoticesParams,
+  UserProfile,
+} from '../../App.types';
 import {
   fetchNoticesApi,
   fetchNoticesCategoriesApi,
@@ -13,14 +18,29 @@ import {
 } from '../../services/noticesApi';
 
 // Get all notices
+// export const fetchNotices = createAsyncThunk<
+//   GetNoticesResponse,
+//   // { page: number; perPage: number } & Record<string, string | number | null>,
+//   // { page: number; perPage: number } & Record<string, string | number>,
+//   { rejectValue: string }
+//   // >('notices/fetchNotices', async (filters, thunkAPI) => {
+// >('notices/fetchNotices', async (GetNoticesResponse, thunkAPI) => {
+//   try {
+//     return await fetchNoticesApi(GetNoticesResponse);
+//   } catch (error) {
+//     const message =
+//       error instanceof Error ? error.message : 'Failed to fetch notices.';
+//     toast.error(message);
+//     return thunkAPI.rejectWithValue(message);
+//   }
+// });
 export const fetchNotices = createAsyncThunk<
   GetNoticesResponse,
-  // { page: number; perPage: number } & Record<string, string | number | null>,
-  { page: number; perPage: number } & Record<string, string | number>,
+  NoticesParams,
   { rejectValue: string }
->('notices/fetchNotices', async (filters, thunkAPI) => {
+>('notices/fetchNotices', async (params, thunkAPI) => {
   try {
-    return await fetchNoticesApi(filters);
+    return await fetchNoticesApi(params);
   } catch (error) {
     const message =
       error instanceof Error ? error.message : 'Failed to fetch notices.';

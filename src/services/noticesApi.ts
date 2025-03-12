@@ -1,21 +1,39 @@
 import { instance, publicInstance } from './Api';
-import { GetNoticesResponse, Notice, UserProfile } from '../App.types';
+import {
+  GetNoticesResponse,
+  Notice,
+  NoticesParams,
+  UserProfile,
+} from '../App.types';
 
 // Get all notices
+// export const fetchNoticesApi =
+//   async (): // filters: { page: number; perPage: number } & Record<
+//   //   string,
+//   //   // string | number | null
+//   //   string | number
+//   // >
+//   Promise<GetNoticesResponse> => {
+//     const response = await publicInstance.get<GetNoticesResponse>(
+//       '/api/notices'
+//       // {
+//       //   params: filters,
+//       // }
+//     );
+//     return response.data;
+//   };
+// export const fetchNoticesApi = async (): Promise<GetNoticesResponse> => {
+//   const response = await publicInstance.get<GetNoticesResponse>('/api/notices');
+//   return response.data;
+// };
 export const fetchNoticesApi = async (
-  filters: { page: number; perPage: number } & Record<
-    string,
-    // string | number | null
-    string | number
-  >
+  params: NoticesParams
 ): Promise<GetNoticesResponse> => {
   const response = await publicInstance.get<GetNoticesResponse>(
     '/api/notices',
-    {
-      params: filters,
-    }
+    { params }
   );
-  return response.data;
+  return response.data; // API поверне всі оголошення в полі `results`
 };
 
 // Get notice categories

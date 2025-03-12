@@ -15,6 +15,9 @@ import {
   SelectGender,
   SelectType,
 } from './NoticesFilters.styled';
+// import { selectLocations } from '../../redux/cities/selectors';
+import { LocationSelect } from '../Common/LocationSelect/LocationSelect';
+import { City } from '../../App.types';
 
 interface CategoryOption {
   value: string;
@@ -23,10 +26,11 @@ interface CategoryOption {
 
 interface NoticesFiltersProps {
   onReset: () => void;
-  handleFilterChange: (field: keyof Filters, value: string) => void;
+  handleFilterChange: (field: keyof Filters, value: string | City | '') => void;
   selectedCategory: string;
   selectedGender: string;
   selectedType: string;
+  selectedLocation: City | null;
 }
 
 export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
@@ -35,10 +39,12 @@ export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
   selectedCategory,
   selectedGender,
   selectedType,
+  selectedLocation,
 }) => {
   const categories = useSelector(selectNoticeCategories);
   const genders = useSelector(selectNoticeSexes);
   const types = useSelector(selectNoticeSpecies);
+  // const locations = useSelector(selectLocations);
 
   const categoryOptions: CategoryOption[] = [
     { value: 'Show all', label: 'Show all' },
@@ -106,6 +112,10 @@ export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
             )
           }
         />
+        <LocationSelect
+          value={selectedLocation}
+          onChange={location => handleFilterChange('location', location)}
+        />
       </FilterRow>
       <RadioGroup>
         <ResetButton onClick={onReset}>Reset</ResetButton>
@@ -115,17 +125,16 @@ export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
 };
 
 /********** */
-// onChange={selectedOption =>
-//   handleFilterChange('category', selectedOption?.value ?? 'Show all')
-// }
-// value={
-//   categoryOptions.find(option => option.value === selectedCategory) ||
-//   categoryOptions[0]
-// }
-// handleFilterChange: (field: keyof Filters, value: string | null) => void;
-// selectedCategory: string | null;
-// selectedGender: string | null;
-// selectedType: string | null;
+{
+  /* <LocationSelect
+          options={locations}
+          value={location}
+          placeholder="Location"
+          hideSelectedOptions={false}
+          isMulti={false}
+          onChange={location => handleFilterChange('location', location)}
+        /> */
+}
 {
   /* {['popular', 'unpopular', 'cheap', 'expensive'].map(sortType => (
           <RadioButtonLabel
