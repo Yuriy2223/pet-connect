@@ -15,9 +15,6 @@ import {
   SelectGender,
   SelectType,
 } from './NoticesFilters.styled';
-// import { selectLocations } from '../../redux/cities/selectors';
-import { LocationSelect } from '../Common/LocationSelect/LocationSelect';
-import { City } from '../../App.types';
 
 interface CategoryOption {
   value: string;
@@ -26,25 +23,22 @@ interface CategoryOption {
 
 interface NoticesFiltersProps {
   onReset: () => void;
-  handleFilterChange: (field: keyof Filters, value: string | City | '') => void;
+  handleFilterChange: (field: keyof Filters, value: string) => void;
   selectedCategory: string;
-  selectedGender: string;
-  selectedType: string;
-  selectedLocation: City | null;
+  selectedSpecies: string;
+  selectedSex: string;
 }
 
 export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
   onReset,
   handleFilterChange,
   selectedCategory,
-  selectedGender,
-  selectedType,
-  selectedLocation,
+  selectedSpecies,
+  selectedSex,
 }) => {
   const categories = useSelector(selectNoticeCategories);
   const genders = useSelector(selectNoticeSexes);
   const types = useSelector(selectNoticeSpecies);
-  // const locations = useSelector(selectLocations);
 
   const categoryOptions: CategoryOption[] = [
     { value: 'Show all', label: 'Show all' },
@@ -81,18 +75,17 @@ export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
             )
           }
         />
-
         <SelectGender
           options={genderOptions}
           placeholder="By gender"
           value={
-            selectedGender === 'Show all'
+            selectedSex === 'Show all'
               ? null
-              : genderOptions.find(option => option.value === selectedGender)
+              : genderOptions.find(option => option.value === selectedSex)
           }
           onChange={selectedOption =>
             handleFilterChange(
-              'gender',
+              'sex',
               selectedOption ? selectedOption.value : 'Show all'
             )
           }
@@ -101,20 +94,16 @@ export const NoticesFilters: React.FC<NoticesFiltersProps> = ({
           options={typeOptions}
           placeholder="By type"
           value={
-            selectedType === 'Show all'
+            selectedSpecies === 'Show all'
               ? null
-              : typeOptions.find(option => option.value === selectedType)
+              : typeOptions.find(option => option.value === selectedSpecies)
           }
           onChange={selectedOption =>
             handleFilterChange(
-              'type',
+              'species',
               selectedOption ? selectedOption.value : 'Show all'
             )
           }
-        />
-        <LocationSelect
-          value={selectedLocation}
-          onChange={location => handleFilterChange('location', location)}
         />
       </FilterRow>
       <RadioGroup>

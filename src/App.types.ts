@@ -46,7 +46,7 @@ export interface Notice {
   sex: string;
   imgURL: string;
   location: City[];
-  city: City[];
+  // city: City[];
   user: UserNotice;
   popularity: number;
   updatedAt: string;
@@ -73,14 +73,12 @@ export interface GetNoticesResponse {
 export interface NoticesParams {
   page: number;
   perPage: number;
-  category?: string;
-  gender?: string;
-  type?: string;
+  totalPages?: number;
   species?: string;
+  category?: string;
+  sex?: string;
   price?: number;
-  title?: string;
-  name?: string;
-  city?: string;
+  location?: City[];
   popularity?: number;
 }
 export interface GetNewsResponse {

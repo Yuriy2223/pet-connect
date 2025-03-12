@@ -64,7 +64,6 @@ const noticesSlice = createSlice({
           state.totalPages = totalPages;
           state.loading = false;
           state.error = null;
-          console.log('Отримані notices:', action.payload.results);
         }
       )
       .addCase(fetchNotices.rejected, (state, action) => {
