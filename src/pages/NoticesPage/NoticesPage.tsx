@@ -54,7 +54,7 @@ export const NoticesPage: React.FC = () => {
     setFilters({
       category: '',
       sex: '',
-      species: null,
+      species: '',
     });
   };
 
