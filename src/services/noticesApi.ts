@@ -1,5 +1,6 @@
 import { instance, publicInstance } from './Api';
 import {
+  City,
   GetNoticesResponse,
   Notice,
   NoticesParams,
@@ -14,26 +15,6 @@ export const fetchNoticesApi = async (
     '/api/notices',
     { params }
   );
-  return response.data;
-};
-
-// Get notice categories
-export const fetchNoticesCategoriesApi = async (): Promise<string[]> => {
-  const response = await publicInstance.get<string[]>(
-    '/api/notices/categories'
-  );
-  return response.data;
-};
-
-// Get notice sexes
-export const fetchNoticesSexesApi = async (): Promise<string[]> => {
-  const response = await publicInstance.get<string[]>('/api/notices/sex');
-  return response.data;
-};
-
-// Get notice species
-export const fetchNoticesSpeciesApi = async (): Promise<string[]> => {
-  const response = await publicInstance.get<string[]>('/api/notices/species');
   return response.data;
 };
 
@@ -68,5 +49,31 @@ export const fetchNoticesNoticeByIdApi = async (
 // Get notice to favorites end views
 export const fetchUserFullApi = async (): Promise<UserProfile> => {
   const response = await instance.get<UserProfile>('/api/users/current/full');
+  return response.data;
+};
+
+// Get notice categories
+export const fetchNoticesCategoriesApi = async (): Promise<string[]> => {
+  const response = await publicInstance.get<string[]>(
+    '/api/notices/categories'
+  );
+  return response.data;
+};
+
+// Get notice sexes
+export const fetchNoticesSexesApi = async (): Promise<string[]> => {
+  const response = await publicInstance.get<string[]>('/api/notices/sex');
+  return response.data;
+};
+
+// Get notice species
+export const fetchNoticesSpeciesApi = async (): Promise<string[]> => {
+  const response = await publicInstance.get<string[]>('/api/notices/species');
+  return response.data;
+};
+
+// Get all cities where are pets that descripted on notes
+export const fetchCityLocationsApi = async (): Promise<City[]> => {
+  const response = await publicInstance.get<City[]>('/cities/locations');
   return response.data;
 };
