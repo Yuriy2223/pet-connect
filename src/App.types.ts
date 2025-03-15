@@ -74,12 +74,18 @@ export interface NoticesParams {
   page: number;
   perPage: number;
   totalPages?: number;
-  species?: string;
-  category?: string;
-  sex?: string;
+
+  // species?: string;
+  // category?: string;
+  // sex?: string;
+  species?: string | null;
+  category?: string | null;
+  sex?: string | null;
+
   price?: number;
-  location?: City[];
   popularity?: number;
+
+  location?: City[];
 }
 export interface GetNewsResponse {
   page: number;

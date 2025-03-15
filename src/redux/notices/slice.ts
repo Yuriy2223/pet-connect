@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { GetNoticesResponse, Notice } from '../../App.types';
+import { City, GetNoticesResponse, Notice } from '../../App.types';
 import {
   addNoticesFavorite,
+  fetchCityLocations,
   fetchFavorites,
   fetchNotices,
   fetchNoticesCategories,
@@ -14,9 +15,6 @@ import {
 
 export interface NoticesState {
   notices: Notice[];
-  categories: string[];
-  species: string[];
-  sex: string[];
   favorites: Notice[];
   views: Notice[];
   currentPage: number;
@@ -24,13 +22,23 @@ export interface NoticesState {
   totalPages: number;
   loading: boolean;
   error: string | null;
+  categories: string[];
+  species: string[];
+  sex: string[];
+  locations: City[];
+
+  // search
+  title: string;
+  priceFilter: boolean | null;
+  popularityFilter: boolean | null;
+  locationsFilter: City | null;
+  categoryFilter: string | null;
+  speciesFilter: string | null;
+  sexFilter: string | null;
 }
 
 const initialState: NoticesState = {
   notices: [],
-  categories: [],
-  species: [],
-  sex: [],
   favorites: [],
   views: [],
   currentPage: 1,
@@ -38,17 +46,84 @@ const initialState: NoticesState = {
   totalPages: 1,
   loading: false,
   error: null,
+  categories: [],
+  species: [],
+  sex: [],
+  locations: [],
+
+  // search
+  title: '',
+  priceFilter: null,
+  popularityFilter: null,
+  locationsFilter: null,
+  categoryFilter: null,
+  speciesFilter: null,
+  sexFilter: null,
 };
 
 const noticesSlice = createSlice({
   name: 'notices',
   initialState,
   reducers: {
-    resetNoticesState: () => initialState,
+    resetNoticesState() {
+      return initialState;
+    },
+    resetFilters(state) {
+      state.currentPage = 1;
+      state.perPage = 6;
+      state.title = '';
+      state.priceFilter = null;
+      state.popularityFilter = null;
+      state.locationsFilter = null;
+      state.categoryFilter = null;
+      state.speciesFilter = null;
+      state.sexFilter = null;
+    },
+    setSearch(state, action: PayloadAction<string>) {
+      state.title = action.payload;
+      state.currentPage = 1;
+    },
+    setCategory(state, action: PayloadAction<string | null>) {
+      state.categoryFilter = action.payload;
+      state.currentPage = 1;
+    },
+    setSex(state, action: PayloadAction<string | null>) {
+      state.sexFilter = action.payload;
+      state.currentPage = 1;
+    },
+    setSpecies(state, action: PayloadAction<string | null>) {
+      state.speciesFilter = action.payload;
+      state.currentPage = 1;
+    },
+    // setPopularity(state, action: PayloadAction<string | null>) {
+    //   state.popularityFilter = action.payload;
+    //   state.currentPage = 1;
+    // },
+    // setPrice(state, action: PayloadAction<string | null>) {
+    //   state.priceFilter = action.payload;
+    //   state.currentPage = 1;
+    // },
+    setLocation: (state, action: PayloadAction<City | null>) => {
+      state.locationsFilter = action.payload;
+      state.currentPage = 1;
+    },
+    sortPopularityAsc: state => {
+      state.popularityFilter = true;
+    },
+    sortPopularityDesc: state => {
+      state.popularityFilter = null;
+    },
+    sortPriceAsc: state => {
+      state.priceFilter = true;
+      state.popularityFilter = null;
+    },
+    sortPriceDesc: state => {
+      state.priceFilter = null;
+      state.popularityFilter = false;
+    },
   },
   extraReducers: builder => {
     builder
-
       // Get notices
       .addCase(fetchNotices.pending, state => {
         state.loading = true;
@@ -215,9 +290,43 @@ const noticesSlice = createSlice({
       .addCase(fetchNoticesNoticeId.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
-      });
+      })
+      .addCase(fetchCityLocations.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(
+        fetchCityLocations.fulfilled,
+        (state, action: PayloadAction<City[]>) => {
+          state.loading = false;
+          state.error = null;
+          state.locations = action.payload;
+        }
+      )
+      .addCase(
+        fetchCityLocations.rejected,
+        (state, action: PayloadAction<string | undefined>) => {
+          state.loading = false;
+          state.error = action.payload || 'Unknown error occurred';
+        }
+      );
   },
 });
 
-export const { resetNoticesState } = noticesSlice.actions;
+export const {
+  setSearch,
+  setCategory,
+  setSex,
+  setSpecies,
+  // setPopularity,
+  // setPrice,
+  resetFilters,
+  resetNoticesState,
+  setLocation,
+  sortPopularityAsc,
+  sortPopularityDesc,
+  sortPriceAsc,
+  sortPriceDesc,
+} = noticesSlice.actions;
+
 export const noticesReducer = noticesSlice.reducer;

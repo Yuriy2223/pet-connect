@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import {
+  City,
   GetNoticesResponse,
   Notice,
   NoticesParams,
@@ -15,6 +16,7 @@ import {
   removeNoticesFavoriteApi,
   fetchNoticesNoticeByIdApi,
   fetchUserFullApi,
+  fetchCityLocationsApi,
 } from '../../services/noticesApi';
 
 // Get all notices
@@ -30,53 +32,6 @@ export const fetchNotices = createAsyncThunk<
       error instanceof Error ? error.message : 'Failed to fetch notices.';
     toast.error(message);
     return thunkAPI.rejectWithValue(message);
-  }
-});
-
-// Get notice categories
-export const fetchNoticesCategories = createAsyncThunk<
-  string[],
-  void,
-  { rejectValue: string }
->('notices/fetchNoticesCategories', async (_, { rejectWithValue }) => {
-  try {
-    return await fetchNoticesCategoriesApi();
-  } catch (error) {
-    return rejectWithValue(
-      error instanceof Error
-        ? error.message
-        : 'Failed to fetch notice categories.'
-    );
-  }
-});
-
-// Get notice sexes
-export const fetchNoticesSexes = createAsyncThunk<
-  string[],
-  void,
-  { rejectValue: string }
->('notices/fetchNoticesSexes', async (_, { rejectWithValue }) => {
-  try {
-    return await fetchNoticesSexesApi();
-  } catch (error) {
-    return rejectWithValue(
-      error instanceof Error ? error.message : 'Failed to fetch notice sexes.'
-    );
-  }
-});
-
-// Get notice species
-export const fetchNoticesSpecies = createAsyncThunk<
-  string[],
-  void,
-  { rejectValue: string }
->('notices/fetchNoticesSpecies', async (_, { rejectWithValue }) => {
-  try {
-    return await fetchNoticesSpeciesApi();
-  } catch (error) {
-    return rejectWithValue(
-      error instanceof Error ? error.message : 'Failed to fetch notice species.'
-    );
   }
 });
 
@@ -160,5 +115,68 @@ export const fetchViews = createAsyncThunk<
     return rejectWithValue(
       error instanceof Error ? error.message : 'Failed to fetch views notices.'
     );
+  }
+});
+
+// Get notice categories
+export const fetchNoticesCategories = createAsyncThunk<
+  string[],
+  void,
+  { rejectValue: string }
+>('notices/fetchNoticesCategories', async (_, { rejectWithValue }) => {
+  try {
+    return await fetchNoticesCategoriesApi();
+  } catch (error) {
+    return rejectWithValue(
+      error instanceof Error
+        ? error.message
+        : 'Failed to fetch notice categories.'
+    );
+  }
+});
+
+// Get notice sexes
+export const fetchNoticesSexes = createAsyncThunk<
+  string[],
+  void,
+  { rejectValue: string }
+>('notices/fetchNoticesSexes', async (_, { rejectWithValue }) => {
+  try {
+    return await fetchNoticesSexesApi();
+  } catch (error) {
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Failed to fetch notice sexes.'
+    );
+  }
+});
+
+// Get notice species
+export const fetchNoticesSpecies = createAsyncThunk<
+  string[],
+  void,
+  { rejectValue: string }
+>('notices/fetchNoticesSpecies', async (_, { rejectWithValue }) => {
+  try {
+    return await fetchNoticesSpeciesApi();
+  } catch (error) {
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Failed to fetch notice species.'
+    );
+  }
+});
+
+// Get all cities where are pets that descripted on notes
+export const fetchCityLocations = createAsyncThunk<
+  City[],
+  void,
+  { rejectValue: string }
+>('cities/fetchCityLocations', async (_, thunkAPI) => {
+  try {
+    return await fetchCityLocationsApi();
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : 'Unexpected error occurred';
+    toast.error(message);
+    return thunkAPI.rejectWithValue(message);
   }
 });
