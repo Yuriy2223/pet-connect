@@ -69,22 +69,6 @@ const noticesSlice = createSlice({
       state.filters = { ...state.filters, ...action.payload };
       state.currentPage = 1;
     },
-    sortPopularityAsc(state) {
-      state.filters.popularity = true;
-      state.filters.price = null;
-    },
-    sortPopularityDesc(state) {
-      state.filters.popularity = false;
-      state.filters.price = null;
-    },
-    sortPriceAsc(state) {
-      state.filters.price = true;
-      state.filters.popularity = null;
-    },
-    sortPriceDesc(state) {
-      state.filters.price = false;
-      state.filters.popularity = null;
-    },
   },
   extraReducers: builder => {
     builder
@@ -277,14 +261,7 @@ const noticesSlice = createSlice({
   },
 });
 
-export const {
-  resetNoticesState,
-  resetFilters,
-  setFilter,
-  sortPopularityAsc,
-  sortPopularityDesc,
-  sortPriceAsc,
-  sortPriceDesc,
-} = noticesSlice.actions;
+export const { resetNoticesState, resetFilters, setFilter } =
+  noticesSlice.actions;
 
 export const noticesReducer = noticesSlice.reducer;
