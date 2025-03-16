@@ -45,8 +45,8 @@ const initialState: NoticesState = {
 
   filters: {
     title: '',
-    price: null,
-    popularity: null,
+    byPopularity: null,
+    byPrice: null,
     location: null,
     category: null,
     species: null,

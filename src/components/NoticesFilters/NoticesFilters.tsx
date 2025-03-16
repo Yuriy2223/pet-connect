@@ -69,20 +69,36 @@ export const NoticesFilters = () => {
   const handleSpeciesChange = (selected: string | null) =>
     handleFilterChange({ ...filters, species: selected ?? '' });
 
+  // const handleSortPopularityAsc = () => {
+  //   handleFilterChange({ ...filters, popularity: true, price: null });
+  // };
+
+  // const handleSortPopularityDesc = () => {
+  //   handleFilterChange({ ...filters, popularity: false, price: null });
+  // };
+
+  // const handleSortPriceAsc = () => {
+  //   handleFilterChange({ ...filters, price: true, popularity: null });
+  // };
+
+  // const handleSortPriceDesc = () => {
+  //   handleFilterChange({ ...filters, price: false, popularity: null });
+  // };
+
   const handleSortPopularityAsc = () => {
-    handleFilterChange({ ...filters, popularity: true, price: null });
+    handleFilterChange({ ...filters, byPopularity: true, byPrice: null });
   };
 
   const handleSortPopularityDesc = () => {
-    handleFilterChange({ ...filters, popularity: false, price: null });
+    handleFilterChange({ ...filters, byPopularity: false, byPrice: null });
   };
 
   const handleSortPriceAsc = () => {
-    handleFilterChange({ ...filters, price: true, popularity: null });
+    handleFilterChange({ ...filters, byPrice: true, byPopularity: null });
   };
 
   const handleSortPriceDesc = () => {
-    handleFilterChange({ ...filters, price: false, popularity: null });
+    handleFilterChange({ ...filters, byPrice: false, byPopularity: null });
   };
 
   return (
@@ -128,65 +144,69 @@ export const NoticesFilters = () => {
       </FilterRow>
 
       <RadioGroup>
-        <RadioButtonLabel $isActive={filters.popularity === true}>
+        <RadioButtonLabel $isActive={filters.byPopularity === true}>
           <RadioButtonInput
             type="radio"
             name="sortBtn"
-            checked={filters.popularity === true}
+            checked={filters.byPopularity === true}
             onChange={handleSortPopularityAsc}
           />
           Popularity
           <ClearButtonRatio
-            $isActive={filters.popularity === true}
-            onClick={() => handleFilterChange({ ...filters, popularity: null })}
+            $isActive={filters.byPopularity === true}
+            onClick={() =>
+              handleFilterChange({ ...filters, byPopularity: null })
+            }
           >
             <IconCloseRatio width={16} height={16} iconName="close" />
           </ClearButtonRatio>
         </RadioButtonLabel>
 
-        <RadioButtonLabel $isActive={filters.popularity === false}>
+        <RadioButtonLabel $isActive={filters.byPopularity === false}>
           <RadioButtonInput
             type="radio"
             name="sortBtn"
-            checked={filters.popularity === false}
+            checked={filters.byPopularity === false}
             onChange={handleSortPopularityDesc}
           />
           Unpopular
           <ClearButtonRatio
-            $isActive={filters.popularity === false}
-            onClick={() => handleFilterChange({ ...filters, popularity: null })}
+            $isActive={filters.byPopularity === false}
+            onClick={() =>
+              handleFilterChange({ ...filters, byPopularity: null })
+            }
           >
             <IconCloseRatio width={16} height={16} iconName="close" />
           </ClearButtonRatio>
         </RadioButtonLabel>
 
-        <RadioButtonLabel $isActive={filters.price === true}>
+        <RadioButtonLabel $isActive={filters.byPrice === true}>
           <RadioButtonInput
             type="radio"
             name="sortBtn"
-            checked={filters.price === true}
+            checked={filters.byPrice === true}
             onChange={handleSortPriceAsc}
           />
           Cheap
           <ClearButtonRatio
-            $isActive={filters.price === true}
-            onClick={() => handleFilterChange({ ...filters, price: null })}
+            $isActive={filters.byPrice === true}
+            onClick={() => handleFilterChange({ ...filters, byPrice: null })}
           >
             <IconCloseRatio width={16} height={16} iconName="close" />
           </ClearButtonRatio>
         </RadioButtonLabel>
 
-        <RadioButtonLabel $isActive={filters.price === false}>
+        <RadioButtonLabel $isActive={filters.byPrice === false}>
           <RadioButtonInput
             type="radio"
             name="sortBtn"
-            checked={filters.price === false}
+            checked={filters.byPrice === false}
             onChange={handleSortPriceDesc}
           />
           Expensive
           <ClearButtonRatio
-            $isActive={filters.price === false}
-            onClick={() => handleFilterChange({ ...filters, price: null })}
+            $isActive={filters.byPrice === false}
+            onClick={() => handleFilterChange({ ...filters, byPrice: null })}
           >
             <IconCloseRatio width={16} height={16} iconName="close" />
           </ClearButtonRatio>
