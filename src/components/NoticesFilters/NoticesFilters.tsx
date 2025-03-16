@@ -1,4 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useCallback, useEffect, useRef } from 'react';
+import { AppDispatch } from '../../redux/store';
+import { resetFilters, setFilter } from '../../redux/notices/slice';
+import { Filters } from '../../App.types';
 import {
   selectFilters,
   selectNoticeCategories,
@@ -10,16 +14,6 @@ import {
   fetchNoticesSexes,
   fetchNoticesSpecies,
 } from '../../redux/notices/operations';
-import { AppDispatch } from '../../redux/store';
-import {
-  resetFilters,
-  setFilter,
-  // sortPopularityAsc,
-  // sortPopularityDesc,
-  // sortPriceAsc,
-  // sortPriceDesc,
-} from '../../redux/notices/slice';
-import { useCallback, useEffect, useRef } from 'react';
 import {
   ClearButtonRatio,
   FilterRow,
@@ -33,7 +27,6 @@ import {
   SelectGender,
   SelectType,
 } from './NoticesFilters.styled';
-import { Filters } from '../../App.types';
 
 export const NoticesFilters = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -140,7 +133,6 @@ export const NoticesFilters = () => {
             type="radio"
             name="sortBtn"
             checked={filters.popularity === true}
-            // onChange={() => dispatch(sortPopularityAsc())}
             onChange={handleSortPopularityAsc}
           />
           Popularity
@@ -157,7 +149,6 @@ export const NoticesFilters = () => {
             type="radio"
             name="sortBtn"
             checked={filters.popularity === false}
-            // onChange={() => dispatch(sortPopularityDesc())}
             onChange={handleSortPopularityDesc}
           />
           Unpopular
@@ -174,7 +165,6 @@ export const NoticesFilters = () => {
             type="radio"
             name="sortBtn"
             checked={filters.price === true}
-            // onChange={() => dispatch(sortPriceAsc())}
             onChange={handleSortPriceAsc}
           />
           Cheap
@@ -191,7 +181,6 @@ export const NoticesFilters = () => {
             type="radio"
             name="sortBtn"
             checked={filters.price === false}
-            // onChange={() => dispatch(sortPriceDesc())}
             onChange={handleSortPriceDesc}
           />
           Expensive
