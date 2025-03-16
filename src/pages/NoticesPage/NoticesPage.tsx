@@ -10,6 +10,7 @@ import { fetchFavorites, fetchNotices } from '../../redux/notices/operations';
 import {
   selectCurrentPage,
   selectFavorites,
+  selectFilters,
   selectNoticesList,
   selectNoticesLoading,
   selectPerPage,
@@ -31,6 +32,17 @@ export const NoticesPage: React.FC = () => {
   const isSignedIn = useSelector(selectIsSignedIn);
   const favorites = useSelector(selectFavorites);
   const isLoading = useSelector(selectNoticesLoading);
+  const filter = useSelector(selectFilters);
+
+  useEffect(() => {
+    dispatch(
+      fetchNotices({
+        page: currentPage,
+        perPage,
+        ...filter,
+      })
+    );
+  }, [currentPage, perPage, filter, dispatch]);
 
   useEffect(() => {
     if (isSignedIn) {

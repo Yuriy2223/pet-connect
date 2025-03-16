@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { City, GetNoticesResponse, Notice } from '../../App.types';
+import { City, Filters, GetNoticesResponse, Notice } from '../../App.types';
 import {
   addNoticesFavorite,
   fetchCityLocations,
@@ -26,15 +26,7 @@ export interface NoticesState {
   species: string[];
   sex: string[];
   locations: City[];
-
-  // search
-  title: string;
-  priceFilter: boolean | null;
-  popularityFilter: boolean | null;
-  locationsFilter: City | null;
-  categoryFilter: string | null;
-  speciesFilter: string | null;
-  sexFilter: string | null;
+  filters: Filters;
 }
 
 const initialState: NoticesState = {
@@ -51,14 +43,15 @@ const initialState: NoticesState = {
   sex: [],
   locations: [],
 
-  // search
-  title: '',
-  priceFilter: null,
-  popularityFilter: null,
-  locationsFilter: null,
-  categoryFilter: null,
-  speciesFilter: null,
-  sexFilter: null,
+  filters: {
+    title: '',
+    price: null,
+    popularity: null,
+    location: null,
+    category: null,
+    species: null,
+    sex: null,
+  },
 };
 
 const noticesSlice = createSlice({
@@ -69,57 +62,28 @@ const noticesSlice = createSlice({
       return initialState;
     },
     resetFilters(state) {
-      state.currentPage = 1;
-      state.perPage = 6;
-      state.title = '';
-      state.priceFilter = null;
-      state.popularityFilter = null;
-      state.locationsFilter = null;
-      state.categoryFilter = null;
-      state.speciesFilter = null;
-      state.sexFilter = null;
-    },
-    setSearch(state, action: PayloadAction<string>) {
-      state.title = action.payload;
+      state.filters = initialState.filters;
       state.currentPage = 1;
     },
-    setCategory(state, action: PayloadAction<string | null>) {
-      state.categoryFilter = action.payload;
+    setFilter(state, action: PayloadAction<Filters>) {
+      state.filters = { ...state.filters, ...action.payload };
       state.currentPage = 1;
     },
-    setSex(state, action: PayloadAction<string | null>) {
-      state.sexFilter = action.payload;
-      state.currentPage = 1;
+    sortPopularityAsc(state) {
+      state.filters.popularity = true;
+      state.filters.price = null;
     },
-    setSpecies(state, action: PayloadAction<string | null>) {
-      state.speciesFilter = action.payload;
-      state.currentPage = 1;
+    sortPopularityDesc(state) {
+      state.filters.popularity = false;
+      state.filters.price = null;
     },
-    // setPopularity(state, action: PayloadAction<string | null>) {
-    //   state.popularityFilter = action.payload;
-    //   state.currentPage = 1;
-    // },
-    // setPrice(state, action: PayloadAction<string | null>) {
-    //   state.priceFilter = action.payload;
-    //   state.currentPage = 1;
-    // },
-    setLocation: (state, action: PayloadAction<City | null>) => {
-      state.locationsFilter = action.payload;
-      state.currentPage = 1;
+    sortPriceAsc(state) {
+      state.filters.price = true;
+      state.filters.popularity = null;
     },
-    sortPopularityAsc: state => {
-      state.popularityFilter = true;
-    },
-    sortPopularityDesc: state => {
-      state.popularityFilter = null;
-    },
-    sortPriceAsc: state => {
-      state.priceFilter = true;
-      state.popularityFilter = null;
-    },
-    sortPriceDesc: state => {
-      state.priceFilter = null;
-      state.popularityFilter = false;
+    sortPriceDesc(state) {
+      state.filters.price = false;
+      state.filters.popularity = null;
     },
   },
   extraReducers: builder => {
@@ -314,15 +278,9 @@ const noticesSlice = createSlice({
 });
 
 export const {
-  setSearch,
-  setCategory,
-  setSex,
-  setSpecies,
-  // setPopularity,
-  // setPrice,
-  resetFilters,
   resetNoticesState,
-  setLocation,
+  resetFilters,
+  setFilter,
   sortPopularityAsc,
   sortPopularityDesc,
   sortPriceAsc,

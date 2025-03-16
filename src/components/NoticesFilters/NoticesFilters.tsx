@@ -1,14 +1,25 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
-  selectCategoryFilter,
+  selectFilters,
   selectNoticeCategories,
-  selectNoticePopularity,
-  selectNoticePrice,
   selectNoticeSexes,
   selectNoticeSpecies,
-  selectSexFilter,
-  selectSpeciesFilter,
 } from '../../redux/notices/selectors';
+import {
+  fetchNoticesCategories,
+  fetchNoticesSexes,
+  fetchNoticesSpecies,
+} from '../../redux/notices/operations';
+import { AppDispatch } from '../../redux/store';
+import {
+  resetFilters,
+  setFilter,
+  // sortPopularityAsc,
+  // sortPopularityDesc,
+  // sortPriceAsc,
+  // sortPriceDesc,
+} from '../../redux/notices/slice';
+import { useCallback, useEffect, useRef } from 'react';
 import {
   ClearButtonRatio,
   FilterRow,
@@ -22,33 +33,15 @@ import {
   SelectGender,
   SelectType,
 } from './NoticesFilters.styled';
-import { useCallback, useEffect } from 'react';
-import {
-  fetchNoticesCategories,
-  fetchNoticesSexes,
-  fetchNoticesSpecies,
-} from '../../redux/notices/operations';
-import { AppDispatch } from '../../redux/store';
-import { useDispatch } from 'react-redux';
-import {
-  resetFilters,
-  setCategory,
-  // setPopularity,
-  // setPrice,
-  setSex,
-  setSpecies,
-} from '../../redux/notices/slice';
+import { Filters } from '../../App.types';
 
 export const NoticesFilters = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const filters = useSelector(selectFilters);
+  console.log('Redux filters:', filters);
   const category = useSelector(selectNoticeCategories);
-  const selectedCategory = useSelector(selectCategoryFilter);
   const sex = useSelector(selectNoticeSexes);
-  const selectedSex = useSelector(selectSexFilter);
   const species = useSelector(selectNoticeSpecies);
-  const selectedSpecies = useSelector(selectSpeciesFilter);
-  const popularity = useSelector(selectNoticePopularity);
-  const price = useSelector(selectNoticePrice);
 
   const fetchFiltersData = useCallback(() => {
     dispatch(fetchNoticesCategories());
@@ -56,24 +49,47 @@ export const NoticesFilters = () => {
     dispatch(fetchNoticesSexes());
   }, [dispatch]);
 
+  const isFirstRender = useRef(true);
+
   useEffect(() => {
-    fetchFiltersData();
+    if (isFirstRender.current) {
+      fetchFiltersData();
+      isFirstRender.current = false;
+    }
   }, [fetchFiltersData]);
 
-  const handleCategoryChange = (selected: string) =>
-    dispatch(setCategory(selected));
-
-  const handleSexChange = (selected: string) => dispatch(setSex(selected));
-
-  const handleSpeciesChange = (selected: string) =>
-    dispatch(setSpecies(selected));
+  const handleFilterChange = (filter: Filters) => {
+    console.log('Filter changed:', filter);
+    dispatch(setFilter(filter));
+  };
 
   const handleResetFilters = () => {
     dispatch(resetFilters());
-    // dispatch(fetchNotices({ page: 1, perPage }));
   };
-  const handleBtnReset = (field: string) => {
-    handleFilterChange(field, null);
+
+  const handleCategoryChange = (selected: string | null) =>
+    handleFilterChange({ ...filters, category: selected ?? '' });
+
+  const handleSexChange = (selected: string | null) =>
+    handleFilterChange({ ...filters, sex: selected ?? '' });
+
+  const handleSpeciesChange = (selected: string | null) =>
+    handleFilterChange({ ...filters, species: selected ?? '' });
+
+  const handleSortPopularityAsc = () => {
+    handleFilterChange({ ...filters, popularity: true, price: null });
+  };
+
+  const handleSortPopularityDesc = () => {
+    handleFilterChange({ ...filters, popularity: false, price: null });
+  };
+
+  const handleSortPriceAsc = () => {
+    handleFilterChange({ ...filters, price: true, popularity: null });
+  };
+
+  const handleSortPriceDesc = () => {
+    handleFilterChange({ ...filters, price: false, popularity: null });
   };
 
   return (
@@ -84,13 +100,13 @@ export const NoticesFilters = () => {
             { value: '', label: 'Show all' },
             ...category.map(c => ({ value: c, label: c })),
           ]}
-          placeholder="Category"
-          onChange={selected => handleCategoryChange(selected?.value || '')}
+          onChange={selected => handleCategoryChange(selected?.value || null)}
           value={
-            selectedCategory
-              ? { value: selectedCategory, label: selectedCategory }
+            filters.category
+              ? { value: filters.category, label: filters.category }
               : null
           }
+          placeholder="Category"
         />
         <SelectGender
           options={[
@@ -98,9 +114,9 @@ export const NoticesFilters = () => {
             ...sex.map(s => ({ value: s, label: s })),
           ]}
           placeholder="Gender"
-          onChange={selected => handleSexChange(selected?.value || '')}
+          onChange={selected => handleSexChange(selected?.value || null)}
           value={
-            selectedSex ? { value: selectedSex, label: selectedSex } : null
+            filters.sex ? { value: filters.sex, label: filters.sex } : null
           }
         />
         <SelectType
@@ -109,82 +125,79 @@ export const NoticesFilters = () => {
             ...species.map(s => ({ value: s, label: s })),
           ]}
           placeholder="Type"
-          onChange={selected => handleSpeciesChange(selected?.value || '')}
+          onChange={selected => handleSpeciesChange(selected?.value || null)}
           value={
-            selectedSpecies
-              ? { value: selectedSpecies, label: selectedSpecies }
+            filters.species
+              ? { value: filters.species, label: filters.species }
               : null
           }
         />
       </FilterRow>
 
       <RadioGroup>
-        <RadioButtonLabel $isActive={popularity === value}>
+        <RadioButtonLabel $isActive={filters.popularity === true}>
           <RadioButtonInput
             type="radio"
             name="sortBtn"
-            checked={popularity === value}
-            value="popularity"
-            onChange={e => {
-              e.stopPropagation();
-              dispatch(sortPopularityAsc());
-            }}
+            checked={filters.popularity === true}
+            // onChange={() => dispatch(sortPopularityAsc())}
+            onChange={handleSortPopularityAsc}
           />
           Popularity
           <ClearButtonRatio
-            $isActive={popularity === value}
-            onClick={() => handleBtnReset('popularity')}
+            $isActive={filters.popularity === true}
+            onClick={() => handleFilterChange({ ...filters, popularity: null })}
           >
             <IconCloseRatio width={16} height={16} iconName="close" />
           </ClearButtonRatio>
         </RadioButtonLabel>
 
-        <RadioButtonLabel $isActive={popularity === 'unpopularity'}>
+        <RadioButtonLabel $isActive={filters.popularity === false}>
           <RadioButtonInput
             type="radio"
             name="sortBtn"
-            checked={popularity === 'unpopularity'}
-            value="unpopularity"
-            onChange={() => onFilterChange('popularity', 'unpopularity')}
+            checked={filters.popularity === false}
+            // onChange={() => dispatch(sortPopularityDesc())}
+            onChange={handleSortPopularityDesc}
           />
           Unpopular
           <ClearButtonRatio
-            $isActive={popularity === 'unpopularity'}
-            onClick={() => handleBtnReset('popularity')}
+            $isActive={filters.popularity === false}
+            onClick={() => handleFilterChange({ ...filters, popularity: null })}
           >
             <IconCloseRatio width={16} height={16} iconName="close" />
           </ClearButtonRatio>
         </RadioButtonLabel>
 
-        <RadioButtonLabel $isActive={price === 'cheap'}>
+        <RadioButtonLabel $isActive={filters.price === true}>
           <RadioButtonInput
             type="radio"
             name="sortBtn"
-            checked={price === 'cheap'}
-            value="cheap"
-            onChange={() => onFilterChange('price', 'cheap')}
+            checked={filters.price === true}
+            // onChange={() => dispatch(sortPriceAsc())}
+            onChange={handleSortPriceAsc}
           />
           Cheap
           <ClearButtonRatio
-            $isActive={price === 'cheap'}
-            onClick={() => handleBtnReset('price')}
+            $isActive={filters.price === true}
+            onClick={() => handleFilterChange({ ...filters, price: null })}
           >
             <IconCloseRatio width={16} height={16} iconName="close" />
           </ClearButtonRatio>
         </RadioButtonLabel>
 
-        <RadioButtonLabel $isActive={price === value}>
+        <RadioButtonLabel $isActive={filters.price === false}>
           <RadioButtonInput
             type="radio"
             name="sortBtn"
-            checked={price === value}
-            value="expensive"
-            onChange={() => onFilterChange('price', 'expensive')}
+            checked={filters.price === false}
+            // onChange={() => dispatch(sortPriceDesc())}
+            onChange={handleSortPriceDesc}
           />
           Expensive
           <ClearButtonRatio
-            $isActive={price === value}
-            onClick={() => handleBtnReset('price')}
+            $isActive={filters.price === false}
+            onClick={() => handleFilterChange({ ...filters, price: null })}
           >
             <IconCloseRatio width={16} height={16} iconName="close" />
           </ClearButtonRatio>
@@ -195,6 +208,205 @@ export const NoticesFilters = () => {
     </FiltersContainer>
   );
 };
+
+/************************************* */
+// import { useSelector } from 'react-redux';
+// import {
+//   selectCategoryFilter,
+//   selectNoticeCategories,
+//   selectNoticePopularity,
+//   selectNoticePrice,
+//   selectNoticeSexes,
+//   selectNoticeSpecies,
+//   selectSexFilter,
+//   selectSpeciesFilter,
+// } from '../../redux/notices/selectors';
+// import {
+//   ClearButtonRatio,
+//   FilterRow,
+//   FiltersContainer,
+//   IconCloseRatio,
+//   RadioButtonInput,
+//   RadioButtonLabel,
+//   RadioGroup,
+//   ResetButton,
+//   SelectCategory,
+//   SelectGender,
+//   SelectType,
+// } from './NoticesFilters.styled';
+// import { useCallback, useEffect } from 'react';
+// import {
+//   fetchNoticesCategories,
+//   fetchNoticesSexes,
+//   fetchNoticesSpecies,
+// } from '../../redux/notices/operations';
+// import { AppDispatch } from '../../redux/store';
+// import { useDispatch } from 'react-redux';
+// import {
+//   resetFilters,
+//   setCategory,
+//   // setPopularity,
+//   // setPrice,
+//   setSex,
+//   setSpecies,
+// } from '../../redux/notices/slice';
+
+// export const NoticesFilters = () => {
+//   const dispatch = useDispatch<AppDispatch>();
+//   const category = useSelector(selectNoticeCategories);
+//   const selectedCategory = useSelector(selectCategoryFilter);
+//   const sex = useSelector(selectNoticeSexes);
+//   const selectedSex = useSelector(selectSexFilter);
+//   const species = useSelector(selectNoticeSpecies);
+//   const selectedSpecies = useSelector(selectSpeciesFilter);
+//   const popularity = useSelector(selectNoticePopularity);
+//   const price = useSelector(selectNoticePrice);
+
+//   const fetchFiltersData = useCallback(() => {
+//     dispatch(fetchNoticesCategories());
+//     dispatch(fetchNoticesSpecies());
+//     dispatch(fetchNoticesSexes());
+//   }, [dispatch]);
+
+//   useEffect(() => {
+//     fetchFiltersData();
+//   }, [fetchFiltersData]);
+
+//   const handleCategoryChange = (selected: string) =>
+//     dispatch(setCategory(selected));
+
+//   const handleSexChange = (selected: string) => dispatch(setSex(selected));
+
+//   const handleSpeciesChange = (selected: string) =>
+//     dispatch(setSpecies(selected));
+
+//   const handleResetFilters = () => {
+//     dispatch(resetFilters());
+//     // dispatch(fetchNotices({ page: 1, perPage }));
+//   };
+//   const handleBtnReset = (field: string) => {
+//     handleFilterChange(field, null);
+//   };
+
+//   return (
+//     <FiltersContainer>
+//       <FilterRow>
+//         <SelectCategory
+//           options={[
+//             { value: '', label: 'Show all' },
+//             ...category.map(c => ({ value: c, label: c })),
+//           ]}
+//           placeholder="Category"
+//           onChange={selected => handleCategoryChange(selected?.value || '')}
+//           value={
+//             selectedCategory
+//               ? { value: selectedCategory, label: selectedCategory }
+//               : null
+//           }
+//         />
+//         <SelectGender
+//           options={[
+//             { value: '', label: 'Show all' },
+//             ...sex.map(s => ({ value: s, label: s })),
+//           ]}
+//           placeholder="Gender"
+//           onChange={selected => handleSexChange(selected?.value || '')}
+//           value={
+//             selectedSex ? { value: selectedSex, label: selectedSex } : null
+//           }
+//         />
+//         <SelectType
+//           options={[
+//             { value: '', label: 'Show all' },
+//             ...species.map(s => ({ value: s, label: s })),
+//           ]}
+//           placeholder="Type"
+//           onChange={selected => handleSpeciesChange(selected?.value || '')}
+//           value={
+//             selectedSpecies
+//               ? { value: selectedSpecies, label: selectedSpecies }
+//               : null
+//           }
+//         />
+//       </FilterRow>
+
+//       <RadioGroup>
+//         <RadioButtonLabel $isActive={popularity === value}>
+//           <RadioButtonInput
+//             type="radio"
+//             name="sortBtn"
+//             checked={popularity === value}
+//             value="popularity"
+//             onChange={e => {
+//               e.stopPropagation();
+//               dispatch(sortPopularityAsc());
+//             }}
+//           />
+//           Popularity
+//           <ClearButtonRatio
+//             $isActive={popularity === value}
+//             onClick={() => handleBtnReset('popularity')}
+//           >
+//             <IconCloseRatio width={16} height={16} iconName="close" />
+//           </ClearButtonRatio>
+//         </RadioButtonLabel>
+
+//         <RadioButtonLabel $isActive={popularity === 'unpopularity'}>
+//           <RadioButtonInput
+//             type="radio"
+//             name="sortBtn"
+//             checked={popularity === 'unpopularity'}
+//             value="unpopularity"
+//             onChange={() => onFilterChange('popularity', 'unpopularity')}
+//           />
+//           Unpopular
+//           <ClearButtonRatio
+//             $isActive={popularity === 'unpopularity'}
+//             onClick={() => handleBtnReset('popularity')}
+//           >
+//             <IconCloseRatio width={16} height={16} iconName="close" />
+//           </ClearButtonRatio>
+//         </RadioButtonLabel>
+
+//         <RadioButtonLabel $isActive={price === 'cheap'}>
+//           <RadioButtonInput
+//             type="radio"
+//             name="sortBtn"
+//             checked={price === 'cheap'}
+//             value="cheap"
+//             onChange={() => onFilterChange('price', 'cheap')}
+//           />
+//           Cheap
+//           <ClearButtonRatio
+//             $isActive={price === 'cheap'}
+//             onClick={() => handleBtnReset('price')}
+//           >
+//             <IconCloseRatio width={16} height={16} iconName="close" />
+//           </ClearButtonRatio>
+//         </RadioButtonLabel>
+
+//         <RadioButtonLabel $isActive={price === value}>
+//           <RadioButtonInput
+//             type="radio"
+//             name="sortBtn"
+//             checked={price === value}
+//             value="expensive"
+//             onChange={() => onFilterChange('price', 'expensive')}
+//           />
+//           Expensive
+//           <ClearButtonRatio
+//             $isActive={price === value}
+//             onClick={() => handleBtnReset('price')}
+//           >
+//             <IconCloseRatio width={16} height={16} iconName="close" />
+//           </ClearButtonRatio>
+//         </RadioButtonLabel>
+
+//         <ResetButton onClick={handleResetFilters}>Reset</ResetButton>
+//       </RadioGroup>
+//     </FiltersContainer>
+//   );
+// };
 
 /********** */
 // const handleFilterChange = (field: string, value: string | null) => {
