@@ -70,22 +70,20 @@ export interface GetNoticesResponse {
   totalPages: number;
   results: Notice[];
 }
+export interface Filters {
+  title: string;
+  price: boolean | null;
+  popularity: boolean | null;
+  location: City | null;
+  category: string | null;
+  species: string | null;
+  sex: string | null;
+}
 export interface NoticesParams {
   page: number;
   perPage: number;
   totalPages?: number;
-
-  // species?: string;
-  // category?: string;
-  // sex?: string;
-  species?: string | null;
-  category?: string | null;
-  sex?: string | null;
-
-  price?: number;
-  popularity?: number;
-
-  location?: City[];
+  filters?: Filters;
 }
 export interface GetNewsResponse {
   page: number;
