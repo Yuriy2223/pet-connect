@@ -27,6 +27,7 @@ import {
   SelectGender,
   SelectType,
 } from './NoticesFilters.styled';
+import { SearchField } from '../Common/SearchField/SearchField';
 
 export const NoticesFilters = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -85,13 +86,17 @@ export const NoticesFilters = () => {
     handleFilterChange({ ...filters, byPrice: false, byPopularity: null });
   };
 
+  const handleSortSearch = (query: string) => {
+    handleFilterChange({ ...filters, keyword: query });
+  };
+
   return (
     <FiltersContainer>
       <FilterRow>
-        {/* <SearchField
-          value={filters.search}
-          onSearch={query => onFilterChange('search', query)}
-        /> */}
+        <SearchField
+          value={filters.keyword ?? undefined}
+          onSearch={handleSortSearch}
+        />
 
         <SelectCategory
           options={[
