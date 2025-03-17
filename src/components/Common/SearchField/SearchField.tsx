@@ -1,4 +1,69 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+// import {
+//   ButtonClose,
+//   ButtonSearch,
+//   IconClose,
+//   IconsSearch,
+//   Search,
+//   SearchContainer,
+// } from './SearchField.styled';
+
+// interface SearchProps {
+//   onSearch: (query: string) => void;
+//   value?: string;
+//   // width?: string;
+// }
+
+// export const SearchField: React.FC<SearchProps> = ({
+//   onSearch,
+//   //  width
+// }) => {
+//   const [query, setQuery] = useState('');
+
+//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setQuery(e.target.value);
+//   };
+
+//   const handleClear = () => {
+//     setQuery('');
+//   };
+
+//   const handleSearch = () => {
+//     if (query.trim()) {
+//       onSearch(query);
+//     }
+//   };
+
+//   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+//     e.preventDefault();
+//     handleSearch();
+//   };
+
+//   return (
+//     <SearchContainer
+//     //  width={width}
+//     >
+//       <form onSubmit={handleSubmit}>
+//         <Search
+//           type="text"
+//           value={query}
+//           onChange={handleInputChange}
+//           placeholder="Search"
+//         />
+//         {query && (
+//           <ButtonClose type="button" onClick={handleClear}>
+//             <IconClose width={18} height={18} iconName="close" />
+//           </ButtonClose>
+//         )}
+//         <ButtonSearch type="button" onClick={handleSearch}>
+//           <IconsSearch width={18} height={18} iconName="search" />
+//         </ButtonSearch>
+//       </form>
+//     </SearchContainer>
+//   );
+// };
+
+import React, { useState, useEffect } from 'react';
 import {
   ButtonClose,
   ButtonSearch,
@@ -11,14 +76,19 @@ import {
 interface SearchProps {
   onSearch: (query: string) => void;
   value?: string;
-  // width?: string;
+  className?: string;
 }
 
 export const SearchField: React.FC<SearchProps> = ({
   onSearch,
-  //  width
+  value = '',
+  className,
 }) => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(value);
+
+  useEffect(() => {
+    setQuery(value);
+  }, [value]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -26,12 +96,11 @@ export const SearchField: React.FC<SearchProps> = ({
 
   const handleClear = () => {
     setQuery('');
+    onSearch('');
   };
 
   const handleSearch = () => {
-    if (query.trim()) {
-      onSearch(query);
-    }
+    onSearch(query);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,9 +109,7 @@ export const SearchField: React.FC<SearchProps> = ({
   };
 
   return (
-    <SearchContainer
-    //  width={width}
-    >
+    <SearchContainer className={className}>
       <form onSubmit={handleSubmit}>
         <Search
           type="text"
@@ -55,7 +122,7 @@ export const SearchField: React.FC<SearchProps> = ({
             <IconClose width={18} height={18} iconName="close" />
           </ButtonClose>
         )}
-        <ButtonSearch type="button" onClick={handleSearch}>
+        <ButtonSearch type="submit">
           <IconsSearch width={18} height={18} iconName="search" />
         </ButtonSearch>
       </form>

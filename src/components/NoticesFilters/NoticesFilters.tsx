@@ -27,6 +27,7 @@ import {
   SelectGender,
   SelectType,
 } from './NoticesFilters.styled';
+import { SearchField } from '../Common/SearchField/SearchField';
 
 export const NoticesFilters = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -85,13 +86,17 @@ export const NoticesFilters = () => {
     handleFilterChange({ ...filters, byPrice: false, byPopularity: null });
   };
 
+  const handleSortSearch = (query: string) => {
+    handleFilterChange({ ...filters, keyword: query });
+  };
+
   return (
     <FiltersContainer>
       <FilterRow>
-        {/* <SearchField
-          value={filters.search}
-          onSearch={query => onFilterChange('search', query)}
-        /> */}
+        <SearchField
+          value={filters.keyword ?? undefined}
+          onSearch={handleSortSearch}
+        />
 
         <SelectCategory
           options={[
@@ -141,24 +146,6 @@ export const NoticesFilters = () => {
       </FilterRow>
 
       <RadioGroup>
-        <RadioButtonLabel $isActive={filters.byPopularity === true}>
-          <RadioButtonInput
-            type="radio"
-            name="sortBtn"
-            checked={filters.byPopularity === true}
-            onChange={handleSortPopularityAsc}
-          />
-          Popularity
-          <ClearButtonRatio
-            $isActive={filters.byPopularity === true}
-            onClick={() =>
-              handleFilterChange({ ...filters, byPopularity: null })
-            }
-          >
-            <IconCloseRatio width={16} height={16} iconName="close" />
-          </ClearButtonRatio>
-        </RadioButtonLabel>
-
         <RadioButtonLabel $isActive={filters.byPopularity === false}>
           <RadioButtonInput
             type="radio"
@@ -166,7 +153,7 @@ export const NoticesFilters = () => {
             checked={filters.byPopularity === false}
             onChange={handleSortPopularityDesc}
           />
-          Unpopular
+          Popularity
           <ClearButtonRatio
             $isActive={filters.byPopularity === false}
             onClick={() =>
@@ -177,17 +164,19 @@ export const NoticesFilters = () => {
           </ClearButtonRatio>
         </RadioButtonLabel>
 
-        <RadioButtonLabel $isActive={filters.byPrice === true}>
+        <RadioButtonLabel $isActive={filters.byPopularity === true}>
           <RadioButtonInput
             type="radio"
             name="sortBtn"
-            checked={filters.byPrice === true}
-            onChange={handleSortPriceAsc}
+            checked={filters.byPopularity === true}
+            onChange={handleSortPopularityAsc}
           />
-          Cheap
+          Unpopular
           <ClearButtonRatio
-            $isActive={filters.byPrice === true}
-            onClick={() => handleFilterChange({ ...filters, byPrice: null })}
+            $isActive={filters.byPopularity === true}
+            onClick={() =>
+              handleFilterChange({ ...filters, byPopularity: null })
+            }
           >
             <IconCloseRatio width={16} height={16} iconName="close" />
           </ClearButtonRatio>
@@ -200,9 +189,25 @@ export const NoticesFilters = () => {
             checked={filters.byPrice === false}
             onChange={handleSortPriceDesc}
           />
-          Expensive
+          Cheap
           <ClearButtonRatio
             $isActive={filters.byPrice === false}
+            onClick={() => handleFilterChange({ ...filters, byPrice: null })}
+          >
+            <IconCloseRatio width={16} height={16} iconName="close" />
+          </ClearButtonRatio>
+        </RadioButtonLabel>
+
+        <RadioButtonLabel $isActive={filters.byPrice === true}>
+          <RadioButtonInput
+            type="radio"
+            name="sortBtn"
+            checked={filters.byPrice === true}
+            onChange={handleSortPriceAsc}
+          />
+          Expensive
+          <ClearButtonRatio
+            $isActive={filters.byPrice === true}
             onClick={() => handleFilterChange({ ...filters, byPrice: null })}
           >
             <IconCloseRatio width={16} height={16} iconName="close" />

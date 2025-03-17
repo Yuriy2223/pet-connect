@@ -71,10 +71,9 @@ export interface GetNoticesResponse {
   results: Notice[];
 }
 export interface Filters {
-  title: string;
   byPrice: boolean | null;
   byPopularity: boolean | null;
-  // location: City | null;
+  keyword: string | null;
   locationId: string | null;
   byDate: boolean | null;
   category: string | null;
