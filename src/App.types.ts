@@ -72,9 +72,11 @@ export interface GetNoticesResponse {
 }
 export interface Filters {
   title: string;
-  price: boolean | null;
-  popularity: boolean | null;
-  location: City | null;
+  byPrice: boolean | null;
+  byPopularity: boolean | null;
+  // location: City | null;
+  locationId: string | null;
+  byDate: boolean | null;
   category: string | null;
   species: string | null;
   sex: string | null;
