@@ -146,24 +146,6 @@ export const NoticesFilters = () => {
       </FilterRow>
 
       <RadioGroup>
-        <RadioButtonLabel $isActive={filters.byPopularity === true}>
-          <RadioButtonInput
-            type="radio"
-            name="sortBtn"
-            checked={filters.byPopularity === true}
-            onChange={handleSortPopularityAsc}
-          />
-          Popularity
-          <ClearButtonRatio
-            $isActive={filters.byPopularity === true}
-            onClick={() =>
-              handleFilterChange({ ...filters, byPopularity: null })
-            }
-          >
-            <IconCloseRatio width={16} height={16} iconName="close" />
-          </ClearButtonRatio>
-        </RadioButtonLabel>
-
         <RadioButtonLabel $isActive={filters.byPopularity === false}>
           <RadioButtonInput
             type="radio"
@@ -171,7 +153,7 @@ export const NoticesFilters = () => {
             checked={filters.byPopularity === false}
             onChange={handleSortPopularityDesc}
           />
-          Unpopular
+          Popularity
           <ClearButtonRatio
             $isActive={filters.byPopularity === false}
             onClick={() =>
@@ -182,17 +164,19 @@ export const NoticesFilters = () => {
           </ClearButtonRatio>
         </RadioButtonLabel>
 
-        <RadioButtonLabel $isActive={filters.byPrice === true}>
+        <RadioButtonLabel $isActive={filters.byPopularity === true}>
           <RadioButtonInput
             type="radio"
             name="sortBtn"
-            checked={filters.byPrice === true}
-            onChange={handleSortPriceAsc}
+            checked={filters.byPopularity === true}
+            onChange={handleSortPopularityAsc}
           />
-          Cheap
+          Unpopular
           <ClearButtonRatio
-            $isActive={filters.byPrice === true}
-            onClick={() => handleFilterChange({ ...filters, byPrice: null })}
+            $isActive={filters.byPopularity === true}
+            onClick={() =>
+              handleFilterChange({ ...filters, byPopularity: null })
+            }
           >
             <IconCloseRatio width={16} height={16} iconName="close" />
           </ClearButtonRatio>
@@ -205,9 +189,25 @@ export const NoticesFilters = () => {
             checked={filters.byPrice === false}
             onChange={handleSortPriceDesc}
           />
-          Expensive
+          Cheap
           <ClearButtonRatio
             $isActive={filters.byPrice === false}
+            onClick={() => handleFilterChange({ ...filters, byPrice: null })}
+          >
+            <IconCloseRatio width={16} height={16} iconName="close" />
+          </ClearButtonRatio>
+        </RadioButtonLabel>
+
+        <RadioButtonLabel $isActive={filters.byPrice === true}>
+          <RadioButtonInput
+            type="radio"
+            name="sortBtn"
+            checked={filters.byPrice === true}
+            onChange={handleSortPriceAsc}
+          />
+          Expensive
+          <ClearButtonRatio
+            $isActive={filters.byPrice === true}
             onClick={() => handleFilterChange({ ...filters, byPrice: null })}
           >
             <IconCloseRatio width={16} height={16} iconName="close" />
