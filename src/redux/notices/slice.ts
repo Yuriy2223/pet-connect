@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { City, Filters, GetNoticesResponse, Notice } from '../../App.types';
+import { Filters, GetNoticesResponse, Notice } from '../../App.types';
 import {
   addNoticesFavorite,
-  fetchCityLocations,
   fetchFavorites,
   fetchNotices,
   fetchNoticesCategories,
@@ -15,17 +14,16 @@ import {
 
 export interface NoticesState {
   notices: Notice[];
-  favorites: Notice[];
-  views: Notice[];
   currentPage: number;
   perPage: number;
   totalPages: number;
   loading: boolean;
   error: string | null;
+  favorites: Notice[];
+  views: Notice[];
   categories: string[];
   species: string[];
   sex: string[];
-  locations: City[];
   filters: Filters;
 }
 
@@ -41,7 +39,6 @@ const initialState: NoticesState = {
   categories: [],
   species: [],
   sex: [],
-  locations: [],
 
   filters: {
     keyword: null,
@@ -239,26 +236,7 @@ const noticesSlice = createSlice({
       .addCase(fetchNoticesNoticeId.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
-      })
-      .addCase(fetchCityLocations.pending, state => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(
-        fetchCityLocations.fulfilled,
-        (state, action: PayloadAction<City[]>) => {
-          state.loading = false;
-          state.error = null;
-          state.locations = action.payload;
-        }
-      )
-      .addCase(
-        fetchCityLocations.rejected,
-        (state, action: PayloadAction<string | undefined>) => {
-          state.loading = false;
-          state.error = action.payload || 'Unknown error occurred';
-        }
-      );
+      });
   },
 });
 
