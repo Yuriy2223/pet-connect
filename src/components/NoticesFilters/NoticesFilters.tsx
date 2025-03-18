@@ -155,13 +155,6 @@ export const NoticesFilters = () => {
           value={locations.find(loc => loc._id === filters.locationId) || null}
           onChange={handleLocationChange}
         />
-        {/* <LocationSelect
-          value={
-            locations.find((loc: City) => loc._id === filters.locationId) ||
-            null
-          }
-          onChange={handleLocationChange}
-        /> */}
       </FilterRow>
 
       <RadioGroup>
