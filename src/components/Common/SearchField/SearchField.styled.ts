@@ -38,7 +38,7 @@ export const ButtonClose = styled.button`
   position: absolute;
   right: 36px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-36%);
 
   @media (min-width: 768px) {
     right: 40px;
@@ -62,7 +62,7 @@ export const ButtonSearch = styled.button`
   position: absolute;
   right: 10px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-36%);
 
   @media (min-width: 768px) {
     right: 15px;
