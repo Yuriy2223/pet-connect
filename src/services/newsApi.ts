@@ -1,13 +1,11 @@
-import { GetNewsResponse } from '../App.types';
+import { GetNewsResponse, NewsParams } from '../App.types';
 import { publicInstance } from './Api';
 
 export const fetchNewsApi = async (
-  page: number,
-  keyword: string,
-  perPage: number
+  params: NewsParams
 ): Promise<GetNewsResponse> => {
   const response = await publicInstance.get<GetNewsResponse>('/api/news/', {
-    params: { page, keyword, perPage },
+    params,
   });
   return response.data;
 };

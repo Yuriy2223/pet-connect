@@ -91,6 +91,11 @@ export interface GetNewsResponse {
   totalPages: number;
   results: News[];
 }
+export interface NewsParams {
+  page: number;
+  keyword: string | null;
+  perPage: number;
+}
 export interface WorkDay {
   _id: string;
   isOpen: boolean;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchField } from '../../components/Common/SearchField/SearchField';
 import { NewsCard } from '../../components/NewsCard/NewsCard';
@@ -6,12 +6,14 @@ import { Pagination } from '../../components/Pagination/Pagination';
 import { AppDispatch } from '../../redux/store';
 import { fetchNews } from '../../redux/news/operations';
 import { Loader } from '../../components/loader/Loader';
+import { setNewsFilter } from '../../redux/news/slice';
 import {
   selectNewsList,
   selectTotalPages,
   selectCurrentPage,
   selectPerPage,
   selectNewsLoading,
+  selectNewsFilter,
 } from '../../redux/news/selectors';
 import {
   NewsList,
@@ -22,44 +24,32 @@ import {
 
 export const NewsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  // const [searchQuery, setSearchQuery] = useState<string>('');
   const newsData = useSelector(selectNewsList);
   const totalPages = useSelector(selectTotalPages);
   const currentPage = useSelector(selectCurrentPage);
   const perPage = useSelector(selectPerPage);
   const isLoading = useSelector(selectNewsLoading);
+  const search = useSelector(selectNewsFilter);
 
   useEffect(() => {
     dispatch(
       fetchNews({
         page: currentPage,
-        // keyword: searchQuery,
+        ...search,
         perPage,
       })
     );
-  }, [
-    currentPage,
-    // searchQuery,
-    perPage,
-    dispatch,
-  ]);
+  }, [currentPage, search, perPage, dispatch]);
 
   const handleSearch = (query: string) => {
-    setSearchQuery(query);
-    dispatch(
-      fetchNews({
-        page: 1,
-        // keyword: query,
-        perPage,
-      })
-    );
+    dispatch(setNewsFilter({ keyword: query }));
   };
 
   const handlePageChange = (page: number) => {
     dispatch(
       fetchNews({
         page,
-        // keyword: searchQuery,
+        keyword: search.keyword,
         perPage,
       })
     );
@@ -69,10 +59,9 @@ export const NewsPage: React.FC = () => {
     <NewsPageContainer>
       <NewsSearchWrapper>
         <h1>News</h1>
-        {/* <SearchField onSearch={handleSearch} /> */}
         <SearchField
-          value={filters.keyword ?? undefined}
-          onSearch={handleSortSearch}
+          value={search.keyword ?? undefined}
+          onSearch={handleSearch}
         />
       </NewsSearchWrapper>
 
