@@ -34,14 +34,10 @@ const citiesSlice = createSlice({
           state.cities = action.payload;
         }
       )
-      .addCase(
-        fetchCities.rejected,
-        // (state, action: PayloadAction<string | undefined>) => {
-        (state, action) => {
-          state.loading = false;
-          state.error = action.payload || 'Unknown error occurred';
-        }
-      )
+      .addCase(fetchCities.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Unknown error occurred';
+      })
 
       // Get all cities where are pets that descripted on notes
       .addCase(fetchCityLocations.pending, state => {
