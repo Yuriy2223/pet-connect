@@ -45,8 +45,7 @@ export interface Notice {
   comment: string;
   sex: string;
   imgURL: string;
-  // location: City[];
-  location: string /** */;
+  location: string;
   user: UserNotice;
   popularity: number;
   updatedAt: string;
