@@ -67,7 +67,9 @@ export const BurgerMenuNav = styled.div`
   gap: 12px;
 `;
 export const BurgerMenuNavLink = styled(NavLink)`
-  border: 1px solid ${({ theme }) => theme.whiteOpacity};
+  border: 1px solid ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.white};
+  background-color: transparent;
   border-radius: 30px;
   width: 120px;
   height: 48px;
@@ -76,7 +78,6 @@ export const BurgerMenuNavLink = styled(NavLink)`
   font-size: 14px;
   line-height: 1.29;
   letter-spacing: -0.03em;
-  color: ${({ theme }) => theme.white};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,6 +85,8 @@ export const BurgerMenuNavLink = styled(NavLink)`
   &.active,
   &:hover {
     border: 1px solid ${({ theme }) => theme.white};
+    color: ${({ theme }) => theme.primaryDark};
+    background-color: ${({ theme }) => theme.lightYellow};
   }
 `;
 export const AuthButtonWrapper = styled.div`
@@ -113,16 +116,14 @@ export const AuthButton = styled(NavLink)`
   line-height: 1.29;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-
   color: ${({ theme }) => theme.white};
   background-color: ${({ theme }) => theme.primaryDark};
-  border: 1px solid ${({ theme }) => theme.whiteOpacity};
+  border: 1px solid ${({ theme }) => theme.white};
 
   &:hover,
   &.active {
     color: ${({ theme }) => theme.primaryDark};
     background-color: ${({ theme }) => theme.lightYellow};
-    border: 1px solid ${({ theme }) => theme.lightYellow};
   }
 
   @media (min-width: 768px) {
@@ -144,13 +145,12 @@ export const LogoutButton = styled.button`
 
   color: ${({ theme }) => theme.white};
   background-color: ${({ theme }) => theme.primaryDark};
-  border: 1px solid ${({ theme }) => theme.whiteOpacity};
+  border: 1px solid ${({ theme }) => theme.white};
 
   &:hover,
   &.active {
     color: ${({ theme }) => theme.primaryDark};
     background-color: ${({ theme }) => theme.lightYellow};
-    border: 1px solid ${({ theme }) => theme.lightYellow};
   }
 
   @media (min-width: 768px) {
