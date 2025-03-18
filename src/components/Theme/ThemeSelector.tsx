@@ -6,7 +6,28 @@ import styled from 'styled-components';
 import { AppDispatch } from '../../redux/store';
 
 export const ThemeButton = styled.button`
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  width: 119px;
+  height: 48px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.29;
+  letter-spacing: -0.03em;
+  /* text-transform: uppercase; */
+
+  color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => theme.primaryDark};
+  border: 1px solid ${({ theme }) => theme.white};
+
+  &:hover,
+  &.active {
+    color: ${({ theme }) => theme.primaryDark};
+    background-color: ${({ theme }) => theme.lightYellow};
+    border: 1px solid ${({ theme }) => theme.lightYellow};
+  }
 
   @media (min-width: 1280px) {
     display: flex;
@@ -14,8 +35,8 @@ export const ThemeButton = styled.button`
     justify-content: center;
 
     border-radius: 30px;
-    width: 119px;
-    height: 48px;
+    /* width: 119px;
+    height: 48px; */
     white-space: nowrap;
     font-weight: 500;
 
