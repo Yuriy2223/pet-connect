@@ -11,6 +11,7 @@ import {
   AuthButtonWrapper,
   AuthButton,
 } from './BurgerMenu.styled';
+import { ThemeSelector } from '../Theme/ThemeSelector';
 
 export const BurgerMenu: React.FC<{
   isOpen: boolean;
@@ -52,6 +53,7 @@ export const BurgerMenu: React.FC<{
             <BurgerMenuNavLink to="/friends" onClick={closeMenu}>
               Our Friends
             </BurgerMenuNavLink>
+            <ThemeSelector />
           </BurgerMenuNav>
           {isAuth ? (
             <LogoutButton
