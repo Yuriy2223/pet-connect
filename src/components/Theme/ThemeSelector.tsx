@@ -1,21 +1,23 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setTheme, ThemeType } from '../../redux/theme/slice';
+import { setTheme } from '../../redux/theme/slice';
 import { selectTheme } from '../../redux/theme/selectors';
+import { themes, ThemeType } from '../../styles/Theme';
 
 export const ThemeSelector = () => {
   const dispatch = useDispatch();
   const theme = useSelector(selectTheme);
 
+  const handleThemeChange = () => {
+    const themeKeys = Object.keys(themes) as ThemeType[];
+    const currentIndex = themeKeys.indexOf(theme);
+    const nextTheme = themeKeys[(currentIndex + 1) % themeKeys.length];
+    dispatch(setTheme(nextTheme));
+  };
+
   return (
-    <select
-      value={theme}
-      onChange={e => dispatch(setTheme(e.target.value as ThemeType))}
-    >
-      <option value="light">Light</option>
-      <option value="dark">Dark</option>
-      <option value="blue">Blue</option>
-      <option value="green">Green</option>
-      <option value="purple">Purple</option>
-    </select>
+    <button onClick={handleThemeChange}>
+      Change Theme
+      {/* : {themes[theme] ? themes[theme].primaryDark : 'Default'} */}
+    </button>
   );
 };
