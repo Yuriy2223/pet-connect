@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ThemeProvider } from 'styled-components';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { themes, ThemeType } from './styles/Theme';
 import { SplashScreen } from './components/SplashScreen/SplashScreen';
 import { AppRoutes } from './routes/AppRoutes';
 import { useAppDispatch } from './redux/store';
@@ -12,7 +10,7 @@ import { selectIsSignedIn } from './redux/auth/selectors';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [themeType, setThemeType] = useState<ThemeType>('light');
+
   const isSignedIn = useSelector(selectIsSignedIn);
   const [showSplash, setShowSplash] = useState(true);
 
@@ -31,8 +29,8 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <ThemeProvider theme={themes[themeType]}>
-      {showSplash ? <SplashScreen /> : <AppRoutes toggleTheme={setThemeType} />}
+    <>
+      {showSplash ? <SplashScreen /> : <AppRoutes />}
       <ToastContainer
         autoClose={3000}
         hideProgressBar={false}
@@ -43,7 +41,7 @@ export const App: React.FC = () => {
         draggable
         pauseOnHover
       />
-    </ThemeProvider>
+    </>
   );
 };
 

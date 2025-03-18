@@ -6,15 +6,18 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { App } from './App';
+import { ThemeWrapper } from './components/Theme/ThemeWrapper';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
-          <GlobalStyles />
-          <App />
-        </BrowserRouter>
+        <ThemeWrapper>
+          <BrowserRouter>
+            <GlobalStyles />
+            <App />
+          </BrowserRouter>
+        </ThemeWrapper>
       </PersistGate>
     </Provider>
   </StrictMode>
