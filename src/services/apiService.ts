@@ -45,28 +45,3 @@ export const fetchTypes = async (): Promise<OptionType[]> => {
     { value: 'scorpion', label: 'Scorpion' },
   ];
 };
-
-// Інтерфейс для локацій, які повертає бекенд
-// export interface Location {
-//   stateEn: string;
-//   cityEn: string;
-// }
-// // Функція для завантаження локацій з бекенду
-// export const fetchLocations = (
-//   inputValue: string,
-//   callback: (options: OptionType[]) => void
-// ) => {
-//   fetch(`/api/locations?search=${inputValue}`)
-//     .then(response => response.json())
-//     .then((data: Location[]) => {
-//       const formattedOptions: OptionType[] = data.map((location: Location) => ({
-//         value: `${location.stateEn}, ${location.cityEn}`,
-//         label: `${location.stateEn}, ${location.cityEn}`,
-//       }));
-//       callback(formattedOptions);
-//     })
-//     .catch(error => {
-//       console.error('Error fetching locations:', error);
-//       callback([]);
-//     });
-// };
