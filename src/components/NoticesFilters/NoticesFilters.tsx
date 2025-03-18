@@ -35,11 +35,7 @@ import { fetchCityLocations } from '../../redux/cities/operations';
 
 export const NoticesFilters = () => {
   const dispatch = useDispatch<AppDispatch>();
-
   const filters = useSelector(selectFilters);
-
-  console.log('Redux filters:', filters);
-
   const category = useSelector(selectNoticeCategories);
   const sex = useSelector(selectNoticeSexes);
   const species = useSelector(selectNoticeSpecies);
@@ -62,8 +58,6 @@ export const NoticesFilters = () => {
   }, [fetchFiltersData]);
 
   const handleFilterChange = (filter: Filters) => {
-    console.log('Filter changed:', filter);
-
     dispatch(setFilter(filter));
   };
 
