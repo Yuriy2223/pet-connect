@@ -2,7 +2,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useCallback, useEffect, useRef } from 'react';
 import { AppDispatch } from '../../redux/store';
 import { resetFilters, setFilter } from '../../redux/notices/slice';
-import { Filters } from '../../App.types';
+import { City, Filters } from '../../App.types';
+import { selectLocations } from '../../redux/cities/selectors';
 import {
   selectFilters,
   selectNoticeCategories,
@@ -29,18 +30,26 @@ import {
 } from './NoticesFilters.styled';
 import { SearchField } from '../Common/SearchField/SearchField';
 
+import { LocationSelect } from '../Common/LocationSelect/LocationSelect';
+import { fetchCityLocations } from '../../redux/cities/operations';
+
 export const NoticesFilters = () => {
   const dispatch = useDispatch<AppDispatch>();
+
   const filters = useSelector(selectFilters);
+
   console.log('Redux filters:', filters);
+
   const category = useSelector(selectNoticeCategories);
   const sex = useSelector(selectNoticeSexes);
   const species = useSelector(selectNoticeSpecies);
+  const locations = useSelector(selectLocations);
 
   const fetchFiltersData = useCallback(() => {
     dispatch(fetchNoticesCategories());
     dispatch(fetchNoticesSpecies());
     dispatch(fetchNoticesSexes());
+    dispatch(fetchCityLocations());
   }, [dispatch]);
 
   const isFirstRender = useRef(true);
@@ -54,6 +63,7 @@ export const NoticesFilters = () => {
 
   const handleFilterChange = (filter: Filters) => {
     console.log('Filter changed:', filter);
+
     dispatch(setFilter(filter));
   };
 
@@ -89,6 +99,12 @@ export const NoticesFilters = () => {
   const handleSortSearch = (query: string) => {
     handleFilterChange({ ...filters, keyword: query });
   };
+
+  const handleLocationChange = (selectedLocation: City | null) =>
+    handleFilterChange({
+      ...filters,
+      locationId: selectedLocation ? selectedLocation._id : null,
+    });
 
   return (
     <FiltersContainer>
@@ -135,13 +151,16 @@ export const NoticesFilters = () => {
               : null
           }
         />
+        <LocationSelect
+          value={locations.find(loc => loc._id === filters.locationId) || null}
+          onChange={handleLocationChange}
+        />
         {/* <LocationSelect
-          options={locations}
-          value={location}
-          placeholder="Location"
-          hideSelectedOptions={false}
-          isMulti={false}
-          onChange={location => handleFilterChange('location', location)}
+          value={
+            locations.find((loc: City) => loc._id === filters.locationId) ||
+            null
+          }
+          onChange={handleLocationChange}
         /> */}
       </FilterRow>
 
