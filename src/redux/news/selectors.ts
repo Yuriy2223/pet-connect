@@ -17,5 +17,5 @@ export const selectPerPage = (state: RootState): NewsState['perPage'] =>
 export const selectTotalPages = (state: RootState): NewsState['totalPages'] =>
   state.news.totalPages;
 
-export const selectSearchQuery = (state: RootState): NewsState['searchQuery'] =>
-  state.news.searchQuery;
+export const selectNewsFilter = (state: RootState): NewsState['newsFilter'] =>
+  state.news.newsFilter;

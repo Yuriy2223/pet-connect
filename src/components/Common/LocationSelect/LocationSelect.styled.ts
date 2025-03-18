@@ -15,8 +15,6 @@ export const SearchContainer = styled.div`
   width: 100%;
   max-width: 335px;
   height: 42px;
-  /* display: flex;
-  align-items: center; */
 
   @media (min-width: 768px) {
     width: 227px;

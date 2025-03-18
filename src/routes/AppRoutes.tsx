@@ -1,6 +1,5 @@
-import React, { lazy } from 'react';
+import { lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { ThemeType } from '../styles/Theme';
 import { Layout } from '../components/Layout/Layout';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
@@ -41,14 +40,10 @@ const AddPetPage = lazy(() =>
   }))
 );
 
-interface AppRoutesProps {
-  toggleTheme: (theme: ThemeType) => void;
-}
-
-export const AppRoutes: React.FC<AppRoutesProps> = ({ toggleTheme }) => {
+export const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Layout toggleTheme={toggleTheme} />}>
+      <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="home" element={<Navigate to="/" replace />} />
 

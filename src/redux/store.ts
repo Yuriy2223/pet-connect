@@ -18,6 +18,7 @@ import { userReducer } from './user/slice';
 import { noticesReducer } from './notices/slice';
 import { citiesReducer } from './cities/slice';
 import { modalReducer } from './modal/slice';
+import { themeReducer } from './theme/slice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -25,6 +26,12 @@ const authPersistConfig = {
   whitelist: ['token'],
 };
 
+const themePersistConfig = {
+  key: 'theme',
+  storage,
+};
+
+const persistedThemeReducer = persistReducer(themePersistConfig, themeReducer);
 const persistedAuthReducer = persistReducer<AuthState>(
   authPersistConfig,
   authReducer
@@ -39,6 +46,7 @@ export const store = configureStore({
     notices: noticesReducer,
     cities: citiesReducer,
     modal: modalReducer,
+    theme: persistedThemeReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

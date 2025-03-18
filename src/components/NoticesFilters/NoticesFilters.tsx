@@ -4,6 +4,9 @@ import { AppDispatch } from '../../redux/store';
 import { resetFilters, setFilter } from '../../redux/notices/slice';
 import { City, Filters } from '../../App.types';
 import { selectLocations } from '../../redux/cities/selectors';
+import { SearchField } from '../Common/SearchField/SearchField';
+import { LocationSelect } from '../Common/LocationSelect/LocationSelect';
+import { fetchCityLocations } from '../../redux/cities/operations';
 import {
   selectFilters,
   selectNoticeCategories,
@@ -28,18 +31,10 @@ import {
   SelectGender,
   SelectType,
 } from './NoticesFilters.styled';
-import { SearchField } from '../Common/SearchField/SearchField';
-
-import { LocationSelect } from '../Common/LocationSelect/LocationSelect';
-import { fetchCityLocations } from '../../redux/cities/operations';
 
 export const NoticesFilters = () => {
   const dispatch = useDispatch<AppDispatch>();
-
   const filters = useSelector(selectFilters);
-
-  console.log('Redux filters:', filters);
-
   const category = useSelector(selectNoticeCategories);
   const sex = useSelector(selectNoticeSexes);
   const species = useSelector(selectNoticeSpecies);
@@ -62,8 +57,6 @@ export const NoticesFilters = () => {
   }, [fetchFiltersData]);
 
   const handleFilterChange = (filter: Filters) => {
-    console.log('Filter changed:', filter);
-
     dispatch(setFilter(filter));
   };
 
@@ -155,13 +148,6 @@ export const NoticesFilters = () => {
           value={locations.find(loc => loc._id === filters.locationId) || null}
           onChange={handleLocationChange}
         />
-        {/* <LocationSelect
-          value={
-            locations.find((loc: City) => loc._id === filters.locationId) ||
-            null
-          }
-          onChange={handleLocationChange}
-        /> */}
       </FilterRow>
 
       <RadioGroup>

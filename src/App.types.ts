@@ -45,8 +45,7 @@ export interface Notice {
   comment: string;
   sex: string;
   imgURL: string;
-  // location: City[];
-  location: string /** */;
+  location: string;
   user: UserNotice;
   popularity: number;
   updatedAt: string;
@@ -91,6 +90,11 @@ export interface GetNewsResponse {
   perPage: number;
   totalPages: number;
   results: News[];
+}
+export interface NewsParams {
+  page: number;
+  keyword: string | null;
+  perPage: number;
 }
 export interface WorkDay {
   _id: string;
