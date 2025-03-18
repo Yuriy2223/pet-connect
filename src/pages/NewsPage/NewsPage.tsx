@@ -22,7 +22,7 @@ import {
 
 export const NewsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  // const [searchQuery, setSearchQuery] = useState<string>('');
   const newsData = useSelector(selectNewsList);
   const totalPages = useSelector(selectTotalPages);
   const currentPage = useSelector(selectCurrentPage);
@@ -30,23 +30,50 @@ export const NewsPage: React.FC = () => {
   const isLoading = useSelector(selectNewsLoading);
 
   useEffect(() => {
-    dispatch(fetchNews({ page: currentPage, keyword: searchQuery, perPage }));
-  }, [currentPage, searchQuery, perPage, dispatch]);
+    dispatch(
+      fetchNews({
+        page: currentPage,
+        // keyword: searchQuery,
+        perPage,
+      })
+    );
+  }, [
+    currentPage,
+    // searchQuery,
+    perPage,
+    dispatch,
+  ]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    dispatch(fetchNews({ page: 1, keyword: query, perPage }));
+    dispatch(
+      fetchNews({
+        page: 1,
+        // keyword: query,
+        perPage,
+      })
+    );
   };
 
   const handlePageChange = (page: number) => {
-    dispatch(fetchNews({ page, keyword: searchQuery, perPage }));
+    dispatch(
+      fetchNews({
+        page,
+        // keyword: searchQuery,
+        perPage,
+      })
+    );
   };
 
   return (
     <NewsPageContainer>
       <NewsSearchWrapper>
         <h1>News</h1>
-        <SearchField onSearch={handleSearch} />
+        {/* <SearchField onSearch={handleSearch} /> */}
+        <SearchField
+          value={filters.keyword ?? undefined}
+          onSearch={handleSortSearch}
+        />
       </NewsSearchWrapper>
 
       <NewsList>

@@ -4,29 +4,37 @@ import { GetNewsResponse, News } from '../../App.types';
 
 export interface NewsState {
   newsList: News[];
-  searchQuery: string;
   currentPage: number;
   perPage: number;
   totalPages: number;
   loading: boolean;
   error: string | null;
+  newsFilter: {
+    keyword: string | null;
+  };
 }
 const initialState: NewsState = {
   newsList: [],
-  searchQuery: '',
   currentPage: 1,
   perPage: 6,
   totalPages: 1,
   loading: false,
   error: null,
+  newsFilter: {
+    keyword: null,
+  },
 };
 
 const newsSlice = createSlice({
   name: 'news',
   initialState,
   reducers: {
-    setSearchQuery: (state, action: PayloadAction<string>) => {
-      state.searchQuery = action.payload;
+    setNewsFilter(
+      state,
+      action: PayloadAction<Partial<NewsState['newsFilter']>>
+    ) {
+      state.newsFilter = { ...state.newsFilter, ...action.payload };
+      state.currentPage = 1;
     },
   },
   extraReducers: builder => {
@@ -54,6 +62,5 @@ const newsSlice = createSlice({
   },
 });
 
-export const { setSearchQuery } = newsSlice.actions;
-
+export const { setNewsFilter } = newsSlice.actions;
 export const newsReducer = newsSlice.reducer;
