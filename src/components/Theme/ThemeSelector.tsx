@@ -16,8 +16,6 @@ export const ThemeButton = styled.button`
   font-size: 14px;
   line-height: 1.29;
   letter-spacing: -0.03em;
-  /* text-transform: uppercase; */
-
   color: ${({ theme }) => theme.white};
   background-color: ${({ theme }) => theme.primaryDark};
   border: 1px solid ${({ theme }) => theme.white};
@@ -33,19 +31,14 @@ export const ThemeButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 30px;
-    /* width: 119px;
-    height: 48px; */
     white-space: nowrap;
     font-weight: 500;
-
+    font-size: 16px;
+    line-height: 1.25;
     border: 1px solid ${({ theme }) => theme.primaryDark};
     color: ${({ theme }) => theme.primaryDark};
     background-color: ${({ theme }) => theme.lightYellow};
-
-    font-size: 16px;
-    line-height: 1.25;
 
     &:hover,
     &.active {
