@@ -11,8 +11,8 @@ export const ThemeButton = styled.button`
   justify-content: center;
   border-radius: 30px;
   width: 119px;
-  height: 48px;
-  font-weight: 700;
+  height: 42px;
+  font-weight: 500;
   font-size: 14px;
   line-height: 1.29;
   letter-spacing: -0.03em;
@@ -28,12 +28,6 @@ export const ThemeButton = styled.button`
   }
 
   @media (min-width: 1280px) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 30px;
-    white-space: nowrap;
-    font-weight: 500;
     font-size: 16px;
     line-height: 1.25;
     border: 1px solid ${({ theme }) => theme.primaryDark};
