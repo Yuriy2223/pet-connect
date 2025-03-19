@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectIsSignedIn } from '../../redux/auth/selectors';
 import { openModal } from '../../redux/modal/slice';
 import { Logo } from '../Logo/Logo';
@@ -17,9 +17,10 @@ import {
   MenuIcon,
 } from './Header.styled';
 import { NavLink } from 'react-router-dom';
+import { useAppDispatch } from '../../redux/store';
 
 export const Header: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isAuth = useSelector(selectIsSignedIn);
   const userProfile = useSelector(selectUserProfile);
   const [isMenuOpen, setIsMenuOpen] = useState(false);

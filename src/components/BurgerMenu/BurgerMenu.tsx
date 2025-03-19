@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { ThemeSelector } from '../Theme/ThemeSelector';
 import {
   CloseButton,
   CloseIcon,
@@ -11,7 +12,6 @@ import {
   AuthButtonWrapper,
   AuthButton,
 } from './BurgerMenu.styled';
-import { ThemeSelector } from '../Theme/ThemeSelector';
 
 export const BurgerMenu: React.FC<{
   isOpen: boolean;

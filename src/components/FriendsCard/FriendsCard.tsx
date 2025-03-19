@@ -1,4 +1,6 @@
 import React from 'react';
+import defaultImage from '../../assets/imeges/deffLogoFrends.webp';
+import { WorkDay } from '../../App.types';
 import {
   CardContainer,
   ImgLogo,
@@ -11,9 +13,6 @@ import {
   Name,
   InfolinkWrapper,
 } from './FriendsCard.styled';
-
-import defaultImage from '../../assets/imeges/deffLogoFrends.webp';
-import { WorkDay } from '../../App.types';
 
 interface FriendItemProps {
   title: string;

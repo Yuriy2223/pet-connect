@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SplashScreen } from './components/SplashScreen/SplashScreen';
@@ -7,16 +7,47 @@ import { useAppDispatch } from './redux/store';
 import { currentUser } from './redux/auth/operations';
 import { useSelector } from 'react-redux';
 import { selectIsSignedIn } from './redux/auth/selectors';
+import { fetchFullUserInfo } from './redux/user/operations';
+import { fetchCityLocations } from './redux/cities/operations';
+import {
+  fetchNoticesCategories,
+  fetchNoticesSexes,
+  fetchNoticesSpecies,
+} from './redux/notices/operations';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
-
   const isSignedIn = useSelector(selectIsSignedIn);
   const [showSplash, setShowSplash] = useState(true);
+  const isFirstRender = useRef(true);
+
+  // useEffect(() => {
+  //   if (!isSignedIn) {
+  //     dispatch(currentUser());
+  //   }
+  // }, [dispatch, isSignedIn]);
+
+  const fetchFiltersData = useCallback(() => {
+    dispatch(fetchNoticesCategories());
+    dispatch(fetchNoticesSpecies());
+    dispatch(fetchNoticesSexes());
+    dispatch(fetchCityLocations());
+  }, [dispatch]);
 
   useEffect(() => {
-    if (!isSignedIn) {
-      dispatch(currentUser());
+    if (isFirstRender.current) {
+      fetchFiltersData();
+      isFirstRender.current = false;
+    }
+  }, [fetchFiltersData]);
+
+  useEffect(() => {
+    dispatch(currentUser());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isSignedIn) {
+      dispatch(fetchFullUserInfo());
     }
   }, [dispatch, isSignedIn]);
 

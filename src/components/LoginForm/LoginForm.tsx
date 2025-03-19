@@ -4,8 +4,7 @@ import { toast } from 'react-toastify';
 import { loginSchema } from '../Common/ValidationSchemas';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../redux/store';
+import { useAppDispatch } from '../../redux/store';
 import { loginUser } from '../../redux/auth/operations';
 import { LoginData } from '../../services/authApi';
 import {
@@ -31,7 +30,7 @@ import {
 } from './LoginForm.styled';
 
 export const LoginForm: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,

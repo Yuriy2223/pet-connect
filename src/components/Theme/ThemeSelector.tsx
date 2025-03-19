@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { setTheme } from '../../redux/theme/slice';
 import { selectTheme } from '../../redux/theme/selectors';
 import { themes, ThemeType } from '../../styles/Theme';
 import styled from 'styled-components';
-import { AppDispatch } from '../../redux/store';
+import { useAppDispatch } from '../../redux/store';
 
 export const ThemeButton = styled.button`
   display: flex;
@@ -44,8 +44,7 @@ export const ThemeButton = styled.button`
 `;
 
 export const ThemeSelector = () => {
-  // const dispatch = useDispatch();
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const theme = useSelector(selectTheme);
 
   const handleThemeChange = () => {
