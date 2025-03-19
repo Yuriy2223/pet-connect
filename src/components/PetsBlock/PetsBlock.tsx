@@ -1,7 +1,9 @@
 import { openModal } from '../../redux/modal/slice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useCallback } from 'react';
 import { selectUserProfile } from '../../redux/user/selectors';
 import { MyPetsCard } from '../MyPetsCard/MyPetsCard';
+import { useAppDispatch } from '../../redux/store';
 import {
   AddPetBlock,
   PetsBlockContainer,
@@ -10,10 +12,9 @@ import {
   PetsList,
   PetsLogOutBtn,
 } from './PetsBlock.styled';
-import { useCallback } from 'react';
 
 export const PetsBlock: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const userProfile = useSelector(selectUserProfile);
 
   const handleLogoutClick = useCallback(() => {

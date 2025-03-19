@@ -21,7 +21,7 @@ export const HeaderNavLink = styled(NavLink)`
 
     border-radius: 30px;
     width: 119px;
-    height: 48px;
+    height: 42px;
     white-space: nowrap;
     font-weight: 500;
 

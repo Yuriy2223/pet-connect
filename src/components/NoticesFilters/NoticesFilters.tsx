@@ -1,23 +1,23 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { useCallback, useEffect, useRef } from 'react';
-import { AppDispatch } from '../../redux/store';
+import { useSelector } from 'react-redux';
+// import { useCallback, useEffect, useRef } from 'react';
+import { useAppDispatch } from '../../redux/store';
 import { resetFilters, setFilter } from '../../redux/notices/slice';
 import { City, Filters } from '../../App.types';
 import { selectLocations } from '../../redux/cities/selectors';
 import { SearchField } from '../Common/SearchField/SearchField';
 import { LocationSelect } from '../Common/LocationSelect/LocationSelect';
-import { fetchCityLocations } from '../../redux/cities/operations';
+// import { fetchCityLocations } from '../../redux/cities/operations';
 import {
   selectFilters,
   selectNoticeCategories,
   selectNoticeSexes,
   selectNoticeSpecies,
 } from '../../redux/notices/selectors';
-import {
-  fetchNoticesCategories,
-  fetchNoticesSexes,
-  fetchNoticesSpecies,
-} from '../../redux/notices/operations';
+// import {
+//   fetchNoticesCategories,
+//   fetchNoticesSexes,
+//   fetchNoticesSpecies,
+// } from '../../redux/notices/operations';
 import {
   ClearButtonRatio,
   FilterRow,
@@ -33,28 +33,28 @@ import {
 } from './NoticesFilters.styled';
 
 export const NoticesFilters = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const filters = useSelector(selectFilters);
   const category = useSelector(selectNoticeCategories);
   const sex = useSelector(selectNoticeSexes);
   const species = useSelector(selectNoticeSpecies);
   const locations = useSelector(selectLocations);
 
-  const fetchFiltersData = useCallback(() => {
-    dispatch(fetchNoticesCategories());
-    dispatch(fetchNoticesSpecies());
-    dispatch(fetchNoticesSexes());
-    dispatch(fetchCityLocations());
-  }, [dispatch]);
+  // const fetchFiltersData = useCallback(() => {
+  //   dispatch(fetchNoticesCategories());
+  //   dispatch(fetchNoticesSpecies());
+  //   dispatch(fetchNoticesSexes());
+  //   dispatch(fetchCityLocations());
+  // }, [dispatch]);
 
-  const isFirstRender = useRef(true);
+  // const isFirstRender = useRef(true);
 
-  useEffect(() => {
-    if (isFirstRender.current) {
-      fetchFiltersData();
-      isFirstRender.current = false;
-    }
-  }, [fetchFiltersData]);
+  // useEffect(() => {
+  //   if (isFirstRender.current) {
+  //     fetchFiltersData();
+  //     isFirstRender.current = false;
+  //   }
+  // }, [fetchFiltersData]);
 
   const handleFilterChange = (filter: Filters) => {
     dispatch(setFilter(filter));

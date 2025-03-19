@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../../redux/store';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../redux/store';
 import { selectFavorites, selectViewed } from '../../redux/notices/selectors';
 import { toast } from 'react-toastify';
 import { MyFavoriteCard } from '../MyFavoriteCard/MyFavoriteCard';
@@ -20,7 +20,7 @@ import {
 } from './MyNotices.styled';
 
 export const MyNotices: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const favorites = useSelector(selectFavorites);
   const viewed = useSelector(selectViewed);
   const [activeTab, setActiveTab] = useState<'favorites' | 'viewed'>(
@@ -41,6 +41,7 @@ export const MyNotices: React.FC = () => {
   const handleRemoveFavorite = async (id: string) => {
     await dispatch(removeNoticesFavorite(id)).unwrap();
     toast.success('Removed from favorites');
+    dispatch(fetchFavorites());
   };
 
   return (

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { ThemeSelector } from '../Theme/ThemeSelector';
 import {
   CloseButton,
   CloseIcon,
@@ -52,6 +53,7 @@ export const BurgerMenu: React.FC<{
             <BurgerMenuNavLink to="/friends" onClick={closeMenu}>
               Our Friends
             </BurgerMenuNavLink>
+            <ThemeSelector />
           </BurgerMenuNav>
           {isAuth ? (
             <LogoutButton

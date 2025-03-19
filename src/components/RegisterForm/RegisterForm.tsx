@@ -4,8 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { registerSchema } from '../Common/ValidationSchemas';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../redux/store';
+import { useAppDispatch } from '../../redux/store';
 import { registerUser } from '../../redux/auth/operations';
 import {
   FormWrapper,
@@ -29,13 +28,6 @@ import {
   WrapperLinkRegister,
 } from './RegisterForm.styled';
 
-// import { RegisterData } from '../../services/authApi';
-// export interface RegisterData {
-//   name: string;
-//   email: string;
-//   password: string;
-// } вибери правильну незабуть
-
 interface FormData {
   name: string;
   email: string;
@@ -44,7 +36,7 @@ interface FormData {
 }
 
 export const RegisterForm: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,

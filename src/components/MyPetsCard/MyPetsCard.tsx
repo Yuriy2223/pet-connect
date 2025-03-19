@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { format } from 'date-fns';
 import { openModal } from '../../redux/modal/slice';
-import { useDispatch } from 'react-redux';
 import { PetProfile } from '../../App.types';
 import {
   BtnTrash,
@@ -12,13 +11,14 @@ import {
   MyPetsCardItem,
   WrapAvatarPets,
 } from './MyPetsCard.styled';
+import { useAppDispatch } from '../../redux/store';
 
 interface MyPetsCardProps {
   pet: PetProfile;
 }
 
 export const MyPetsCard: React.FC<MyPetsCardProps> = ({ pet }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const formatDate = (dateString: string) => {
     if (!dateString || typeof dateString !== 'string') return 'Unknown date';
 

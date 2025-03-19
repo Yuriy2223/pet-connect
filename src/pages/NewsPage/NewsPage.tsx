@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { SearchField } from '../../components/Common/SearchField/SearchField';
 import { NewsCard } from '../../components/NewsCard/NewsCard';
 import { Pagination } from '../../components/Pagination/Pagination';
-import { AppDispatch } from '../../redux/store';
+import { useAppDispatch } from '../../redux/store';
 import { fetchNews } from '../../redux/news/operations';
 import { Loader } from '../../components/loader/Loader';
 import { setNewsFilter } from '../../redux/news/slice';
@@ -23,7 +23,7 @@ import {
 } from './NewsPage.styled';
 
 export const NewsPage: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const newsData = useSelector(selectNewsList);
   const totalPages = useSelector(selectTotalPages);
   const currentPage = useSelector(selectCurrentPage);

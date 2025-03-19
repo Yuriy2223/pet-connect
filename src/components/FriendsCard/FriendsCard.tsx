@@ -1,4 +1,6 @@
 import React from 'react';
+import defaultImage from '../../assets/imeges/deffLogoFrends.webp';
+import { WorkDay } from '../../App.types';
 import {
   CardContainer,
   ImgLogo,
@@ -12,9 +14,6 @@ import {
   InfolinkWrapper,
 } from './FriendsCard.styled';
 
-import defaultImage from '../../assets/imeges/deffLogoFrends.webp';
-import { WorkDay } from '../../App.types';
-
 interface FriendItemProps {
   title: string;
   imageUrl?: string;
@@ -26,7 +25,7 @@ interface FriendItemProps {
 }
 
 const getWorkingHours = (workDays: WorkDay[]): string => {
-  if (!workDays || workDays.length === 0) return 'No hours available';
+  if (!workDays || workDays.length === 0) return 'Day and night';
 
   const today = new Date().getDay();
   const todayWorkDay = workDays[today === 0 ? 6 : today - 1];

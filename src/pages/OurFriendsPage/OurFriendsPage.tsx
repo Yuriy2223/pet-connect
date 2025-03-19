@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../redux/store';
 import { fetchFriends } from '../../redux/friends/operations';
 import { FriendsCard } from '../../components/FriendsCard/FriendsCard';
-import { useAppDispatch } from '../../redux/store';
 import { Loader } from '../../components/loader/Loader';
 import {
   selectFriends,
