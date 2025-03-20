@@ -4,14 +4,14 @@ import { Container } from '../../components/Common/Container';
 export const NewsPageContainer = styled(Container)`
   display: flex;
   flex-direction: column;
-  padding: 54px 20px 80px;
+  padding: 40px 20px;
 
   @media (min-width: 768px) {
-    padding: 85px 26px 80px;
+    padding: 50px 26px;
   }
 
   @media (min-width: 1280px) {
-    padding: 96px 62px 80px;
+    padding: 62px;
   }
 `;
 export const NewsSearchWrapper = styled.div`
@@ -61,9 +61,9 @@ export const PaginationWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 44px;
+  margin-top: 30px;
 
   @media (min-width: 768px) {
-    margin-top: 60px;
+    margin-top: 50px;
   }
 `;

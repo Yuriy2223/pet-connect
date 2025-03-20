@@ -11,6 +11,7 @@ export const NoticesCardContainer = styled.div`
   padding: 24px;
   width: 335px;
   background-color: ${({ theme }) => theme.white};
+  position: relative;
 
   @media (max-width: 374px) {
     width: 100%;
@@ -25,6 +26,33 @@ export const NoticesCardContainer = styled.div`
 
   @media (min-width: 1280px) {
     width: 363px;
+  }
+`;
+export const PriceTag = styled.div`
+  position: absolute;
+  text-align: center;
+  left: 12px;
+  top: 16px;
+  height: 32px;
+  border-radius: 30px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  background-color: ${({ theme }) => theme.lightYellow};
+  color: ${({ theme }) => theme.black};
+
+  @media (max-width: 640px) {
+    top: 8px;
+    height: 30px;
+  }
+
+  @media (min-width: 768px) {
+    left: 8px;
+    top: 8px;
+    height: 34px;
+    font-size: 16px;
   }
 `;
 export const NoticesImg = styled.img`
