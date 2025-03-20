@@ -16,7 +16,7 @@ import {
   HeaderMenuNav,
   MenuIcon,
 } from './Header.styled';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/store';
 
 export const Header: React.FC = () => {
@@ -39,25 +39,23 @@ export const Header: React.FC = () => {
       <Nav />
       <HeaderMenuNav>
         {isAuth ? (
-          <NavLink to="/profile">
-            <UserNav
-              userName={userProfile?.name || 'User'}
-              userAvatar={
-                <AvatarWrapHeader>
-                  {userProfile?.avatar ? (
-                    <img src={userProfile.avatar} alt="User avatar" />
-                  ) : (
-                    <AvatarDefaultIcon iconName="user" />
-                  )}
-                </AvatarWrapHeader>
-              }
-              onLogout={() =>
-                dispatch(openModal({ type: 'ModalApproveAction' }))
-              }
-              closeMenu={closeMenu}
-            />
-          </NavLink>
+          // <NavLink to="/profile">
+          <UserNav
+            userName={userProfile?.name || 'User'}
+            userAvatar={
+              <AvatarWrapHeader>
+                {userProfile?.avatar ? (
+                  <img src={userProfile.avatar} alt="User avatar" />
+                ) : (
+                  <AvatarDefaultIcon iconName="user" />
+                )}
+              </AvatarWrapHeader>
+            }
+            onLogout={() => dispatch(openModal({ type: 'ModalApproveAction' }))}
+            closeMenu={closeMenu}
+          />
         ) : (
+          // </NavLink>
           <AuthNav />
         )}
         <BurgerMenuButton onClick={toggleMenu}>
