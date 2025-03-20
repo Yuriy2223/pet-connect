@@ -8,6 +8,7 @@ import { AuthNav } from '../AuthNav/AuthNav';
 import { UserNav } from '../UserNav/UserNav';
 import { BurgerMenu } from '../BurgerMenu/BurgerMenu';
 import { selectUserProfile } from '../../redux/user/selectors';
+import { useAppDispatch } from '../../redux/store';
 import {
   AvatarDefaultIcon,
   AvatarWrapHeader,
@@ -16,8 +17,6 @@ import {
   HeaderMenuNav,
   MenuIcon,
 } from './Header.styled';
-// import { NavLink } from 'react-router-dom';
-import { useAppDispatch } from '../../redux/store';
 
 export const Header: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -39,7 +38,6 @@ export const Header: React.FC = () => {
       <Nav />
       <HeaderMenuNav>
         {isAuth ? (
-          // <NavLink to="/profile">
           <UserNav
             userName={userProfile?.name || 'User'}
             userAvatar={
@@ -55,7 +53,6 @@ export const Header: React.FC = () => {
             closeMenu={closeMenu}
           />
         ) : (
-          // </NavLink>
           <AuthNav />
         )}
         <BurgerMenuButton onClick={toggleMenu}>

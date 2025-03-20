@@ -1,6 +1,11 @@
 import React from 'react';
 import { LogOutButton } from '../LogOutButton';
-import { UserAvatar, UserName, UserNavContainer } from './UserNav.styled';
+import {
+  UserAvatar,
+  UserName,
+  UserNavContainer,
+  UserNavLink,
+} from './UserNav.styled';
 
 export interface UserNavProps {
   userName: string;
@@ -18,13 +23,14 @@ export const UserNav: React.FC<UserNavProps> = ({
   return (
     <UserNavContainer>
       <LogOutButton onLogout={onLogout} closeMenu={closeMenu} />
-
-      {typeof userAvatar === 'string' ? (
-        <UserAvatar src={userAvatar} alt="Avatar" />
-      ) : (
-        userAvatar
-      )}
-      <UserName>{userName}</UserName>
+      <UserNavLink to="/profile">
+        {typeof userAvatar === 'string' ? (
+          <UserAvatar src={userAvatar} alt="Avatar" />
+        ) : (
+          userAvatar
+        )}
+        <UserName>{userName}</UserName>
+      </UserNavLink>
     </UserNavContainer>
   );
 };
