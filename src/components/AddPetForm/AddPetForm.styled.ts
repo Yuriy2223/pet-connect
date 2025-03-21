@@ -302,7 +302,6 @@ export const WrapperDateType = styled.div`
 export const AddSelectTypeWrapper = styled.div`
   position: relative;
 `;
-// export const AddSelectType = styled(AddStyledSelect)`
 export const AddSelectType = styled(StyledSelect)`
   width: 140px;
 

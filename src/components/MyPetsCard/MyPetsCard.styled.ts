@@ -36,6 +36,8 @@ export const WrapAvatarPets = styled.div`
 
   img {
     border-radius: 50%;
+    width: 100%;
+    height: 100%;
   }
   @media (max-width: 374px) {
     width: 60px;
@@ -130,6 +132,7 @@ export const MyPetsCardItem = styled.div`
     line-height: 1.4;
     letter-spacing: -0.02em;
     color: ${({ theme }) => theme.opacityTr};
+
     @media (min-width: 1280px) {
       font-size: 14px;
     }
@@ -145,34 +148,34 @@ export const MyPetsCardItem = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
     color: ${({ theme }) => theme.black};
+
     @media (min-width: 1280px) {
       font-size: 16px;
     }
   }
 
   .name {
-    max-width: 55px;
+    width: 57px;
     @media (min-width: 1280px) {
-      width: 64px;
+      width: 100px;
     }
   }
   .birthday {
-    width: 61px;
+    width: 62px;
     @media (min-width: 1280px) {
-      width: 78px;
+      width: 86px;
     }
   }
   .sex {
-    width: 48px;
+    width: 50px;
     @media (min-width: 1280px) {
-      max-width: 62px;
-      width: 100%;
+      width: 68px;
     }
   }
   .species {
     width: 48px;
     @media (min-width: 1280px) {
-      width: 55px;
+      width: 80px;
     }
   }
 `;
