@@ -19,6 +19,7 @@ import {
   NewsList,
   NewsPageContainer,
   NewsSearchWrapper,
+  NotFoundMessage,
   PaginationWrapper,
 } from './NewsPage.styled';
 
@@ -75,7 +76,7 @@ export const NewsPage: React.FC = () => {
             </li>
           ))
         ) : (
-          <p>No news available.</p>
+          <NotFoundMessage>Nothing was found for your search.</NotFoundMessage>
         )}
       </NewsList>
 

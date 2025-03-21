@@ -3,7 +3,6 @@ export interface OptionType {
   label: string;
 }
 
-// Функція для отримання категорій з бекенду
 export const fetchCategories = async (): Promise<OptionType[]> => {
   return [
     { value: 'show all', label: 'Show all' },
@@ -14,7 +13,6 @@ export const fetchCategories = async (): Promise<OptionType[]> => {
   ];
 };
 
-// Функція для отримання статей з бекенду
 export const fetchGenders = async (): Promise<OptionType[]> => {
   return [
     { value: 'show all', label: 'Show all' },
@@ -25,7 +23,6 @@ export const fetchGenders = async (): Promise<OptionType[]> => {
   ];
 };
 
-// Функція для отримання типів улюбленців з бекенду
 export const fetchTypes = async (): Promise<OptionType[]> => {
   return [
     { value: 'show all', label: 'Show all' },

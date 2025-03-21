@@ -7,7 +7,6 @@ export const CardContainer = styled.div`
   background-color: ${({ theme }) => theme.white};
   border-radius: 15px;
   width: 335px;
-  height: 184px;
 
   @media (min-width: 320px) and (max-width: 374px) {
     width: 100%;
@@ -15,7 +14,6 @@ export const CardContainer = styled.div`
   }
   @media (min-width: 768px) {
     width: 342px;
-    height: 196px;
   }
   @media (min-width: 1280px) {
     width: 371px;
@@ -48,19 +46,23 @@ export const WorkingHoursTag = styled.div`
 `;
 export const DatalisWrapper = styled.div`
   display: flex;
-  height: 100%;
 `;
 export const LogoWrapper = styled.div`
-  width: 100px;
-  height: 100%;
+  width: 102px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  padding-left: 8px;
+
+  @media (min-width: 768px) {
+    padding-left: 12px;
+    width: 126px;
+  }
 `;
 export const ImgLogo = styled.img`
   width: 80px;
   height: 80px;
-  object-fit: cover;
   border-radius: 50%;
 
   @media (min-width: 768px) {
@@ -97,8 +99,24 @@ export const InfoList = styled.div`
     letter-spacing: -0.02em;
     color: ${({ theme }) => theme.opacityTr};
   }
+
+  div:nth-child(1) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 190px;
+  }
+  div:nth-child(2) {
+    height: 37px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 `;
 export const ContactLink = styled.a`
+  margin-left: 4px;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.29;

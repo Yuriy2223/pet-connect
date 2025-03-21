@@ -52,9 +52,11 @@ export const LocationSelect: React.FC<LocationSelectProps> = ({
 
   return (
     <SearchContainer>
-      <ButtonClose type="button" onClick={clearInput}>
-        <IconClose width={18} height={18} iconName="close" />
-      </ButtonClose>
+      {inputValue || value ? (
+        <ButtonClose type="button" onClick={clearInput}>
+          <IconClose width={18} height={18} iconName="close" />
+        </ButtonClose>
+      ) : null}
       <IconsSearch width={18} height={18} iconName="search" />
       <AsyncSelect<CityOption>
         loadOptions={loadOptions}

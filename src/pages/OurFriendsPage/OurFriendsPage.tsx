@@ -11,6 +11,7 @@ import {
 import {
   FriendsList,
   FriendsPageContainer,
+  NotFoundMessage,
   TitleFriends,
 } from './OurFriendsPage.styled';
 
@@ -23,28 +24,22 @@ export const OurFriendsPage: React.FC = () => {
     dispatch(fetchFriends());
   }, [dispatch]);
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
   return (
     <FriendsPageContainer>
       <TitleFriends>Our Friends</TitleFriends>
 
       <FriendsList>
-        {friendsData.map(friend => (
-          <li key={friend._id}>
-            <FriendsCard
-              title={friend.title}
-              imageUrl={friend.imageUrl}
-              address={friend.address}
-              addressUrl={friend.addressUrl}
-              phone={friend.phone}
-              email={friend.email}
-              workDays={friend.workDays}
-            />
-          </li>
-        ))}
+        {isLoading ? (
+          <Loader />
+        ) : friendsData.length ? (
+          friendsData.map(friend => (
+            <li key={friend._id}>
+              <FriendsCard friend={friend} />
+            </li>
+          ))
+        ) : (
+          <NotFoundMessage>Nothing was found for your search.</NotFoundMessage>
+        )}
       </FriendsList>
     </FriendsPageContainer>
   );

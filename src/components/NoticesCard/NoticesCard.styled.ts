@@ -151,7 +151,16 @@ export const NoticeCardList = styled.ul`
       white-space: nowrap;
     }
   }
+
+  li:first-child {
+    width: 58px;
+  }
+
+  li:nth-child(2) {
+    width: 71px;
+  }
 `;
+
 export const NoticesBtnWrapper = styled.div`
   display: flex;
   align-items: center;

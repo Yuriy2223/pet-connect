@@ -1,6 +1,6 @@
 import React from 'react';
 import defaultImage from '../../assets/imeges/deffLogoFrends.webp';
-import { WorkDay } from '../../App.types';
+import { Friend, WorkDay } from '../../App.types';
 import {
   CardContainer,
   ImgLogo,
@@ -14,14 +14,8 @@ import {
   InfolinkWrapper,
 } from './FriendsCard.styled';
 
-interface FriendItemProps {
-  title: string;
-  imageUrl?: string;
-  address: string;
-  addressUrl: string;
-  phone: string;
-  email: string;
-  workDays: WorkDay[];
+interface FriendCardProps {
+  friend: Friend;
 }
 
 const getWorkingHours = (workDays: WorkDay[]): string => {
@@ -36,16 +30,8 @@ const getWorkingHours = (workDays: WorkDay[]): string => {
   return 'Closed today';
 };
 
-export const FriendsCard: React.FC<FriendItemProps> = ({
-  title,
-  imageUrl,
-  address,
-  addressUrl,
-  phone,
-  email,
-  workDays,
-}) => {
-  const workingHours = getWorkingHours(workDays);
+export const FriendsCard: React.FC<FriendCardProps> = ({ friend }) => {
+  const workingHours = getWorkingHours(friend.workDays);
 
   return (
     <CardContainer>
@@ -54,22 +40,28 @@ export const FriendsCard: React.FC<FriendItemProps> = ({
       </WorkingHours>
       <DatalisWrapper>
         <LogoWrapper>
-          <ImgLogo src={imageUrl || defaultImage} alt="logo images" />
+          <ImgLogo src={friend.imageUrl || defaultImage} alt="logo images" />
         </LogoWrapper>
         <InfolinkWrapper>
-          <Name>{title}</Name>
+          <Name>{friend.title}</Name>
           <InfoList>
             <div>
-              Email: <ContactLink href={`mailto:${email}`}>{email}</ContactLink>
-            </div>
-            <div>
-              Address:
-              <ContactLink href={addressUrl} target="_blank">
-                {address}
+              Email:
+              <ContactLink href={`mailto:${friend.email}`}>
+                {friend.email ?? 'Not available'}
               </ContactLink>
             </div>
             <div>
-              Phone: <ContactLink href={`tel:${phone}`}>{phone}</ContactLink>
+              Address:
+              <ContactLink href={friend.addressUrl} target="_blank">
+                {friend.address ?? 'Not available'}
+              </ContactLink>
+            </div>
+            <div>
+              Phone:
+              <ContactLink href={`tel:${friend.phone}`}>
+                {friend.phone ?? 'Not available'}
+              </ContactLink>
             </div>
           </InfoList>
         </InfolinkWrapper>

@@ -67,3 +67,15 @@ export const PaginationWrapper = styled.div`
     margin-top: 50px;
   }
 `;
+export const NotFoundMessage = styled.p`
+  margin: 0 auto;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  color: ${({ theme }) => theme.primaryDark};
+
+  @media (min-width: 768px) {
+    font-size: 38px;
+  }
+`;

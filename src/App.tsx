@@ -21,17 +21,12 @@ export const App: React.FC = () => {
   const [showSplash, setShowSplash] = useState(true);
   const isFirstRender = useRef(true);
 
-  // useEffect(() => {
-  //   if (!isSignedIn) {
-  //     dispatch(currentUser());
-  //   }
-  // }, [dispatch, isSignedIn]);
-
   const fetchFiltersData = useCallback(() => {
     dispatch(fetchNoticesCategories());
     dispatch(fetchNoticesSpecies());
     dispatch(fetchNoticesSexes());
     dispatch(fetchCityLocations());
+    dispatch(currentUser());
   }, [dispatch]);
 
   useEffect(() => {
@@ -40,10 +35,6 @@ export const App: React.FC = () => {
       isFirstRender.current = false;
     }
   }, [fetchFiltersData]);
-
-  useEffect(() => {
-    dispatch(currentUser());
-  }, [dispatch]);
 
   useEffect(() => {
     if (isSignedIn) {
@@ -78,13 +69,9 @@ export const App: React.FC = () => {
 
 //  ЗРОБИ ТАКІ ПРАВКИ
 
-// 1. ЗРОБИ СТИЛІЗАЦІЮ В НОВИНАХ ТА ПОВІДОМЛЕНЯХ ПІСТОЇ СТОРІНКИ (<p>No notices available.</p> ...) ТА ПОПРАВ ВИПАДАЮЧИЙ СПИСОК ЛОКАЦІЙ
 // 2. ПОПРАВ МОДАЛКИ
 // 3. ПОПРАВ ВІДОБРАЖЕННЯ СПИСКУ НА СТОРІНЦІ ПРОФІЛЮ
-// 4. ЗРОБИ РЕГУЛЮВАННЯ ТЕМИ ЧЕРЕЗ РЕДАКС ТА ЗРОБИ ПЕРЕМИКАННЯ ТЕМИ ЧЕРЕЗ КНОПКУ (АБО ЩОСЬ ПРИДУМАЙ)
 // 5. ПОПРАВ НА СТОРІНКІ ADD PET ФОРМУ
-// 6. СТИЛІЗУЙ ПОВІДОМЛЕННЯ ПРО ВІДСУТНІСТЬ СПИСКУ НА СТОРІНКАХ
-// 7. ПОПРАВ СТИЛІЗАЦІЮ КАРТОЧКИ НОВИН та друзів Our friends
 // 8. ПОМИЛКИ В УСІХ ФОРМАХ
 // 9. НА СТОРІНКАХ РЕГІСТРАЦІЇ ЗРОБИ ПОВІДОМЛЕННЯ НА КАРТИНКАХ
 // 0.0.0. ОПТИМІЗАЦІЯ ПРОЄКТУ
