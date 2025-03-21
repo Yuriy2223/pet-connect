@@ -3,13 +3,14 @@ import styled from 'styled-components';
 export const NewsCardContainer = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 12px;
   border-radius: 15px;
   width: 100%;
-  height: 335px;
+  background-color: ${({ theme }) => theme.white};
 
   @media (min-width: 768px) {
     width: 340px;
-    height: 448px;
+    padding: 20px;
   }
   @media (min-width: 1280px) {
     width: 362px;
@@ -22,7 +23,7 @@ export const NewsImage = styled.img`
   margin-bottom: 20px;
 
   @media (min-width: 768px) {
-    height: 226px;
+    height: 240px;
     margin-bottom: 28px;
   }
 `;
@@ -33,10 +34,14 @@ export const NewsTitle = styled.h2`
   letter-spacing: -0.03em;
   color: ${({ theme }) => theme.black};
 
-  overflow: hidden;
+  height: 41px;
+  margin-bottom: 10px;
   text-overflow: ellipsis;
-  height: 52px;
-  margin-bottom: 12px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 
   @media (min-width: 768px) {
     margin-bottom: 14px;
@@ -49,10 +54,15 @@ export const NewsDescription = styled.p`
   letter-spacing: -0.02em;
   color: ${({ theme }) => theme.black};
 
-  overflow: hidden;
+  height: 72px;
   text-overflow: ellipsis;
-  height: 80px;
-  margin-bottom: 19px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+
+  margin-bottom: 20px;
 
   @media (min-width: 768px) {
     margin-bottom: 28px;

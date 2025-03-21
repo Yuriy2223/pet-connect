@@ -90,7 +90,7 @@ export const NoticesFilters = () => {
             { value: '', label: 'Show all' },
             ...sex.map(s => ({ value: s, label: s })),
           ]}
-          placeholder="Gender"
+          placeholder="By gender"
           onChange={selected =>
             handleSelectChange('sex', selected?.value || null)
           }
@@ -103,7 +103,7 @@ export const NoticesFilters = () => {
             { value: '', label: 'Show all' },
             ...species.map(s => ({ value: s, label: s })),
           ]}
-          placeholder="Type"
+          placeholder="By type"
           onChange={selected =>
             handleSelectChange('species', selected?.value || null)
           }

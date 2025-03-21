@@ -22,6 +22,7 @@ import {
   NoticesDetailsHeader,
   NoticesImg,
   NoticesRaiting,
+  PriceTag,
   RaitingIcon,
 } from './NoticesCard.styled';
 
@@ -63,6 +64,9 @@ export const NoticesCard: React.FC<{ notice: Notice; favorites: Notice[] }> = ({
 
   return (
     <NoticesCardContainer>
+      <PriceTag>
+        {notice.price ? `$${notice.price}` : `${notice.category}`}
+      </PriceTag>
       <NoticesImg
         src={imgSrc}
         alt={notice.title}

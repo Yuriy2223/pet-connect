@@ -69,7 +69,6 @@ export const AddPetForm: React.FC = () => {
     sex: null as string | null,
     type: null as OptionType | null,
   });
-
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 
   const handleFilterChange = (field: string, value: string | null) => {

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Iconsvg } from '../Common/Icons';
-import { AddStyledSelect } from '../Common/AddSelectType';
+// import { AddStyledSelect } from '../Common/AddSelectType';
+import { StyledSelect } from '../Common/StyledSelect';
 
 export const AddWrapperForm = styled.form`
   display: flex;
@@ -301,7 +302,8 @@ export const WrapperDateType = styled.div`
 export const AddSelectTypeWrapper = styled.div`
   position: relative;
 `;
-export const AddSelectType = styled(AddStyledSelect)`
+// export const AddSelectType = styled(AddStyledSelect)`
+export const AddSelectType = styled(StyledSelect)`
   width: 140px;
 
   @media (max-width: 374px) {

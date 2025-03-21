@@ -59,8 +59,8 @@ export const AvatarWrapHeader = styled.div`
   justify-content: center;
 
   img {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
 
     @media (min-width: 768px) {

@@ -4,18 +4,18 @@ import { Container } from '../../components/Common/Container';
 export const FriendsPageContainer = styled(Container)`
   display: flex;
   flex-direction: column;
-  padding: 54px 20px 80px;
+  padding: 40px 20px;
 
   @media (min-width: 320px) and (max-width: 374px) {
-    padding: 54px 10px 80px;
+    padding: 40px 10px 40px;
   }
 
   @media (min-width: 768px) {
-    padding: 85px 26px 80px;
+    padding: 50px 32px;
   }
 
   @media (min-width: 1280px) {
-    padding: 96px 62px 80px;
+    padding: 62px 32px;
   }
 `;
 export const TitleFriends = styled.div`
@@ -47,13 +47,15 @@ export const FriendsList = styled.ul`
     margin-top: 60px;
   }
 `;
-export const PaginationWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 44px;
+export const NotFoundMessage = styled.p`
+  margin: 0 auto;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  color: ${({ theme }) => theme.primaryDark};
 
   @media (min-width: 768px) {
-    margin-top: 60px;
+    font-size: 38px;
   }
 `;

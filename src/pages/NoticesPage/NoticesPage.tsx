@@ -17,9 +17,11 @@ import {
   selectTotalPages,
 } from '../../redux/notices/selectors';
 import {
+  NotFoundMessage,
   NoticesList,
   NoticesPageContainer,
   NoticesSearchWrapper,
+  NoticesTitle,
   PaginationWrapper,
 } from './NoticesPage.styled';
 
@@ -56,7 +58,7 @@ export const NoticesPage: React.FC = () => {
 
   return (
     <NoticesPageContainer>
-      <h1>Find your favorite pet</h1>
+      <NoticesTitle>Find your favorite pet</NoticesTitle>
       <NoticesSearchWrapper>
         <NoticesFilters />
       </NoticesSearchWrapper>
@@ -72,7 +74,7 @@ export const NoticesPage: React.FC = () => {
             ) : null
           )
         ) : (
-          <p>No notices available.</p>
+          <NotFoundMessage>Nothing was found for your search.</NotFoundMessage>
         )}
       </NoticesList>
       <PaginationWrapper>

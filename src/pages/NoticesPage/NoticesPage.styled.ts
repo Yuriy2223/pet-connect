@@ -4,14 +4,14 @@ import { Container } from '../../components/Common/Container';
 export const NoticesPageContainer = styled(Container)`
   display: flex;
   flex-direction: column;
-  padding: 50px 20px 80px;
+  padding: 40px 20px;
 
   @media (min-width: 768px) {
-    padding: 85px 32px 80px;
+    padding: 50px 32px;
   }
 
   @media (min-width: 1280px) {
-    padding: 96px 32px 80px;
+    padding: 62px 32px;
   }
 `;
 export const NoticesTitle = styled.h1`
@@ -55,5 +55,17 @@ export const NoticesList = styled.ul`
     gap: 32px;
     width: 1156px;
     margin: 0 auto;
+  }
+`;
+export const NotFoundMessage = styled.p`
+  margin: 0 auto;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  color: ${({ theme }) => theme.primaryDark};
+
+  @media (min-width: 768px) {
+    font-size: 38px;
   }
 `;

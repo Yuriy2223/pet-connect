@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const UserNavContainer = styled.div`
@@ -9,11 +10,16 @@ export const UserNavContainer = styled.div`
     gap: 16px;
   }
 `;
+export const UserNavLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
+
 export const UserAvatar = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  object-fit: cover;
 
   @media (min-width: 768px) {
     width: 50px;
