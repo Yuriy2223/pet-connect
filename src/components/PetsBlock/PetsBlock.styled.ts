@@ -7,11 +7,11 @@ export const PetsBlockContainer = styled.div`
   gap: 20px;
   border-radius: 30px;
   width: 100%;
-  padding: 20px;
+  padding: 20px 14px;
   background-color: ${({ theme }) => theme.white};
 
   @media (min-width: 768px) {
-    padding: 40px;
+    padding: 40px 34px;
   }
 
   @media (min-width: 1280px) {
@@ -65,19 +65,28 @@ export const PetsBlockNavLink = styled(NavLink)`
     width: 120px;
   }
 `;
-export const PetsList = styled.div`
+export const PetsList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 14px;
   width: 100%;
 
+  overflow-y: auto;
+  padding-right: 6px;
+  max-height: 276px;
+
   @media (min-width: 768px) and (max-width: 1279px) {
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
+    gap: 16px;
+    max-height: 276px;
+  }
+  @media (min-width: 1280px) {
+    gap: 16px;
+    max-height: 364px;
   }
 `;
-export const PetsItem = styled.div``;
 export const PetsLogOutBtn = styled.button`
   display: flex;
   align-items: center;

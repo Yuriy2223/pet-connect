@@ -23,6 +23,7 @@ export const currentUser = createAsyncThunk<
   if (!token) {
     return rejectWithValue('No token found');
   }
+
   setToken(token);
   try {
     const user = await currentUserApi();
@@ -58,9 +59,9 @@ export const loginUser = createAsyncThunk<
   UserAuth,
   LoginData,
   { rejectValue: string }
->('auth/loginUser', async (credentials, { rejectWithValue }) => {
+>('auth/loginUser', async (data, { rejectWithValue }) => {
   try {
-    const response = await loginUserApi(credentials);
+    const response = await loginUserApi(data);
     setToken(response.token);
     return response;
   } catch (error: unknown) {

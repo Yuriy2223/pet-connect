@@ -56,9 +56,17 @@ const noticesSlice = createSlice({
   name: 'notices',
   initialState,
   reducers: {
-    resetNoticesState() {
-      return initialState;
+    // resetNoticesState() {
+    //   return initialState;
+    // },
+    resetNoticesState(state) {
+      return {
+        ...state,
+        favorites: [],
+        views: [],
+      };
     },
+
     resetFilters(state) {
       state.filters = initialState.filters;
       state.currentPage = 1;

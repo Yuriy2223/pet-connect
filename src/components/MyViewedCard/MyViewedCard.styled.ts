@@ -24,7 +24,8 @@ export const ViewedCardContainer = styled.div`
   }
 
   @media (min-width: 1280px) {
-    width: 363px;
+    width: 320px;
+    padding: 14px 14px 18px;
   }
 `;
 export const ViewedImg = styled.img`
@@ -93,11 +94,15 @@ export const RaitingIcon = styled(Iconsvg)`
 `;
 export const ViewedCardList = styled.ul`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   flex-wrap: nowrap;
   margin-bottom: 16px;
 
   li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 61px;
     height: 36px;
     font-weight: 500;
@@ -105,9 +110,6 @@ export const ViewedCardList = styled.ul`
     line-height: 1.4;
     letter-spacing: -0.02em;
     color: ${({ theme }) => theme.opacityTr};
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
     span {
       width: 100%;
@@ -123,6 +125,26 @@ export const ViewedCardList = styled.ul`
       white-space: nowrap;
     }
   }
+
+  /* li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 35px;
+    height: 30px;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    color: ${({ theme }) => theme.opacityTr};
+
+    span {
+      font-size: 12px;
+      line-height: 1.17;
+      letter-spacing: -0.02em;
+      color: ${({ theme }) => theme.black};
+    }
+  } */
 `;
 export const ViewedBtnWrapper = styled.div`
   display: flex;

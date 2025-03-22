@@ -46,7 +46,11 @@ export const MyFavoriteCard: React.FC<NoticeCardProps> = ({
           </li>
           <li>
             Birthday
-            <span>{notice.birthday.split('-').reverse().join('.')}</span>
+            <span>
+              {notice.birthday
+                ? notice.birthday.split('-').reverse().join('.')
+                : ''}
+            </span>
           </li>
           <li>
             Sex<span>{notice.sex}</span>

@@ -27,13 +27,8 @@ export const registerUserApi = async (
 };
 
 // Login User
-export const loginUserApi = async (
-  credentials: LoginData
-): Promise<UserAuth> => {
-  const response = await instance.post<UserAuth>(
-    '/api/users/signin',
-    credentials
-  );
+export const loginUserApi = async (data: LoginData): Promise<UserAuth> => {
+  const response = await instance.post<UserAuth>('/api/users/signin', data);
   return response.data;
 };
 

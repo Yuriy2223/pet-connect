@@ -62,16 +62,19 @@ export const MyNoticesList = styled.ul`
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 20px;
+  gap: 20px 14px;
 
   @media (min-width: 768px) {
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    gap: 22px;
+    max-height: 948px;
+    overflow-y: auto;
+    padding-right: 6px;
   }
+
   @media (min-width: 1280px) {
-    gap: 24px;
+    max-height: 890px;
   }
 `;
 

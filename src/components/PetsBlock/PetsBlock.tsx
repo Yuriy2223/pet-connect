@@ -8,7 +8,6 @@ import {
   AddPetBlock,
   PetsBlockContainer,
   PetsBlockNavLink,
-  PetsItem,
   PetsList,
   PetsLogOutBtn,
 } from './PetsBlock.styled';
@@ -34,9 +33,9 @@ export const PetsBlock: React.FC = () => {
 
       <PetsList>
         {userProfile?.pets?.map(pet => (
-          <PetsItem key={pet._id}>
+          <li key={pet._id}>
             <MyPetsCard pet={pet} />
-          </PetsItem>
+          </li>
         ))}
       </PetsList>
 
