@@ -52,10 +52,7 @@ instance.interceptors.response.use(
     if (error.response?.status === 401) {
       const originalRequest = error.config;
 
-      if (
-        originalRequest?.url?.includes('/signin') ||
-        originalRequest?.url?.includes('/signout')
-      ) {
+      if (originalRequest?.url?.includes('/signin')) {
         return Promise.reject(error);
       }
 

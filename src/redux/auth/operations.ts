@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { setToken, TOKEN_KEY } from '../../services/Api';
 import { UserAuth } from '../../App.types';
+import { resetNoticesState } from '../notices/slice';
 import {
   registerUserApi,
   loginUserApi,
@@ -10,7 +11,7 @@ import {
   logoutApi,
   LoginData,
 } from '../../services/authApi';
-import { resetNoticesState } from '../notices/slice';
+import axios from 'axios';
 
 // Сurrent User
 export const currentUser = createAsyncThunk<
@@ -46,7 +47,7 @@ export const registerUser = createAsyncThunk<
     const response = await registerUserApi(data);
     setToken(response.token);
     return response;
-  } catch (error: unknown) {
+  } catch (error) {
     const message =
       error instanceof Error ? error.message : 'Registration failed.';
     toast.error(message);
@@ -64,11 +65,14 @@ export const loginUser = createAsyncThunk<
     const response = await loginUserApi(data);
     setToken(response.token);
     return response;
-  } catch (error: unknown) {
-    const message =
-      error instanceof Error
-        ? error.message
-        : 'Login failed. Please try again.';
+  } catch (error) {
+    let message = 'Login failed. Please try again.';
+
+    if (axios.isAxiosError(error)) {
+      message =
+        error.response?.data?.message?.trim() || error.message || message;
+    }
+
     toast.error(message);
     return rejectWithValue(message);
   }
@@ -82,7 +86,7 @@ export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
       await logoutApi();
       setToken(null);
       dispatch(resetNoticesState());
-    } catch (error: unknown) {
+    } catch (error) {
       const message =
         error instanceof Error
           ? error.message
