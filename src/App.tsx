@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SplashScreen } from './components/SplashScreen/SplashScreen';
@@ -19,7 +19,7 @@ export const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const isSignedIn = useSelector(selectIsSignedIn);
   const [showSplash, setShowSplash] = useState(true);
-  const isFirstRender = useRef(true);
+  // const isFirstRender = useRef(true);
 
   const fetchFiltersData = useCallback(() => {
     dispatch(fetchNoticesCategories());
@@ -29,12 +29,18 @@ export const App: React.FC = () => {
     dispatch(currentUser());
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   if (isFirstRender.current) {
+  //     fetchFiltersData();
+  //     isFirstRender.current = false;
+  //   }
+  // }, [fetchFiltersData]);
+
   useEffect(() => {
-    if (isFirstRender.current) {
+    if (!isSignedIn) {
       fetchFiltersData();
-      isFirstRender.current = false;
     }
-  }, [fetchFiltersData]);
+  }, [isSignedIn, fetchFiltersData]);
 
   useEffect(() => {
     if (isSignedIn) {
@@ -68,7 +74,8 @@ export const App: React.FC = () => {
 };
 
 //  ЗРОБИ ТАКІ ПРАВКИ
-
+// зроби кнопки ратіо в фільтрі щоб можна вибирати тільки одну
+// списки нет працють  при повторному вході в селект
 // 2. ПОПРАВ МОДАЛКИ
 // 3. ПОПРАВ ВІДОБРАЖЕННЯ СПИСКУ НА СТОРІНЦІ ПРОФІЛЮ
 // 5. ПОПРАВ НА СТОРІНКІ ADD PET ФОРМУ

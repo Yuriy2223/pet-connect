@@ -98,7 +98,7 @@ export const NoticeCardList = styled.ul`
   flex-wrap: nowrap;
   margin-bottom: 16px;
 
-  li {
+  /* li {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -115,6 +115,32 @@ export const NoticeCardList = styled.ul`
       line-height: 1.17;
       letter-spacing: -0.02em;
       color: ${({ theme }) => theme.black};
+    }
+  } */
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 61px;
+    height: 36px;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    color: ${({ theme }) => theme.opacityTr};
+
+    span {
+      width: 100%;
+      font-size: 12px;
+      line-height: 1.17;
+      letter-spacing: -0.02em;
+      color: ${({ theme }) => theme.black};
+      margin-top: 4px;
+      display: block;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 `;

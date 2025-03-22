@@ -82,7 +82,11 @@ export const MyViewedCard: React.FC<{
           </li>
           <li>
             Birthday
-            <span>{notice.birthday?.split('-').reverse().join('.')}</span>
+            <span>
+              {notice.birthday
+                ? notice.birthday.split('-').reverse().join('.')
+                : ''}
+            </span>
           </li>
           <li>
             Sex<span>{notice.sex}</span>
