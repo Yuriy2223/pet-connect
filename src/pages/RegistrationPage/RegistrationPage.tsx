@@ -5,8 +5,11 @@ import cat768 from '../../assets/imeges/tablet/cat768.webp';
 import catRetina768 from '../../assets/imeges/tablet/cat768-2x.webp';
 import cat1280 from '../../assets/imeges/desktop/cat1280.webp';
 import catRetina1280 from '../../assets/imeges/desktop/cat1280-2x.webp';
+import petMessage from '../../assets/imeges/modal-log-2x.webp';
 import { RegisterForm } from '../../components/RegisterForm/RegisterForm';
 import {
+  AnimalDescription,
+  AnimalNameBirthday,
   CatContainer,
   CatImage,
   FormContainer,
@@ -14,7 +17,9 @@ import {
   IconMedium,
   IconSmall,
   IconWrapper,
+  MessageWrapper,
   RegistrationPageContainer,
+  WrapperAnimal,
 } from './RegistrationPage.styled';
 
 export const RegistrationPage: React.FC = () => {
@@ -38,6 +43,24 @@ export const RegistrationPage: React.FC = () => {
           <IconMedium iconName="background768" />
           <IconLarge iconName="background1280" />
         </IconWrapper>
+        <MessageWrapper>
+          <WrapperAnimal>
+            <img src={petMessage} alt="Cat" />
+          </WrapperAnimal>
+          <div>
+            <AnimalNameBirthday>
+              <p>Jack</p>
+              <div>
+                Birthday:
+                <span>30.03.2025</span>
+              </div>
+            </AnimalNameBirthday>
+            <AnimalDescription>
+              Jack is a gray Persian cat with green eyes. He loves to be
+              pampered and groomed, and enjoys playing with toys.
+            </AnimalDescription>
+          </div>
+        </MessageWrapper>
       </CatContainer>
       <FormContainer>
         <RegisterForm />

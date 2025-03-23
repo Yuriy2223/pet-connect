@@ -32,6 +32,8 @@ export const darkTheme: DefaultTheme = {
   white: 'var(--white-color)',
   whiteOpacity: 'var(--white-opacity)',
   lightYellow: 'var(--light-yellow)',
+
+  star: 'var(--yellow)',
 };
 
 // Небесна тема
