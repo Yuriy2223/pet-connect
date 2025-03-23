@@ -5,8 +5,11 @@ import dog768 from '../../assets/imeges/tablet/dog768.webp';
 import dogRetina768 from '../../assets/imeges/tablet/dog768-2x.webp';
 import dog1280 from '../../assets/imeges/desktop/dog1280.webp';
 import dogRetina1280 from '../../assets/imeges/desktop/dog1280-2x.webp';
+import petMessage from '../../assets/imeges/modal/modal-attention.webp';
 import { LoginForm } from '../../components/LoginForm/LoginForm';
 import {
+  AnimalDescription,
+  AnimalNameBirthday,
   CatImage,
   DogContainer,
   FormLoginContainer,
@@ -15,6 +18,8 @@ import {
   IconSmall,
   IconWrapper,
   LoginPageContainer,
+  MessageWrapper,
+  WrapperAnimal,
 } from './LoginPage.styled';
 
 export const LoginPage: React.FC = () => {
@@ -38,6 +43,25 @@ export const LoginPage: React.FC = () => {
           <IconMedium iconName="background768" />
           <IconLarge iconName="background1280" />
         </IconWrapper>
+        <MessageWrapper>
+          <WrapperAnimal>
+            <img src={petMessage} alt="Cat" />
+          </WrapperAnimal>
+          <div>
+            <AnimalNameBirthday>
+              <p>Rich</p>
+              <div>
+                Birthday:
+                <span>30.03.2025</span>
+              </div>
+            </AnimalNameBirthday>
+            <AnimalDescription>
+              Rich would be the perfect addition to an active family that loves
+              to play and go on walks. I bet he would love having a doggy
+              playmate too!
+            </AnimalDescription>
+          </div>
+        </MessageWrapper>
       </DogContainer>
       <FormLoginContainer>
         <LoginForm />

@@ -113,3 +113,77 @@ export const FormContainer = styled.div`
     height: 654px;
   }
 `;
+export const MessageWrapper = styled.div`
+  display: none;
+
+  @media (min-width: 768px) {
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+    z-index: 2;
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    border-radius: 20px;
+    width: 294px;
+    height: 121px;
+    background: ${({ theme }) => theme.white};
+  }
+
+  @media (min-width: 1280px) {
+    bottom: 50px;
+    left: 50px;
+  }
+`;
+export const WrapperAnimal = styled.div`
+  background-color: ${({ theme }) => theme.lightYellow};
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
+`;
+export const AnimalNameBirthday = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  p {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+    color: ${({ theme }) => theme.primaryDark};
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.17;
+    letter-spacing: -0.02em;
+    color: ${({ theme }) => theme.opacityTr};
+
+    span {
+      margin-left: 4px;
+      color: ${({ theme }) => theme.black};
+    }
+  }
+`;
+export const AnimalDescription = styled.p`
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.17;
+  letter-spacing: -0.02em;
+  color: rgba(38, 38, 38, 0.8);
+  color: ${({ theme }) => theme.black};
+`;
