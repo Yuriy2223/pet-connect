@@ -10,9 +10,9 @@ import { useAppDispatch } from '../../redux/store';
 import { selectUserProfile } from '../../redux/user/selectors';
 import { updateUserProfile } from '../../redux/user/operations';
 import {
-  Button,
-  EditFormWraper,
-  ErrorText,
+  SubmitButton,
+  EditForm,
+  ErrorMessage,
   IconAvatar,
   IconUploadBtnAvatar,
   InputStyled,
@@ -31,22 +31,12 @@ export interface EditUser {
   phone?: string;
 }
 
-export interface FocusedProps {
-  isFieldFocused?: boolean;
-}
-
 export const ModalEditUser: React.FC = () => {
   const dispatch = useAppDispatch();
   const userProfile = useSelector(selectUserProfile);
   const [uploadedImage, setUploadedImage] = useState(userProfile?.avatar || '');
-  const [inputStates, setInputStates] = useState({
-    name: undefined,
-    email: undefined,
-    phone: undefined,
-    avatar: undefined,
-  });
 
-  const [isFieldFocused, setIsFieldFocused] = useState({
+  const [isFocused, setIsFocused] = useState({
     name: false,
     email: false,
     phone: false,
@@ -59,7 +49,6 @@ export const ModalEditUser: React.FC = () => {
     formState: { errors },
     trigger,
     reset,
-    // clearErrors,
     setValue,
   } = useForm({
     resolver: yupResolver(editUserSchema),
@@ -84,29 +73,13 @@ export const ModalEditUser: React.FC = () => {
     }
   };
 
-  const handleBlur = async (field: keyof typeof inputStates) => {
-    const isValid = await trigger(field);
-    setInputStates(prevState => ({
-      ...prevState,
-      [field]: isValid,
-    }));
-    setIsFieldFocused(prevState => ({
-      ...prevState,
-      [field]: false,
-    }));
+  const handleBlur = async (field: keyof typeof isFocused) => {
+    await trigger(field);
+    setIsFocused(prev => ({ ...prev, [field]: false }));
   };
 
-  const handleFocus = (field: keyof typeof isFieldFocused) => {
-    setIsFieldFocused(prevState => ({
-      ...prevState,
-      [field]: true,
-    }));
-  };
-
-  const getErrorMessage = (field: keyof typeof inputStates) => {
-    if (inputStates[field])
-      return `${field[0].toUpperCase() + field.slice(1)} is valid`;
-    return errors[field]?.message || '';
+  const handleFocus = (field: keyof typeof isFocused) => {
+    setIsFocused(prev => ({ ...prev, [field]: true }));
   };
 
   const onSubmit = async (data: EditUser) => {
@@ -123,7 +96,7 @@ export const ModalEditUser: React.FC = () => {
   return (
     <ModalEditUserContainer>
       <h2>Edit information</h2>
-      <EditFormWraper onSubmit={handleSubmit(onSubmit)}>
+      <EditForm onSubmit={handleSubmit(onSubmit)}>
         <UploadWrapperAvatar>
           {uploadedImage ? (
             <img src={uploadedImage} alt="Avatar" />
@@ -131,19 +104,16 @@ export const ModalEditUser: React.FC = () => {
             <IconAvatar iconName="user" />
           )}
         </UploadWrapperAvatar>
-        <UploadWrapperInputEndBtn>
+        <UploadWrapperInputEndBtn $hasError={!!errors.avatar}>
           <input
             type="text"
             placeholder="URL"
             {...register('avatar')}
             readOnly
           />
-          <ErrorText
-            isValid={inputStates.avatar}
-            isFieldFocused={isFieldFocused.avatar}
-          >
-            {getErrorMessage('avatar')}
-          </ErrorText>
+          <ErrorMessage $focus={isFocused.avatar}>
+            {errors.avatar?.message}
+          </ErrorMessage>
 
           <UploadButtonAvatar htmlFor="file-upload">
             Upload photo <IconUploadBtnAvatar iconName="upload-cloud" />
@@ -164,13 +134,12 @@ export const ModalEditUser: React.FC = () => {
               {...register('name')}
               onBlur={() => handleBlur('name')}
               onFocus={() => handleFocus('name')}
+              isFocused={isFocused.name}
+              hasError={!!errors.name}
             />
-            <ErrorText
-              isValid={inputStates.name}
-              isFieldFocused={isFieldFocused.name}
-            >
-              {getErrorMessage('name')}
-            </ErrorText>
+            <ErrorMessage $focus={isFocused.name}>
+              {errors.name?.message}
+            </ErrorMessage>
           </LabelInput>
           <LabelInput>
             <InputStyled
@@ -179,14 +148,12 @@ export const ModalEditUser: React.FC = () => {
               {...register('email')}
               onBlur={() => handleBlur('email')}
               onFocus={() => handleFocus('email')}
-              autoComplete="username"
+              isFocused={isFocused.email}
+              hasError={!!errors.email}
             />
-            <ErrorText
-              isValid={inputStates.email}
-              isFieldFocused={isFieldFocused.email}
-            >
-              {getErrorMessage('email')}
-            </ErrorText>
+            <ErrorMessage $focus={isFocused.email}>
+              {errors.email?.message}
+            </ErrorMessage>
           </LabelInput>
           <LabelInput>
             <InputStyled
@@ -194,31 +161,18 @@ export const ModalEditUser: React.FC = () => {
               placeholder="Phone"
               {...register('phone')}
               autoComplete="tel"
+              onBlur={() => handleBlur('phone')}
+              onFocus={() => handleFocus('phone')}
+              isFocused={isFocused.phone}
+              hasError={!!errors.phone}
             />
-            <ErrorText
-              isValid={inputStates.phone}
-              isFieldFocused={isFieldFocused.phone}
-            >
-              {getErrorMessage('phone')}
-            </ErrorText>
+            <ErrorMessage $focus={isFocused.phone}>
+              {errors.phone?.message}
+            </ErrorMessage>
           </LabelInput>
         </WrapperInputsBlok>
-        <Button type="submit">Go to profile</Button>
-      </EditFormWraper>
+        <SubmitButton type="submit">Save</SubmitButton>
+      </EditForm>
     </ModalEditUserContainer>
   );
 };
-// clearErrors();
-// setInputStates({
-//   name: undefined,
-//   email: undefined,
-//   phone: undefined,
-//   avatar: undefined,
-// });
-
-// setIsFieldFocused({
-//   name: false,
-//   email: false,
-//   phone: false,
-//   avatar: false,
-// });

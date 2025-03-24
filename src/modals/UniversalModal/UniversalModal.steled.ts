@@ -22,7 +22,7 @@ export const ModalContent = styled.div`
   overflow-y: auto;
 
   @media (min-width: 768px) {
-    max-width: 466px;
+    max-width: 480px;
   }
 `;
 export const CloseButton = styled.button`
