@@ -28,7 +28,6 @@ export const MyNotices: React.FC = () => {
   );
   const isFavoritesTab = activeTab === 'favorites';
   const noticesList = isFavoritesTab ? favorites : viewed;
-  const isEmpty = noticesList.length === 0;
 
   useEffect(() => {
     if (activeTab === 'favorites') {
@@ -64,7 +63,7 @@ export const MyNotices: React.FC = () => {
       </WrapperBtn>
 
       <MyNoticesList>
-        {isEmpty ? (
+        {noticesList.length === 0 ? (
           <DefoltText>
             Oops,
             <NavLinkStyled to="/notices">

@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 import { Iconsvg } from '../../components/Common/Icons';
-import {
-  FocusedProps,
-  // InputProps
-} from './ModalEditUser';
+import { FocusedProps } from './ModalEditUser';
 
 export const ErrorText = styled.p.withConfig({
   shouldForwardProp: prop => !['isValid', 'isFieldFocused'].includes(prop),
@@ -17,85 +14,7 @@ export const ErrorText = styled.p.withConfig({
   opacity: ${props => (props.isFieldFocused ? 0 : 1)};
   transition: opacity 300ms ease;
 `;
-// export const InputStyled = styled.input.withConfig({
-//   shouldForwardProp: prop => prop !== 'isValid',
-// })<InputProps>`
-//   width: 100%;
-//   padding: 12px 50px 12px 12px;
-//   border-radius: 30px;
-//   font-weight: 500;
-//   font-size: 14px;
-//   line-height: 1.29;
-//   letter-spacing: -0.03em;
-//   color: ${({ theme }) => theme.opacityTr};
-//   border: 1px solid
-//     ${({ theme, isValid }) =>
-//       isValid === undefined
-//         ? theme.opacity
-//         : isValid
-//         ? theme.green
-//         : theme.red};
-//   transition: all 300ms ease;
 
-//   &:hover {
-//     border-color: ${({ theme }) => theme.primaryDark};
-//   }
-
-//   &:focus {
-//     border-color: ${({ theme }) => theme.primaryDark};
-//   }
-
-//   @media (min-width: 768px) {
-//     padding: 16px 70px 16px 16px;
-//     font-size: 16px;
-//     line-height: 1.25;
-//   }
-// `;
-// export const Icon = styled.div.attrs<FocusedProps>({
-//   //  видаляємо кастомні пропси з DOM
-//   isFieldFocused: undefined,
-// })<FocusedProps>`
-//   opacity: ${({ isFieldFocused }) => (isFieldFocused ? 0 : 1)};
-//   transition: opacity 300ms ease;
-//   position: absolute;
-//   right: 10px;
-//   top: 50%;
-//   transform: translateY(-50%);
-
-//   @media (min-width: 768px) {
-//     right: 16px;
-//   }
-// `;
-// export const RightIcon = styled(Iconsvg)`
-//   stroke: ${({ theme }) => theme.green};
-
-//   @media (min-width: 768px) {
-//     width: 22px;
-//     height: 22px;
-//   }
-// `;
-// export const WrongIcon = styled(Iconsvg)`
-//   stroke: ${({ theme }) => theme.red};
-
-//   @media (min-width: 768px) {
-//     width: 22px;
-//     height: 22px;
-//   }
-// `;
-// export const ValidationIcon = styled.div.attrs<FocusedProps>({
-//   isFieldFocused: undefined,
-// })<FocusedProps>`
-//   opacity: ${({ isFieldFocused }) => (isFieldFocused ? 0 : 1)};
-//   transition: opacity 300ms ease;
-//   position: absolute;
-//   right: 30px;
-//   top: 50%;
-//   transform: translateY(-50%);
-
-//   @media (min-width: 768px) {
-//     right: 40px;
-//   }
-// `;
 export const ModalEditUserContainer = styled.div`
   padding: 50px 20px 40px;
   display: flex;
@@ -128,19 +47,19 @@ export const ModalEditUserContainer = styled.div`
 export const EditFormWraper = styled.form`
   display: flex;
   flex-direction: column;
-  /* width: 295px; */
+  width: 295px;
 
   @media (min-width: 320px) and (max-width: 374px) {
-    /* width: 100%;
-    height: 100%; */
+    width: 100%;
+    height: 100%;
   }
   @media (min-width: 768px) {
-    /* width: 424px;
-    height: 506px; */
+    width: 424px;
+    height: 506px;
   }
   @media (min-width: 1280px) {
-    /* width: 424px;
-    height: 516px; */
+    width: 424px;
+    height: 516px;
   }
 `;
 
