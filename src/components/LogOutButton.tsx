@@ -16,7 +16,7 @@ const LogOutBtn = styled.button`
   align-items: center;
   justify-content: center;
   border-radius: 30px;
-  width: 178px;
+  width: 112px;
   height: 42px;
   font-weight: 700;
   font-size: 14px;
