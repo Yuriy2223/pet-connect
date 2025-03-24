@@ -6,6 +6,7 @@ import { MyPetsCard } from '../MyPetsCard/MyPetsCard';
 import { useAppDispatch } from '../../redux/store';
 import {
   AddPetBlock,
+  NotFoundMessage,
   PetsBlockContainer,
   PetsBlockNavLink,
   PetsList,
@@ -31,13 +32,17 @@ export const PetsBlock: React.FC = () => {
         </PetsBlockNavLink>
       </AddPetBlock>
 
-      <PetsList>
-        {userProfile?.pets?.map(pet => (
-          <li key={pet._id}>
-            <MyPetsCard pet={pet} />
-          </li>
-        ))}
-      </PetsList>
+      {userProfile?.pets?.length ? (
+        <PetsList>
+          {userProfile.pets.map(pet => (
+            <li key={pet._id}>
+              <MyPetsCard pet={pet} />
+            </li>
+          ))}
+        </PetsList>
+      ) : (
+        <NotFoundMessage>You haven't added any animals yet.</NotFoundMessage>
+      )}
 
       <PetsLogOutBtn onClick={handleLogoutClick}>Log Out</PetsLogOutBtn>
     </PetsBlockContainer>

@@ -45,7 +45,7 @@ export const LoginPage: React.FC = () => {
         </IconWrapper>
         <MessageWrapper>
           <WrapperAnimal>
-            <img src={petMessage} alt="Cat" />
+            <img src={petMessage} alt="Dog" />
           </WrapperAnimal>
           <div>
             <AnimalNameBirthday>

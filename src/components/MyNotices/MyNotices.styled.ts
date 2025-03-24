@@ -62,7 +62,7 @@ export const MyNoticesList = styled.ul`
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 20px 14px;
+  gap: 20px 10px;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -70,11 +70,11 @@ export const MyNoticesList = styled.ul`
     flex-wrap: wrap;
     max-height: 948px;
     overflow-y: auto;
-    padding-right: 6px;
+    gap: 12px 8px;
   }
 
   @media (min-width: 1280px) {
-    max-height: 890px;
+    max-height: 870px;
   }
 `;
 

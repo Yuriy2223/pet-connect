@@ -31,10 +31,6 @@ export interface EditUser {
   phone?: string;
 }
 
-export interface InputProps {
-  isValid?: boolean;
-}
-
 export interface FocusedProps {
   isFieldFocused?: boolean;
 }
@@ -56,13 +52,14 @@ export const ModalEditUser: React.FC = () => {
     phone: false,
     avatar: false,
   });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     trigger,
     reset,
-    clearErrors,
+    // clearErrors,
     setValue,
   } = useForm({
     resolver: yupResolver(editUserSchema),
@@ -116,21 +113,7 @@ export const ModalEditUser: React.FC = () => {
     try {
       await dispatch(updateUserProfile({ ...data }));
       toast.success('Profile updated successfully!');
-      reset();
-      clearErrors();
-      setInputStates({
-        name: undefined,
-        email: undefined,
-        phone: undefined,
-        avatar: undefined,
-      });
-
-      setIsFieldFocused({
-        name: false,
-        email: false,
-        phone: false,
-        avatar: false,
-      });
+      reset(data);
       dispatch(closeModal());
     } catch {
       toast.error('An error occurred.');
@@ -159,10 +142,9 @@ export const ModalEditUser: React.FC = () => {
             isValid={inputStates.avatar}
             isFieldFocused={isFieldFocused.avatar}
           >
-            {inputStates.email
-              ? 'Email is valid'
-              : errors.avatar?.message || ''}
+            {getErrorMessage('avatar')}
           </ErrorText>
+
           <UploadButtonAvatar htmlFor="file-upload">
             Upload photo <IconUploadBtnAvatar iconName="upload-cloud" />
           </UploadButtonAvatar>
@@ -182,15 +164,7 @@ export const ModalEditUser: React.FC = () => {
               {...register('name')}
               onBlur={() => handleBlur('name')}
               onFocus={() => handleFocus('name')}
-              // isValid={inputStates.name}
             />
-
-            {/* <ErrorText
-              isValid={inputStates.name}
-              isFieldFocused={isFieldFocused.name}
-            >
-              {inputStates.name ? 'Name is valid' : errors.name?.message || ''}
-            </ErrorText> */}
             <ErrorText
               isValid={inputStates.name}
               isFieldFocused={isFieldFocused.name}
@@ -205,18 +179,8 @@ export const ModalEditUser: React.FC = () => {
               {...register('email')}
               onBlur={() => handleBlur('email')}
               onFocus={() => handleFocus('email')}
-              // isValid={inputStates.email}
               autoComplete="username"
             />
-
-            {/* <ErrorText
-              isValid={inputStates.email}
-              isFieldFocused={isFieldFocused.email}
-            >
-              {inputStates.email
-                ? 'Email is valid'
-                : errors.email?.message || ''}
-            </ErrorText> */}
             <ErrorText
               isValid={inputStates.email}
               isFieldFocused={isFieldFocused.email}
@@ -229,18 +193,8 @@ export const ModalEditUser: React.FC = () => {
               type="text"
               placeholder="Phone"
               {...register('phone')}
-              // isValid={inputStates.phone}
               autoComplete="tel"
             />
-
-            {/* <ErrorText
-              isValid={inputStates.phone}
-              isFieldFocused={isFieldFocused.phone}
-            >
-              {inputStates.phone
-                ? 'Phone is valid'
-                : errors.phone?.message || ''}
-            </ErrorText> */}
             <ErrorText
               isValid={inputStates.phone}
               isFieldFocused={isFieldFocused.phone}
@@ -254,3 +208,17 @@ export const ModalEditUser: React.FC = () => {
     </ModalEditUserContainer>
   );
 };
+// clearErrors();
+// setInputStates({
+//   name: undefined,
+//   email: undefined,
+//   phone: undefined,
+//   avatar: undefined,
+// });
+
+// setIsFieldFocused({
+//   name: false,
+//   email: false,
+//   phone: false,
+//   avatar: false,
+// });
