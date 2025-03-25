@@ -17,7 +17,7 @@ export const ErrorText = styled.p.withConfig({
   font-weight: 500;
   font-size: 10px;
   position: absolute;
-  bottom: -15px;
+  bottom: -13px;
   left: 10px;
   opacity: ${props => (props.isFieldFocused ? 0 : 1)};
   transition: opacity 300ms ease;
@@ -98,10 +98,7 @@ export const Input = styled.input.withConfig({
         : theme.red};
   transition: all 300ms ease;
 
-  &:hover {
-    border-color: ${({ theme }) => theme.primaryDark};
-  }
-
+  &:hover,
   &:focus {
     border-color: ${({ theme }) => theme.primaryDark};
   }
@@ -119,21 +116,31 @@ export const Input = styled.input.withConfig({
     line-height: 1.25;
   }
 `;
-export const Icon = styled.div.attrs<FocusedProps>({
-  //  видаляємо кастомні пропси з DOM
-  isFieldFocused: undefined,
-})<FocusedProps>`
-  opacity: ${({ isFieldFocused }) => (isFieldFocused ? 0 : 1)};
-  transition: opacity 300ms ease;
+export const Icon = styled.div<{ $isFieldFocused: boolean }>`
   position: absolute;
   right: 10px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-37%);
+  opacity: ${({ $isFieldFocused }) => ($isFieldFocused ? 0 : 1)};
+  transition: opacity 300ms ease;
 
   @media (min-width: 768px) {
     right: 16px;
   }
 `;
+export const ValidationIcon = styled.div<{ $isFieldFocused: boolean }>`
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-37%);
+  opacity: ${({ $isFieldFocused }) => ($isFieldFocused ? 0 : 1)};
+  transition: opacity 300ms ease;
+
+  @media (min-width: 768px) {
+    right: 40px;
+  }
+`;
+
 export const RightIcon = styled(Iconsvg)`
   stroke: ${({ theme }) => theme.green};
 
@@ -166,25 +173,11 @@ export const FaEyeIcon = styled(Iconsvg)`
     height: 22px;
   }
 `;
-export const ValidationIcon = styled.div.attrs<FocusedProps>({
-  isFieldFocused: undefined,
-})<FocusedProps>`
-  opacity: ${({ isFieldFocused }) => (isFieldFocused ? 0 : 1)};
-  transition: opacity 300ms ease;
-  position: absolute;
-  right: 30px;
-  top: 50%;
-  transform: translateY(-50%);
-
-  @media (min-width: 768px) {
-    right: 40px;
-  }
-`;
 export const ShowPasswordIcon = styled.div`
   position: absolute;
   right: 10px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-37%);
   cursor: pointer;
 
   @media (min-width: 768px) {

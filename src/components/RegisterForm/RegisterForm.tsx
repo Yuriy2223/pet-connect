@@ -84,6 +84,10 @@ export const RegisterForm: React.FC = () => {
       ...prevState,
       [field]: true,
     }));
+    setInputStates(prevState => ({
+      ...prevState,
+      [field]: undefined,
+    }));
   };
 
   const onSubmit = async (data: FormData) => {
@@ -134,7 +138,6 @@ export const RegisterForm: React.FC = () => {
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Title>Registration</Title>
       <SubText>Thank you for your interest in our platform.</SubText>
-
       <InputContainer>
         <InputWrapper>
           <Input
@@ -145,14 +148,14 @@ export const RegisterForm: React.FC = () => {
             onFocus={() => handleFocus('name')}
             isValid={inputStates.name}
           />
-          <Icon isFieldFocused={isFieldFocused.name}>
-            {inputStates.name ? (
-              <RightIcon width={18} height={18} iconName="check" />
-            ) : errors.name ? (
-              <WrongIcon width={18} height={18} iconName="close" />
-            ) : (
-              ''
-            )}
+          <Icon $isFieldFocused={isFieldFocused.name}>
+            {inputStates.name !== undefined ? (
+              inputStates.name ? (
+                <RightIcon width={18} height={18} iconName="check" />
+              ) : (
+                <WrongIcon width={18} height={18} iconName="close" />
+              )
+            ) : null}
           </Icon>
           <ErrorText
             isValid={inputStates.name}
@@ -161,7 +164,6 @@ export const RegisterForm: React.FC = () => {
             {inputStates.name ? 'Name is valid' : errors.name?.message || ''}
           </ErrorText>
         </InputWrapper>
-
         <InputWrapper>
           <Input
             type="email"
@@ -172,14 +174,14 @@ export const RegisterForm: React.FC = () => {
             isValid={inputStates.email}
             autoComplete="username"
           />
-          <Icon isFieldFocused={isFieldFocused.email}>
-            {inputStates.email ? (
-              <RightIcon width={18} height={18} iconName="check" />
-            ) : errors.email ? (
-              <WrongIcon width={18} height={18} iconName="close" />
-            ) : (
-              ''
-            )}
+          <Icon $isFieldFocused={isFieldFocused.email}>
+            {inputStates.email !== undefined ? (
+              inputStates.email ? (
+                <RightIcon width={18} height={18} iconName="check" />
+              ) : (
+                <WrongIcon width={18} height={18} iconName="close" />
+              )
+            ) : null}
           </Icon>
           <ErrorText
             isValid={inputStates.email}
@@ -188,7 +190,6 @@ export const RegisterForm: React.FC = () => {
             {inputStates.email ? 'Email is valid' : errors.email?.message || ''}
           </ErrorText>
         </InputWrapper>
-
         <InputWrapperPass>
           <Input
             type={showPassword.password ? 'text' : 'password'}
@@ -213,15 +214,14 @@ export const RegisterForm: React.FC = () => {
               <FaEyeIcon width={18} height={18} iconName="eye-off" />
             )}
           </ShowPasswordIcon>
-
-          <ValidationIcon isFieldFocused={isFieldFocused.password}>
-            {inputStates.password ? (
-              <RightIcon width={18} height={18} iconName="check" />
-            ) : errors.password ? (
-              <WrongIcon width={18} height={18} iconName="close" />
-            ) : (
-              ''
-            )}
+          <ValidationIcon $isFieldFocused={isFieldFocused.password}>
+            {inputStates.password !== undefined ? (
+              inputStates.password ? (
+                <RightIcon width={18} height={18} iconName="check" />
+              ) : (
+                <WrongIcon width={18} height={18} iconName="close" />
+              )
+            ) : null}
           </ValidationIcon>
           <ErrorText
             isValid={inputStates.password}
@@ -232,7 +232,6 @@ export const RegisterForm: React.FC = () => {
               : errors.password?.message || ''}
           </ErrorText>
         </InputWrapperPass>
-
         <InputWrapperPass>
           <Input
             type={showPassword.confirmPassword ? 'text' : 'password'}
@@ -257,14 +256,14 @@ export const RegisterForm: React.FC = () => {
               <FaEyeIcon width={18} height={18} iconName="eye-off" />
             )}
           </ShowPasswordIcon>
-          <ValidationIcon isFieldFocused={isFieldFocused.confirmPassword}>
-            {inputStates.confirmPassword ? (
-              <RightIcon width={18} height={18} iconName="check" />
-            ) : errors.confirmPassword ? (
-              <WrongIcon width={18} height={18} iconName="close" />
-            ) : (
-              ''
-            )}
+          <ValidationIcon $isFieldFocused={isFieldFocused.confirmPassword}>
+            {inputStates.confirmPassword !== undefined ? (
+              inputStates.confirmPassword ? (
+                <RightIcon width={18} height={18} iconName="check" />
+              ) : (
+                <WrongIcon width={18} height={18} iconName="close" />
+              )
+            ) : null}
           </ValidationIcon>
           <ErrorText
             isValid={inputStates.confirmPassword}
