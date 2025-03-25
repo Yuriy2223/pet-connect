@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Iconsvg } from '../Common/Icons';
-// import { AddStyledSelect } from '../Common/AddSelectType';
-import { StyledSelect } from '../Common/StyledSelect';
+import { AddStyledSelect } from '../Common/AddSelectType';
 
 export const AddWrapperForm = styled.form`
   display: flex;
@@ -197,7 +196,6 @@ export const UploadInput = styled.input`
   line-height: 1.33;
   letter-spacing: -0.02em;
   color: ${({ theme }) => theme.black};
-  /* position: relative; */
 
   @media (max-width: 374px) {
     width: 110px;
@@ -258,8 +256,9 @@ export const InputContainer = styled.div`
     gap: 18px;
   }
 `;
-export const InputValue = styled.input`
-  border: 1px solid ${({ theme }) => theme.opacity};
+export const InputValue = styled.input<{ $isError?: boolean }>`
+  border: 1px solid
+    ${({ theme, $isError }) => ($isError ? theme.red : theme.primaryDark)};
   border-radius: 30px;
   padding: 12px;
   width: 100%;
@@ -269,6 +268,7 @@ export const InputValue = styled.input`
   line-height: 1.29;
   letter-spacing: -0.03em;
   color: ${({ theme }) => theme.opacityTr};
+  transition: border 0.2s ease-in-out;
 
   @media (min-width: 768px) {
     font-size: 16px;
@@ -278,9 +278,10 @@ export const InputValue = styled.input`
 
   &:hover,
   &:focus {
-    border: 1px solid ${({ theme }) => theme.primaryDark};
+    border: 1px solid ${({ theme }) => theme.green};
   }
 `;
+
 export const InputDate = styled(InputValue)`
   position: relative;
   width: 142px;
@@ -302,7 +303,7 @@ export const WrapperDateType = styled.div`
 export const AddSelectTypeWrapper = styled.div`
   position: relative;
 `;
-export const AddSelectType = styled(StyledSelect)`
+export const AddSelectType = styled(AddStyledSelect)`
   width: 140px;
 
   @media (max-width: 374px) {
