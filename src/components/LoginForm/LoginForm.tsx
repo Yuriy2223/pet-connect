@@ -71,6 +71,10 @@ export const LoginForm: React.FC = () => {
       ...prevState,
       [field]: true,
     }));
+    setInputStates(prevState => ({
+      ...prevState,
+      [field]: undefined,
+    }));
   };
 
   const onSubmit = async (data: LoginData) => {
