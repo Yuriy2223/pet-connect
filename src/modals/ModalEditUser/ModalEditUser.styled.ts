@@ -48,7 +48,7 @@ export const UploadWrapperAvatar = styled.div`
   }
 
   div {
-    border: 1px solid ${({ theme }) => theme.primaryDark};
+    border: 2px solid ${({ theme }) => theme.primaryDark};
     width: 80px;
     height: 80px;
     display: flex;

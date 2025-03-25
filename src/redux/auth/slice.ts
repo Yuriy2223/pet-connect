@@ -55,7 +55,8 @@ const authSlice = createSlice({
         registerUser.fulfilled,
         (state, action: PayloadAction<UserAuth>) => {
           state.user = action.payload;
-          state.isSignedIn = true;
+          // state.isSignedIn = true;
+          state.isSignedIn = false;
           state.loading = false;
           state.error = null;
         }
