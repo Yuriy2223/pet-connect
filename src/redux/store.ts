@@ -19,6 +19,7 @@ import { noticesReducer } from './notices/slice';
 import { citiesReducer } from './cities/slice';
 import { modalReducer } from './modal/slice';
 import { themeReducer } from './theme/slice';
+import { favoritesReducer } from './favorites/slice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -46,6 +47,7 @@ export const store = configureStore({
     notices: noticesReducer,
     cities: citiesReducer,
     modal: modalReducer,
+    favorites: favoritesReducer,
     theme: persistedThemeReducer,
   },
   middleware: getDefaultMiddleware =>

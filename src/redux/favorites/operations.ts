@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-// import { toast } from 'react-toastify';
 import { Notice, UserProfile } from '../../App.types';
 import {
   addNoticesFavoriteApi,
