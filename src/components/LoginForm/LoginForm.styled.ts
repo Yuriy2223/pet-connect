@@ -17,7 +17,7 @@ export const ErrorText = styled.p.withConfig({
   font-weight: 500;
   font-size: 10px;
   position: absolute;
-  bottom: -15px;
+  bottom: -13px;
   left: 10px;
   opacity: ${props => (props.isFieldFocused ? 0 : 1)};
   transition: opacity 300ms ease;
@@ -127,7 +127,7 @@ export const Icon = styled.div.attrs<FocusedProps>({
   position: absolute;
   right: 10px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-37%);
 
   @media (min-width: 768px) {
     right: 16px;
@@ -137,7 +137,7 @@ export const ShowPasswordIcon = styled.div`
   position: absolute;
   right: 10px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-37%);
   cursor: pointer;
 
   @media (min-width: 768px) {
@@ -184,7 +184,7 @@ export const ValidationIcon = styled.div.attrs<FocusedProps>({
   position: absolute;
   right: 30px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-37%);
 
   @media (min-width: 768px) {
     right: 40px;

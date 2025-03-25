@@ -1,8 +1,8 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../redux/store';
 import { closeModal } from '../../redux/modal/slice';
 import { selectModalProps, selectModalType } from '../../redux/modal/selectors';
-import { AppDispatch } from '../../redux/store';
 import { removeUserPet } from '../../redux/user/operations';
 import { toast } from 'react-toastify';
 import {
@@ -14,7 +14,7 @@ import {
 } from '../ModalApproveAction/ModalApproveAction.styled';
 
 export const ModalDeleteMyPets: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const modalType = useSelector(selectModalType);
   const modalProps = useSelector(selectModalProps);
 

@@ -56,9 +56,6 @@ const noticesSlice = createSlice({
   name: 'notices',
   initialState,
   reducers: {
-    // resetNoticesState() {
-    //   return initialState;
-    // },
     resetNoticesState(state) {
       return {
         ...state,
@@ -175,6 +172,7 @@ const noticesSlice = createSlice({
           state.error = null;
         }
       )
+
       // Remove a notice from user favorites
       .addCase(removeNoticesFavorite.pending, state => {
         state.loading = true;
@@ -213,6 +211,7 @@ const noticesSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
+
       // Get notice to favorites
       .addCase(fetchFavorites.pending, state => {
         state.loading = true;

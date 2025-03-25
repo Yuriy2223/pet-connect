@@ -1,9 +1,9 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../redux/store';
 import { closeModal } from '../../redux/modal/slice';
 import { logoutUser } from '../../redux/auth/operations';
 import { selectModalType } from '../../redux/modal/selectors';
-import { AppDispatch } from '../../redux/store';
 import { toast } from 'react-toastify';
 import {
   LogautImageWrapper,
@@ -14,7 +14,7 @@ import {
 } from './ModalApproveAction.styled';
 
 export const ModalApproveAction: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const modalType = useSelector(selectModalType);
 
   if (modalType !== 'ModalApproveAction') return null;

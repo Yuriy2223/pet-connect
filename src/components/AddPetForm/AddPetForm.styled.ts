@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Iconsvg } from '../Common/Icons';
-// import { AddStyledSelect } from '../Common/AddSelectType';
-import { StyledSelect } from '../Common/StyledSelect';
+import { AddStyledSelect } from '../Common/AddSelectType';
 
 export const AddWrapperForm = styled.form`
   display: flex;
@@ -47,10 +46,10 @@ export const AddRadioWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  position: relative; /** */
+  position: relative;
 `;
 export const InputWrapper = styled.div`
-  position: relative; /** */
+  position: relative;
 `;
 export const RadioLabelFemale = styled.label<{ $isActive: boolean }>`
   width: 40px;
@@ -186,7 +185,7 @@ export const UploadWrapper = styled.div`
   position: relative; /** */
 `;
 export const UploadInput = styled.input`
-  border: 1px solid ${({ theme }) => theme.opacity};
+  border: 1px solid ${({ theme }) => theme.primaryDark};
   border-radius: 30px;
   padding: 9px 20px 9px 10px;
   max-width: 170px;
@@ -197,7 +196,6 @@ export const UploadInput = styled.input`
   line-height: 1.33;
   letter-spacing: -0.02em;
   color: ${({ theme }) => theme.black};
-  /* position: relative; */
 
   @media (max-width: 374px) {
     width: 110px;
@@ -216,13 +214,14 @@ export const UploadButton = styled.label`
   padding: 12px;
   width: 117px;
   height: 36px;
-  background: ${({ theme }) => theme.lightYellow};
+
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
   letter-spacing: -0.02em;
   color: ${({ theme }) => theme.black};
-  border: none;
+  background-color: ${({ theme }) => theme.lightYellow};
+  border: 1px solid ${({ theme }) => theme.primaryDark};
   cursor: pointer;
 
   @media (max-width: 374px) {
@@ -258,8 +257,9 @@ export const InputContainer = styled.div`
     gap: 18px;
   }
 `;
-export const InputValue = styled.input`
-  border: 1px solid ${({ theme }) => theme.opacity};
+export const InputValue = styled.input<{ $isError?: boolean }>`
+  border: 1px solid
+    ${({ theme, $isError }) => ($isError ? theme.red : theme.primaryDark)};
   border-radius: 30px;
   padding: 12px;
   width: 100%;
@@ -269,6 +269,7 @@ export const InputValue = styled.input`
   line-height: 1.29;
   letter-spacing: -0.03em;
   color: ${({ theme }) => theme.opacityTr};
+  transition: border 0.2s ease-in-out;
 
   @media (min-width: 768px) {
     font-size: 16px;
@@ -278,7 +279,7 @@ export const InputValue = styled.input`
 
   &:hover,
   &:focus {
-    border: 1px solid ${({ theme }) => theme.primaryDark};
+    border: 1px solid ${({ theme }) => theme.green};
   }
 `;
 export const InputDate = styled(InputValue)`
@@ -302,7 +303,7 @@ export const WrapperDateType = styled.div`
 export const AddSelectTypeWrapper = styled.div`
   position: relative;
 `;
-export const AddSelectType = styled(StyledSelect)`
+export const AddSelectType = styled(AddStyledSelect)`
   width: 140px;
 
   @media (max-width: 374px) {

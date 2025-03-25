@@ -7,60 +7,109 @@ export type ThemeType = 'light' | 'dark' | 'sky' | 'rose' | 'peach';
 export const lightTheme: DefaultTheme = {
   primaryDark: 'var(--golden)',
   primaryLight: 'var(--golden-light)',
-  black: 'var(--dark-gray)',
+  lightYellow: 'var(--light-yellow)',
+
   opacity: 'var(--ligh-gray-opacity)',
   white: 'var(--white-color)',
-  whiteOpacity: 'var(--white-opacity)',
   whiteTr: 'var(--white-tr)',
-  lightYellow: 'var(--light-yellow)',
+  whiteOpacity: 'var(--white-opacity)',
+  opacityTr: 'var(--ligh-gray-tr)',
   green: 'var(--bright-green)',
   red: 'var(--bright-red)',
   redLight: 'var(--light-red)',
+  star: 'var(--yellow)',
+  black: 'var(--dark-gray)',
   blue: 'var(--bright-blue)',
   blueLight: 'var(--light-blue)',
-  opacityTr: 'var(--ligh-gray-tr)',
   body: 'var(--background-body)',
-  star: 'var(--yellow)',
 };
 
 // Темна тема
 export const darkTheme: DefaultTheme = {
   primaryDark: 'var(--soft-teal)',
-  primaryLight: 'var(--mint-green)',
-  black: 'var(--dark-gray)',
-  opacity: 'var(--ligh-gray-opacity)',
-  white: 'var(--white-color)',
-  whiteOpacity: 'var(--white-opacity)',
+  primaryLight: 'var( --mint-green)',
+
   lightYellow: 'var(--light-yellow)',
 
+  opacity: 'var(--ligh-gray-opacity)',
+  white: 'var(--white-color)',
+  whiteTr: 'var(--white-tr)',
+  whiteOpacity: 'var(--white-opacity)',
+  opacityTr: 'var(--ligh-gray-tr)',
+  green: 'var(--bright-green)',
+  red: 'var(--bright-red)',
+  redLight: 'var(--light-red)',
   star: 'var(--yellow)',
+  black: 'var(--dark-gray)',
+  blue: 'var(--bright-blue)',
+  blueLight: 'var(--light-blue)',
+  body: 'var(--background-body)',
 };
 
 // Небесна тема
 export const skyTheme: DefaultTheme = {
-  primaryColorLight: 'var(--sky-blue)',
-  primaryColorDark: 'var(--powder-blue)',
-  primaryBlack: 'var(--primary)',
-  primaryOpacity: 'var(--primary-opacity)',
+  primaryDark: 'var( --powder-blue)',
+  primaryLight: 'var( --sky-blue)',
+
+  lightYellow: 'var(--light-yellow)',
+
+  opacity: 'var(--ligh-gray-opacity)',
   white: 'var(--white-color)',
+  whiteTr: 'var(--white-tr)',
+  whiteOpacity: 'var(--white-opacity)',
+  opacityTr: 'var(--ligh-gray-tr)',
+  green: 'var(--bright-green)',
+  red: 'var(--bright-red)',
+  redLight: 'var(--light-red)',
+  star: 'var(--yellow)',
+  black: 'var(--dark-gray)',
+  blue: 'var(--bright-blue)',
+  blueLight: 'var(--light-blue)',
+  body: 'var(--background-body)',
 };
 
 // Рожева тема
 export const roseTheme: DefaultTheme = {
-  primaryColorLight: 'var(--soft-rose)',
-  primaryColorDark: 'var(--peach)',
-  primaryBlack: 'var(--primary)',
-  primaryOpacity: 'var(--primary-opacity)',
+  primaryDark: 'var(--peach)',
+  primaryLight: 'var(--soft-rose)',
+
+  lightYellow: 'var(--light-yellow)',
+
+  opacity: 'var(--ligh-gray-opacity)',
   white: 'var(--white-color)',
+  whiteTr: 'var(--white-tr)',
+  whiteOpacity: 'var(--white-opacity)',
+  opacityTr: 'var(--ligh-gray-tr)',
+  green: 'var(--bright-green)',
+  red: 'var(--bright-red)',
+  redLight: 'var(--light-red)',
+  star: 'var(--yellow)',
+  black: 'var(--dark-gray)',
+  blue: 'var(--bright-blue)',
+  blueLight: 'var(--light-blue)',
+  body: 'var(--background-body)',
 };
 
 // Персикова тема
 export const peachTheme: DefaultTheme = {
-  primaryColorLight: 'var(--blush-pink)',
-  primaryColorDark: 'var(--coral)',
-  primaryBlack: 'var(--primary)',
-  primaryOpacity: 'var(--primary-opacity)',
+  primaryDark: 'var(--coral)',
+  primaryLight: 'var(--blush-pink)',
+
+  lightYellow: 'var(--light-yellow)',
+
+  opacity: 'var(--ligh-gray-opacity)',
   white: 'var(--white-color)',
+  whiteTr: 'var(--white-tr)',
+  whiteOpacity: 'var(--white-opacity)',
+  opacityTr: 'var(--ligh-gray-tr)',
+  green: 'var(--bright-green)',
+  red: 'var(--bright-red)',
+  redLight: 'var(--light-red)',
+  star: 'var(--yellow)',
+  black: 'var(--dark-gray)',
+  blue: 'var(--bright-blue)',
+  blueLight: 'var(--light-blue)',
+  body: 'var(--background-body)',
 };
 
 // Об'єкт усіх тем
