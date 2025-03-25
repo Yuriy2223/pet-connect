@@ -101,7 +101,9 @@ export const ModalEditUser: React.FC = () => {
           {uploadedImage ? (
             <img src={uploadedImage} alt="Avatar" />
           ) : (
-            <IconAvatar iconName="user" />
+            <div>
+              <IconAvatar iconName="user" />
+            </div>
           )}
         </UploadWrapperAvatar>
         <UploadWrapperInputEndBtn $hasError={!!errors.avatar}>
