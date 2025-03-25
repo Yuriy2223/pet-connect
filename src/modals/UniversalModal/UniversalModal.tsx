@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { closeModal } from '../../redux/modal/slice';
+import { useAppDispatch } from '../../redux/store';
 import { ModalApproveAction } from '../ModalApproveAction/ModalApproveAction';
 import { ModalEditUser } from '../ModalEditUser/ModalEditUser';
 import { ModalDeleteMyPets } from '../ModalDeleteMyPets/ModalDeleteMyPets';
@@ -21,7 +22,7 @@ import {
 import { Notice } from '../../App.types';
 
 export const ModalUniversal: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isOpen = useSelector(selectIsModalOpen);
   const modalType = useSelector(selectModalType);
   const modalProps = useSelector(selectModalProps);

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { closeModal } from '../../redux/modal/slice';
-import { AppDispatch } from '../../redux/store';
+import { useAppDispatch } from '../../redux/store';
 import defaultImage from '../../assets/imeges/defaultNotice.webp';
 import { Notice } from '../../App.types';
 import { fetchNoticesNoticeByIdApi } from '../../services/noticesApi';
@@ -28,7 +27,7 @@ export const ModalNotice: React.FC<{ notice: Notice; favorites: Notice[] }> = ({
   notice,
   favorites,
 }) => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const isFavorite = favorites.some(favorite => favorite._id === notice._id);
   const [imgSrc, setImgSrc] = useState(notice.imgURL || defaultImage);
   const [userContact, setUserContact] = useState<{

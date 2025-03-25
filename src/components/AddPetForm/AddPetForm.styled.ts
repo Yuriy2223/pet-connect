@@ -46,10 +46,10 @@ export const AddRadioWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  position: relative; /** */
+  position: relative;
 `;
 export const InputWrapper = styled.div`
-  position: relative; /** */
+  position: relative;
 `;
 export const RadioLabelFemale = styled.label<{ $isActive: boolean }>`
   width: 40px;
@@ -185,7 +185,7 @@ export const UploadWrapper = styled.div`
   position: relative; /** */
 `;
 export const UploadInput = styled.input`
-  border: 1px solid ${({ theme }) => theme.opacity};
+  border: 1px solid ${({ theme }) => theme.primaryDark};
   border-radius: 30px;
   padding: 9px 20px 9px 10px;
   max-width: 170px;
@@ -214,13 +214,14 @@ export const UploadButton = styled.label`
   padding: 12px;
   width: 117px;
   height: 36px;
-  background: ${({ theme }) => theme.lightYellow};
+
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
   letter-spacing: -0.02em;
   color: ${({ theme }) => theme.black};
-  border: none;
+  background-color: ${({ theme }) => theme.lightYellow};
+  border: 1px solid ${({ theme }) => theme.primaryDark};
   cursor: pointer;
 
   @media (max-width: 374px) {
@@ -281,7 +282,6 @@ export const InputValue = styled.input<{ $isError?: boolean }>`
     border: 1px solid ${({ theme }) => theme.green};
   }
 `;
-
 export const InputDate = styled(InputValue)`
   position: relative;
   width: 142px;

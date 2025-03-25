@@ -1,8 +1,8 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../redux/store';
 import { closeModal } from '../../redux/modal/slice';
 import { selectModalType } from '../../redux/modal/selectors';
-import { AppDispatch } from '../../redux/store';
 import ModalImg from '../../assets/imeges/desktop/logaut-desktop.webp';
 import {
   ImageWrapper,
@@ -13,7 +13,7 @@ import {
 } from './ModalCongrats.styled';
 
 export const ModalCongrats: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const modalType = useSelector(selectModalType);
 
   if (modalType !== 'ModalCongrats') return null;

@@ -56,9 +56,6 @@ const noticesSlice = createSlice({
   name: 'notices',
   initialState,
   reducers: {
-    // resetNoticesState() {
-    //   return initialState;
-    // },
     resetNoticesState(state) {
       return {
         ...state,
