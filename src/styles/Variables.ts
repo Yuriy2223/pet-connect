@@ -26,7 +26,6 @@ export const Variables = css`
 
     /*  Theme 1 */
     --golden: #f6b83d;
-    /* --golden-light: #FFF4DF; */
     --golden-light: #f0c678;
     /*  Theme 2 */
     --soft-teal: #9fbaae;
