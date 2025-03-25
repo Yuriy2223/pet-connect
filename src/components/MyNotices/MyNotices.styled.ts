@@ -70,14 +70,14 @@ export const MyNoticesList = styled.ul`
     flex-wrap: wrap;
     max-height: 948px;
     overflow-y: auto;
-    gap: 12px 8px;
+    gap: 12px 6px;
   }
 
   @media (min-width: 1280px) {
     max-height: 870px;
+    gap: 12px 8px;
   }
 `;
-
 export const DefoltText = styled.div`
   font-weight: 500;
   font-size: 14px;
