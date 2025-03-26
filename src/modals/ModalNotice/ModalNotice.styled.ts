@@ -111,7 +111,6 @@ export const RaitingWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
-  /* margin-bottom: 20px; */
 
   span {
     font-weight: 500;
