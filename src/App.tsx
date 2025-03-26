@@ -19,7 +19,6 @@ export const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const isSignedIn = useSelector(selectIsSignedIn);
   const [showSplash, setShowSplash] = useState(true);
-  // const isFirstRender = useRef(true);
 
   const fetchFiltersData = useCallback(() => {
     dispatch(fetchNoticesCategories());
@@ -28,13 +27,6 @@ export const App: React.FC = () => {
     dispatch(fetchCityLocations());
     dispatch(currentUser());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (isFirstRender.current) {
-  //     fetchFiltersData();
-  //     isFirstRender.current = false;
-  //   }
-  // }, [fetchFiltersData]);
 
   useEffect(() => {
     if (!isSignedIn) {
@@ -72,8 +64,3 @@ export const App: React.FC = () => {
     </>
   );
 };
-
-//  ЗРОБИ ТАКІ ПРАВКИ
-// прибрати перезагрузку сторінки придодаванні чи видаленні фаворитів
-// при додаванні до фаворитів щоб не перезагружалась сторінка
-// 0.0.0. ОПТИМІЗАЦІЯ ПРОЄКТУ

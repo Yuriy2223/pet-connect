@@ -1,82 +1,72 @@
-1. Vite + React
-   npm create vite@latest
+# Petlove
 
-2. React Router Dom
-   Для роботи з маршрутизацією:
-   npm install react-router-dom
+## Slogan
 
-3. Redux та Redux Toolkit
-   Для керування станом застосунку:
-   npm install @reduxjs/toolkit react-redux
+_Helping every pet find a home!_
 
-4. Styled-Components
-   Для стилізації компонентів:
-   npm install styled-components
+## Project Description
 
-5. React Hook Form та Yup
-   Для роботи з формами та валідації:
-   npm install react-hook-form yup @hookform/resolvers
+Petlove is a platform for searching, posting, and viewing pet adoption listings. Users can create their own listings, browse available pets, filter them by various criteria, and contact pet owners.
 
-6. Axios
-   Для HTTP-запитів до бекенду:
-   npm install axios
+## Main Pages
 
-7. React Icons (для іконок)
-   Для додавання іконок, наприклад, іконки хрестика, серця тощо:
-   npm install react-icons
+- **Home** – The page contains the project name and description.
+- **News** – The news page features a list of animal-related news. Users can read more details by clicking on a link. A search function allows filtering news by keywords.
+- **Find pet** – This page contains a catalog of listings that can be filtered by keywords, category, gender, pet type, and location, and sorted by popularity or price. Server-side pagination is implemented for easy navigation.
+- **Our friends** – The page lists partner organizations with contact details and links to their websites. Users can view their locations on a map and check business hours.
+- **Profile page** – This page displays the user's profile, which can be edited, along with the list of pets they have added. It also shows the user's favorite listings and recently viewed listings.
+- **Registration** – A registration form with fields for name, email, password, and password confirmation.
+- **Login** – A login form with email and password validation.
 
-8. Redux Persist (Опціонально)
-   Для збереження даних у localStorage, наприклад, дані про авторизацію:
-   npm install redux-persist
+## Core Technologies
 
-9. React Toastify (Для Сповіщень)
-   Для відображення сповіщень користувачу (наприклад, помилки з бекенду або підтвердження):
-   npm install react-toastify
+### Frontend
 
-10. Date-fns (Для Роботи з Датами)
-    Для форматування дат народження улюбленців або оголошень:
-    npm install date-fns
+- **React + Vite** – For fast and efficient development.
+- **TypeScript** – Ensures strong typing and code safety.
+- **React Router** – For page navigation.
+- **Redux Toolkit + Redux Persist** – State management, handling theme switching, modal windows, and component states, effectively managing the entire application.
+- **Axios** – API communication.
+- **React Hook Form + Yup** – Form handling and validation.
+- **Styled-components** – Custom styling.
+- **React Select** – Custom dropdown lists.
+- **React Toastify** – Notifications.
+- **Date-fns** – Date handling.
 
-11. React Loader Spinner (Для Індикатора Завантаження)
-    Для відображення індикатора завантаження під час запитів:
-    npm install react-loader-spinner
+### Development Tools
 
-12. React Modal
-    Для створення модальних вікон (наприклад, ModalApproveAction, ModalNotice):
-    npm install react-modal
+- **ESLint**: A linter for JavaScript and TypeScript that enforces code consistency and prevents errors.
+- **Prettier**: A code formatter that ensures a uniform code style across the project.
+- **TypeScript ESLint**: A plugin for ESLint to support TypeScript, enabling type-safe code analysis.
+- **Vite Plugin React**: A plugin for React support in Vite, optimizing JSX handling and fast reloading.
 
-13. Formik
-    бібліотека для керування формами у React
-    npm install formik
+### Backend
 
-Загальна Команда для Встановлення Залежностей
-Щоб швидко встановити всі залежності одним рядком:
+- **REST API**: Standard HTTP requests (GET, POST, PUT, DELETE) are used for interacting with the backend, retrieving, filtering, and sorting listings.
 
-npm install react-router-dom @reduxjs/toolkit react-redux styled-components react-hook-form yup @hookform/resolvers axios react-select react-icons redux-persist react-toastify date-fns react-loader-spinner react-modal
+### Other Tools
 
-Додаткові Пакети для Розробки
+- **Figma**: Used for UI design and prototyping.
 
-1. ESLint та Prettier (для підтримки якості коду):
-   npm install eslint prettier eslint-plugin-react eslint-plugin-react-hooks eslint-config-prettier --save-dev
-   Можна налаштувати ESLint і Prettier для підтримки чистоти і форматування коду.
+## Technical Requirements
 
-2. Husky та Lint-Staged (для автозапуску лінтингу перед комітом):
-   npm install husky lint-staged --save-dev
-   Це допоможе уникнути помилок стилю і синтаксису під час розробки.
+- **Responsive design** for all devices
+- **Optimized graphics** with Retina display support
+- **Filtering, search, and server-side pagination**
+- **Burger menu** for mobile navigation
+- **Modal windows** for user interactions
+- **Token-based authentication**, stored in Redux
+- **Listing creation form** with validation
 
-3. Vite Plugin SVGR (для використання SVG як React компоненти):
-   npm install vite-plugin-svgr
-   Це допоможе інтегрувати SVG іконки як компоненти React.
+## Completion Criteria
 
-Короткий Огляд Основних Залежностей
+- Well-structured and maintainable code
+- Use of semantic HTML5 tags
+- API integration (fetching, filtering, pagination)
+- Implementation of Redux Toolkit
+- Forms validated with React Hook Form + Yup
+- Fully responsive and UX/UI-friendly design
 
-React + Vite: для швидкої розробки.
-React-Router-Dom: для маршрутизації.
-Redux/Redux Toolkit: для глобального керування станом.
-Styled-Components: для компонентного стилю.
-React-Hook-Form + Yup: для зручної роботи з формами та валідації.
-Axios: для запитів до бекенду.
-React-Select: для реалізації випадаючих списків.
-React-Toastify: для сповіщень.
-React-Loader-Spinner: для індикатора завантаження.
-React-Modal: для модальних вікон.
+## Deployment
+
+The project is deployed at: [Deployment Link](https://pet-connect-fawn.vercel.app/)
