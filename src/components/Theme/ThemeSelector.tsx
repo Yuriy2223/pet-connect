@@ -54,10 +54,5 @@ export const ThemeSelector = () => {
     dispatch(setTheme(nextTheme));
   };
 
-  return (
-    <ThemeButton onClick={handleThemeChange}>
-      Theme
-      {/* : {themes[theme] ? themes[theme].primaryDark : 'Default'} */}
-    </ThemeButton>
-  );
+  return <ThemeButton onClick={handleThemeChange}>Theme</ThemeButton>;
 };
