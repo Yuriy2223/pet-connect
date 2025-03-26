@@ -182,7 +182,7 @@ export const UploadWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  position: relative; /** */
+  position: relative;
 `;
 export const UploadInput = styled.input`
   border: 1px solid ${({ theme }) => theme.primaryDark};
