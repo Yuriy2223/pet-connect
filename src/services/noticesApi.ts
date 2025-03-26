@@ -1,6 +1,5 @@
 import { instance, publicInstance } from './Api';
 import {
-  // City,
   GetNoticesResponse,
   Notice,
   NoticesParams,
@@ -71,9 +70,3 @@ export const fetchNoticesSpeciesApi = async (): Promise<string[]> => {
   const response = await publicInstance.get<string[]>('/api/notices/species');
   return response.data;
 };
-
-// // Get all cities where are pets that descripted on notes
-// export const fetchCityLocationsApi = async (): Promise<City[]> => {
-//   const response = await publicInstance.get<City[]>('/cities/locations');
-//   return response.data;
-// };
