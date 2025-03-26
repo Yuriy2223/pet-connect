@@ -98,25 +98,6 @@ export const NoticeCardList = styled.ul`
   flex-wrap: nowrap;
   margin-bottom: 16px;
 
-  /* li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 35px;
-    height: 30px;
-    font-weight: 500;
-    font-size: 10px;
-    line-height: 1.4;
-    letter-spacing: -0.02em;
-    color: ${({ theme }) => theme.opacityTr};
-
-    span {
-      font-size: 12px;
-      line-height: 1.17;
-      letter-spacing: -0.02em;
-      color: ${({ theme }) => theme.black};
-    }
-  } */
   li {
     display: flex;
     flex-direction: column;

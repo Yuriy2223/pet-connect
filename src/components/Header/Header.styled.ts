@@ -6,16 +6,13 @@ export const HeaderContainer = styled(Container)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* padding: 24px 20px 16px; */
   padding: 10px 20px;
 
   @media (min-width: 768px) {
-    /* padding: 22px 32px; */
     padding: 18px 32px;
   }
 
   @media (min-width: 1280px) {
-    /* padding: 32px 64px; */
     padding: 22px 64px;
   }
 `;

@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { toast } from 'react-toastify';
 import { setToken, TOKEN_KEY } from '../../services/Api';
 import { UserAuth } from '../../App.types';
@@ -11,7 +12,6 @@ import {
   logoutApi,
   LoginData,
 } from '../../services/authApi';
-import axios from 'axios';
 
 // Сurrent User
 export const currentUser = createAsyncThunk<

@@ -18,6 +18,3 @@ export const selectUserPetById = (
   petId: string
 ): PetProfile | undefined =>
   state.user.profile?.pets.find(pet => pet._id === petId);
-
-// export const selectUserHasPets = (state: RootState): boolean =>
-//   (state.user.profile?.pets.length ?? 0) > 0;
