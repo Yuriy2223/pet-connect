@@ -43,27 +43,39 @@ export const FriendsCard: React.FC<FriendCardProps> = ({ friend }) => {
           <ImgLogo src={friend.imageUrl || defaultImage} alt="logo images" />
         </LogoWrapper>
         <InfolinkWrapper>
-          <a href={friend.url} target="_blank" rel="noopener noreferrer">
-            <Name>{friend.title}</Name>
-          </a>
+          <Name href={friend.url} target="_blank" rel="noopener noreferrer">
+            <h3>{friend.title}</h3>
+          </Name>
           <InfoList>
             <div>
               Email:
-              <ContactLink href={`mailto:${friend.email}`}>
-                {friend.email ?? 'Not available'}
-              </ContactLink>
+              {friend.email ? (
+                <ContactLink href={`mailto:${friend.email}`}>
+                  {friend.email}
+                </ContactLink>
+              ) : (
+                ' Not available'
+              )}
             </div>
             <div>
               Address:
-              <ContactLink href={friend.addressUrl} target="_blank">
-                {friend.address ?? 'Not available'}
-              </ContactLink>
+              {friend.address && friend.addressUrl ? (
+                <ContactLink href={friend.addressUrl} target="_blank">
+                  {friend.address}
+                </ContactLink>
+              ) : (
+                ' Not available'
+              )}
             </div>
             <div>
               Phone:
-              <ContactLink href={`tel:${friend.phone}`}>
-                {friend.phone ?? 'Not available'}
-              </ContactLink>
+              {friend.phone ? (
+                <ContactLink href={`tel:${friend.phone}`}>
+                  {friend.phone}
+                </ContactLink>
+              ) : (
+                ' Not available'
+              )}
             </div>
           </InfoList>
         </InfolinkWrapper>

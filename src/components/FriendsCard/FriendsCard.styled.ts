@@ -74,17 +74,23 @@ export const InfolinkWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export const Name = styled.h3`
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.25;
-  letter-spacing: -0.04em;
-  color: ${({ theme }) => theme.black};
-  margin-bottom: 14px;
+export const Name = styled.a`
+  h3 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: -0.04em;
+    color: ${({ theme }) => theme.black};
+    margin-bottom: 14px;
 
-  @media (min-width: 768px) {
-    font-size: 20px;
-    line-height: 1.3;
+    @media (min-width: 768px) {
+      font-size: 20px;
+      line-height: 1.3;
+    }
+
+    &:hover {
+      color: ${({ theme }) => theme.primaryDark};
+    }
   }
 `;
 export const InfoList = styled.div`
