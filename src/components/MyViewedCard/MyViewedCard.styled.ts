@@ -125,26 +125,6 @@ export const ViewedCardList = styled.ul`
       white-space: nowrap;
     }
   }
-
-  /* li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 35px;
-    height: 30px;
-    font-weight: 500;
-    font-size: 10px;
-    line-height: 1.4;
-    letter-spacing: -0.02em;
-    color: ${({ theme }) => theme.opacityTr};
-
-    span {
-      font-size: 12px;
-      line-height: 1.17;
-      letter-spacing: -0.02em;
-      color: ${({ theme }) => theme.black};
-    }
-  } */
 `;
 export const ViewedBtnWrapper = styled.div`
   display: flex;
