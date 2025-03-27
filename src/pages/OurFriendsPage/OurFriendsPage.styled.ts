@@ -44,6 +44,7 @@ export const FriendsList = styled.ul`
   }
 
   @media (min-width: 1280px) {
+    gap: 50px;
     margin-top: 60px;
   }
 `;
