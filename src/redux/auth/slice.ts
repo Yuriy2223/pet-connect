@@ -62,7 +62,7 @@ const authSlice = createSlice({
       )
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Registration failed';
+        state.error = action.payload || 'Registration failed';
       })
       // Login User
       .addCase(loginUser.pending, state => {
@@ -80,7 +80,7 @@ const authSlice = createSlice({
       )
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Login failed';
+        state.error = action.payload || 'Login failed';
       })
       // Logout User
       .addCase(logoutUser.pending, state => {

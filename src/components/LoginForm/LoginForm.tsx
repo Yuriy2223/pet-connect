@@ -79,33 +79,29 @@ export const LoginForm: React.FC = () => {
 
   const onSubmit = async (data: LoginData) => {
     try {
-      await dispatch(loginUser(data))
-        .unwrap()
-        .then(() => {
-          toast.success('Login successful!');
-          reset();
-          clearErrors();
+      await dispatch(loginUser(data)).unwrap();
 
-          setInputStates({
-            email: undefined,
-            password: undefined,
-          });
+      toast.success('Login successful!');
+      reset();
+      clearErrors();
 
-          setIsFieldFocused({
-            email: false,
-            password: false,
-          });
+      setInputStates({
+        email: undefined,
+        password: undefined,
+      });
 
-          navigate('/profile');
-        })
-        .catch(error => {
-          toast.error(error || 'Login failed. Please check your credentials.');
-        });
-    } catch (err) {
+      setIsFieldFocused({
+        email: false,
+        password: false,
+      });
+
+      navigate('/profile');
+    } catch (error) {
       const errorMessage =
-        err instanceof Error
-          ? err.message
-          : 'An unexpected error occurred. Please try again later.';
+        typeof error === 'string'
+          ? error
+          : 'Login failed. Please check your credentials.';
+
       toast.error(errorMessage);
     }
   };
