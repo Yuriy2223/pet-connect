@@ -75,9 +75,9 @@ export const loginUser = createAsyncThunk<
     let message = 'Login failed. Please try again.';
 
     if (axios.isAxiosError(error)) {
-      message =
-        error.response?.data?.message?.trim() || error.message || message;
+      message = error.response?.data?.message?.trim() || message;
     }
+
     return rejectWithValue(message);
   }
 });
