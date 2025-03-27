@@ -60,10 +60,6 @@ const authSlice = createSlice({
           state.error = null;
         }
       )
-      // .addCase(registerUser.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.error = action.error.message || 'Registration failed';
-      // })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Registration failed';
