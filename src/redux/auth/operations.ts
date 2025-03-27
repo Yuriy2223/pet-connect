@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { toast } from 'react-toastify';
 import { setToken, TOKEN_KEY } from '../../services/Api';
 import { UserAuth } from '../../App.types';
 import { resetNoticesState } from '../notices/slice';
@@ -48,9 +47,16 @@ export const registerUser = createAsyncThunk<
     setToken(response.token);
     return response;
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : 'Registration failed.';
-    toast.error(message);
+    let message = 'Registration failed.';
+
+    if (axios.isAxiosError(error)) {
+      if (error.response?.data) {
+        message =
+          typeof error.response.data === 'string'
+            ? error.response.data
+            : error.response.data.message || 'Registration failed.';
+      }
+    }
     return rejectWithValue(message);
   }
 });
@@ -72,8 +78,6 @@ export const loginUser = createAsyncThunk<
       message =
         error.response?.data?.message?.trim() || error.message || message;
     }
-
-    toast.error(message);
     return rejectWithValue(message);
   }
 });
@@ -91,7 +95,6 @@ export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
         error instanceof Error
           ? error.message
           : 'Logout failed. Please try again.';
-      toast.error(message);
       return rejectWithValue(message);
     }
   }
