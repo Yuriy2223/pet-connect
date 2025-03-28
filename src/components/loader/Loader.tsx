@@ -20,9 +20,10 @@ const LoaderContainer = styled.div`
   justify-content: center;
   height: 100vh;
   width: 100vw;
-  position: fixed;
+  /* position: fixed; */
+  /* position: absolute;
   top: 0;
-  left: 0;
+  left: 0; */
   background-image: url(${startImage});
   background-size: cover;
   background-position: center;

@@ -56,6 +56,10 @@ export const NoticesPage: React.FC = () => {
     dispatch(fetchNotices({ page, perPage, totalPages }));
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <NoticesPageContainer>
       <NoticesTitle>Find your favorite pet</NoticesTitle>
@@ -63,9 +67,7 @@ export const NoticesPage: React.FC = () => {
         <NoticesFilters />
       </NoticesSearchWrapper>
       <NoticesList>
-        {isLoading ? (
-          <Loader />
-        ) : noticesData?.length ? (
+        {noticesData?.length ? (
           noticesData.map(notice =>
             notice._id ? (
               <li key={notice._id}>
