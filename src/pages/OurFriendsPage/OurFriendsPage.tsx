@@ -24,14 +24,16 @@ export const OurFriendsPage: React.FC = () => {
     dispatch(fetchFriends());
   }, [dispatch]);
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <FriendsPageContainer>
       <TitleFriends>Our Friends</TitleFriends>
 
       <FriendsList>
-        {isLoading ? (
-          <Loader />
-        ) : friendsData.length ? (
+        {friendsData.length ? (
           friendsData.map(friend => (
             <li key={friend._id}>
               <FriendsCard friend={friend} />

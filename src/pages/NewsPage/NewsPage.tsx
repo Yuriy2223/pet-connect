@@ -56,6 +56,10 @@ export const NewsPage: React.FC = () => {
     );
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <NewsPageContainer>
       <NewsSearchWrapper>
@@ -67,9 +71,7 @@ export const NewsPage: React.FC = () => {
       </NewsSearchWrapper>
 
       <NewsList>
-        {isLoading ? (
-          <Loader />
-        ) : newsData?.length ? (
+        {newsData?.length ? (
           newsData.map(news => (
             <li key={news._id}>
               <NewsCard news={news} />
