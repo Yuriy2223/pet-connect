@@ -43,8 +43,13 @@ export const FriendsCard: React.FC<FriendCardProps> = ({ friend }) => {
           <ImgLogo src={friend.imageUrl || defaultImage} alt="logo images" />
         </LogoWrapper>
         <InfolinkWrapper>
-          <Name href={friend.url} target="_blank" rel="noopener noreferrer">
-            <h3>{friend.title}</h3>
+          <Name
+            href={friend.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="company website"
+          >
+            {friend.title}
           </Name>
           <InfoList>
             <div>
