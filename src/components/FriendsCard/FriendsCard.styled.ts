@@ -75,7 +75,12 @@ export const InfolinkWrapper = styled.div`
   flex-direction: column;
 `;
 export const Name = styled.a`
+  display: inline-flex;
+  width: max-content;
+  /* width: fit-content; */
+
   h3 {
+    display: inline;
     font-weight: 700;
     font-size: 16px;
     line-height: 1.25;
