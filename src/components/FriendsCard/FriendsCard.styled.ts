@@ -76,26 +76,22 @@ export const InfolinkWrapper = styled.div`
 `;
 export const Name = styled.a`
   display: inline-flex;
-  width: max-content;
-  /* width: fit-content; */
+  width: fit-content;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.04em;
+  color: ${({ theme }) => theme.black};
+  margin-bottom: 14px;
 
-  h3 {
-    display: inline;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 1.25;
-    letter-spacing: -0.04em;
-    color: ${({ theme }) => theme.black};
-    margin-bottom: 14px;
+  @media (min-width: 768px) {
+    font-size: 20px;
+    line-height: 1.3;
+  }
 
-    @media (min-width: 768px) {
-      font-size: 20px;
-      line-height: 1.3;
-    }
-
-    &:hover {
-      color: ${({ theme }) => theme.primaryDark};
-    }
+  &:hover {
+    color: ${({ theme }) => theme.primaryDark};
   }
 `;
 export const InfoList = styled.div`
