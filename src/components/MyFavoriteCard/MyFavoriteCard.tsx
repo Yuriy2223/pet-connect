@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Notice } from '../../App.types';
 import defaultImage from '../../assets/imeges/defaultNotice.webp';
+import { useAppDispatch } from '../../redux/store';
+import { openModal } from '../../redux/modal/slice';
 import {
   LearnButton,
   NoticeCardList,
@@ -17,13 +19,20 @@ import {
 
 export interface NoticeCardProps {
   notice: Notice;
+  favorites: Notice[];
   onRemove: (id: string) => void;
 }
 export const MyFavoriteCard: React.FC<NoticeCardProps> = ({
   notice,
+  favorites,
   onRemove,
 }) => {
+  const dispatch = useAppDispatch();
   const [imgSrc, setImgSrc] = useState(notice.imgURL || defaultImage);
+
+  const handleLearnMoreClick = () => {
+    dispatch(openModal({ type: 'ModalNotice', props: { notice, favorites } }));
+  };
 
   return (
     <NoticesCardContainer>
@@ -66,7 +75,7 @@ export const MyFavoriteCard: React.FC<NoticeCardProps> = ({
       </NoticesDetails>
 
       <NoticesBtnWrapper>
-        <LearnButton>Learn more</LearnButton>
+        <LearnButton onClick={handleLearnMoreClick}>Learn more</LearnButton>
         <RemoveFavoriteBtn
           title="Remove favorites"
           onClick={() => onRemove(notice._id)}

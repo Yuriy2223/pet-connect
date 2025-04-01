@@ -53,6 +53,7 @@ export const NoticesPage: React.FC = () => {
   }, [dispatch, isSignedIn]);
 
   const handlePageChange = (page: number) => {
+    window.scrollTo(0, 0);
     dispatch(fetchNotices({ page, perPage, totalPages }));
   };
 
