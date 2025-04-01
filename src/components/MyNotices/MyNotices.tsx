@@ -78,6 +78,7 @@ export const MyNotices: React.FC = () => {
               {isFavoritesTab ? (
                 <MyFavoriteCard
                   notice={notice}
+                  favorites={favorites}
                   onRemove={handleRemoveFavorite}
                 />
               ) : (
