@@ -78,7 +78,7 @@ export const SplashScreen: React.FC = () => {
   return (
     <SplashContainer>
       <LogoOverlay />
-      <Logo>pet💛ve</Logo>
+      <Logo>pet l💛ve</Logo>
     </SplashContainer>
   );
 };
