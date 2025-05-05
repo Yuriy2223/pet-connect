@@ -69,4 +69,4 @@ Petlove is a platform for searching, posting, and viewing pet adoption listings.
 
 ## Deployment
 
-The project is deployed at: [Deployment Link](https://pet-connect-fawn.vercel.app/)
+The project is deployed at: [Deployment Link](https://pet-love-xi.vercel.app/)
